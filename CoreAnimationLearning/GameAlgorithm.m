@@ -13,7 +13,7 @@
 
 @interface GameAlgorithm(){
     //表格盘总数
-    int a[900];
+    int a[30][30];
     //随机的时候用
     int b[900];
 }
@@ -42,7 +42,7 @@
 -(void)initTable:(int)widthNum heightNum:(int)heightNum{
     for (int i = 0; i < widthNum; i++) {
         for (int j = 0; j < heightNum; j++) {
-            a[heightNum*i + j] = 0;
+            a[i][j] = 0;
             b[heightNum*i + j] = heightNum*i + j;
         }
     }
@@ -62,7 +62,9 @@
             //从b数组中取出值
             int aGetValueIndex = b[blockLocationrandom];
             //给a数组的某个位置赋颜色值
-            a[aGetValueIndex] = blockColorrandom;
+            int widthindex = aGetValueIndex%_widthNum;
+            int heightIndex = aGetValueIndex/_widthNum;
+            a[widthindex][heightIndex] = blockColorrandom;
             
             //把赋值了的位置移到b数组的最后面
             b[blockLocationrandom] = b[endIndex];
@@ -73,7 +75,9 @@
 
 //输入位置返回颜色
 -(blockcolor)getColorInthisPlace:(int)index{
-    return a[index];
+    int widthindex = index%_widthNum;
+    int heightIndex = index/_widthNum;
+    return a[widthindex][heightIndex];
 }
 
 -(NSArray *)getplacethatShoulddrop:(int)index{
