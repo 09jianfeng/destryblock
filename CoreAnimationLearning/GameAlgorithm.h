@@ -27,5 +27,7 @@ typedef enum{
 
 //输入位置返回颜色
 -(blockcolor)getColorInthisPlace:(int)index;
+
+//最多返回六个位置，有可能返回重复的位置。要注意判断
 -(NSArray *)getplacethatShoulddrop:(int)index;
 @end

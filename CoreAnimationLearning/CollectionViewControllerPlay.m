@@ -179,6 +179,18 @@ static NSString * const reuseIdentifier = @"Cell";
         cell.alpha = 1;
     }];
     [self playAudioIsCorrect:YES];
+    
+    //获取要remove掉的label
+    NSArray *arrayshouldRemoveIndexpath = [self.gameAlgorithm getplacethatShoulddrop:(int)indexPath.row];
+    for (NSNumber *num in arrayshouldRemoveIndexpath) {
+        int indexpathrow = [num intValue];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
+        UILabel *label = (UILabel *)[cell viewWithTag:1001];
+        if (label) {
+            [label removeFromSuperview];
+        }
+    }
 }
 
 //cell反选时被调用(多选时才生效)

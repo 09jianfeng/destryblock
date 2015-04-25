@@ -64,7 +64,7 @@
             //给a数组的某个位置赋颜色值
             int widthindex = aGetValueIndex%_widthNum;
             int heightIndex = aGetValueIndex/_widthNum;
-            a[widthindex][heightIndex] = blockColorrandom;
+            a[heightIndex][widthindex] = blockColorrandom;
             
             //把赋值了的位置移到b数组的最后面
             b[blockLocationrandom] = b[endIndex];
@@ -77,10 +77,99 @@
 -(blockcolor)getColorInthisPlace:(int)index{
     int widthindex = index%_widthNum;
     int heightIndex = index/_widthNum;
-    return a[widthindex][heightIndex];
+    return a[heightIndex][widthindex];
 }
 
 -(NSArray *)getplacethatShoulddrop:(int)index{
-    return nil;
+    int widthindex = index%_widthNum;
+    int heightIndex = index/_widthNum;
+    if(a[heightIndex][widthindex] > 0) return [NSArray array];
+    
+    NSMutableArray *mutable = [[NSMutableArray alloc] init];
+    //最多有20个颜色值
+    int colorIndex[20];
+    //初始化
+    for (int i = 0; i < 20; i++) {
+        colorIndex[i] = -1;
+    }
+    
+    //x方向左寻找，heightIndex不变
+    for(int i = widthindex;i >= 0;i--){
+        if(a[heightIndex][i] > 0){
+            int colorValue = a[heightIndex][i];
+            //转换成一维数组的下标
+            colorIndex[colorValue] = heightIndex*_widthNum+i;
+            break;
+        };
+    }
+    
+    //x方向右寻找，heightInde不变
+    for(int i = widthindex;i < _widthNum;i++){
+        if(a[heightIndex][i] > 0){
+            int colorValue = a[heightIndex][i];
+            //如果对应的颜色已经有值，则说明十字线上有同颜色的，纪录下来
+            if (colorIndex[colorValue] > 0) {
+                //记下以前那个值
+                NSNumber *number = [NSNumber numberWithInt:colorIndex[colorValue]];
+                [mutable addObject:number];
+                number = [NSNumber numberWithInt:(heightIndex*_widthNum+i)];
+                [mutable addObject:number];
+                int width = colorIndex[colorValue]%_widthNum;
+                int height = colorIndex[colorValue]/_widthNum;
+                //去除这两个位置的颜色
+                a[height][width] = 0;
+                a[heightIndex][i] = 0;
+            }
+            //转换成一维数组的下标
+            colorIndex[colorValue] = heightIndex*_widthNum+i;
+            break;
+        };
+    }
+    
+    //y方向向下,widthindex不变
+    for(int i = heightIndex; i < _heightNum ; i++){
+        if (a[i][widthindex] > 0) {
+            int colorVaule = a[i][widthindex];
+            if (colorIndex[colorVaule] > 0) {
+                //记下以前那个值
+                NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
+                [mutable addObject:number];
+                number = [NSNumber numberWithInt:(i*_widthNum+widthindex)];
+                [mutable addObject:number];
+                
+                int width = colorIndex[colorVaule]%_widthNum;
+                int height = colorIndex[colorVaule]/_widthNum;
+                //去除这两个位置的颜色
+                a[height][width] = 0;
+                a[i][widthindex] = 0;
+            }
+            colorIndex[colorVaule] = i*_widthNum+widthindex;
+            break;
+        }
+    }
+    
+    //y方向向上,widthindex不变
+    for(int i = heightIndex; i >= 0 ; i--){
+        if (a[i][widthindex] > 0) {
+            int colorVaule = a[i][widthindex];
+            if (colorIndex[colorVaule] > 0) {
+                //记下以前那个值
+                NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
+                [mutable addObject:number];
+                number = [NSNumber numberWithInt:(i*_widthNum+widthindex)];
+                [mutable addObject:number];
+                
+                int width = colorIndex[colorVaule]%_widthNum;
+                int height = colorIndex[colorVaule]/_widthNum;
+                //去除这两个位置的颜色
+                a[height][width] = 0;
+                a[i][widthindex] = 0;
+            }
+            colorIndex[colorVaule] = i*_widthNum+widthindex;
+            break;
+        }
+    }
+    
+    return mutable;
 }
 @end
