@@ -76,35 +76,35 @@ static NSString * const reuseIdentifier = @"Cell";
             return nil;
             break;
         case blockcolor1:
-            return [UIColor colorWithRed:0.83 green:0.92 blue:0.91 alpha:1.0];
+            return [UIColor colorWithRed:0.43 green:0.82 blue:0.51 alpha:1.0];
             break;
         case blockcolor2:
-            return [UIColor colorWithRed:0.89 green:0.82 blue:0.71 alpha:1.0];
+            return [UIColor colorWithRed:0.49 green:0.62 blue:0.51 alpha:1.0];
             break;
         case blockcolor3:
-            return [UIColor colorWithRed:0.80 green:0.82 blue:0.96 alpha:1.0];
+            return [UIColor colorWithRed:0.50 green:0.42 blue:0.96 alpha:1.0];
             break;
         case blockcolor4:
-            return [UIColor colorWithRed:0.88 green:0.79 blue:0.71 alpha:1.0];
+            return [UIColor colorWithRed:0.48 green:0.49 blue:0.71 alpha:1.0];
             break;
         
         case blockcolor5:
-            return [UIColor colorWithRed:0.78 green:0.82 blue:0.61 alpha:1.0];
+            return [UIColor colorWithRed:0.38 green:0.42 blue:0.61 alpha:1.0];
             break;
         case blockcolor6:
-            return [UIColor colorWithRed:0.94 green:0.72 blue:0.72 alpha:1.0];
+            return [UIColor colorWithRed:0.54 green:0.32 blue:0.72 alpha:1.0];
             break;
         case blockcolor7:
-            return [UIColor colorWithRed:0.93 green:0.62 blue:0.81 alpha:1.0];
+            return [UIColor colorWithRed:0.53 green:0.32 blue:0.61 alpha:1.0];
             break;
         case blockcolor8:
-            return [UIColor colorWithRed:0.73 green:0.92 blue:0.91 alpha:1.0];
+            return [UIColor colorWithRed:0.43 green:0.72 blue:0.51 alpha:1.0];
             break;
         case blockcolor9:
-            return [UIColor colorWithRed:0.63 green:0.82 blue:0.91 alpha:1.0];
+            return [UIColor colorWithRed:0.93 green:0.52 blue:0.51 alpha:1.0];
             break;
         case blockcolor10:
-            return [UIColor colorWithRed:0.83 green:0.52 blue:0.91 alpha:1.0];
+            return [UIColor colorWithRed:0.63 green:0.62 blue:0.41 alpha:1.0];
             break;
 
         default:
@@ -142,11 +142,12 @@ static NSString * const reuseIdentifier = @"Cell";
     cell.layer.borderColor = [UIColor blackColor].CGColor;
     UILabel *label = (UILabel *)[cell viewWithTag:1001];
     if (!label) {
-        label = [[UILabel alloc] initWithFrame:cell.bounds];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(1.0, 1.0, cell.frame.size.width - 2, cell.frame.size.height - 2)];
         [cell addSubview:label];
         label.tag = 1001;
     }
     
+    //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
     UIColor *color = [self getColorInColorType:colorType];
     label.backgroundColor = color;
