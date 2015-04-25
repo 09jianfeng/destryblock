@@ -14,6 +14,13 @@
 		782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782B1F891AE35B450051D053 /* Images.xcassets */; };
 		782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782B1F8B1AE35B450051D053 /* LaunchScreen.xib */; };
 		782B1F991AE35B450051D053 /* CoreAnimationLearningTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F981AE35B450051D053 /* CoreAnimationLearningTests.m */; };
+		7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */; };
+		7844B7111AEB243D006DE282 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7844B70F1AEB243D006DE282 /* background.png */; };
+		7844B7121AEB243D006DE282 /* backgroundwhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 7844B7101AEB243D006DE282 /* backgroundwhite.png */; };
+		7844B7161AEB288F006DE282 /* correct.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B7141AEB288F006DE282 /* correct.mp3 */; };
+		7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7844B7191AEB29B0006DE282 /* AVFoundation.framework */; };
+		7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B71B1AEB2BDB006DE282 /* error.mp3 */; };
+		7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B71E1AEB3119006DE282 /* GameAlgorithm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +47,16 @@
 		782B1F921AE35B450051D053 /* CoreAnimationLearningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreAnimationLearningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		782B1F971AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F981AE35B450051D053 /* CoreAnimationLearningTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreAnimationLearningTests.m; sourceTree = "<group>"; };
+		7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewControllerPlay.h; sourceTree = "<group>"; };
+		7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewControllerPlay.m; sourceTree = "<group>"; };
+		7844B70F1AEB243D006DE282 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		7844B7101AEB243D006DE282 /* backgroundwhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundwhite.png; sourceTree = "<group>"; };
+		7844B7141AEB288F006DE282 /* correct.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = correct.mp3; sourceTree = "<group>"; };
+		7844B7171AEB28F5006DE282 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		7844B7191AEB29B0006DE282 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		7844B71B1AEB2BDB006DE282 /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = error.mp3; sourceTree = "<group>"; };
+		7844B71D1AEB3119006DE282 /* GameAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAlgorithm.h; sourceTree = "<group>"; };
+		7844B71E1AEB3119006DE282 /* GameAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAlgorithm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +81,8 @@
 		782B1F701AE35B450051D053 = {
 			isa = PBXGroup;
 			children = (
+				7844B7191AEB29B0006DE282 /* AVFoundation.framework */,
+				7844B7171AEB28F5006DE282 /* CoreMedia.framework */,
 				782B1F7B1AE35B450051D053 /* CoreAnimationLearning */,
 				782B1F951AE35B450051D053 /* CoreAnimationLearningTests */,
 				782B1F7A1AE35B450051D053 /* Products */,
@@ -81,13 +101,14 @@
 		782B1F7B1AE35B450051D053 /* CoreAnimationLearning */ = {
 			isa = PBXGroup;
 			children = (
+				7844B7211AEB3154006DE282 /* viewandcontroller */,
+				7844B7201AEB313C006DE282 /* model */,
 				782B1F801AE35B450051D053 /* AppDelegate.h */,
 				782B1F811AE35B450051D053 /* AppDelegate.m */,
-				782B1F831AE35B450051D053 /* ViewController.h */,
-				782B1F841AE35B450051D053 /* ViewController.m */,
 				782B1F861AE35B450051D053 /* Main.storyboard */,
 				782B1F891AE35B450051D053 /* Images.xcassets */,
 				782B1F8B1AE35B450051D053 /* LaunchScreen.xib */,
+				7844B70E1AEB233F006DE282 /* image */,
 				782B1F7C1AE35B450051D053 /* Supporting Files */,
 			);
 			path = CoreAnimationLearning;
@@ -117,6 +138,37 @@
 				782B1F971AE35B450051D053 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7844B70E1AEB233F006DE282 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				7844B71B1AEB2BDB006DE282 /* error.mp3 */,
+				7844B7141AEB288F006DE282 /* correct.mp3 */,
+				7844B70F1AEB243D006DE282 /* background.png */,
+				7844B7101AEB243D006DE282 /* backgroundwhite.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
+		7844B7201AEB313C006DE282 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				7844B71D1AEB3119006DE282 /* GameAlgorithm.h */,
+				7844B71E1AEB3119006DE282 /* GameAlgorithm.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		7844B7211AEB3154006DE282 /* viewandcontroller */ = {
+			isa = PBXGroup;
+			children = (
+				782B1F831AE35B450051D053 /* ViewController.h */,
+				782B1F841AE35B450051D053 /* ViewController.m */,
+				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
+				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
+			);
+			name = viewandcontroller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,7 +252,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				782B1F881AE35B450051D053 /* Main.storyboard in Resources */,
+				7844B7111AEB243D006DE282 /* background.png in Resources */,
 				782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */,
+				7844B7121AEB243D006DE282 /* backgroundwhite.png in Resources */,
+				7844B7161AEB288F006DE282 /* correct.mp3 in Resources */,
+				7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */,
 				782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,7 +277,9 @@
 			files = (
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
 				782B1F821AE35B450051D053 /* AppDelegate.m in Sources */,
+				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
+				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +476,7 @@
 				782B1F9E1AE35B450051D053 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		782B1F9F1AE35B450051D053 /* Build configuration list for PBXNativeTarget "CoreAnimationLearningTests" */ = {
 			isa = XCConfigurationList;
@@ -426,6 +485,7 @@
 				782B1FA11AE35B450051D053 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
