@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 typedef enum{
-    blockcolornone,
+    blockcolornone = 0,
     blockcolor1,
     blockcolor2,
     blockcolor3,
@@ -23,9 +23,9 @@ typedef enum{
 }blockcolor;
 
 @interface GameAlgorithm : NSObject
-@property(nonatomic, assign) int widthNum;
-@property(nonatomic, assign) int heightNum;
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum;
 
 //输入位置返回颜色
 -(blockcolor)getColorInthisPlace:(int)index;
+-(NSArray *)getplacethatShoulddrop:(int)index;
 @end
