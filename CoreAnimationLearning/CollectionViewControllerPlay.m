@@ -20,6 +20,8 @@
 @property(nonatomic, retain) UIGravityBehavior *gravity;
 @property(nonatomic, retain) ProGressView *processView;
 @property(nonatomic, retain) NSTimer *timer;
+@property(nonatomic, retain) UILabel *labelPoints;
+@property(nonatomic, assign) int Allpoints;
 @end
 
 @implementation CollectionViewControllerPlay
@@ -46,10 +48,17 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gravity = [[UIGravityBehavior alloc] init];
     [self.animator addBehavior:self.gravity];
     
+    self.labelPoints = [[UILabel alloc] init];
+    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - 20, 30, 20);
+    self.labelPoints.text = @"0";
+    self.labelPoints.font = [UIFont systemFontOfSize:18];
+    self.labelPoints.textAlignment = NSTextAlignmentCenter;
+    self.labelPoints.textColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:1.0];
+    [self.view addSubview:self.labelPoints];
+    
     self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-10, 250, 5)];
     self.processView.backgroundColor = [UIColor whiteColor];
     self.processView.alpha = 0.5;
-    [self.processView setprocess:0.50];
     [self.view addSubview:self.processView];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
@@ -74,7 +83,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (seconde > 60) {
         [self.timer invalidate];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:@"时间到" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
         [alert show];
     }
 }
@@ -236,12 +246,14 @@ static NSString * const reuseIdentifier = @"Cell";
     
     //获取要remove掉的label
     NSArray *arrayshouldRemoveIndexpath = [self.gameAlgorithm getplacethatShoulddrop:(int)indexPath.row];
+    int spritesNumShouldDrop = 0;
     for (NSNumber *num in arrayshouldRemoveIndexpath) {
         int indexpathrow = [num intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
         SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
         if (sprite) {
+            spritesNumShouldDrop++;
             CGRect rect = [sprite convertRect:sprite.frame toView:self.view];
             [sprite removeFromSuperview];
             sprite.frame = rect;
@@ -249,6 +261,9 @@ static NSString * const reuseIdentifier = @"Cell";
             [self beginActionAnimatorBehavior:sprite];
         }
     }
+    
+    _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
+    self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];
 }
 
 //cell反选时被调用(多选时才生效)
