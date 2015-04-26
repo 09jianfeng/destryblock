@@ -213,6 +213,7 @@ static NSString * const reuseIdentifier = @"Cell";
     int randy = arc4random()%30;
     int randx = arc4random()%60 - 30;
     [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
+    sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
     [self.animator addBehavior:sprite.pushBehavior];
     
     [self.gravity addItem:sprite];
