@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "GameAlgorithm.h"
 #import "SpriteUIView.h"
+#import "ProGressView.h"
 
 @interface CollectionViewControllerPlay ()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -17,6 +18,8 @@
 @property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
 @property(nonatomic, retain) UIDynamicAnimator *animator;
 @property(nonatomic, retain) UIGravityBehavior *gravity;
+@property(nonatomic, retain) ProGressView *processView;
+@property(nonatomic, retain) NSTimer *timer;
 @end
 
 @implementation CollectionViewControllerPlay
@@ -34,7 +37,7 @@ static NSString * const reuseIdentifier = @"Cell";
     // Do any additional setup after loading the view.
     
     CGFloat width = self.view.frame.size.width/widthNum;
-    int heightnum = self.view.frame.size.height/width + 1;
+    int heightnum = self.view.frame.size.height/width;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum];
     
     //做重力动画的
@@ -42,6 +45,14 @@ static NSString * const reuseIdentifier = @"Cell";
     //只能有一个重力系统
     self.gravity = [[UIGravityBehavior alloc] init];
     [self.animator addBehavior:self.gravity];
+    
+    self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-10, 250, 5)];
+    self.processView.backgroundColor = [UIColor whiteColor];
+    self.processView.alpha = 0.5;
+    [self.processView setprocess:0.50];
+    [self.view addSubview:self.processView];
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -56,6 +67,18 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark -
 #pragma mark logic
+-(void)timerResponce:(id)sender{
+    static int seconde = 0;
+    seconde++;
+    [self.processView setprocess:seconde/60.0];
+    
+    if (seconde > 60) {
+        [self.timer invalidate];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:@"时间到" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
 -(void)playAudioIsCorrect:(BOOL)isCorrect{
     
     NSString *stringCottect = @"";
@@ -121,6 +144,28 @@ static NSString * const reuseIdentifier = @"Cell";
             break;
     }
     return nil;
+}
+
+-(void)beginActionAnimatorBehavior:(SpriteUIView *)sprite{
+    //给个斜着向上的速度
+    [sprite generatePushBehavior];
+    int randy = arc4random()%30;
+    int randx = arc4random()%60 - 30;
+    [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
+    sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
+    [self.animator addBehavior:sprite.pushBehavior];
+    
+    [self.gravity addItem:sprite];
+    //当物体离开了屏幕范围要移除掉，以免占用cpu资源
+    UIDynamicAnimator *anim = self.animator;
+    CGRect rect = self.view.bounds;
+    self.gravity.action = ^{
+        NSArray* items = [anim itemsInRect:rect];
+        if (NSNotFound == [items indexOfObject:sprite]) {
+            [anim removeBehavior:sprite.pushBehavior];
+            [sprite removeFromSuperview];
+        }
+    };
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -204,30 +249,6 @@ static NSString * const reuseIdentifier = @"Cell";
             [self beginActionAnimatorBehavior:sprite];
         }
     }
-}
-
--(void)beginActionAnimatorBehavior:(SpriteUIView *)sprite{
-    
-    //给个斜着向上的速度
-    [sprite generatePushBehavior];
-    int randy = arc4random()%30;
-    int randx = arc4random()%60 - 30;
-    [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
-    sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
-    [self.animator addBehavior:sprite.pushBehavior];
-    
-    [self.gravity addItem:sprite];
-    //当物体离开了屏幕范围要移除掉，以免占用cpu资源
-    UIDynamicAnimator *anim = self.animator;
-    CGRect rect = self.view.bounds;
-    self.gravity.action = ^{
-        NSArray* items = [anim itemsInRect:rect];
-        if (NSNotFound == [items indexOfObject:sprite]) {
-            [anim removeBehavior:sprite.pushBehavior];
-            [sprite removeFromSuperview];
-        }
-    };
-
 }
 
 //cell反选时被调用(多选时才生效)
