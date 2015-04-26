@@ -12,7 +12,7 @@
 #import "SpriteUIView.h"
 #import "ProGressView.h"
 
-@interface CollectionViewControllerPlay ()
+@interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioplayerError;
 @property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
@@ -23,6 +23,9 @@
 @property(nonatomic, retain) UILabel *labelPoints;
 @property(nonatomic, assign) int Allpoints;
 @end
+
+
+static int seconde = 0;
 
 @implementation CollectionViewControllerPlay
 
@@ -76,15 +79,25 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark -
 #pragma mark logic
+-(void)replayGame{
+    self.Allpoints = 0;
+    [self.processView setprocess:0.0];
+    seconde = 0;
+    CGFloat width = self.view.frame.size.width/widthNum;
+    int heightnum = self.view.frame.size.height/width;
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum];
+    [self.collectionView reloadData];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+}
+
 -(void)timerResponce:(id)sender{
-    static int seconde = 0;
     seconde++;
     [self.processView setprocess:seconde/60.0];
     
     if (seconde > 60) {
         [self.timer invalidate];
         NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:message delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
         [alert show];
     }
 }
@@ -268,5 +281,13 @@ static NSString * const reuseIdentifier = @"Cell";
 
 //cell反选时被调用(多选时才生效)
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+}
+
+#pragma mark -
+#pragma mark alertviewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [self replayGame];
+    }
 }
 @end
