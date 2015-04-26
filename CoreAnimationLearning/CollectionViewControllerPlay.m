@@ -9,11 +9,14 @@
 #import "CollectionViewControllerPlay.h"
 #import <AVFoundation/AVFoundation.h>
 #import "GameAlgorithm.h"
+#import "SpriteUIView.h"
 
 @interface CollectionViewControllerPlay ()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioplayerError;
 @property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
+@property(nonatomic, retain) UIDynamicAnimator *animator;
+@property(nonatomic, retain) UIGravityBehavior *gravity;
 @end
 
 @implementation CollectionViewControllerPlay
@@ -33,6 +36,12 @@ static NSString * const reuseIdentifier = @"Cell";
     CGFloat width = self.view.frame.size.width/widthNum;
     int heightnum = self.view.frame.size.height/width + 1;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum];
+    
+    //做重力动画的
+    self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    //只能有一个重力系统
+    self.gravity = [[UIGravityBehavior alloc] init];
+    [self.animator addBehavior:self.gravity];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -140,17 +149,17 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     cell.layer.borderColor = [UIColor blackColor].CGColor;
-    UILabel *label = (UILabel *)[cell viewWithTag:1001];
-    if (!label) {
-        label = [[UILabel alloc] initWithFrame:CGRectMake(1.0, 1.0, cell.frame.size.width - 2, cell.frame.size.height - 2)];
-        [cell addSubview:label];
-        label.tag = 1001;
+    SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
+    if (!sprite) {
+        sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(1.0, 1.0, cell.frame.size.width - 2, cell.frame.size.height - 2)];
+        [cell addSubview:sprite];
+        sprite.tag = 1001;
     }
     
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
     UIColor *color = [self getColorInColorType:colorType];
-    label.backgroundColor = color;
+    sprite.backgroundColor = color;
     
     return cell;
 }
@@ -186,11 +195,38 @@ static NSString * const reuseIdentifier = @"Cell";
         int indexpathrow = [num intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
-        UILabel *label = (UILabel *)[cell viewWithTag:1001];
-        if (label) {
-            [label removeFromSuperview];
+        SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
+        if (sprite) {
+            CGRect rect = [sprite convertRect:sprite.frame toView:self.view];
+            [sprite removeFromSuperview];
+            sprite.frame = rect;
+            [self.view addSubview:sprite];
+            [self beginActionAnimatorBehavior:sprite];
         }
     }
+}
+
+-(void)beginActionAnimatorBehavior:(SpriteUIView *)sprite{
+    
+    //给个斜着向上的速度
+    [sprite generatePushBehavior];
+    int randy = arc4random()%30;
+    int randx = arc4random()%60 - 30;
+    [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
+    [self.animator addBehavior:sprite.pushBehavior];
+    
+    [self.gravity addItem:sprite];
+    //当物体离开了屏幕范围要移除掉，以免占用cpu资源
+    UIDynamicAnimator *anim = self.animator;
+    CGRect rect = self.view.bounds;
+    self.gravity.action = ^{
+        NSArray* items = [anim itemsInRect:rect];
+        if (NSNotFound == [items indexOfObject:sprite]) {
+            [anim removeBehavior:sprite.pushBehavior];
+            [sprite removeFromSuperview];
+        }
+    };
+
 }
 
 //cell反选时被调用(多选时才生效)

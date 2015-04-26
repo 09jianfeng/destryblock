@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781FA81A1AED17C50048B337 /* SpriteUIView.m */; };
 		782B1F7F1AE35B450051D053 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F7E1AE35B450051D053 /* main.m */; };
 		782B1F821AE35B450051D053 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F811AE35B450051D053 /* AppDelegate.m */; };
 		782B1F851AE35B450051D053 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F841AE35B450051D053 /* ViewController.m */; };
@@ -34,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		781FA8191AED17C50048B337 /* SpriteUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteUIView.h; sourceTree = "<group>"; };
+		781FA81A1AED17C50048B337 /* SpriteUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteUIView.m; sourceTree = "<group>"; };
 		782B1F791AE35B450051D053 /* CoreAnimationLearning.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreAnimationLearning.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		782B1F7D1AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F7E1AE35B450051D053 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -167,6 +170,8 @@
 				782B1F841AE35B450051D053 /* ViewController.m */,
 				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
 				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
+				781FA8191AED17C50048B337 /* SpriteUIView.h */,
+				781FA81A1AED17C50048B337 /* SpriteUIView.m */,
 			);
 			name = viewandcontroller;
 			sourceTree = "<group>";
@@ -280,6 +285,7 @@
 				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
+				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
