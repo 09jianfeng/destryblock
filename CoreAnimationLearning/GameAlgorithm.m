@@ -31,15 +31,15 @@
 
 
 @implementation GameAlgorithm
--(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum{
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum{
     self = [super init];
     if (self) {
-        [self initTable:widthNum heightNum:heightNum];
+        [self initTable:widthNum heightNum:heightNum gamecolorexternNum:gamecolorexternNum];
     }
     return self;
 }
 
--(void)initTable:(int)widthNum heightNum:(int)heightNum{
+-(void)initTable:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum{
     for (int i = 0; i < widthNum; i++) {
         for (int j = 0; j < heightNum; j++) {
             a[i][j] = 0;
@@ -50,11 +50,13 @@
     self.widthNum = widthNum;
     self.heightNum = heightNum;
     self.allValueblockNum = widthNum * heightNum * allblockNumpercent;
-    self.blockTypeNum = widthNum * heightNum * blockTypeNumpercent;
+    self.blockTypeNum = widthNum * heightNum * blockTypeNumpercent + gamecolorexternNum;
+    //最多有12种颜色
+    if(self.blockTypeNum > 12) self.blockTypeNum = 12;
     
     int allblockNum = widthNum*heightNum;
     for (int i = 0; i < _allValueblockNum; i+=2) {
-        int blockColorrandom = arc4random()%(_blockTypeNum+1)+1;
+        int blockColorrandom = arc4random()%(_blockTypeNum)+1;
         for (int j = 0; j < 2; j++) {
             
             int endIndex = allblockNum - i - j;

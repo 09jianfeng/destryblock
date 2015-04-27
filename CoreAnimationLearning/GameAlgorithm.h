@@ -19,11 +19,15 @@ typedef enum{
     blockcolor7,
     blockcolor8,
     blockcolor9,
-    blockcolor10
+    blockcolor10,
+    blockcolor11,
+    blockcolor12,
+    blockcolor13
 }blockcolor;
 
 @interface GameAlgorithm : NSObject
--(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum;
+
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum;
 
 //输入位置返回颜色
 -(blockcolor)getColorInthisPlace:(int)index;

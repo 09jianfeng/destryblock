@@ -29,7 +29,7 @@ static int seconde = 0;
 
 @implementation CollectionViewControllerPlay
 
-const float widthNum = 19.0;
+const float widthNum = 11.0;
 static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
@@ -43,7 +43,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     CGFloat width = self.view.frame.size.width/widthNum;
     int heightnum = self.view.frame.size.height/width;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType];
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -85,7 +85,7 @@ static NSString * const reuseIdentifier = @"Cell";
     seconde = 0;
     CGFloat width = self.view.frame.size.width/widthNum;
     int heightnum = self.view.frame.size.height/width;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType];
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
@@ -160,6 +160,12 @@ static NSString * const reuseIdentifier = @"Cell";
             break;
         case blockcolor10:
             return [UIImage imageNamed:@"10.png"];
+            break;
+        case blockcolor11:
+            return [UIImage imageNamed:@"11.png"];
+            break;
+        case blockcolor12:
+            return [UIImage imageNamed:@"12.png"];
             break;
 
         default:

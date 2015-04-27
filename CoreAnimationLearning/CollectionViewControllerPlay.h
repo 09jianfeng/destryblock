@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CollectionViewControllerPlay : UICollectionViewController
-
+@property(nonatomic, assign) int gameexterncolorType;
 @end
