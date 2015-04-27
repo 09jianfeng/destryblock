@@ -11,6 +11,7 @@
 #import "GameAlgorithm.h"
 #import "SpriteUIView.h"
 #import "ProGressView.h"
+#import "SystemInfo.h"
 
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -26,10 +27,12 @@
 
 
 static int seconde = 0;
+static int pushNomalcount = 35;
+static int magnitude = 2;
 
 @implementation CollectionViewControllerPlay
 
-const float widthNum = 11.0;
+float widthNum = 11.0;
 static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
@@ -41,6 +44,14 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.scrollEnabled = NO;
     // Do any additional setup after loading the view.
     
+    //如果是ipad 横向右13.0个方块
+    if (IsPadUIBlockGame()) {
+        widthNum = 13.0;
+        pushNomalcount *=7;
+        magnitude = 3;
+    }
+
+    
     CGFloat width = self.view.frame.size.width/widthNum;
     int heightnum = self.view.frame.size.height/width;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType];
@@ -49,17 +60,22 @@ static NSString * const reuseIdentifier = @"Cell";
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     //只能有一个重力系统
     self.gravity = [[UIGravityBehavior alloc] init];
+    self.gravity.magnitude = magnitude;
     [self.animator addBehavior:self.gravity];
     
     self.labelPoints = [[UILabel alloc] init];
-    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 80,self.view.frame.size.height - 20, 60, 20);
+    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - 20, 50, 20);
     self.labelPoints.text = @"0";
     self.labelPoints.font = [UIFont systemFontOfSize:18];
     self.labelPoints.textAlignment = NSTextAlignmentCenter;
     self.labelPoints.textColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:1.0];
     [self.view addSubview:self.labelPoints];
     
-    self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(20, self.view.frame.size.height-10, 250, 5)];
+    int labelLen = 220;
+    if (IsPadUIBlockGame()) {
+        labelLen = 620;
+    }
+    self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-10, labelLen, 5)];
     self.processView.backgroundColor = [UIColor whiteColor];
     self.processView.alpha = 0.5;
     [self.view addSubview:self.processView];
@@ -178,8 +194,8 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)beginActionAnimatorBehavior:(SpriteUIView *)sprite{
     //给个斜着向上的速度
     [sprite generatePushBehavior];
-    int randy = arc4random()%30;
-    int randx = arc4random()%60 - 30;
+    int randy = arc4random()%pushNomalcount;
+    int randx = arc4random()%(pushNomalcount*2) - pushNomalcount;
     [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
     sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
     [self.animator addBehavior:sprite.pushBehavior];
