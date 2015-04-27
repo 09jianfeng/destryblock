@@ -52,7 +52,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.animator addBehavior:self.gravity];
     
     self.labelPoints = [[UILabel alloc] init];
-    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - 20, 30, 20);
+    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 80,self.view.frame.size.height - 20, 60, 20);
     self.labelPoints.text = @"0";
     self.labelPoints.font = [UIFont systemFontOfSize:18];
     self.labelPoints.textAlignment = NSTextAlignmentCenter;
@@ -125,41 +125,41 @@ static NSString * const reuseIdentifier = @"Cell";
     return heightnum*widthNum;
 }
 
--(UIColor *)getColorInColorType:(blockcolor)blockcolorType{
+-(UIImage *)getColorInColorType:(blockcolor)blockcolorType{
     switch (blockcolorType) {
         case blockcolornone:
             return nil;
             break;
         case blockcolor1:
-            return [UIColor colorWithRed:0.43 green:0.82 blue:0.51 alpha:1.0];
+            return [UIImage imageNamed:@"1.png"];
             break;
         case blockcolor2:
-            return [UIColor colorWithRed:0.49 green:0.62 blue:0.51 alpha:1.0];
+            return [UIImage imageNamed:@"2.png"];
             break;
         case blockcolor3:
-            return [UIColor colorWithRed:0.50 green:0.42 blue:0.96 alpha:1.0];
+            return [UIImage imageNamed:@"3.png"];
             break;
         case blockcolor4:
-            return [UIColor colorWithRed:0.48 green:0.49 blue:0.71 alpha:1.0];
+            return [UIImage imageNamed:@"4.png"];
             break;
         
         case blockcolor5:
-            return [UIColor colorWithRed:0.38 green:0.42 blue:0.61 alpha:1.0];
+            return [UIImage imageNamed:@"5.png"];
             break;
         case blockcolor6:
-            return [UIColor colorWithRed:0.54 green:0.32 blue:0.72 alpha:1.0];
+            return [UIImage imageNamed:@"6.png"];
             break;
         case blockcolor7:
-            return [UIColor colorWithRed:0.53 green:0.32 blue:0.61 alpha:1.0];
+            return [UIImage imageNamed:@"7.png"];
             break;
         case blockcolor8:
-            return [UIColor colorWithRed:0.43 green:0.72 blue:0.51 alpha:1.0];
+            return [UIImage imageNamed:@"8.png"];
             break;
         case blockcolor9:
-            return [UIColor colorWithRed:0.93 green:0.52 blue:0.51 alpha:1.0];
+            return [UIImage imageNamed:@"9.png"];
             break;
         case blockcolor10:
-            return [UIColor colorWithRed:0.63 green:0.62 blue:0.41 alpha:1.0];
+            return [UIImage imageNamed:@"10.png"];
             break;
 
         default:
@@ -226,8 +226,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
-    UIColor *color = [self getColorInColorType:colorType];
-    sprite.backgroundColor = color;
+    UIImage *color = [self getColorInColorType:colorType];
+    sprite.layer.contents = (__bridge id)(color.CGImage);
     
     return cell;
 }
