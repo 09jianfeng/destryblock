@@ -110,7 +110,7 @@
         if(a[heightIndex][i] > 0){
             int colorValue = a[heightIndex][i];
             //如果对应的颜色已经有值，则说明十字线上有同颜色的，纪录下来
-            if (colorIndex[colorValue] > 0) {
+            if (colorIndex[colorValue] >= 0) {
                 //记下以前那个值
                 NSNumber *number = [NSNumber numberWithInt:colorIndex[colorValue]];
                 [mutable addObject:number];
@@ -132,7 +132,7 @@
     for(int i = heightIndex; i < _heightNum ; i++){
         if (a[i][widthindex] > 0) {
             int colorVaule = a[i][widthindex];
-            if (colorIndex[colorVaule] > 0) {
+            if (colorIndex[colorVaule] >= 0) {
                 //记下以前那个值
                 NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
                 [mutable addObject:number];
@@ -154,7 +154,7 @@
     for(int i = heightIndex; i >= 0 ; i--){
         if (a[i][widthindex] > 0) {
             int colorVaule = a[i][widthindex];
-            if (colorIndex[colorVaule] > 0) {
+            if (colorIndex[colorVaule] >= 0) {
                 //记下以前那个值
                 NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
                 [mutable addObject:number];
