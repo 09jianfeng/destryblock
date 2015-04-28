@@ -4,14 +4,13 @@
 
 }
 
-- (id)init {
+- (id)initWithRadius:(int)radius {
     self = [super init];
     if (self) {
-        [self setFrame:CGRectMake(0, 0, 40, 40)];
-        self.backgroundColor = [UIColor lightGrayColor];
-        self.layer.cornerRadius = 20;
+        [self setFrame:CGRectMake(0, 0, radius, radius)];
+        self.layer.cornerRadius = radius/2;
         self.layer.borderColor = [UIColor grayColor].CGColor;
-        self.layer.borderWidth = 2;
+        self.layer.borderWidth = 1;
     }
     return self;
 }

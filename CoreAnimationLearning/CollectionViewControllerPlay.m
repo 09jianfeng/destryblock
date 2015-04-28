@@ -14,6 +14,13 @@
 #import "SystemInfo.h"
 
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
+{
+   int seconde;
+   int pushNomalcount;
+   int magnitude;
+
+}
+
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioplayerError;
 @property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
@@ -25,18 +32,28 @@
 @property(nonatomic, assign) int Allpoints;
 @end
 
-
-static int seconde = 0;
-static int pushNomalcount = 35;
-static int magnitude = 2;
-
 @implementation CollectionViewControllerPlay
 
 float widthNum = 11.0;
 static NSString * const reuseIdentifier = @"Cell";
 
+-(void)dealloc{
+    self.audioplayerCorrect = nil;
+    self.audioplayerError = nil;
+    self.gameAlgorithm = nil;
+    self.animator = nil;
+    self.gravity = nil;
+    self.processView = nil;
+    self.timer = nil;
+    self.labelPoints = nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    seconde = 0;
+    pushNomalcount = 35;
+    magnitude = 2;
     
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
@@ -80,7 +97,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.processView.alpha = 0.5;
     [self.view addSubview:self.processView];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -304,12 +321,13 @@ static NSString * const reuseIdentifier = @"Cell";
 //cell反选时被调用(多选时才生效)
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
 }
-
 #pragma mark -
 #pragma mark alertviewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         [self replayGame];
+    }else if(buttonIndex == 0){
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 @end
