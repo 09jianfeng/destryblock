@@ -32,19 +32,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    radius = 40;
-    circleCenterX = 120;
-    circleCenterY = 200;
-    self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    [self addCircle];
-    [self addButton];
+//    radius = 40;
+//    circleCenterX = 120;
+//    circleCenterY = 200;
+//    self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+//    [self addCircle];
+//    [self addButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-//    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
-//    CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-//    [self addChildViewController:collecPlay];
-//    [self.view addSubview:collecPlay.view];
+    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
+    CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
+    [self addChildViewController:collecPlay];
+    [self.view addSubview:collecPlay.view];
     
     
 ////    //切换child view controller
