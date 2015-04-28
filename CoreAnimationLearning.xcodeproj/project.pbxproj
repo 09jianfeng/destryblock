@@ -21,6 +21,10 @@
 		780E175F1AEE4CEF007A4A88 /* 12.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E17531AEE4CEF007A4A88 /* 12.png */; };
 		780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 780E17611AEE7D52007A4A88 /* SystemInfo.m */; };
 		780E17651AEE7DDB007A4A88 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780E17641AEE7DDB007A4A88 /* UIKit.framework */; };
+		780E17681AEE95CA007A4A88 /* BallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 780E17671AEE95CA007A4A88 /* BallView.m */; };
+		780E176C1AEF07E0007A4A88 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E17691AEF07E0007A4A88 /* Default-568h@2x.png */; };
+		780E176D1AEF07E0007A4A88 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E176A1AEF07E0007A4A88 /* Default.png */; };
+		780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E176B1AEF07E0007A4A88 /* Default@2x.png */; };
 		781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781FA81A1AED17C50048B337 /* SpriteUIView.m */; };
 		781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781FA81E1AED2FB60048B337 /* ProGressView.m */; };
 		782B1F7F1AE35B450051D053 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F7E1AE35B450051D053 /* main.m */; };
@@ -65,6 +69,11 @@
 		780E17601AEE7D52007A4A88 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
 		780E17611AEE7D52007A4A88 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
 		780E17641AEE7DDB007A4A88 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		780E17661AEE95CA007A4A88 /* BallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BallView.h; sourceTree = "<group>"; };
+		780E17671AEE95CA007A4A88 /* BallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BallView.m; sourceTree = "<group>"; };
+		780E17691AEF07E0007A4A88 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		780E176A1AEF07E0007A4A88 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		780E176B1AEF07E0007A4A88 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		781FA8191AED17C50048B337 /* SpriteUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteUIView.h; sourceTree = "<group>"; };
 		781FA81A1AED17C50048B337 /* SpriteUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteUIView.m; sourceTree = "<group>"; };
 		781FA81D1AED2FB60048B337 /* ProGressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProGressView.h; sourceTree = "<group>"; };
@@ -204,6 +213,9 @@
 		7844B70E1AEB233F006DE282 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				780E17691AEF07E0007A4A88 /* Default-568h@2x.png */,
+				780E176A1AEF07E0007A4A88 /* Default.png */,
+				780E176B1AEF07E0007A4A88 /* Default@2x.png */,
 				780E17481AEE4CEF007A4A88 /* 1.png */,
 				780E17491AEE4CEF007A4A88 /* 2.png */,
 				780E174A1AEE4CEF007A4A88 /* 3.png */,
@@ -236,6 +248,8 @@
 		7844B7211AEB3154006DE282 /* firstView */ = {
 			isa = PBXGroup;
 			children = (
+				780E17661AEE95CA007A4A88 /* BallView.h */,
+				780E17671AEE95CA007A4A88 /* BallView.m */,
 				782B1F831AE35B450051D053 /* ViewController.h */,
 				782B1F841AE35B450051D053 /* ViewController.m */,
 			);
@@ -326,6 +340,7 @@
 				780E175C1AEE4CEF007A4A88 /* 9.png in Resources */,
 				780E17571AEE4CEF007A4A88 /* 4.png in Resources */,
 				782B1F881AE35B450051D053 /* Main.storyboard in Resources */,
+				780E176D1AEF07E0007A4A88 /* Default.png in Resources */,
 				780E175D1AEE4CEF007A4A88 /* 10.png in Resources */,
 				780E17541AEE4CEF007A4A88 /* 1.png in Resources */,
 				780E175A1AEE4CEF007A4A88 /* 7.png in Resources */,
@@ -335,7 +350,9 @@
 				780E17591AEE4CEF007A4A88 /* 6.png in Resources */,
 				780E17561AEE4CEF007A4A88 /* 3.png in Resources */,
 				7844B7161AEB288F006DE282 /* correct.mp3 in Resources */,
+				780E176C1AEF07E0007A4A88 /* Default-568h@2x.png in Resources */,
 				780E175E1AEE4CEF007A4A88 /* 11.png in Resources */,
+				780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */,
 				780E17551AEE4CEF007A4A88 /* 2.png in Resources */,
 				780E17581AEE4CEF007A4A88 /* 5.png in Resources */,
 				7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */,
@@ -360,6 +377,7 @@
 			files = (
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
+				780E17681AEE95CA007A4A88 /* BallView.m in Sources */,
 				781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */,
 				782B1F821AE35B450051D053 /* AppDelegate.m in Sources */,
 				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
