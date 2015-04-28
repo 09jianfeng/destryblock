@@ -24,38 +24,60 @@
 @property(nonatomic, retain) NSArray *backgroundArray;
 @property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) UILabel *label;
+@property(nonatomic, retain) UIButton *circle;
+
+@property(nonatomic, retain) UIView *viewAirplane;
+@property(nonatomic, retain) UIView *viewCloud1;
+@property(nonatomic, retain) UIView *viewCloud2;
+@property(nonatomic, retain) UIView *viewCloud3;
+@property(nonatomic, assign) int circleNum;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    radius = 60;
+    radius = self.view.frame.size.width/7.0;
     circleX = self.view.frame.size.width/2 - radius;
-    circleY = 100;
+    circleY = self.view.frame.size.height/4;
+    [self addSubViews];
     [self initAnimatorAndGravity];
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(circleX, circleY + 200, radius*2, 80)];
+    [self alwaysMove:self.viewAirplane timeInterval:4];
+    [self alwaysMove:self.viewCloud1 timeInterval:6];
+    [self alwaysMove:self.viewCloud2 timeInterval:7];
+    [self alwaysMove:self.viewCloud3 timeInterval:8];
+    
+    
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(timerResponse:) userInfo:nil repeats:YES];
+}
+
+-(void)addSubViews{
+    self.viewAirplane = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, 30, 30)];
+    self.viewAirplane.backgroundColor = [UIColor colorWithRed:0.23 green:0.67 blue:0.98 alpha:1.0];
+    [self.view addSubview:self.viewAirplane];
+    
+    self.viewCloud1 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 40, 40 , 20)];
+    self.viewCloud1.backgroundColor = [UIColor colorWithRed:0.32 green:0.41 blue:0.98 alpha:1.0];
+    [self.view addSubview:self.viewCloud1];
+    
+    self.viewCloud2 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 70, 50 , 30)];
+    self.viewCloud2.backgroundColor = [UIColor colorWithRed:0.22 green:0.21 blue:0.98 alpha:1.0];
+    [self.view addSubview:self.viewCloud2];
+    
+    self.viewCloud3 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 100, 40 , 30)];
+    self.viewCloud3.backgroundColor = [UIColor colorWithRed:0.42 green:0.11 blue:0.98 alpha:1.0];
+    [self.view addSubview:self.viewCloud3];
+    
+    self.label = [[UILabel alloc] initWithFrame:CGRectMake(circleX, circleY + radius*2.5, radius*2, 40)];
     self.label.textColor = [UIColor colorWithRed:0.3 green:0.2 blue:0.62 alpha:1.0];
     self.label.text = @"正常";
     self.label.font = [UIFont systemFontOfSize:18];
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
-    
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(timerResponse:) userInfo:nil repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-//    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
-//    CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-//    [self addChildViewController:collecPlay];
-//    [self.view addSubview:collecPlay.view];
-//    
-    
-////    //切换child view controller
-//    [self transitionFromViewController:nil toViewController:collecPlay duration:4 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-//    }  completion:^(BOOL finished) {
-//        //......
-//    }];
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,11 +91,17 @@
     if (ballNumber <= 5) {
         [self dropBall];
     }
+    
+    if (self.circleNum > 360) {
+        self.circleNum = 0;
+    }
+    self.circleNum++;
+    self.circle.layer.affineTransform = CGAffineTransformMakeRotation(M_PI_2/360.0 * _circleNum);
 }
 
 -(void)buttonPressed:(id)sender{
     UIButton *button = (UIButton*)sender;
-    int tag = button.tag;
+    int tag = (int)button.tag;
     switch (tag) {
         case 1000:
             self.label.text = @"正常1";
@@ -95,8 +123,8 @@
             break;
         case 2000:
         {
-                UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
-                CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
+            UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
+            CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
             [self presentViewController:collecPlay animated:YES completion:nil];
         }
             break;
@@ -104,6 +132,17 @@
         default:
             break;
     }
+}
+
+#pragma mark -
+#pragma mark 一直循环执行的动画效果
+-(void)alwaysMove:(UIView *)view timeInterval:(int)timeInterval{
+    [UIView animateWithDuration:timeInterval animations:^{
+        view.frame = CGRectMake(-view.frame.size.width, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+    } completion:^(BOOL isFinish){
+        view.frame = CGRectMake(self.view.frame.size.width, view.frame.origin.y, view.frame.size.width, view.frame.size.height);
+        [self alwaysMove:view timeInterval:timeInterval];
+    }];
 }
 
 #pragma mark -
@@ -118,7 +157,7 @@
     [self.gravityBehaviour setAction:^{
         NSArray *arrayViews = [animator itemsInRect:rect];
         for (UIView *ballView in arrayViews) {
-            if (ballView.frame.origin.y >= 400) {
+            if (ballView.frame.origin.y >= circleY - radius) {
                 UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:ballView
                                                                         snapToPoint:CGPointMake([controller getPositionXFor:(ballView.tag-1000) * M_PI / 3], [controller getPositionYFor:(ballView.tag-1000) * M_PI / 3])];
                 [controller.theAnimator addBehavior:snapBehavior];
@@ -131,12 +170,12 @@
 }
 
 - (void)addCircle {
-    UIButton *circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - radius, circleY, 2 * radius, 2 * radius)];
-    circle.backgroundColor = [UIColor grayColor];
-    circle.layer.cornerRadius = radius;
-    circle.tag = 2000;
-    [circle addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:circle];
+    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - radius, circleY, 2 * radius, 2 * radius)];
+    self.circle.backgroundColor = [UIColor grayColor];
+    self.circle.layer.cornerRadius = radius-50;
+    self.circle.tag = 2000;
+    [self.circle addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.circle];
 }
 
 - (void)dropBall {
@@ -161,7 +200,7 @@
     ballView.tag = 1000+ballNumber;
     ballView.backgroundColor = [UIColor colorWithRed:(234.0 - ballNumber*40.0)/255.0 green:(222.0 - ballNumber*30.0)/255.0 blue:(180.0-ballNumber*20.0)/255.0 alpha:1.0];
     [ballView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    ballView.center = CGPointMake(50, 100);
+    ballView.center = CGPointMake(self.view.frame.size.width/2.0, 0);
     ballView.highlighted = YES;
     [self.view addSubview:ballView];
     return ballView;

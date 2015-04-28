@@ -120,7 +120,7 @@ static NSString * const reuseIdentifier = @"Cell";
     int heightnum = self.view.frame.size.height/width;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType];
     [self.collectionView reloadData];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
 -(void)timerResponce:(id)sender{
