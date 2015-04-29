@@ -25,18 +25,21 @@
 @property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) UILabel *label;
 @property(nonatomic, retain) UIButton *circle;
+@property(nonatomic, retain) NSMutableArray *arrayButtons;
 
 @property(nonatomic, retain) UIView *viewAirplane;
 @property(nonatomic, retain) UIView *viewCloud1;
 @property(nonatomic, retain) UIView *viewCloud2;
 @property(nonatomic, retain) UIView *viewCloud3;
 @property(nonatomic, assign) int circleNum;
+@property(nonatomic, assign) int beginCircleNum;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.arrayButtons = [[NSMutableArray alloc] initWithCapacity:6];
     radius = self.view.frame.size.width/7.0;
     circleX = self.view.frame.size.width/2 - radius;
     circleY = self.view.frame.size.height/4;
@@ -92,11 +95,28 @@
         [self dropBall];
     }
     
-    if (self.circleNum > 360) {
-        self.circleNum = 0;
+    self.beginCircleNum++;
+    int begincircleLimit = 100;
+    if (self.beginCircleNum > begincircleLimit) {
+        self.beginCircleNum = begincircleLimit;
+        for(UIView *ballView in self.arrayButtons){
+            if ([ballView superview] == self.circle) {
+                continue;
+            }
+            
+            CGRect rect = [self.view convertRect:ballView.frame toView:self.circle];
+            ballView.frame = rect;
+            [ballView removeFromSuperview];
+            [self.circle addSubview:ballView];
+        }
+        
+        int circleNumDouble = 360*16;
+        if (self.circleNum > circleNumDouble) {
+            self.circleNum = 0;
+        }
+        self.circleNum++;
+        self.circle.layer.affineTransform = CGAffineTransformMakeRotation(M_PI*2/(circleNumDouble) * _circleNum);
     }
-    self.circleNum++;
-    self.circle.layer.affineTransform = CGAffineTransformMakeRotation(M_PI_2/360.0 * _circleNum);
 }
 
 -(void)buttonPressed:(id)sender{
@@ -150,16 +170,17 @@
 -(void)initAnimatorAndGravity{
     self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     self.gravityBehaviour = [[UIGravityBehavior alloc] init];
-    UIDynamicAnimator *animator = self.theAnimator;
-    CGRect rect = self.view.bounds;
     ViewController *controller = self;
     //球的吸附效果
+    NSArray *arrayViews = self.arrayButtons;
     [self.gravityBehaviour setAction:^{
-        NSArray *arrayViews = [animator itemsInRect:rect];
         for (UIView *ballView in arrayViews) {
             if (ballView.frame.origin.y >= circleY - radius) {
                 UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:ballView
                                                                         snapToPoint:CGPointMake([controller getPositionXFor:(ballView.tag-1000) * M_PI / 3], [controller getPositionYFor:(ballView.tag-1000) * M_PI / 3])];
+                [snapBehavior setAction:^{
+                    
+                }];
                 [controller.theAnimator addBehavior:snapBehavior];
             }
             
@@ -172,7 +193,7 @@
 - (void)addCircle {
     self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - radius, circleY, 2 * radius, 2 * radius)];
     self.circle.backgroundColor = [UIColor grayColor];
-    self.circle.layer.cornerRadius = radius-50;
+    self.circle.layer.cornerRadius = radius;
     self.circle.tag = 2000;
     [self.circle addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.circle];
@@ -184,15 +205,18 @@
     }
     UIView *ballView = [self addBallView];
     [self.gravityBehaviour addItem:ballView];
+    [self.arrayButtons addObject:ballView];
     ballNumber++;
 }
 
 - (double)getPositionYFor:(double)radian {
-    return circleY + radius + radius * sin(radian);
+    int y = circleY + radius + radius * sin(radian);
+    return y;
 }
 
 - (double)getPositionXFor:(double)radian {
-    return circleX + radius + radius * cos(radian);
+    double x = circleX + radius + radius * cos(radian);
+    return x;
 }
 
 - (UIView *)addBallView {
