@@ -42,7 +42,7 @@
     self.arrayButtons = [[NSMutableArray alloc] initWithCapacity:6];
     radius = self.view.frame.size.width/7.0;
     circleX = self.view.frame.size.width/2 - radius;
-    circleY = self.view.frame.size.height/4;
+    circleY = self.view.frame.size.height/1.5;
     [self addSubViews];
     [self initAnimatorAndGravity];
     [self alwaysMove:self.viewAirplane timeInterval:4];
@@ -81,6 +81,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    [self dropBall];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -91,12 +92,8 @@
 #pragma mark -
 #pragma mark 时间循环
 -(void)timerResponse:(id)sender{
-    if (ballNumber <= 5) {
-        [self dropBall];
-    }
-    
     self.beginCircleNum++;
-    int begincircleLimit = 100;
+    int begincircleLimit = 200;
     if (self.beginCircleNum > begincircleLimit) {
         self.beginCircleNum = begincircleLimit;
         for(UIView *ballView in self.arrayButtons){
@@ -110,7 +107,7 @@
             [self.circle addSubview:ballView];
         }
         
-        int circleNumDouble = 360*16;
+        int circleNumDouble = 360*20;
         if (self.circleNum > circleNumDouble) {
             self.circleNum = 0;
         }
@@ -191,22 +188,23 @@
 }
 
 - (void)addCircle {
-    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - radius, circleY, 2 * radius, 2 * radius)];
-    self.circle.backgroundColor = [UIColor grayColor];
-    self.circle.layer.cornerRadius = radius;
+    int circleRadius = radius*2;
+    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY - radius, 2 * circleRadius, 2 * circleRadius)];
+    self.circle.backgroundColor = [UIColor clearColor];
+    self.circle.layer.cornerRadius = circleRadius;
     self.circle.tag = 2000;
     [self.circle addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.circle];
 }
 
 - (void)dropBall {
-    if (ballNumber > 5) {
-        return;
+    if(ballNumber > 5) return;
+    for(int i = 0;i<6;i++){
+        UIView *ballView = [self addBallView];
+        [self.gravityBehaviour addItem:ballView];
+        [self.arrayButtons addObject:ballView];
+        ballNumber++;
     }
-    UIView *ballView = [self addBallView];
-    [self.gravityBehaviour addItem:ballView];
-    [self.arrayButtons addObject:ballView];
-    ballNumber++;
 }
 
 - (double)getPositionYFor:(double)radian {
