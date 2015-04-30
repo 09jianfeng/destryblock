@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface CollectionViewControllerPlay : UICollectionViewController
+@property(nonatomic, assign) BOOL noBackgroundImage;
+@property(nonatomic, assign) float widthNum;
+
 @property(nonatomic, assign) int gameexterncolorType;
 @end

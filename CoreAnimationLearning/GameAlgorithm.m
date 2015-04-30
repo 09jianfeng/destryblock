@@ -8,9 +8,6 @@
 
 #import "GameAlgorithm.h"
 
-#define allblockNumpercent 0.65
-#define blockTypeNumpercent 0.03
-
 @interface GameAlgorithm(){
     //表格盘总数
     int a[30][30];
@@ -31,15 +28,17 @@
 
 
 @implementation GameAlgorithm
--(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum{
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent blockTypeNumpercent:(float)blockTypeNumpercent{
     self = [super init];
     if (self) {
-        [self initTable:widthNum heightNum:heightNum gamecolorexternNum:gamecolorexternNum];
+        self.blockTypeNumpercent = 0.03;
+        self.allblockNumpercent = 0.65;
+        [self initTable:widthNum heightNum:heightNum gamecolorexternNum:gamecolorexternNum allblockNumpercent:allblockNumpercent blockTypeNumpercent:blockTypeNumpercent];
     }
     return self;
 }
 
--(void)initTable:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum{
+-(void)initTable:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent blockTypeNumpercent:(float)blockTypeNumpercent{
     for (int i = 0; i < widthNum; i++) {
         for (int j = 0; j < heightNum; j++) {
             a[i][j] = 0;
@@ -56,7 +55,7 @@
     
     int allblockNum = widthNum*heightNum;
     for (int i = 0; i < _allValueblockNum; i+=2) {
-        int blockColorrandom = arc4random()%(_blockTypeNum)+1;
+        int blockColorrandom = arc4random()%(_blockTypeNum+1);
         for (int j = 0; j < 2; j++) {
             
             int endIndex = allblockNum - i - j;

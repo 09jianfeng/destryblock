@@ -26,8 +26,10 @@ typedef enum{
 }blockcolor;
 
 @interface GameAlgorithm : NSObject
+@property(nonatomic,assign) float blockTypeNumpercent;
+@property(nonatomic,assign) float allblockNumpercent;
 
--(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum;
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent blockTypeNumpercent:(float)blockTypeNumpercent;
 
 //输入位置返回颜色
 -(blockcolor)getColorInthisPlace:(int)index;

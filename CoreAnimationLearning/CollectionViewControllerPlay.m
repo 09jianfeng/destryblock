@@ -34,8 +34,15 @@
 
 @implementation CollectionViewControllerPlay
 
-float widthNum = 11.0;
 static NSString * const reuseIdentifier = @"Cell";
+
+-(id)initWithCollectionViewLayout:(UICollectionViewLayout *)layout{
+    self = [super initWithCollectionViewLayout:layout];
+    if (self) {
+        self.widthNum = 11.0;
+    }
+    return self;
+}
 
 -(void)dealloc{
     self.audioplayerCorrect = nil;
@@ -50,9 +57,15 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     seconde = 0;
     pushNomalcount = 35;
+    if (_noBackgroundImage) {
+        pushNomalcount = 5;
+    }
     magnitude = 2;
     
     // Register cell classes
@@ -63,15 +76,21 @@ static NSString * const reuseIdentifier = @"Cell";
     
     //如果是ipad 横向右13.0个方块
     if (IsPadUIBlockGame()) {
-        widthNum = 13.0;
+        _widthNum = 13.0;
         pushNomalcount *=7;
         magnitude = 3;
     }
-
     
-    CGFloat width = self.view.frame.size.width/widthNum;
+    
+    CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType];
+    
+    float allblockNump = 0.65;
+    float typeNumpercent = 0.03;
+    if (_noBackgroundImage) {
+        typeNumpercent = 0.1;
+    }
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:allblockNump blockTypeNumpercent:typeNumpercent];
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -86,7 +105,9 @@ static NSString * const reuseIdentifier = @"Cell";
     self.labelPoints.font = [UIFont systemFontOfSize:18];
     self.labelPoints.textAlignment = NSTextAlignmentCenter;
     self.labelPoints.textColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:1.0];
-    [self.view addSubview:self.labelPoints];
+    if (!_noBackgroundImage) {
+        [self.view addSubview:self.labelPoints];
+    }
     
     int labelLen = 220;
     if (IsPadUIBlockGame()) {
@@ -95,14 +116,11 @@ static NSString * const reuseIdentifier = @"Cell";
     self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-10, labelLen, 5)];
     self.processView.backgroundColor = [UIColor whiteColor];
     self.processView.alpha = 0.5;
-    [self.view addSubview:self.processView];
+    if (!_noBackgroundImage) {
+        [self.view addSubview:self.processView];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+    }
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,9 +134,9 @@ static NSString * const reuseIdentifier = @"Cell";
     self.Allpoints = 0;
     [self.processView setprocess:0.0];
     seconde = 0;
-    CGFloat width = self.view.frame.size.width/widthNum;
+    CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65 blockTypeNumpercent:0.03];
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
@@ -153,9 +171,9 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(int)numberOfblock{
-    CGFloat width = self.view.frame.size.width/widthNum;
+    CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width + 1;
-    return heightnum*widthNum;
+    return heightnum*_widthNum;
 }
 
 -(UIImage *)getColorInColorType:(blockcolor)blockcolorType{
@@ -248,11 +266,16 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     
     if (indexPath.row%2) {
-        UIImage *imageBlack = [UIImage imageNamed:@"backgroundwhite.png"];
-        cell.layer.contents = (__bridge id)(imageBlack.CGImage);
+        if (!_noBackgroundImage) {
+            UIImage *imageBlack = [UIImage imageNamed:@"backgroundwhite.png"];
+            cell.layer.contents = (__bridge id)(imageBlack.CGImage);
+        }
+        
     }else{
-        UIImage *imageBlack = [UIImage imageNamed:@"background.png"];
-        cell.layer.contents = (__bridge id)(imageBlack.CGImage);
+        if (!_noBackgroundImage) {
+            UIImage *imageBlack = [UIImage imageNamed:@"background.png"];
+            cell.layer.contents = (__bridge id)(imageBlack.CGImage);
+        }
     }
     
     cell.layer.borderColor = [UIColor blackColor].CGColor;
@@ -272,7 +295,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    CGFloat width = self.view.frame.size.width/widthNum;
+    CGFloat width = self.view.frame.size.width/_widthNum;
     return CGSizeMake(width, width);
 }
 
@@ -327,7 +350,9 @@ static NSString * const reuseIdentifier = @"Cell";
     if (buttonIndex == 1) {
         [self replayGame];
     }else if(buttonIndex == 0){
-        [self dismissViewControllerAnimated:YES completion:nil];
+//        [self dismissViewControllerAnimated:YES completion:nil];
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
     }
 }
 @end

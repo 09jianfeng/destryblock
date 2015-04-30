@@ -42,7 +42,7 @@
     self.arrayButtons = [[NSMutableArray alloc] initWithCapacity:6];
     radius = self.view.frame.size.width/7.0;
     circleX = self.view.frame.size.width/2 - radius;
-    circleY = self.view.frame.size.height/1.5;
+    circleY = self.view.frame.size.height - radius*4;
     [self addSubViews];
     [self initAnimatorAndGravity];
     [self alwaysMove:self.viewAirplane timeInterval:4];
@@ -77,6 +77,18 @@
     self.label.font = [UIFont systemFontOfSize:18];
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
+    
+    int collecplaywidth = 200;
+    int collecplayheiht = 120;
+    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
+    CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
+    collecPlay.view.backgroundColor = [UIColor clearColor];
+    collecPlay.collectionView.backgroundColor = [UIColor clearColor];
+    collecPlay.noBackgroundImage = YES;
+    collecPlay.widthNum = 9;
+    collecPlay.view.frame = CGRectMake(self.view.frame.size.width/2 - collecplaywidth/2, radius*4, collecplaywidth, collecplayheiht);
+    [self addChildViewController:collecPlay];
+    [self.view addSubview:collecPlay.view];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -142,7 +154,11 @@
         {
             UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
             CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-            [self presentViewController:collecPlay animated:YES completion:nil];
+            collecPlay.view.backgroundColor = [UIColor whiteColor];
+            collecPlay.collectionView.backgroundColor = [UIColor whiteColor];
+            [self addChildViewController:collecPlay];
+            [self.view addSubview:collecPlay.view];
+//            [self presentViewController:collecPlay animated:YES completion:nil];
         }
             break;
             
