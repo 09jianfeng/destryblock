@@ -153,16 +153,10 @@
             break;
         case 2000:
         {
-            LevelDialogView *levelDialogView = [[LevelDialogView alloc] init];
+            LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
+            levelDialogView.viewController = self;
             levelDialogView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-            [levelDialogView show];
-//            UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
-//            CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-//            collecPlay.view.backgroundColor = [UIColor whiteColor];
-//            collecPlay.collectionView.backgroundColor = [UIColor whiteColor];
-//            [self addChildViewController:collecPlay];
-//            [self.view addSubview:collecPlay.view];
-//            [self presentViewController:collecPlay animated:YES completion:nil];
+            [self.view addSubview:levelDialogView];
         }
             break;
             

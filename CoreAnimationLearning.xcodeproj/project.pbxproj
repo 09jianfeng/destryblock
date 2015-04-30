@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6C1AF1D52400B5A169 /* LevelDialogView.m */; };
+		78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */; };
+		78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */; };
 		780E17541AEE4CEF007A4A88 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E17481AEE4CEF007A4A88 /* 1.png */; };
 		780E17551AEE4CEF007A4A88 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E17491AEE4CEF007A4A88 /* 2.png */; };
 		780E17561AEE4CEF007A4A88 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E174A1AEE4CEF007A4A88 /* 3.png */; };
@@ -57,6 +59,9 @@
 /* Begin PBXFileReference section */
 		78045D6B1AF1D52400B5A169 /* LevelDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDialogView.h; sourceTree = "<group>"; };
 		78045D6C1AF1D52400B5A169 /* LevelDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelDialogView.m; sourceTree = "<group>"; };
+		78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCellLevel.h; sourceTree = "<group>"; };
+		78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCellLevel.m; sourceTree = "<group>"; };
+		78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCellLevel.xib; sourceTree = "<group>"; };
 		780E17481AEE4CEF007A4A88 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		780E17491AEE4CEF007A4A88 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		780E174A1AEE4CEF007A4A88 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
@@ -126,6 +131,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		78045D731AF212B700B5A169 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				78045D6B1AF1D52400B5A169 /* LevelDialogView.h */,
+				78045D6C1AF1D52400B5A169 /* LevelDialogView.m */,
+				780E17661AEE95CA007A4A88 /* BallView.h */,
+				780E17671AEE95CA007A4A88 /* BallView.m */,
+				78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */,
+				78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */,
+				78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		780E17631AEE7D64007A4A88 /* systemInfoAndStorage */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,10 +270,7 @@
 		7844B7211AEB3154006DE282 /* firstView */ = {
 			isa = PBXGroup;
 			children = (
-				78045D6B1AF1D52400B5A169 /* LevelDialogView.h */,
-				78045D6C1AF1D52400B5A169 /* LevelDialogView.m */,
-				780E17661AEE95CA007A4A88 /* BallView.h */,
-				780E17671AEE95CA007A4A88 /* BallView.m */,
+				78045D731AF212B700B5A169 /* View */,
 				782B1F831AE35B450051D053 /* ViewController.h */,
 				782B1F841AE35B450051D053 /* ViewController.m */,
 			);
@@ -344,6 +360,7 @@
 				780E175B1AEE4CEF007A4A88 /* 8.png in Resources */,
 				780E175C1AEE4CEF007A4A88 /* 9.png in Resources */,
 				780E17571AEE4CEF007A4A88 /* 4.png in Resources */,
+				78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */,
 				782B1F881AE35B450051D053 /* Main.storyboard in Resources */,
 				780E176D1AEF07E0007A4A88 /* Default.png in Resources */,
 				780E175D1AEE4CEF007A4A88 /* 10.png in Resources */,
@@ -390,6 +407,7 @@
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
 				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
+				78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

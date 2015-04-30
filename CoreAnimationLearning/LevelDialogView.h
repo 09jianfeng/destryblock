@@ -9,14 +9,14 @@
 //  一切全屏显示View的基类
 // 这个类主要都是用
 #import <UIKit/UIKit.h>
+#import "ViewController.h"
+
 @interface LevelDialogView : UIView {
  @protected
     UIViewController            *_platformViewController;
     UIInterfaceOrientation              _orientation;
     BOOL                                _isShowing;
 }   
+@property(nonatomic, retain) ViewController *viewController;
 
-- (void)show;
-- (void)showInView:(UIView*)view;
-- (void)hide;
 @end
