@@ -173,4 +173,97 @@
     
     return mutable;
 }
+
+
+//是否还有砖块可以消除
+-(void)isHaveBlockToDestroy:(void(^)(BOOL isHave))callbackBlock{
+    for (int i = 0; i < _widthNum; i++) {
+        for (int j = 0; j < _heightNum; j++) {
+            NSArray *arr = [self getplacethatShoulddrop:i heightindex:j];
+            if (arr.count > 0) {
+                callbackBlock(YES);
+                return;
+            }
+        }
+    }
+    
+    callbackBlock(NO);
+}
+
+-(NSArray *)getplacethatShoulddrop:(int)widthindexa heightindex:(int)heightindexa{
+    int widthindex = widthindexa;
+    int heightIndex = heightindexa;
+    if(a[heightIndex][widthindex] > 0) return [NSArray array];
+    
+    NSMutableArray *mutable = [[NSMutableArray alloc] init];
+    //最多有20个颜色值
+    int colorIndex[20];
+    //初始化
+    for (int i = 0; i < 20; i++) {
+        colorIndex[i] = -1;
+    }
+    
+    //x方向左寻找，heightIndex不变
+    for(int i = widthindex;i >= 0;i--){
+        if(a[heightIndex][i] > 0){
+            int colorValue = a[heightIndex][i];
+            //转换成一维数组的下标
+            colorIndex[colorValue] = heightIndex*_widthNum+i;
+            break;
+        };
+    }
+    
+    //x方向右寻找，heightInde不变
+    for(int i = widthindex;i < _widthNum;i++){
+        if(a[heightIndex][i] > 0){
+            int colorValue = a[heightIndex][i];
+            //如果对应的颜色已经有值，则说明十字线上有同颜色的，纪录下来
+            if (colorIndex[colorValue] >= 0) {
+                //记下以前那个值
+                NSNumber *number = [NSNumber numberWithInt:colorIndex[colorValue]];
+                [mutable addObject:number];
+                number = [NSNumber numberWithInt:(heightIndex*_widthNum+i)];
+                [mutable addObject:number];
+            }
+            //转换成一维数组的下标
+            colorIndex[colorValue] = heightIndex*_widthNum+i;
+            break;
+        };
+    }
+    
+    //y方向向下,widthindex不变
+    for(int i = heightIndex; i < _heightNum ; i++){
+        if (a[i][widthindex] > 0) {
+            int colorVaule = a[i][widthindex];
+            if (colorIndex[colorVaule] >= 0) {
+                //记下以前那个值
+                NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
+                [mutable addObject:number];
+                number = [NSNumber numberWithInt:(i*_widthNum+widthindex)];
+                [mutable addObject:number];
+            }
+            colorIndex[colorVaule] = i*_widthNum+widthindex;
+            break;
+        }
+    }
+    
+    //y方向向上,widthindex不变
+    for(int i = heightIndex; i >= 0 ; i--){
+        if (a[i][widthindex] > 0) {
+            int colorVaule = a[i][widthindex];
+            if (colorIndex[colorVaule] >= 0) {
+                //记下以前那个值
+                NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
+                [mutable addObject:number];
+                number = [NSNumber numberWithInt:(i*_widthNum+widthindex)];
+                [mutable addObject:number];
+            }
+            colorIndex[colorVaule] = i*_widthNum+widthindex;
+            break;
+        }
+    }
+    
+    return mutable;
+}
+
 @end

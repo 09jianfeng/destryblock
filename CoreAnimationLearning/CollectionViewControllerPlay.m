@@ -333,6 +333,15 @@ static NSString * const reuseIdentifier = @"Cell";
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];
+    
+    [_gameAlgorithm isHaveBlockToDestroy:^(BOOL isHave){
+        if (!isHave) {
+            [self.timer invalidate];
+            NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
+            [alert show];
+        }
+    }];
 }
 
 //cell反选时被调用(多选时才生效)

@@ -36,4 +36,7 @@ typedef enum{
 
 //最多返回六个位置，有可能返回重复的位置。要注意判断
 -(NSArray *)getplacethatShoulddrop:(int)index;
+
+//是否还有砖块可以消除
+-(void)isHaveBlockToDestroy:(void(^)(BOOL isHave))callbackBlock;
 @end
