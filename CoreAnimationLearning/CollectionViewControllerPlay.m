@@ -146,7 +146,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (seconde > 60) {
         [self.timer invalidate];
         NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
         [alert show];
     }
 }
@@ -336,10 +336,12 @@ static NSString * const reuseIdentifier = @"Cell";
     
     [_gameAlgorithm isHaveBlockToDestroy:^(BOOL isHave){
         if (!isHave) {
-            [self.timer invalidate];
-            NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"时间到" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
-            [alert show];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.timer invalidate];
+                NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
+                [alert show];
+            });
         }
     }];
 }

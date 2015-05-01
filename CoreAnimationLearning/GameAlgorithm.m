@@ -177,17 +177,19 @@
 
 //是否还有砖块可以消除
 -(void)isHaveBlockToDestroy:(void(^)(BOOL isHave))callbackBlock{
-    for (int i = 0; i < _widthNum; i++) {
-        for (int j = 0; j < _heightNum; j++) {
-            NSArray *arr = [self getplacethatShoulddrop:i heightindex:j];
-            if (arr.count > 0) {
-                callbackBlock(YES);
-                return;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        for (int i = 0; i < _widthNum; i++) {
+            for (int j = 0; j < _heightNum; j++) {
+                NSArray *arr = [self getplacethatShoulddrop:i heightindex:j];
+                if (arr.count > 0) {
+                    callbackBlock(YES);
+                    return;
+                }
             }
         }
-    }
-    
-    callbackBlock(NO);
+        
+        callbackBlock(NO);
+    });
 }
 
 -(NSArray *)getplacethatShoulddrop:(int)widthindexa heightindex:(int)heightindexa{
