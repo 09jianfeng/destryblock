@@ -40,6 +40,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         self.widthNum = 11.0;
+        self.timeInterval = 1.0;
+        self.gameexterncolorType = 3.0;
     }
     return self;
 }
@@ -86,11 +88,7 @@ static NSString * const reuseIdentifier = @"Cell";
     int heightnum = self.view.frame.size.height/width;
     
     float allblockNump = 0.65;
-    float typeNumpercent = 0.03;
-    if (_noBackgroundImage) {
-        typeNumpercent = 0.1;
-    }
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:allblockNump blockTypeNumpercent:typeNumpercent];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:allblockNump];
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -118,7 +116,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.processView.alpha = 0.5;
     if (!_noBackgroundImage) {
         [self.view addSubview:self.processView];
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
     }
     
 }
@@ -136,9 +134,9 @@ static NSString * const reuseIdentifier = @"Cell";
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65 blockTypeNumpercent:0.03];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65];
     [self.collectionView reloadData];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
 -(void)timerResponce:(id)sender{

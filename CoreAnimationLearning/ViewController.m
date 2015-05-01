@@ -43,7 +43,7 @@
     self.arrayButtons = [[NSMutableArray alloc] initWithCapacity:6];
     radius = self.view.frame.size.width/7.0;
     circleX = self.view.frame.size.width/2 - radius;
-    circleY = self.view.frame.size.height - radius*4;
+    circleY = radius*4;
     [self addSubViews];
     [self initAnimatorAndGravity];
     [self alwaysMove:self.viewAirplane timeInterval:4];

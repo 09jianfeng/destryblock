@@ -10,7 +10,8 @@
 
 @interface CollectionViewControllerPlay : UICollectionViewController
 @property(nonatomic, assign) BOOL noBackgroundImage;
-@property(nonatomic, assign) float widthNum;
 
+@property(nonatomic, assign) float widthNum;
 @property(nonatomic, assign) int gameexterncolorType;
+@property(nonatomic, assign) float timeInterval;
 @end

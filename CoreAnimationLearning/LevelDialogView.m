@@ -39,10 +39,11 @@
 #pragma mark -
 #pragma mark 子视图
 -(void)initAndAddOtherSubview{
-    self.levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*0.8, self.frame.size.height*0.6)];
-    self.levelBaseView.backgroundColor = [UIColor colorWithRed:0.4 green:0.5 blue:0.9 alpha:1.0];
+    self.levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width*0.8, self.frame.size.height*0.8)];
+    self.levelBaseView.backgroundColor = [UIColor colorWithRed:0.44 green:0.58 blue:0.91 alpha:1.0];
     self.levelBaseView.center = CGPointMake(self.frame.size.width/2, 0);
-    self.levelBaseView.layer.cornerRadius = 5.0;
+    self.levelBaseView.layer.cornerRadius = 10.0;
+    self.levelBaseView.layer.masksToBounds = YES;
     [self addSubview:self.levelBaseView];
     
     self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self];
@@ -56,12 +57,23 @@
     [self.theAnimator addBehavior:attachmentBehavior];
     
     UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
-    self.collectionViewLevel = [[UICollectionView alloc] initWithFrame:self.levelBaseView.bounds collectionViewLayout:collectionviewflow];
+    self.collectionViewLevel = [[UICollectionView alloc] initWithFrame:CGRectMake(10, 0, self.levelBaseView.bounds.size.width-20, self.levelBaseView.bounds.size.height - 50) collectionViewLayout:collectionviewflow];
     _collectionViewLevel.dataSource = self;
     _collectionViewLevel.delegate = self;
+    _collectionViewLevel.backgroundColor = [UIColor clearColor];
     //注册CollectionViewCellLevell的identifier
     [self.collectionViewLevel registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
     [self.levelBaseView addSubview:self.collectionViewLevel];
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, _collectionViewLevel.bounds.size.height, _levelBaseView.bounds.size.width, 50)];
+    button.backgroundColor = [UIColor colorWithRed:0.7 green:0.8 blue:0.9 alpha:1.0];
+    [button setTitle:@"返回主页" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
+    [self.levelBaseView addSubview:button];
+}
+
+-(void)buttonPressedGoback:(id)sender{
+    [self removeFromSuperview];
 }
 
 #pragma mark - 
@@ -71,7 +83,7 @@
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 10;
+    return 50;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -100,6 +112,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
+    collecPlay.gameexterncolorType += (int)indexPath.row;
     collecPlay.view.backgroundColor = [UIColor whiteColor];
     collecPlay.collectionView.backgroundColor = [UIColor whiteColor];
     [self.viewController addChildViewController:collecPlay];

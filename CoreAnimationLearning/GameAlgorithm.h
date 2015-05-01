@@ -29,7 +29,7 @@ typedef enum{
 @property(nonatomic,assign) float blockTypeNumpercent;
 @property(nonatomic,assign) float allblockNumpercent;
 
--(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent blockTypeNumpercent:(float)blockTypeNumpercent;
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent;
 
 //输入位置返回颜色
 -(blockcolor)getColorInthisPlace:(int)index;

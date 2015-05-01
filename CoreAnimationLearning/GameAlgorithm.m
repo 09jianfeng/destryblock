@@ -28,17 +28,17 @@
 
 
 @implementation GameAlgorithm
--(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent blockTypeNumpercent:(float)blockTypeNumpercent{
+-(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent{
     self = [super init];
     if (self) {
         self.blockTypeNumpercent = 0.03;
         self.allblockNumpercent = 0.65;
-        [self initTable:widthNum heightNum:heightNum gamecolorexternNum:gamecolorexternNum allblockNumpercent:allblockNumpercent blockTypeNumpercent:blockTypeNumpercent];
+        [self initTable:widthNum heightNum:heightNum gamecolorexternNum:gamecolorexternNum allblockNumpercent:allblockNumpercent];
     }
     return self;
 }
 
--(void)initTable:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent blockTypeNumpercent:(float)blockTypeNumpercent{
+-(void)initTable:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent{
     for (int i = 0; i < widthNum; i++) {
         for (int j = 0; j < heightNum; j++) {
             a[i][j] = 0;
@@ -49,7 +49,7 @@
     self.widthNum = widthNum;
     self.heightNum = heightNum;
     self.allValueblockNum = widthNum * heightNum * allblockNumpercent;
-    self.blockTypeNum = widthNum * heightNum * blockTypeNumpercent + gamecolorexternNum;
+    self.blockTypeNum = gamecolorexternNum;
     //最多有12种颜色
     if(self.blockTypeNum > 12) self.blockTypeNum = 12;
     
