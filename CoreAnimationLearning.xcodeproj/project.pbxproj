@@ -47,7 +47,14 @@
 		7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7844B7191AEB29B0006DE282 /* AVFoundation.framework */; };
 		7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B71B1AEB2BDB006DE282 /* error.mp3 */; };
 		7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B71E1AEB3119006DE282 /* GameAlgorithm.m */; };
-		78CC360B1AF4556B00033213 /* playbegin.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78CC360A1AF4556B00033213 /* playbegin.jpg */; };
+		78CC36201AF4720B00033213 /* circlebutton_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361A1AF4720B00033213 /* circlebutton_1.png */; };
+		78CC36211AF4720B00033213 /* circlebutton_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361B1AF4720B00033213 /* circlebutton_2.png */; };
+		78CC36221AF4720B00033213 /* circlebutton_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361C1AF4720B00033213 /* circlebutton_3.png */; };
+		78CC36231AF4720B00033213 /* circlebutton_4.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361D1AF4720B00033213 /* circlebutton_4.png */; };
+		78CC36241AF4720B00033213 /* circlebutton_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361E1AF4720B00033213 /* circlebutton_5.png */; };
+		78CC36251AF4720B00033213 /* circlebutton_6.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361F1AF4720B00033213 /* circlebutton_6.png */; };
+		78CC36271AF4732E00033213 /* circlebutton_7.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC36261AF4732E00033213 /* circlebutton_7.png */; };
+		78CC36291AF4811F00033213 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC36281AF4811F00033213 /* play.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +123,14 @@
 		7844B71B1AEB2BDB006DE282 /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = error.mp3; sourceTree = "<group>"; };
 		7844B71D1AEB3119006DE282 /* GameAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAlgorithm.h; sourceTree = "<group>"; };
 		7844B71E1AEB3119006DE282 /* GameAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAlgorithm.m; sourceTree = "<group>"; };
-		78CC360A1AF4556B00033213 /* playbegin.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = playbegin.jpg; sourceTree = SOURCE_ROOT; };
+		78CC361A1AF4720B00033213 /* circlebutton_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_1.png; sourceTree = "<group>"; };
+		78CC361B1AF4720B00033213 /* circlebutton_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_2.png; sourceTree = "<group>"; };
+		78CC361C1AF4720B00033213 /* circlebutton_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_3.png; sourceTree = "<group>"; };
+		78CC361D1AF4720B00033213 /* circlebutton_4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_4.png; sourceTree = "<group>"; };
+		78CC361E1AF4720B00033213 /* circlebutton_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_5.png; sourceTree = "<group>"; };
+		78CC361F1AF4720B00033213 /* circlebutton_6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_6.png; sourceTree = "<group>"; };
+		78CC36261AF4732E00033213 /* circlebutton_7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_7.png; sourceTree = "<group>"; };
+		78CC36281AF4811F00033213 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,7 +259,14 @@
 		7844B70E1AEB233F006DE282 /* image */ = {
 			isa = PBXGroup;
 			children = (
-				78CC360A1AF4556B00033213 /* playbegin.jpg */,
+				78CC36281AF4811F00033213 /* play.png */,
+				78CC36261AF4732E00033213 /* circlebutton_7.png */,
+				78CC361A1AF4720B00033213 /* circlebutton_1.png */,
+				78CC361B1AF4720B00033213 /* circlebutton_2.png */,
+				78CC361C1AF4720B00033213 /* circlebutton_3.png */,
+				78CC361D1AF4720B00033213 /* circlebutton_4.png */,
+				78CC361E1AF4720B00033213 /* circlebutton_5.png */,
+				78CC361F1AF4720B00033213 /* circlebutton_6.png */,
 				7836C7DA1AF3CC7C00E4AFAB /* 91.png */,
 				7836C7D61AF3BDA700E4AFAB /* 81.png */,
 				780E17691AEF07E0007A4A88 /* Default-568h@2x.png */,
@@ -370,17 +391,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78CC36201AF4720B00033213 /* circlebutton_1.png in Resources */,
+				78CC36291AF4811F00033213 /* play.png in Resources */,
 				780E175B1AEE4CEF007A4A88 /* 8.png in Resources */,
-				78CC360B1AF4556B00033213 /* playbegin.jpg in Resources */,
 				780E175C1AEE4CEF007A4A88 /* 9.png in Resources */,
 				7836C7D71AF3BDA700E4AFAB /* 81.png in Resources */,
 				780E17571AEE4CEF007A4A88 /* 4.png in Resources */,
 				78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */,
 				7836C7DB1AF3CC7C00E4AFAB /* 91.png in Resources */,
+				78CC36251AF4720B00033213 /* circlebutton_6.png in Resources */,
+				78CC36271AF4732E00033213 /* circlebutton_7.png in Resources */,
 				782B1F881AE35B450051D053 /* Main.storyboard in Resources */,
 				780E176D1AEF07E0007A4A88 /* Default.png in Resources */,
 				780E175D1AEE4CEF007A4A88 /* 10.png in Resources */,
 				780E17541AEE4CEF007A4A88 /* 1.png in Resources */,
+				78CC36231AF4720B00033213 /* circlebutton_4.png in Resources */,
 				780E175A1AEE4CEF007A4A88 /* 7.png in Resources */,
 				7844B7111AEB243D006DE282 /* background.png in Resources */,
 				782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */,
@@ -393,6 +418,9 @@
 				780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */,
 				780E17551AEE4CEF007A4A88 /* 2.png in Resources */,
 				780E17581AEE4CEF007A4A88 /* 5.png in Resources */,
+				78CC36211AF4720B00033213 /* circlebutton_2.png in Resources */,
+				78CC36241AF4720B00033213 /* circlebutton_5.png in Resources */,
+				78CC36221AF4720B00033213 /* circlebutton_3.png in Resources */,
 				7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */,
 				782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */,
 				780E175F1AEE4CEF007A4A88 /* 12.png in Resources */,

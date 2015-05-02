@@ -29,10 +29,6 @@
 @property(nonatomic, retain) UIButton *circle;
 @property(nonatomic, retain) NSMutableArray *arrayButtons;
 
-@property(nonatomic, retain) UIView *viewAirplane;
-@property(nonatomic, retain) UIView *viewCloud1;
-@property(nonatomic, retain) UIView *viewCloud2;
-@property(nonatomic, retain) UIView *viewCloud3;
 @property(nonatomic, assign) int circleNum;
 @property(nonatomic, assign) int beginCircleNum;
 @end
@@ -154,44 +150,12 @@
 
 
 -(void)addSubViews{
-    self.viewAirplane = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, 30, 30)];
-//    self.viewAirplane.backgroundColor = [UIColor colorWithRed:0.23 green:0.67 blue:0.98 alpha:1.0];
-    self.viewAirplane.layer.contents = (__bridge id)([UIImage imageNamed:@"10.png"].CGImage);
-//    [self.view addSubview:self.viewAirplane];
-    
-    self.viewCloud1 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 40, 30 , 30)];
-//    self.viewCloud1.backgroundColor = [UIColor colorWithRed:0.32 green:0.41 blue:0.98 alpha:1.0];
-    self.viewCloud1.layer.contents = (__bridge id)([UIImage imageNamed:@"11.png"].CGImage);
-//    [self.view addSubview:self.viewCloud1];
-    
-    self.viewCloud2 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 70, 30 , 30)];
-//    self.viewCloud2.backgroundColor = [UIColor colorWithRed:0.22 green:0.21 blue:0.98 alpha:1.0];
-    self.viewCloud2.layer.contents = (__bridge id)([UIImage imageNamed:@"12.png"].CGImage);
-//    [self.view addSubview:self.viewCloud2];
-    
-    self.viewCloud3 = [[UIView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 100, 30 , 30)];
-    self.viewCloud3.layer.contents = (__bridge id)([UIImage imageNamed:@"9.png"].CGImage);
-//    self.viewCloud3.backgroundColor = [UIColor colorWithRed:0.42 green:0.11 blue:0.98 alpha:1.0];
-//    [self.view addSubview:self.viewCloud3];
-    
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(circleX, circleY + radius*2.5, radius*2, 40)];
     self.label.textColor = [UIColor colorWithRed:0.3 green:0.2 blue:0.62 alpha:1.0];
     self.label.text = @"1";
     self.label.font = [UIFont systemFontOfSize:18];
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
-    
-//    int collecplaywidth = 200;
-//    int collecplayheiht = 120;
-//    UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
-//    CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-//    collecPlay.view.backgroundColor = [UIColor clearColor];
-//    collecPlay.collectionView.backgroundColor = [UIColor clearColor];
-//    collecPlay.noBackgroundImage = YES;
-//    collecPlay.widthNum = 9;
-//    collecPlay.view.frame = CGRectMake(self.view.frame.size.width/2 - collecplaywidth/2, radius*4, collecplaywidth, collecplayheiht);
-//    [self addChildViewController:collecPlay];
-//    [self.view addSubview:collecPlay.view];
     
     [self initAnimatorAndGravity];
 }
@@ -234,38 +198,68 @@
 }
 
 -(void)buttonPressed:(id)sender{
+    [self changeBallViewBackground];
     UIButton *button = (UIButton*)sender;
     int tag = (int)button.tag;
     switch (tag) {
         case 1000:
-            self.label.text = @"1";
-            break;
-        case 1001:
-            self.label.text = @"2";
-            break;
-        case 1002:
-            self.label.text = @"3";
-            break;
-        case 1003:
-            self.label.text = @"4";
-            break;
-        case 1004:
-            self.label.text = @"5";
-            break;
-        case 1005:
-            self.label.text = @"6";
-            break;
-        case 2000:
         {
-            LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
-            levelDialogView.viewController = self;
-            levelDialogView.backgroundColor = [UIColor clearColor];
-            [self.view addSubview:levelDialogView];
+            self.label.text = @"1";
+            NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
+            [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
             break;
-            
+        case 1001:
+        {
+            self.label.text = @"2";
+            NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
+            [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
+        }
+            break;
+        case 1002:
+        {
+            self.label.text = @"3";
+            NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
+            [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
+        }
+            break;
+        case 1003:
+        {
+            self.label.text = @"4";
+            NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
+            [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
+        }
+            break;
+        case 1004:
+        {
+            self.label.text = @"5";
+            NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
+            [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
+        }
+            break;
+        case 1005:
+        {
+            self.label.text = @"6";
+            NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
+            [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
+        }
+            break;            
         default:
             break;
+    }
+}
+
+-(void)buttonPressedCircle:(id)sender{
+    LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
+    levelDialogView.viewController = self;
+    levelDialogView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:levelDialogView];
+}
+
+-(void)changeBallViewBackground{
+    for (int i = 0; i<6; i++) {
+        UIButton *button = (UIButton *)[self.view viewWithTag:1000+i];
+        [button setImage:[UIImage imageNamed:@"circlebutton_7.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -306,13 +300,13 @@
 }
 
 - (void)addCircle {
-    int circleRadius = radius;
-    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY, 2 * circleRadius, 2 * circleRadius)];
-    self.circle.layer.contents = (__bridge id)([UIImage imageNamed:@"playbegin.jpg"].CGImage);
+    int circleRadius = radius*1.5;
+    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY - radius/2.0, 2 * circleRadius, 2 * circleRadius)];
+    self.circle.layer.contents = (__bridge id)([UIImage imageNamed:@"play.png"].CGImage);
 //    self.circle.backgroundColor = [UIColor blackColor];
     self.circle.layer.cornerRadius = circleRadius;
     self.circle.tag = 2000;
-    [self.circle addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.circle addTarget:self action:@selector(buttonPressedCircle:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.circle];
 }
 
@@ -339,16 +333,14 @@
 - (UIView *)addBallView {
     BallView *ballView = [[BallView alloc] initWithRadius:radius];
     ballView.tag = 1000+ballNumber;
-    ballView.backgroundColor = [UIColor colorWithRed:(224.0 - ballNumber*30.0)/255.0 green:(224.0 - ballNumber*30.0)/255.0 blue:(224.0-ballNumber*30.0)/255.0 alpha:1.0];
     [ballView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     ballView.center = CGPointMake(self.view.frame.size.width/2.0, 0);
-    ballView.highlighted = YES;
-    ballView.layer.shadowColor = [UIColor colorWithRed:0.4 green:0.7 blue:0.3 alpha:1.0].CGColor;
-//    ballView.layer.shadowOffset = CGSizeMake(-5, 5);
-    ballView.layer.shadowOpacity = 0.5;
-    CGMutablePathRef circlePath = CGPathCreateMutable();
-    CGPathAddEllipseInRect(circlePath, NULL, ballView.bounds);
-    ballView.layer.shadowPath = circlePath; CGPathRelease(circlePath);
+    NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_7.png"];
+    if (ballNumber == 0) {
+        buttonImageName = @"circlebutton_3.png";
+    }
+    
+    [ballView setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
     [self.view addSubview:ballView];
     return ballView;
 }
