@@ -207,7 +207,7 @@
 }
 
 #pragma mark -
-#pragma mark 时间循环
+#pragma mark 时间循环与按钮事件
 -(void)timerResponse:(id)sender{
     self.beginCircleNum++;
     int begincircleLimit = 200;
@@ -259,7 +259,7 @@
         {
             LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
             levelDialogView.viewController = self;
-            levelDialogView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+            levelDialogView.backgroundColor = [UIColor clearColor];
             [self.view addSubview:levelDialogView];
         }
             break;
@@ -306,9 +306,10 @@
 }
 
 - (void)addCircle {
-    int circleRadius = radius*2;
-    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY - radius, 2 * circleRadius, 2 * circleRadius)];
-    self.circle.backgroundColor = [UIColor clearColor];
+    int circleRadius = radius;
+    self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY, 2 * circleRadius, 2 * circleRadius)];
+    self.circle.layer.contents = (__bridge id)([UIImage imageNamed:@"playbegin.jpg"].CGImage);
+//    self.circle.backgroundColor = [UIColor blackColor];
     self.circle.layer.cornerRadius = circleRadius;
     self.circle.tag = 2000;
     [self.circle addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
