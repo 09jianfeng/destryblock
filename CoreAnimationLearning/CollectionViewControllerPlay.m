@@ -76,16 +76,18 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.scrollEnabled = NO;
     // Do any additional setup after loading the view.
     
+    int processHeight = 20;
     //如果是ipad 横向右13.0个方块
     if (IsPadUIBlockGame()) {
         _widthNum = 13.0;
         pushNomalcount *=7;
         magnitude = 3;
+        processHeight = 40;
     }
     
     
     CGFloat width = self.view.frame.size.width/_widthNum;
-    int heightnum = self.view.frame.size.height/width;
+    int heightnum = self.view.frame.size.height/width-1;
     
     float allblockNump = 0.65;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:allblockNump];
@@ -98,7 +100,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.animator addBehavior:self.gravity];
     
     self.labelPoints = [[UILabel alloc] init];
-    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - 20, 50, 20);
+    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - processHeight, 50, 20);
     self.labelPoints.text = @"0";
     self.labelPoints.font = [UIFont systemFontOfSize:18];
     self.labelPoints.textAlignment = NSTextAlignmentCenter;
@@ -107,11 +109,16 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.view addSubview:self.labelPoints];
     }
     
-    int labelLen = 220;
+    UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    buttonStop.frame = CGRectMake(self.view.frame.size.width - 100,self.view.frame.size.height - processHeight, 50, 20);
+    [buttonStop addTarget:self action:@selector(buttonStopPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonStop];
+    
+    int labelLen = 180;
     if (IsPadUIBlockGame()) {
         labelLen = 620;
     }
-    self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-10, labelLen, 5)];
+    self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - processHeight+10, labelLen, 5)];
     self.processView.backgroundColor = [UIColor whiteColor];
     self.processView.alpha = 0.5;
     if (!_noBackgroundImage) {
@@ -127,18 +134,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 #pragma mark -
-#pragma mark logic
--(void)replayGame{
-    self.Allpoints = 0;
-    [self.processView setprocess:0.0];
-    seconde = 0;
-    CGFloat width = self.view.frame.size.width/_widthNum;
-    int heightnum = self.view.frame.size.height/width;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65];
-    [self.collectionView reloadData];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
-}
-
+#pragma mark 事件
 -(void)timerResponce:(id)sender{
     seconde++;
     [self.processView setprocess:seconde/60.0];
@@ -149,6 +145,26 @@ static NSString * const reuseIdentifier = @"Cell";
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
         [alert show];
     }
+}
+
+-(void)buttonStopPressed:(id)sender{
+    [self.timer invalidate];
+    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"是否要退出" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:@"继续", nil];
+    alertview.tag = 2000;
+    [alertview show];
+}
+
+#pragma mark -
+#pragma mark logic
+-(void)replayGame{
+    self.Allpoints = 0;
+    [self.processView setprocess:0.0];
+    seconde = 0;
+    CGFloat width = self.view.frame.size.width/_widthNum;
+    int heightnum = self.view.frame.size.height/width;
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65];
+    [self.collectionView reloadData];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
 -(void)playAudioIsCorrect:(BOOL)isCorrect{
@@ -353,9 +369,12 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark alertviewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        [self replayGame];
+        if (alertView.tag == 2000) {
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+        }else{
+          [self replayGame];
+        }
     }else if(buttonIndex == 0){
-//        [self dismissViewControllerAnimated:YES completion:nil];
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
     }
