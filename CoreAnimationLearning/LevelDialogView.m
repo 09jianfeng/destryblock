@@ -54,7 +54,7 @@
     [attachmentBehavior setFrequency:3];
     [attachmentBehavior setAction:^{
         _count++;
-        if (_count == 30) {
+        if (_count == 50) {
             UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, levelBaseView.bounds.size.width, levelBaseView.bounds.size.height-50)];
             scrollview.pagingEnabled = YES;
             scrollview.scrollEnabled = YES;
@@ -166,10 +166,18 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCellLevel *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionidentiferLevel" forIndexPath:indexPath];
-    int red = arc4random()%100;
-    int freen = arc4random()%100;
-    int blue = arc4random()%100;
-    cell.backgroundColor = [UIColor colorWithRed:red/100.0 green:freen/100.0 blue:blue/100.0 alpha:1.0];
+    UIImage *imageclose = [UIImage imageNamed:@"guankaclose.png"];
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+    imageview.image = imageclose;
+    [collectionView addSubview:imageview];
+    [UIView animateWithDuration:0.5 animations:^{
+        imageview.frame = cell.frame;
+    } completion:^(BOOL isFinish){
+        [imageview removeFromSuperview];
+        imageview.frame = cell.bounds;
+        [cell addSubview:imageview];
+    }];
+    
     return cell;
 }
 
