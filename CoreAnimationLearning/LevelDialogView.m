@@ -56,7 +56,7 @@
     [attachmentBehavior setAction:^{
         _count++;
         if (_count == 50) {
-            UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, levelBaseView.bounds.size.width, levelBaseView.bounds.size.height-50)];
+            UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 80, levelBaseView.bounds.size.width, levelBaseView.bounds.size.height-130)];
             scrollview.pagingEnabled = YES;
             scrollview.scrollEnabled = YES;
             scrollview.bounces = YES;
@@ -79,27 +79,9 @@
             [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
             collectionViewLevel1.tag = 1110;
             [scrollview addSubview:collectionViewLevel1];
-//            UICollectionView* collectionViewLevel2 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width+20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-//            collectionViewLevel2.dataSource = self;
-//            collectionViewLevel2.delegate = self;
-//            collectionViewLevel2.backgroundColor = [UIColor clearColor];
-//            //注册CollectionViewCellLevell的identifier
-//            [collectionViewLevel2 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-//            collectionViewLevel2.tag = 1120;
-//            [scrollview addSubview:collectionViewLevel2];
-//            
-//            UICollectionView* collectionViewLevel3 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width*2 +20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-//            collectionViewLevel3.dataSource = self;
-//            collectionViewLevel3.delegate = self;
-//            collectionViewLevel3.backgroundColor = [UIColor clearColor];
-//            //注册CollectionViewCellLevell的identifier
-//            [collectionViewLevel3 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-//            collectionViewLevel3.tag = 1130;
-//            [scrollview addSubview:collectionViewLevel3];
-
         }
         
-        if (_count == 70) {
+        if (_count == 55) {
             [self diguiAnimation];
         }
     }];
@@ -117,6 +99,14 @@
     button.tag = 1300;
     [button addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
     [levelBaseView addSubview:button];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, levelBaseView.frame.size.width, 80)];
+    label.backgroundColor = [UIColor colorWithRed:0.6 green:0.69 blue:0.4 alpha:1.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"关卡选择";
+    label.font = [UIFont systemFontOfSize:24];
+    label.tag = 1400;
+    [levelBaseView addSubview:label];
 }
 
 -(void)buttonPressedGoback:(id)sender{
@@ -139,20 +129,44 @@
     pageview.currentPage = page;
 }
 
-#pragma mark - 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    UICollectionView *collection = (UICollectionView *)[self viewWithTag:1110];
+    if (collection) {
+        [collection removeFromSuperview];
+    }
+    
+    _cellImageNum = 0;
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    
+    UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
+    UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollView.frame.size.width*page + 20, 20, scrollView.bounds.size.width-40, scrollView.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+    collectionViewLevel1.dataSource = self;
+    collectionViewLevel1.delegate = self;
+    collectionViewLevel1.backgroundColor = [UIColor clearColor];
+    //注册CollectionViewCellLevell的identifier
+    [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+    collectionViewLevel1.tag = 1110;
+    [scrollView addSubview:collectionViewLevel1];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self diguiAnimation];
+    });
+}
+
+#pragma mark -
 #pragma mark UICollection的代理
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return 5*9;
+    return 5*6;
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     UICollectionView *collectionViewLevel = (UICollectionView *)[self viewWithTag:1110];
-    int ylen = collectionViewLevel.frame.size.height/9;
+    int ylen = collectionViewLevel.frame.size.height/6;
     int xlen = collectionViewLevel.frame.size.width/5;
     
     return CGSizeMake(xlen, ylen);
@@ -187,7 +201,7 @@
     UICollectionView *collectionview = (UICollectionView *)[self viewWithTag:1110];
     CollectionViewCellLevel *cell = (CollectionViewCellLevel *)[collectionview viewWithTag:celltag];
     if (imageview && cell) {
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.1 animations:^{
             imageview.frame = cell.frame;
         } completion:^(BOOL isfinish){
             [imageview removeFromSuperview];
@@ -195,6 +209,8 @@
             [cell addSubview:imageview];
             [self diguiAnimation];
         }];
+    }else{
+        NSLog(@"cellImageNum %d",_cellImageNum);
     }
 }
 
