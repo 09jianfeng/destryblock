@@ -13,6 +13,7 @@
 @interface LevelDialogView()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 @property(nonatomic, retain) UIDynamicAnimator *theAnimator;
 @property(nonatomic, assign) int count;
+@property(nonatomic, assign) int cellImageNum;
 @end
 
 @implementation LevelDialogView
@@ -78,25 +79,28 @@
             [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
             collectionViewLevel1.tag = 1110;
             [scrollview addSubview:collectionViewLevel1];
-            
-            UICollectionView* collectionViewLevel2 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width+20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-            collectionViewLevel2.dataSource = self;
-            collectionViewLevel2.delegate = self;
-            collectionViewLevel2.backgroundColor = [UIColor clearColor];
-            //注册CollectionViewCellLevell的identifier
-            [collectionViewLevel2 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-            collectionViewLevel2.tag = 1120;
-            [scrollview addSubview:collectionViewLevel2];
-            
-            UICollectionView* collectionViewLevel3 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width*2 +20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-            collectionViewLevel3.dataSource = self;
-            collectionViewLevel3.delegate = self;
-            collectionViewLevel3.backgroundColor = [UIColor clearColor];
-            //注册CollectionViewCellLevell的identifier
-            [collectionViewLevel3 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-            collectionViewLevel3.tag = 1130;
-            [scrollview addSubview:collectionViewLevel3];
+//            UICollectionView* collectionViewLevel2 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width+20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+//            collectionViewLevel2.dataSource = self;
+//            collectionViewLevel2.delegate = self;
+//            collectionViewLevel2.backgroundColor = [UIColor clearColor];
+//            //注册CollectionViewCellLevell的identifier
+//            [collectionViewLevel2 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+//            collectionViewLevel2.tag = 1120;
+//            [scrollview addSubview:collectionViewLevel2];
+//            
+//            UICollectionView* collectionViewLevel3 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width*2 +20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+//            collectionViewLevel3.dataSource = self;
+//            collectionViewLevel3.delegate = self;
+//            collectionViewLevel3.backgroundColor = [UIColor clearColor];
+//            //注册CollectionViewCellLevell的identifier
+//            [collectionViewLevel3 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+//            collectionViewLevel3.tag = 1130;
+//            [scrollview addSubview:collectionViewLevel3];
 
+        }
+        
+        if (_count == 70) {
+            [self diguiAnimation];
         }
     }];
     [self.theAnimator addBehavior:attachmentBehavior];
@@ -167,18 +171,31 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCellLevel *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionidentiferLevel" forIndexPath:indexPath];
     UIImage *imageclose = [UIImage imageNamed:@"guankaclose.png"];
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
+    imageview.tag = 5000+indexPath.row;
+    cell.tag = 6000+indexPath.row;
     imageview.image = imageclose;
     [collectionView addSubview:imageview];
-    [UIView animateWithDuration:0.5 animations:^{
-        imageview.frame = cell.frame;
-    } completion:^(BOOL isFinish){
-        [imageview removeFromSuperview];
-        imageview.frame = cell.bounds;
-        [cell addSubview:imageview];
-    }];
-    
     return cell;
+}
+
+-(void)diguiAnimation{
+    int tag = 5000+_cellImageNum;
+    int celltag = 6000 + _cellImageNum;
+    _cellImageNum++;
+    UIImageView *imageview = (UIImageView*)[self viewWithTag:tag];
+    UICollectionView *collectionview = (UICollectionView *)[self viewWithTag:1110];
+    CollectionViewCellLevel *cell = (CollectionViewCellLevel *)[collectionview viewWithTag:celltag];
+    if (imageview && cell) {
+        [UIView animateWithDuration:0.5 animations:^{
+            imageview.frame = cell.frame;
+        } completion:^(BOOL isfinish){
+            [imageview removeFromSuperview];
+            imageview.frame = cell.bounds;
+            [cell addSubview:imageview];
+            [self diguiAnimation];
+        }];
+    }
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
