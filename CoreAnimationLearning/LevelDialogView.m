@@ -55,7 +55,7 @@
     [attachmentBehavior setFrequency:3];
     [attachmentBehavior setAction:^{
         _count++;
-        if (_count == 50) {
+        if (_count == 40) {
             UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 80, levelBaseView.bounds.size.width, levelBaseView.bounds.size.height-130)];
             scrollview.pagingEnabled = YES;
             scrollview.scrollEnabled = YES;
@@ -81,7 +81,7 @@
             [scrollview addSubview:collectionViewLevel1];
         }
         
-        if (_count == 55) {
+        if (_count == 45) {
             [self diguiAnimation];
         }
     }];

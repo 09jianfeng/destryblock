@@ -57,6 +57,7 @@
 		78CC36291AF4811F00033213 /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC36281AF4811F00033213 /* play.png */; };
 		78CC362C1AF6105600033213 /* guankaclose.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC362A1AF6105600033213 /* guankaclose.png */; };
 		78CC362D1AF6105600033213 /* guankaopen.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC362B1AF6105600033213 /* guankaopen.png */; };
+		78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC362F1AF673AA00033213 /* GameKeyValue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,8 @@
 		78CC36281AF4811F00033213 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		78CC362A1AF6105600033213 /* guankaclose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guankaclose.png; sourceTree = "<group>"; };
 		78CC362B1AF6105600033213 /* guankaopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guankaopen.png; sourceTree = "<group>"; };
+		78CC362E1AF673AA00033213 /* GameKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKeyValue.h; sourceTree = "<group>"; };
+		78CC362F1AF673AA00033213 /* GameKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKeyValue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +178,8 @@
 		780E17631AEE7D64007A4A88 /* systemInfoAndStorage */ = {
 			isa = PBXGroup;
 			children = (
+				78CC362E1AF673AA00033213 /* GameKeyValue.h */,
+				78CC362F1AF673AA00033213 /* GameKeyValue.m */,
 				780E17601AEE7D52007A4A88 /* SystemInfo.h */,
 				780E17611AEE7D52007A4A88 /* SystemInfo.m */,
 			);
@@ -451,6 +456,7 @@
 			files = (
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
+				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,
 				780E17681AEE95CA007A4A88 /* BallView.m in Sources */,
 				781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */,
