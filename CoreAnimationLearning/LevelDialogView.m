@@ -12,6 +12,7 @@
 
 @interface LevelDialogView()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 @property(nonatomic, retain) UIDynamicAnimator *theAnimator;
+@property(nonatomic, assign) int count;
 @end
 
 @implementation LevelDialogView
@@ -51,51 +52,56 @@
     [attachmentBehavior setLength:0];
     [attachmentBehavior setDamping:0.3];
     [attachmentBehavior setFrequency:3];
+    [attachmentBehavior setAction:^{
+        _count++;
+        if (_count == 30) {
+            UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, levelBaseView.bounds.size.width, levelBaseView.bounds.size.height-50)];
+            scrollview.pagingEnabled = YES;
+            scrollview.scrollEnabled = YES;
+            scrollview.bounces = YES;
+            scrollview.clipsToBounds = NO;
+            scrollview.showsHorizontalScrollIndicator = NO;
+            scrollview.showsVerticalScrollIndicator = NO;
+            scrollview.scrollsToTop = NO;
+            scrollview.contentSize = CGSizeMake(scrollview.frame.size.width *3, scrollview.frame.size.height);
+            scrollview.contentOffset = CGPointMake(0, 0);
+            scrollview.tag = 1100;
+            scrollview.delegate = self;
+            [levelBaseView addSubview:scrollview];
+            
+            UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
+            UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+            collectionViewLevel1.dataSource = self;
+            collectionViewLevel1.delegate = self;
+            collectionViewLevel1.backgroundColor = [UIColor clearColor];
+            //注册CollectionViewCellLevell的identifier
+            [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+            collectionViewLevel1.tag = 1110;
+            [scrollview addSubview:collectionViewLevel1];
+            
+            UICollectionView* collectionViewLevel2 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width+20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+            collectionViewLevel2.dataSource = self;
+            collectionViewLevel2.delegate = self;
+            collectionViewLevel2.backgroundColor = [UIColor clearColor];
+            //注册CollectionViewCellLevell的identifier
+            [collectionViewLevel2 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+            collectionViewLevel2.tag = 1120;
+            [scrollview addSubview:collectionViewLevel2];
+            
+            UICollectionView* collectionViewLevel3 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width*2 +20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+            collectionViewLevel3.dataSource = self;
+            collectionViewLevel3.delegate = self;
+            collectionViewLevel3.backgroundColor = [UIColor clearColor];
+            //注册CollectionViewCellLevell的identifier
+            [collectionViewLevel3 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+            collectionViewLevel3.tag = 1130;
+            [scrollview addSubview:collectionViewLevel3];
+
+        }
+    }];
     [self.theAnimator addBehavior:attachmentBehavior];
     
-    UIScrollView *scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, levelBaseView.bounds.size.width, levelBaseView.bounds.size.height-50)];
-    scrollview.pagingEnabled = YES;
-    scrollview.scrollEnabled = YES;
-    scrollview.bounces = YES;
-    scrollview.clipsToBounds = NO;
-    scrollview.showsHorizontalScrollIndicator = NO;
-    scrollview.showsVerticalScrollIndicator = NO;
-    scrollview.scrollsToTop = NO;
-    scrollview.contentSize = CGSizeMake(scrollview.frame.size.width *3, scrollview.frame.size.height);
-    scrollview.contentOffset = CGPointMake(0, 0);
-    scrollview.tag = 1100;
-    scrollview.delegate = self;
-    [levelBaseView addSubview:scrollview];
-    
-    UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
-    UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-    collectionViewLevel1.dataSource = self;
-    collectionViewLevel1.delegate = self;
-    collectionViewLevel1.backgroundColor = [UIColor clearColor];
-    //注册CollectionViewCellLevell的identifier
-    [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-    collectionViewLevel1.tag = 1110;
-    [scrollview addSubview:collectionViewLevel1];
-    
-    UICollectionView* collectionViewLevel2 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width+20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-    collectionViewLevel2.dataSource = self;
-    collectionViewLevel2.delegate = self;
-    collectionViewLevel2.backgroundColor = [UIColor clearColor];
-    //注册CollectionViewCellLevell的identifier
-    [collectionViewLevel2 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-    collectionViewLevel2.tag = 1120;
-    [scrollview addSubview:collectionViewLevel2];
-    
-    UICollectionView* collectionViewLevel3 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollview.frame.size.width*2 +20, 20, levelBaseView.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-    collectionViewLevel3.dataSource = self;
-    collectionViewLevel3.delegate = self;
-    collectionViewLevel3.backgroundColor = [UIColor clearColor];
-    //注册CollectionViewCellLevell的identifier
-    [collectionViewLevel3 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-    collectionViewLevel3.tag = 1130;
-    [scrollview addSubview:collectionViewLevel3];
-    
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, scrollview.bounds.size.height - 20,  levelBaseView.bounds.size.width, 20)];
+    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, levelBaseView.bounds.size.height - 70,  levelBaseView.bounds.size.width, 20)];
     pageControl.backgroundColor = [UIColor clearColor];
     pageControl.numberOfPages = 3;
     pageControl.tag = 1200;
@@ -123,11 +129,10 @@
 #pragma mark -
 #pragma mark UIScrollerView的代理
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"%@",NSStringFromCGPoint(scrollView.contentOffset));
-}
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    NSLog(@"scrollViewDidEndDragging");
+    CGFloat pageWidth = scrollView.frame.size.width;
+    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    UIPageControl *pageview = (UIPageControl *)[self viewWithTag:1200];
+    pageview.currentPage = page;
 }
 
 #pragma mark - 
