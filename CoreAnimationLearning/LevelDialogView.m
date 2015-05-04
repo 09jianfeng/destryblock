@@ -201,7 +201,7 @@
     UICollectionView *collectionview = (UICollectionView *)[self viewWithTag:1110];
     CollectionViewCellLevel *cell = (CollectionViewCellLevel *)[collectionview viewWithTag:celltag];
     if (imageview && cell) {
-        [UIView animateWithDuration:0.1 animations:^{
+        [UIView animateWithDuration:0.05 animations:^{
             imageview.frame = cell.frame;
         } completion:^(BOOL isfinish){
             [imageview removeFromSuperview];
