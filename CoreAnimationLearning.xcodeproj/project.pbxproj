@@ -58,6 +58,7 @@
 		78CC362C1AF6105600033213 /* guankaclose.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC362A1AF6105600033213 /* guankaclose.png */; };
 		78CC362D1AF6105600033213 /* guankaopen.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC362B1AF6105600033213 /* guankaopen.png */; };
 		78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC362F1AF673AA00033213 /* GameKeyValue.m */; };
+		78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC36681AF7C16100033213 /* LevelAndUserInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +139,8 @@
 		78CC362B1AF6105600033213 /* guankaopen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = guankaopen.png; sourceTree = "<group>"; };
 		78CC362E1AF673AA00033213 /* GameKeyValue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKeyValue.h; sourceTree = "<group>"; };
 		78CC362F1AF673AA00033213 /* GameKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKeyValue.m; sourceTree = "<group>"; };
+		78CC36671AF7C16100033213 /* LevelAndUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelAndUserInfo.h; sourceTree = "<group>"; };
+		78CC36681AF7C16100033213 /* LevelAndUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelAndUserInfo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +228,8 @@
 		782B1F7B1AE35B450051D053 /* CoreAnimationLearning */ = {
 			isa = PBXGroup;
 			children = (
-				7844B7211AEB3154006DE282 /* firstView */,
+				78CC36661AF7C0C500033213 /* pointsandlevel */,
+				7844B7211AEB3154006DE282 /* manu */,
 				780E17631AEE7D64007A4A88 /* systemInfoAndStorage */,
 				781FA81C1AED21510048B337 /* playing */,
 				782B1F801AE35B450051D053 /* AppDelegate.h */,
@@ -312,14 +316,23 @@
 			name = model;
 			sourceTree = "<group>";
 		};
-		7844B7211AEB3154006DE282 /* firstView */ = {
+		7844B7211AEB3154006DE282 /* manu */ = {
 			isa = PBXGroup;
 			children = (
 				78045D731AF212B700B5A169 /* View */,
 				782B1F831AE35B450051D053 /* ViewController.h */,
 				782B1F841AE35B450051D053 /* ViewController.m */,
 			);
-			name = firstView;
+			name = manu;
+			sourceTree = "<group>";
+		};
+		78CC36661AF7C0C500033213 /* pointsandlevel */ = {
+			isa = PBXGroup;
+			children = (
+				78CC36671AF7C16100033213 /* LevelAndUserInfo.h */,
+				78CC36681AF7C16100033213 /* LevelAndUserInfo.m */,
+			);
+			name = pointsandlevel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -457,6 +470,7 @@
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
+				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,
 				780E17681AEE95CA007A4A88 /* BallView.m in Sources */,
 				781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */,
