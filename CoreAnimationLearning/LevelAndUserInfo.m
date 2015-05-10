@@ -9,11 +9,10 @@
 #import "LevelAndUserInfo.h"
 #import "GameKeyValue.h"
 
-static NSString *levelinfo = @"levelinfoInkeyvalue";
-static NSString *levelinfoIsPass = @"levelinfoIsPass";
-static NSString *levelinfoScore = @"levelinfoScore";
-static NSString *levelinfoTime = @"levelinfotime";
-static NSString *levelinfoStarNum = @"levelinfoStarNum";
+NSString *levelinfo = @"levelinfoInkeyvalue";
+NSString *levelinfoScore = @"levelinfoScore";
+NSString *levelinfoTime = @"levelinfotime";
+NSString *levelinfoStarNum = @"levelinfoStarNum";
 
 @interface LevelAndUserInfo()
 @end
@@ -31,7 +30,7 @@ static int  levelAllNum=90;
     return level;
 }
 
-
+//生成过每一关需要的时间
 +(NSArray *)levelInfos{
     NSArray *arraylevelInfo = [GameKeyValue objectForKey:levelinfo];
     if (arraylevelInfo) {
@@ -40,22 +39,39 @@ static int  levelAllNum=90;
     
     NSMutableArray *mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
-        NSDictionary *leveldic = [NSDictionary dictionaryWithObjectsAndKeys:@"NO",levelinfoIsPass,@"0",levelinfoScore,@"0",levelinfoStarNum, nil];
+        int time = 60 - levelAllNum%10;
+        NSString *timeString = [NSString stringWithFormat:@"%d",time];
+        NSDictionary *leveldic = [NSDictionary dictionaryWithObjectsAndKeys:@"0",levelinfoScore,@"0",levelinfoStarNum,timeString,levelinfoTime, nil];
         [mutArrayLevels addObject:leveldic];
     }
     
     [GameKeyValue setObject:mutArrayLevels forKey:levelinfo];
-    [GameKeyValue synchronize];
     return mutArrayLevels;
 }
 
-+(void)setLevelPass:(int)levelIndex points:(int)points{
-
+//通过这关
++(void)passLevel:(int)levelIndex points:(int)points startNum:(int)startNum{
+    NSArray *arraylevelInfo = [GameKeyValue objectForKey:levelinfo];
+    if (!arraylevelInfo) {
+        return;
+    }
+    
+    NSDictionary *levelInfoa = [arraylevelInfo objectAtIndex:levelIndex];
+    [levelInfoa setValue:[NSString stringWithFormat:@"%d",points] forKey:levelinfoScore];
+    [levelInfoa setValue:[NSString stringWithFormat:@"%d",startNum] forKey:levelinfoStarNum];
 }
 
 //0 没有通过，1、2、3分别表示几颗星
-+(int)isPassLevel:(int)levelIndex points:(int)points{
-    return 0;
++(int)isPassLevel:(int)levelIndex{
+    NSArray *arraylevelInfo = [GameKeyValue objectForKey:levelinfo];
+    if (!arraylevelInfo) {
+        return 0;
+    }
+    
+    NSDictionary *levelInfoa = [arraylevelInfo objectAtIndex:levelIndex];
+    int starNum = [[levelInfoa objectForKey:levelinfoStarNum] intValue];
+    
+    return starNum;
 }
 
 //返回剩余的体力值

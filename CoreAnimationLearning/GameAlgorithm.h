@@ -40,5 +40,6 @@ typedef enum{
 //是否还有砖块可以消除
 -(void)isHaveBlockToDestroy:(void(^)(BOOL isHave))callbackBlock;
 
-//
+//彩色砖块总数
+-(int)getAllValueBlockNum;
 @end

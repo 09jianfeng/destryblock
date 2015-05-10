@@ -12,6 +12,7 @@
 #import "SpriteUIView.h"
 #import "ProGressView.h"
 #import "SystemInfo.h"
+#import "LevelAndUserInfo.h"
 
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
 {
@@ -40,7 +41,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self = [super initWithCollectionViewLayout:layout];
     if (self) {
         self.widthNum = 11.0;
-        self.timeInterval = 1.0;
+        self.timeLimit = 50;
         self.gameexterncolorType = 3.0;
     }
     return self;
@@ -137,13 +138,10 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark 事件
 -(void)timerResponce:(id)sender{
     seconde++;
-    [self.processView setprocess:seconde/60.0];
+    [self.processView setprocess:seconde/_timeLimit];
     
-    if (seconde > 60) {
-        [self.timer invalidate];
-        NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
-        [alert show];
+    if (seconde > _timeLimit) {
+        [self endTheGame];
     }
 }
 
@@ -156,12 +154,26 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark -
 #pragma mark logic
+-(void)endTheGame{
+    [self.timer invalidate];
+    NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
+    if (self.Allpoints > [_gameAlgorithm getAllValueBlockNum]) {
+        [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
+        message = [NSString stringWithFormat:@"恭喜过关\n您的总分是：%d",self.Allpoints];
+    }else{
+        message = [NSString stringWithFormat:@"很遗憾\n您的总分是：%d",self.Allpoints];
+    }
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
+    [alert show];
+
+}
+
 -(void)replayGame{
     self.Allpoints = 0;
     [self.processView setprocess:0.0];
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
-    int heightnum = self.view.frame.size.height/width;
+    int heightnum = self.view.frame.size.height/width - 1;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65];
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
@@ -353,10 +365,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [_gameAlgorithm isHaveBlockToDestroy:^(BOOL isHave){
         if (!isHave) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.timer invalidate];
-                NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
-                [alert show];
+                [self endTheGame];
             });
         }
     }];

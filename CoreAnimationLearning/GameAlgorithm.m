@@ -55,23 +55,31 @@
     
     int allblockNum = widthNum*heightNum;
     for (int i = 0; i < _allValueblockNum; i+=2) {
-        int blockColorrandom = arc4random()%(_blockTypeNum+1);
+        int blockColorrandom = arc4random()%(_blockTypeNum)+1;
         for (int j = 0; j < 2; j++) {
             
-            int endIndex = allblockNum - i - j;
+            int endIndex = allblockNum - i - j-1;
             int blockLocationrandom = arc4random()%(endIndex);
             //从b数组中取出值
             int aGetValueIndex = b[blockLocationrandom];
             //给a数组的某个位置赋颜色值
             int widthindex = aGetValueIndex%_widthNum;
             int heightIndex = aGetValueIndex/_widthNum;
+            if (a[heightIndex][widthindex] > 0) {
+                NSLog(@"chongfu  a[%d][%d]=%d",heightIndex,widthindex,blockColorrandom);
+            }
             a[heightIndex][widthindex] = blockColorrandom;
-            
+            NSLog(@"num  %d;",i+j);
             //把赋值了的位置移到b数组的最后面
             b[blockLocationrandom] = b[endIndex];
             b[endIndex] = -1;
         }
     }
+}
+
+//彩色砖块总数
+-(int)getAllValueBlockNum{
+    return _allValueblockNum;
 }
 
 //输入位置返回颜色

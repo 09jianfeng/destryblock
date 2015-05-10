@@ -9,11 +9,18 @@
 #import "LevelDialogView.h"
 #import "CollectionViewCellLevel.h"
 #import "CollectionViewControllerPlay.h"
+#import "LevelAndUserInfo.h"
+
+extern NSString *levelinfo;
+extern NSString *levelinfoScore;
+extern NSString *levelinfoTime;
+extern NSString *levelinfoStarNum;
 
 @interface LevelDialogView()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 @property(nonatomic, retain) UIDynamicAnimator *theAnimator;
 @property(nonatomic, assign) int count;
 @property(nonatomic, assign) int cellImageNum;
+@property(nonatomic, assign) NSArray *arrayGuanka;
 @end
 
 @implementation LevelDialogView
@@ -25,6 +32,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self initAndAddOtherSubview];
+        _arrayGuanka = [LevelAndUserInfo levelInfos];
     }
     return self;
 }
@@ -184,7 +192,16 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCellLevel *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionidentiferLevel" forIndexPath:indexPath];
-    UIImage *imageclose = [UIImage imageNamed:@"guankaclose.png"];
+    
+    NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:indexPath.row];
+    int startNum = [[dicLevelInfos objectForKey:levelinfoStarNum] intValue];
+    UIImage *imageclose = nil;
+    if (startNum > 0) {
+        imageclose = [UIImage imageNamed:@"guankaopen.png"];
+    }else{
+        imageclose = [UIImage imageNamed:@"guankaclose.png"];
+    }
+    
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, cell.frame.size.width, cell.frame.size.height)];
     imageview.tag = 5000+indexPath.row;
     cell.tag = 6000+indexPath.row;
@@ -209,8 +226,6 @@
             [cell addSubview:imageview];
             [self diguiAnimation];
         }];
-    }else{
-        NSLog(@"cellImageNum %d",_cellImageNum);
     }
 }
 
@@ -220,6 +235,11 @@
     collecPlay.gameexterncolorType += (int)indexPath.row;
     collecPlay.view.backgroundColor = [UIColor whiteColor];
     collecPlay.collectionView.backgroundColor = [UIColor whiteColor];
+    NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:indexPath.row];
+    int timeLimit = [[dicLevels objectForKey:levelinfoTime] intValue];
+    collecPlay.timeLimit = timeLimit;
+    collecPlay.gameLevelIndex = (int)indexPath.row;
+    
     [self.viewController addChildViewController:collecPlay];
     [self.viewController.view addSubview:collecPlay.view];
     
