@@ -65,11 +65,7 @@
             //给a数组的某个位置赋颜色值
             int widthindex = aGetValueIndex%_widthNum;
             int heightIndex = aGetValueIndex/_widthNum;
-            if (a[heightIndex][widthindex] > 0) {
-                NSLog(@"chongfu  a[%d][%d]=%d",heightIndex,widthindex,blockColorrandom);
-            }
             a[heightIndex][widthindex] = blockColorrandom;
-            NSLog(@"num  %d;",i+j);
             //把赋值了的位置移到b数组的最后面
             b[blockLocationrandom] = b[endIndex];
             b[endIndex] = -1;

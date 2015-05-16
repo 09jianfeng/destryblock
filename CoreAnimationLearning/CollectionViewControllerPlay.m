@@ -156,7 +156,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark logic
 -(void)endTheGame{
     [self.timer invalidate];
-    NSString *message = [NSString stringWithFormat:@"您的总分是：%d",self.Allpoints];
+    NSString *message = @"";
     if (self.Allpoints > [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
         message = [NSString stringWithFormat:@"恭喜过关\n您的总分是：%d",self.Allpoints];
@@ -165,7 +165,6 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
     [alert show];
-
 }
 
 -(void)replayGame{

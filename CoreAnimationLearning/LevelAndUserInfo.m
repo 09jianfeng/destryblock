@@ -15,6 +15,7 @@ NSString *levelinfoTime = @"levelinfotime";
 NSString *levelinfoStarNum = @"levelinfoStarNum";
 
 @interface LevelAndUserInfo()
+@property(nonatomic,retain) NSMutableArray *arrayLevelInfos;
 @end
 
 @implementation LevelAndUserInfo
@@ -30,14 +31,22 @@ static int  levelAllNum=90;
     return level;
 }
 
+-(id)init{
+    self = [super init];
+    if (self) {
+        self.arrayLevelInfos = [[NSMutableArray alloc] initWithArray:[LevelAndUserInfo levelInfos] copyItems:YES];
+    }
+    return self;
+}
+
 //生成过每一关需要的时间
 +(NSArray *)levelInfos{
-    NSArray *arraylevelInfo = [GameKeyValue objectForKey:levelinfo];
-    if (arraylevelInfo) {
-        return arraylevelInfo;
+    NSMutableArray *mutArrayLevels = [GameKeyValue objectForKey:levelinfo];
+    if (mutArrayLevels) {
+        return mutArrayLevels;
     }
     
-    NSMutableArray *mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
+    mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
         int time = 60 - levelAllNum%10;
         NSString *timeString = [NSString stringWithFormat:@"%d",time];
@@ -51,14 +60,9 @@ static int  levelAllNum=90;
 
 //通过这关
 +(void)passLevel:(int)levelIndex points:(int)points startNum:(int)startNum{
-    NSArray *arraylevelInfo = [GameKeyValue objectForKey:levelinfo];
-    if (!arraylevelInfo) {
-        return;
-    }
-    
-    NSDictionary *levelInfoa = [arraylevelInfo objectAtIndex:levelIndex];
-    [levelInfoa setValue:[NSString stringWithFormat:@"%d",points] forKey:levelinfoScore];
-    [levelInfoa setValue:[NSString stringWithFormat:@"%d",startNum] forKey:levelinfoStarNum];
+    NSDictionary *diclevelinfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",points],levelinfoScore,[NSString stringWithFormat:@"%d",startNum],levelinfoStarNum,@"60",levelinfoTime, nil];
+    [[[LevelAndUserInfo shareInstance] arrayLevelInfos] setObject:diclevelinfo atIndexedSubscript:levelIndex];
+    [GameKeyValue setObject:[[LevelAndUserInfo shareInstance] arrayLevelInfos] forKey:levelinfo];
 }
 
 //0 没有通过，1、2、3分别表示几颗星
