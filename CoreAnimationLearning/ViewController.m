@@ -75,7 +75,6 @@
     
     //图像缓存,输入缓存，输出缓存
     vImage_Buffer inBuffer, outBuffer;
-    vImage_Error error;
     //像素缓存
     void *pixelBuffer;
     
