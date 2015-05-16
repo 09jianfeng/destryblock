@@ -162,18 +162,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		78045D731AF212B700B5A169 /* View */ = {
+		78045D731AF212B700B5A169 /* level */ = {
 			isa = PBXGroup;
 			children = (
+				78CC36661AF7C0C500033213 /* pointsandlevel */,
 				78045D6B1AF1D52400B5A169 /* LevelDialogView.h */,
 				78045D6C1AF1D52400B5A169 /* LevelDialogView.m */,
-				780E17661AEE95CA007A4A88 /* BallView.h */,
-				780E17671AEE95CA007A4A88 /* BallView.m */,
 				78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */,
 				78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */,
 				78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */,
 			);
-			name = View;
+			name = level;
 			sourceTree = "<group>";
 		};
 		780E17631AEE7D64007A4A88 /* systemInfoAndStorage */ = {
@@ -226,7 +225,6 @@
 		782B1F7B1AE35B450051D053 /* CoreAnimationLearning */ = {
 			isa = PBXGroup;
 			children = (
-				78CC36661AF7C0C500033213 /* pointsandlevel */,
 				7844B7211AEB3154006DE282 /* manu */,
 				780E17631AEE7D64007A4A88 /* systemInfoAndStorage */,
 				781FA81C1AED21510048B337 /* playing */,
@@ -316,7 +314,9 @@
 		7844B7211AEB3154006DE282 /* manu */ = {
 			isa = PBXGroup;
 			children = (
-				78045D731AF212B700B5A169 /* View */,
+				78045D731AF212B700B5A169 /* level */,
+				780E17661AEE95CA007A4A88 /* BallView.h */,
+				780E17671AEE95CA007A4A88 /* BallView.m */,
 				782B1F831AE35B450051D053 /* ViewController.h */,
 				782B1F841AE35B450051D053 /* ViewController.m */,
 			);

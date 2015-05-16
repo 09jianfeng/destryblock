@@ -12,7 +12,7 @@
 #import <dlfcn.h>
 #import "BallView.h"
 #import "LevelDialogView.h"
-#import <Accelerate/Accelerate.h>
+#import "SystemInfo.h"
 
 @interface ViewController (){
     float radius;
@@ -38,106 +38,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.arrayButtons = [[NSMutableArray alloc] initWithCapacity:6];
-    radius = self.view.frame.size.width/7.0;
+    radius = self.view.frame.size.width/6.0;
     circleX = self.view.frame.size.width/2 - radius;
-    circleY = radius*4;
+    circleY = self.view.frame.size.height - radius*3.5;
     [self addSubViews];
-//    [self alwaysMove:self.viewAirplane timeInterval:4];
-//    [self alwaysMove:self.viewCloud1 timeInterval:6];
-//    [self alwaysMove:self.viewCloud2 timeInterval:7];
-//    [self alwaysMove:self.viewCloud3 timeInterval:8];
-    
-    UIImage *image = [UIImage imageNamed:@"91.png"];
-    UIImage *image1 = [self blurryImage:image withBlurLevel:0.8];
-    self.view.layer.contents = (__bridge id)(image1.CGImage);
-    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(timerResponse:) userInfo:nil repeats:YES];
 }
-
-//加模糊效果，image是图片，blur是模糊度
-- (UIImage *)blurryImage:(UIImage *)image withBlurLevel:(CGFloat)blur {
-    //模糊度,
-    if ((blur < 0.1f) || (blur > 2.0f)) {
-        blur = 0.5f;
-    }
-    
-    //boxSize必须大于0
-    int boxSize = (int)(blur * 100);
-    boxSize -= (boxSize % 2) + 1;
-    NSLog(@"boxSize:%i",boxSize);
-    //图像处理
-    CGImageRef img = image.CGImage;
-    //需要引入#import <Accelerate/Accelerate.h>
-    /*
-     This document describes the Accelerate Framework, which contains C APIs for vector and matrix math, digital signal processing, large number handling, and image processing.
-     本文档介绍了Accelerate Framework，其中包含C语言应用程序接口（API）的向量和矩阵数学，数字信号处理，大量处理和图像处理。
-     */
-    
-    //图像缓存,输入缓存，输出缓存
-    vImage_Buffer inBuffer, outBuffer;
-    //像素缓存
-    void *pixelBuffer;
-    
-    //数据源提供者，Defines an opaque type that supplies Quartz with data.
-    CGDataProviderRef inProvider = CGImageGetDataProvider(img);
-    // provider’s data.
-    CFDataRef inBitmapData = CGDataProviderCopyData(inProvider);
-    
-    //宽，高，字节/行，data
-    inBuffer.width = CGImageGetWidth(img);
-    inBuffer.height = CGImageGetHeight(img);
-    inBuffer.rowBytes = CGImageGetBytesPerRow(img);
-    inBuffer.data = (void*)CFDataGetBytePtr(inBitmapData);
-    
-    //像数缓存，字节行*图片高
-    pixelBuffer = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
-    
-    outBuffer.data = pixelBuffer;
-    outBuffer.width = CGImageGetWidth(img);
-    outBuffer.height = CGImageGetHeight(img);
-    outBuffer.rowBytes = CGImageGetBytesPerRow(img);
-    
-    
-    // 第三个中间的缓存区,抗锯齿的效果
-    void *pixelBuffer2 = malloc(CGImageGetBytesPerRow(img) * CGImageGetHeight(img));
-    vImage_Buffer outBuffer2;
-    outBuffer2.data = pixelBuffer2;
-    outBuffer2.width = CGImageGetWidth(img);
-    outBuffer2.height = CGImageGetHeight(img);
-    outBuffer2.rowBytes = CGImageGetBytesPerRow(img);
-    
-    
-    //    NSLog(@"字节组成部分：%zu",CGImageGetBitsPerComponent(img));
-    //颜色空间DeviceRGB
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    //用图片创建上下文,CGImageGetBitsPerComponent(img),7,8
-    CGContextRef ctx = CGBitmapContextCreate(
-                                             outBuffer.data,
-                                             outBuffer.width,
-                                             outBuffer.height,
-                                             8,
-                                             outBuffer.rowBytes,
-                                             colorSpace,
-                                             CGImageGetBitmapInfo(image.CGImage));
-    
-    //根据上下文，处理过的图片，重新组件
-    CGImageRef imageRef = CGBitmapContextCreateImage (ctx);
-    UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
-    
-    //clean up
-    CGContextRelease(ctx);
-    CGColorSpaceRelease(colorSpace);
-    
-    free(pixelBuffer);
-    free(pixelBuffer2);
-    CFRelease(inBitmapData);
-    
-//    CGColorSpaceRelease(colorSpace);
-    CGImageRelease(imageRef);
-    
-    return returnImage;
-}
-
 
 -(void)addSubViews{
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(circleX, circleY + radius*2.5, radius*2, 40)];
@@ -163,28 +69,6 @@
 #pragma mark -
 #pragma mark 时间循环与按钮事件
 -(void)timerResponse:(id)sender{
-    self.beginCircleNum++;
-    int begincircleLimit = 200;
-    if (self.beginCircleNum > begincircleLimit) {
-        self.beginCircleNum = begincircleLimit;
-        for(UIView *ballView in self.arrayButtons){
-            if ([ballView superview] == self.circle) {
-                continue;
-            }
-            
-            CGRect rect = [self.view convertRect:ballView.frame toView:self.circle];
-            ballView.frame = rect;
-            [ballView removeFromSuperview];
-            [self.circle addSubview:ballView];
-        }
-        
-        int circleNumDouble = 360*20;
-        if (self.circleNum > circleNumDouble) {
-            self.circleNum = 0;
-        }
-        self.circleNum++;
-//        self.circle.layer.affineTransform = CGAffineTransformMakeRotation(M_PI*2/(circleNumDouble) * _circleNum);
-    }
 }
 
 -(void)buttonPressed:(id)sender{
@@ -269,12 +153,13 @@
 -(void)initAnimatorAndGravity{
     self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     self.gravityBehaviour = [[UIGravityBehavior alloc] init];
+    self.gravityBehaviour.gravityDirection = CGVectorMake(0, -1);
     ViewController *controller = self;
     //球的吸附效果
     NSArray *arrayViews = self.arrayButtons;
     [self.gravityBehaviour setAction:^{
         for (UIView *ballView in arrayViews) {
-            if (ballView.frame.origin.y >= circleY - radius) {
+            if (ballView.frame.origin.y <= circleY - radius) {
                 UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:ballView
                                                                         snapToPoint:CGPointMake([controller getPositionXFor:(ballView.tag-1000) * M_PI / 3], [controller getPositionYFor:(ballView.tag-1000) * M_PI / 3])];
                 [snapBehavior setAction:^{
@@ -293,10 +178,10 @@
     int circleRadius = radius*1.5;
     self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY - radius/2.0, 2 * circleRadius, 2 * circleRadius)];
     self.circle.layer.contents = (__bridge id)([UIImage imageNamed:@"play.png"].CGImage);
-//    self.circle.backgroundColor = [UIColor blackColor];
     self.circle.layer.cornerRadius = circleRadius;
     self.circle.tag = 2000;
     [self.circle addTarget:self action:@selector(buttonPressedCircle:) forControlEvents:UIControlEventTouchUpInside];
+    [self beginAnimation:self.circle];
     [self.view addSubview:self.circle];
 }
 
@@ -324,7 +209,7 @@
     BallView *ballView = [[BallView alloc] initWithRadius:radius];
     ballView.tag = 1000+ballNumber;
     [ballView addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    ballView.center = CGPointMake(self.view.frame.size.width/2.0, 0);
+    ballView.center = CGPointMake(self.view.frame.size.width/2.0, self.view.frame.size.height);
     NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_7.png"];
     if (ballNumber == 0) {
         buttonImageName = @"circlebutton_3.png";
@@ -333,6 +218,53 @@
     [ballView setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
     [self.view addSubview:ballView];
     return ballView;
+}
+
+
+#pragma mark -
+#pragma mark 动画
+-(void)beginAnimation:(UIButton *)bt{
+    //1.绕中心圆移动 Circle move   没用先
+    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    pathAnimation.calculationMode = kCAAnimationPaced;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = false;
+    pathAnimation.repeatCount = MAXFLOAT;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    CGMutablePathRef curvedPath = CGPathCreateMutable();
+    CGRect circleContainer = CGRectInset(bt.frame, bt.frame.size.width/2-3, bt.frame.size.width/2-3);
+    CGPathAddEllipseInRect(curvedPath, nil, circleContainer);
+    pathAnimation.path = curvedPath;
+    float randNumP = (arc4random()%5 + 20)/10.0;
+    pathAnimation.duration = randNumP;
+    
+    //x方向伸缩
+    CAKeyframeAnimation *scaleX = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
+    scaleX.values = @[@1.0,@1.1,@1.0];
+    scaleX.keyTimes = @[@0.0,@0.5,@1.0];
+    scaleX.repeatCount = MAXFLOAT;
+    scaleX.autoreverses = YES;
+    scaleX.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    float randNumx = (arc4random()%5 + 20)/10.0;
+    scaleX.duration = randNumx;
+    
+    //y方向伸缩
+    CAKeyframeAnimation *scaleY = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
+    scaleY.values = @[@1.0,@1.1,@1.0];
+    scaleY.keyTimes = @[@0.0,@0.5,@1.0];
+    scaleY.repeatCount = MAXFLOAT;
+    scaleY.autoreverses = YES;
+    scaleY.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    float randNumy = (arc4random()%5 + 20)/10.0;
+    scaleY.duration = randNumy;
+    
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.autoreverses = YES;
+    groupAnnimation.duration = (arc4random()%30 + 30)/10.0;
+    groupAnnimation.animations = @[scaleX, scaleY];
+    groupAnnimation.repeatCount = MAXFLOAT;
+    //开演
+    [bt.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
 }
 
 @end

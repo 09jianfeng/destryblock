@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface SystemInfo : NSObject
 BOOL IsPadUIBlockGame();
+//加模糊效果，image是图片，blur是模糊度
+UIImage *blurryImage(UIImage *image,CGFloat blur);
 @end
