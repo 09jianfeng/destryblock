@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.arrayButtons = [[NSMutableArray alloc] initWithCapacity:6];
-    radius = self.view.frame.size.width/6.0;
+    radius = self.view.frame.size.width/8.0;
     circleX = self.view.frame.size.width/2 - radius;
     circleY = self.view.frame.size.height - radius*3.5;
     [self addSubViews];
@@ -52,13 +52,11 @@
     self.label.font = [UIFont systemFontOfSize:18];
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
-    
-    [self initAnimatorAndGravity];
+    [self addCircle];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [self dropBall];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -124,10 +122,29 @@
 }
 
 -(void)buttonPressedCircle:(id)sender{
-    LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
-    levelDialogView.viewController = self;
-    levelDialogView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:levelDialogView];
+//    LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
+//    levelDialogView.viewController = self;
+//    levelDialogView.backgroundColor = [UIColor clearColor];
+//    [self.view addSubview:levelDialogView];
+    static int a = 0;
+    if (!a) {
+        a=1;
+        [self.theAnimator removeAllBehaviors];
+        [self initAnimatorAndGravity];
+        [self dropBall];
+    }else{
+        a=0;
+        [self.theAnimator removeAllBehaviors];
+        for (BallView *ballView in self.arrayButtons) {
+            UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:ballView
+                                                                    snapToPoint:CGPointMake(self.view.frame.size.width/2,self.view.frame.size.height+radius)];
+            [snapBehavior setAction:^{
+                
+            }];
+            [self.theAnimator addBehavior:snapBehavior];
+        }
+    }
+    
 }
 
 -(void)changeBallViewBackground{
@@ -151,15 +168,19 @@
 #pragma mark -
 #pragma mark 球的吸附效果
 -(void)initAnimatorAndGravity{
-    self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-    self.gravityBehaviour = [[UIGravityBehavior alloc] init];
+    if (!self.theAnimator) {
+        self.theAnimator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+    }
+    if (!self.gravityBehaviour) {
+     self.gravityBehaviour = [[UIGravityBehavior alloc] init];
+    }
     self.gravityBehaviour.gravityDirection = CGVectorMake(0, -1);
     ViewController *controller = self;
     //球的吸附效果
     NSArray *arrayViews = self.arrayButtons;
     [self.gravityBehaviour setAction:^{
         for (UIView *ballView in arrayViews) {
-            if (ballView.frame.origin.y <= circleY - radius) {
+            if (ballView.frame.origin.y <= circleY + radius*2) {
                 UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:ballView
                                                                         snapToPoint:CGPointMake([controller getPositionXFor:(ballView.tag-1000) * M_PI / 3], [controller getPositionYFor:(ballView.tag-1000) * M_PI / 3])];
                 [snapBehavior setAction:^{
@@ -171,13 +192,14 @@
         }
     }];
     [self.theAnimator addBehavior:self.gravityBehaviour];
-    [self addCircle];
 }
 
 - (void)addCircle {
     int circleRadius = radius*1.5;
     self.circle = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - circleRadius, circleY - radius/2.0, 2 * circleRadius, 2 * circleRadius)];
-    self.circle.layer.contents = (__bridge id)([UIImage imageNamed:@"play.png"].CGImage);
+//    self.circle.layer.contents = (__bridge id)([UIImage imageNamed:@"play.png"].CGImage);
+    [self.circle setTitle:@"分享" forState:UIControlStateNormal];
+    [self.circle setTitleColor:[UIColor colorWithRed:0.9 green:0.2 blue:0.2 alpha:0.9] forState:UIControlStateNormal];
     self.circle.layer.cornerRadius = circleRadius;
     self.circle.tag = 2000;
     [self.circle addTarget:self action:@selector(buttonPressedCircle:) forControlEvents:UIControlEventTouchUpInside];
