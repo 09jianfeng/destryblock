@@ -340,8 +340,26 @@ static NSString * const reuseIdentifier = @"Cell";
     }];
     [self playAudioIsCorrect:YES];
     
+    NSMutableArray *mutableShoulUpdate = nil;
     //获取要remove掉的label
-    NSArray *arrayshouldRemoveIndexpath = [self.gameAlgorithm getplacethatShoulddrop:(int)indexPath.row];
+    NSArray *arrayshouldRemoveIndexpath = [self.gameAlgorithm getplacethatShoulddrop:(int)indexPath.row  placeShouldUpdate:&mutableShoulUpdate];
+    //显示路径
+    for (NSNumber *numIndex in mutableShoulUpdate) {
+        int indexpathrow = [numIndex intValue];
+        NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
+        UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
+        UIView *pointsImageView = [[UIView alloc]initWithFrame:cell.bounds];
+        pointsImageView.layer.contents = (__bridge id)([UIImage imageNamed:@"back_point.png"].CGImage);
+        pointsImageView.alpha = 1.0;
+        [cell addSubview:pointsImageView];
+        [UIView animateWithDuration:0.3 animations:^{
+            pointsImageView.alpha = 0.0;
+        } completion:^(BOOL isfinish){
+            [pointsImageView removeFromSuperview];
+        }];
+    }
+    
+    
     int spritesNumShouldDrop = 0;
     for (NSNumber *num in arrayshouldRemoveIndexpath) {
         int indexpathrow = [num intValue];

@@ -48,11 +48,11 @@
     imageView.image = [UIImage imageNamed:@"image_title.png"];
     imageView.layer.cornerRadius = 10.0;
     imageView.layer.masksToBounds = YES;
-    imageView.backgroundColor = [UIColor grayColor];
+    imageView.backgroundColor = [UIColor clearColor];
     UIButton *beginPlayButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-radius*2, imageView.frame.origin.y+imageView.frame.size.height+radius, radius*4, radius*1.5)];
     [beginPlayButton setImage:[UIImage imageNamed:@"image_begin.png"] forState:UIControlStateNormal];
     [self beginAnimation:beginPlayButton];
-    beginPlayButton.backgroundColor = [UIColor grayColor];
+    beginPlayButton.backgroundColor = [UIColor clearColor];
     [beginPlayButton addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:imageView];
     [self.view addSubview:beginPlayButton];

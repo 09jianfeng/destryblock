@@ -85,12 +85,19 @@
     return a[heightIndex][widthindex];
 }
 
--(NSArray *)getplacethatShoulddrop:(int)index{
+
+-(NSArray *)getplacethatShoulddrop:(int)index placeShouldUpdate:(NSMutableArray **)mutableShouldUpdateAll{
     int widthindex = index%_widthNum;
     int heightIndex = index/_widthNum;
     if(a[heightIndex][widthindex] > 0) return [NSArray array];
     
-    NSMutableArray *mutable = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableShouldDrop = [[NSMutableArray alloc] init];
+    *mutableShouldUpdateAll = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableShouldUpdateLeft = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableShouldUpdateRight = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableShouldUpdateDown = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableShouldUpdateUp = [[NSMutableArray alloc] init];
+    
     //最多有20个颜色值
     int colorIndex[20];
     //初始化
@@ -99,7 +106,8 @@
     }
     
     //x方向左寻找，heightIndex不变
-    for(int i = widthindex;i >= 0;i--){
+    for(int i = widthindex-1;i >= 0;i--){
+        [mutableShouldUpdateLeft addObject:[NSNumber numberWithInt:heightIndex*_widthNum+i]];
         if(a[heightIndex][i] > 0){
             int colorValue = a[heightIndex][i];
             //转换成一维数组的下标
@@ -109,44 +117,62 @@
     }
     
     //x方向右寻找，heightInde不变
-    for(int i = widthindex;i < _widthNum;i++){
+    for(int i = widthindex+1;i < _widthNum;i++){
+        [mutableShouldUpdateRight addObject:[NSNumber numberWithInt:heightIndex*_widthNum+i]];
+        
         if(a[heightIndex][i] > 0){
             int colorValue = a[heightIndex][i];
             //如果对应的颜色已经有值，则说明十字线上有同颜色的，纪录下来
             if (colorIndex[colorValue] >= 0) {
                 //记下以前那个值
                 NSNumber *number = [NSNumber numberWithInt:colorIndex[colorValue]];
-                [mutable addObject:number];
+                [mutableShouldDrop addObject:number];
                 number = [NSNumber numberWithInt:(heightIndex*_widthNum+i)];
-                [mutable addObject:number];
+                [mutableShouldDrop addObject:number];
                 int width = colorIndex[colorValue]%_widthNum;
                 int height = colorIndex[colorValue]/_widthNum;
                 //去除这两个位置的颜色
                 a[height][width] = 0;
                 a[heightIndex][i] = 0;
+                [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateRight];
+                [mutableShouldUpdateRight removeAllObjects];
+                [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateLeft];
+                [mutableShouldUpdateLeft removeAllObjects];
             }
             //转换成一维数组的下标
             colorIndex[colorValue] = heightIndex*_widthNum+i;
+            
             break;
         };
     }
     
     //y方向向下,widthindex不变
-    for(int i = heightIndex; i < _heightNum ; i++){
+    for(int i = heightIndex+1; i < _heightNum ; i++){
+        [mutableShouldUpdateDown addObject:[NSNumber numberWithInt:i*_widthNum+widthindex]];
+        
         if (a[i][widthindex] > 0) {
             int colorVaule = a[i][widthindex];
             if (colorIndex[colorVaule] >= 0) {
                 //记下以前那个值
                 NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
-                [mutable addObject:number];
+                [mutableShouldDrop addObject:number];
                 number = [NSNumber numberWithInt:(i*_widthNum+widthindex)];
-                [mutable addObject:number];
+                [mutableShouldDrop addObject:number];
                 
                 int width = colorIndex[colorVaule]%_widthNum;
                 int height = colorIndex[colorVaule]/_widthNum;
                 //去除这两个位置的颜色
                 a[height][width] = 0;
                 a[i][widthindex] = 0;
+                [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateDown];
+                [mutableShouldUpdateDown removeAllObjects];
+                if (width < widthindex) {
+                    [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateLeft];
+                    [mutableShouldUpdateLeft removeAllObjects];
+                }else{
+                    [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateRight];
+                    [mutableShouldUpdateRight removeAllObjects];
+                }
             }
             colorIndex[colorVaule] = i*_widthNum+widthindex;
             break;
@@ -154,28 +180,42 @@
     }
     
     //y方向向上,widthindex不变
-    for(int i = heightIndex; i >= 0 ; i--){
+    for(int i = heightIndex-1; i >= 0 ; i--){
+        [mutableShouldUpdateUp addObject:[NSNumber numberWithInt:i*_widthNum+widthindex]];
+        
         if (a[i][widthindex] > 0) {
             int colorVaule = a[i][widthindex];
             if (colorIndex[colorVaule] >= 0) {
                 //记下以前那个值
                 NSNumber *number = [NSNumber numberWithInt:colorIndex[colorVaule]];
-                [mutable addObject:number];
+                [mutableShouldDrop addObject:number];
                 number = [NSNumber numberWithInt:(i*_widthNum+widthindex)];
-                [mutable addObject:number];
+                [mutableShouldDrop addObject:number];
                 
                 int width = colorIndex[colorVaule]%_widthNum;
                 int height = colorIndex[colorVaule]/_widthNum;
                 //去除这两个位置的颜色
                 a[height][width] = 0;
                 a[i][widthindex] = 0;
+                
+                [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateUp];
+                if (width < widthindex) {
+                    [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateLeft];
+                    [mutableShouldUpdateLeft removeAllObjects];
+                }else if(width > widthindex){
+                    [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateRight];
+                    [mutableShouldUpdateRight removeAllObjects];
+                }else{
+                    [*mutableShouldUpdateAll addObjectsFromArray:mutableShouldUpdateDown];
+                    [mutableShouldUpdateDown removeAllObjects];
+                }
             }
             colorIndex[colorVaule] = i*_widthNum+widthindex;
             break;
         }
     }
     
-    return mutable;
+    return mutableShouldDrop;
 }
 
 
