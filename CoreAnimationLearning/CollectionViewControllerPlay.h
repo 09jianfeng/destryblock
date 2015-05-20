@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface CollectionViewControllerPlay : UICollectionViewController
+//是否要背景图片
 @property(nonatomic, assign) BOOL noBackgroundImage;
+//横向的方块个数
 @property(nonatomic, assign) float widthNum;
-@property(nonatomic, assign) int gameexterncolorType;
+//初始颜色个数
+@property(nonatomic, assign) int gameInitTypeNum;
+//游戏结束时间
 @property(nonatomic, assign) float timeLimit;
+//第几关。用来获取过关的分数
 @property(nonatomic, assign) int gameLevelIndex;
 @end

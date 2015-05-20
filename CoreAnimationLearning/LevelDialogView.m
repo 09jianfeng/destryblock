@@ -46,7 +46,7 @@ extern NSString *levelinfoStarNum;
 #pragma mark 子视图
 -(void)initAndAddOtherSubview{
     UIView* levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, -self.frame.size.height*0.8, self.frame.size.width*0.8, self.frame.size.height*0.8)];
-    levelBaseView.backgroundColor = [UIColor colorWithRed:0.44 green:0.58 blue:0.91 alpha:1.0];
+    levelBaseView.backgroundColor = [UIColor colorWithRed:102/255.0 green:204.0/255.0 blue:0 alpha:1.0];
     levelBaseView.center = CGPointMake(self.frame.size.width/2, 0);
     levelBaseView.layer.cornerRadius = 10.0;
     levelBaseView.layer.masksToBounds = YES;
@@ -102,7 +102,8 @@ extern NSString *levelinfoStarNum;
     [levelBaseView addSubview:pageControl];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, levelBaseView.frame.size.height - 50, levelBaseView.bounds.size.width, 50)];
-    button.backgroundColor = [UIColor colorWithRed:0.7 green:0.8 blue:0.9 alpha:1.0];
+    button.backgroundColor = [UIColor colorWithRed:0.3 green:152.0/255.0 blue:38.0/255.0 alpha:1.0];
+    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [button setTitle:@"返回主页" forState:UIControlStateNormal];
     button.tag = 1300;
     [button addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
@@ -232,7 +233,7 @@ extern NSString *levelinfoStarNum;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-    collecPlay.gameexterncolorType += (int)indexPath.row;
+    collecPlay.gameInitTypeNum += (int)indexPath.row;
     collecPlay.view.backgroundColor = [UIColor whiteColor];
     collecPlay.collectionView.backgroundColor = [UIColor whiteColor];
     NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:indexPath.row];

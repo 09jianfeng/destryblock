@@ -24,7 +24,6 @@
 @property(nonatomic, retain) UIDynamicAnimator *theAnimator;
 @property(nonatomic, retain) UIGravityBehavior *gravityBehaviour;
 @property(nonatomic, retain) NSArray *backgroundArray;
-@property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) UILabel *label;
 @property(nonatomic, retain) UIButton *circle;
 @property(nonatomic, retain) NSMutableArray *arrayButtons;
@@ -42,14 +41,27 @@
     circleX = self.view.frame.size.width/2 - radius;
     circleY = self.view.frame.size.height - radius*3.5;
     [self addSubViews];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(timerResponse:) userInfo:nil repeats:YES];
 }
 
 -(void)addSubViews{
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-radius*7/2, 50, radius*7, radius*3)];
+    imageView.image = [UIImage imageNamed:@"image_title.png"];
+    imageView.layer.cornerRadius = 10.0;
+    imageView.layer.masksToBounds = YES;
+    imageView.backgroundColor = [UIColor grayColor];
+    UIButton *beginPlayButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-radius*2, imageView.frame.origin.y+imageView.frame.size.height+radius, radius*4, radius*1.5)];
+    [beginPlayButton setImage:[UIImage imageNamed:@"image_begin.png"] forState:UIControlStateNormal];
+    [self beginAnimation:beginPlayButton];
+    beginPlayButton.backgroundColor = [UIColor grayColor];
+    [beginPlayButton addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:imageView];
+    [self.view addSubview:beginPlayButton];
+    
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(circleX, circleY + radius*2.5, radius*2, 40)];
     self.label.textColor = [UIColor colorWithRed:0.3 green:0.2 blue:0.62 alpha:1.0];
-    self.label.text = @"1";
     self.label.font = [UIFont systemFontOfSize:18];
+    self.label.text = @"微信";
+    self.label.alpha = 0.0;
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
     [self addCircle];
@@ -65,10 +77,7 @@
 }
 
 #pragma mark -
-#pragma mark 时间循环与按钮事件
--(void)timerResponse:(id)sender{
-}
-
+#pragma mark 按钮事件
 -(void)buttonPressed:(id)sender{
     [self changeBallViewBackground];
     UIButton *button = (UIButton*)sender;
@@ -76,42 +85,42 @@
     switch (tag) {
         case 1000:
         {
-            self.label.text = @"1";
+            self.label.text = @"微信";
             NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
             [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
             break;
         case 1001:
         {
-            self.label.text = @"2";
+            self.label.text = @"微博";
             NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
             [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
             break;
         case 1002:
         {
-            self.label.text = @"3";
+            self.label.text = @"QQ";
             NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
             [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
             break;
         case 1003:
         {
-            self.label.text = @"4";
+            self.label.text = @"QQ空间";
             NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
             [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
             break;
         case 1004:
         {
-            self.label.text = @"5";
+            self.label.text = @"facebook";
             NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
             [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
             break;
         case 1005:
         {
-            self.label.text = @"6";
+            self.label.text = @"twitter";
             NSString *buttonImageName = [NSString stringWithFormat:@"circlebutton_3.png"];
             [button setImage:[UIImage imageNamed:buttonImageName] forState:UIControlStateNormal];
         }
@@ -121,17 +130,23 @@
     }
 }
 
+-(void)buttonPlayPressed:(id)sender{
+    LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
+    levelDialogView.viewController = self;
+    levelDialogView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:levelDialogView];
+}
+
 -(void)buttonPressedCircle:(id)sender{
-//    LevelDialogView *levelDialogView = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
-//    levelDialogView.viewController = self;
-//    levelDialogView.backgroundColor = [UIColor clearColor];
-//    [self.view addSubview:levelDialogView];
     static int a = 0;
     if (!a) {
         a=1;
         [self.theAnimator removeAllBehaviors];
         [self initAnimatorAndGravity];
         [self dropBall];
+        [UIView animateWithDuration:1.0 animations:^{
+            self.label.alpha = 1.0;
+        }];
     }else{
         a=0;
         [self.theAnimator removeAllBehaviors];
@@ -143,6 +158,9 @@
             }];
             [self.theAnimator addBehavior:snapBehavior];
         }
+        [UIView animateWithDuration:1.0 animations:^{
+            self.label.alpha = 0.0;
+        }];
     }
     
 }

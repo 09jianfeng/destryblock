@@ -42,7 +42,7 @@ static NSString * const reuseIdentifier = @"Cell";
     if (self) {
         self.widthNum = 11.0;
         self.timeLimit = 50;
-        self.gameexterncolorType = 3.0;
+        self.gameInitTypeNum = 3.0;
     }
     return self;
 }
@@ -91,7 +91,7 @@ static NSString * const reuseIdentifier = @"Cell";
     int heightnum = self.view.frame.size.height/width-1;
     
     float allblockNump = 0.65;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:allblockNump];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:allblockNump];
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -173,13 +173,12 @@ static NSString * const reuseIdentifier = @"Cell";
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameexterncolorType allblockNumpercent:0.65];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:0.65];
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
 -(void)playAudioIsCorrect:(BOOL)isCorrect{
-    
     NSString *stringCottect = @"";
     if (isCorrect) {
         stringCottect = @"correct.mp3";
@@ -251,6 +250,7 @@ static NSString * const reuseIdentifier = @"Cell";
     return nil;
 }
 
+//被拆的动画效果
 -(void)beginActionAnimatorBehavior:(SpriteUIView *)sprite{
     //给个斜着向上的速度
     [sprite generatePushBehavior];
