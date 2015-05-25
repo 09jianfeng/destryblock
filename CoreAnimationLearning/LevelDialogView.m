@@ -102,17 +102,18 @@ extern NSString *levelinfoStarNum;
     [levelBaseView addSubview:pageControl];
     
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, levelBaseView.frame.size.height - 50, levelBaseView.bounds.size.width, 50)];
-    button.backgroundColor = [UIColor colorWithRed:0.3 green:152.0/255.0 blue:38.0/255.0 alpha:1.0];
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    button.backgroundColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:1.0];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button setTitle:@"返回主页" forState:UIControlStateNormal];
     button.tag = 1300;
     [button addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
     [levelBaseView addSubview:button];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, levelBaseView.frame.size.width, 80)];
-    label.backgroundColor = [UIColor colorWithRed:0.6 green:0.69 blue:0.4 alpha:1.0];
+    label.backgroundColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:1.0];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = @"关卡选择";
+    label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:24];
     label.tag = 1400;
     [levelBaseView addSubview:label];

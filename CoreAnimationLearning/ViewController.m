@@ -44,18 +44,25 @@
 }
 
 -(void)addSubViews{
+    UIImage *manuBackground = [UIImage imageNamed:@"manu_background.png"];
+    self.view.layer.contents = (__bridge id)(manuBackground.CGImage);
+    
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-radius*7/2, 50, radius*7, radius*3)];
     imageView.image = [UIImage imageNamed:@"image_title.png"];
     imageView.layer.cornerRadius = 10.0;
     imageView.layer.masksToBounds = YES;
     imageView.backgroundColor = [UIColor clearColor];
-    UIButton *beginPlayButton = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2-radius*2, imageView.frame.origin.y+imageView.frame.size.height+radius, radius*4, radius*1.5)];
+    UIButton *beginPlayButton = [[UIButton alloc] initWithFrame:CGRectMake(-self.view.frame.size.width, imageView.frame.origin.y+imageView.frame.size.height+radius, radius*4, radius*1.5)];
     [beginPlayButton setImage:[UIImage imageNamed:@"image_begin.png"] forState:UIControlStateNormal];
-    [self beginAnimation:beginPlayButton];
     beginPlayButton.backgroundColor = [UIColor clearColor];
     [beginPlayButton addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:imageView];
     [self.view addSubview:beginPlayButton];
+    [UIView animateWithDuration:1.0 animations:^{
+        beginPlayButton.frame = CGRectMake(self.view.frame.size.width/2-radius*2, imageView.frame.origin.y+imageView.frame.size.height+radius, radius*4, radius*1.5);
+    } completion:^(BOOL isFinish){
+        [self beginAnimation:beginPlayButton];
+    }];
     
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(circleX, circleY + radius*2.5, radius*2, 40)];
     self.label.textColor = [UIColor colorWithRed:0.3 green:0.2 blue:0.62 alpha:1.0];
@@ -144,7 +151,7 @@
         [self.theAnimator removeAllBehaviors];
         [self initAnimatorAndGravity];
         [self dropBall];
-        [UIView animateWithDuration:1.0 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             self.label.alpha = 1.0;
         }];
     }else{
@@ -158,7 +165,7 @@
             }];
             [self.theAnimator addBehavior:snapBehavior];
         }
-        [UIView animateWithDuration:1.0 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             self.label.alpha = 0.0;
         }];
     }
@@ -198,7 +205,7 @@
     NSArray *arrayViews = self.arrayButtons;
     [self.gravityBehaviour setAction:^{
         for (UIView *ballView in arrayViews) {
-            if (ballView.frame.origin.y <= circleY + radius*2) {
+            if (ballView.frame.origin.y <= circleY + radius*4) {
                 UISnapBehavior *snapBehavior = [[UISnapBehavior alloc] initWithItem:ballView
                                                                         snapToPoint:CGPointMake([controller getPositionXFor:(ballView.tag-1000) * M_PI / 3], [controller getPositionYFor:(ballView.tag-1000) * M_PI / 3])];
                 [snapBehavior setAction:^{
