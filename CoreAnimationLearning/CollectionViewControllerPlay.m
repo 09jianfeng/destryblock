@@ -251,16 +251,17 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 //被拆的动画效果
--(void)beginActionAnimatorBehavior:(SpriteUIView *)sprite{
-    //给个斜着向上的速度
-    [sprite generatePushBehavior];
-    int randy = arc4random()%pushNomalcount;
-    int randx = arc4random()%(pushNomalcount*2) - pushNomalcount;
-    [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
-    sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
-    [self.animator addBehavior:sprite.pushBehavior];
-    
-    [self.gravity addItem:sprite];
+-(void)beginActionAnimatorBehavior:(NSMutableArray *)arraySprites{
+    for(SpriteUIView *sprite in arraySprites){
+        //给个斜着向上的速度
+        [sprite generatePushBehavior];
+        int randy = arc4random()%pushNomalcount;
+        int randx = arc4random()%(pushNomalcount*2) - pushNomalcount;
+        [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
+        sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
+        [self.animator addBehavior:sprite.pushBehavior];
+        [self.gravity addItem:sprite];
+    }
     
     __weak UIGravityBehavior *gravity = self.gravity;
     //当物体离开了屏幕范围要移除掉，以免占用cpu资源
@@ -268,10 +269,14 @@ static NSString * const reuseIdentifier = @"Cell";
     CGRect rect = self.view.bounds;
     self.gravity.action = ^{
         NSArray* items = [anim itemsInRect:rect];
-        if (NSNotFound == [items indexOfObject:sprite]) {
-            [anim removeBehavior:sprite.pushBehavior];
-            [gravity removeItem:sprite];
-            [sprite removeFromSuperview];
+        for(SpriteUIView *sprite2 in arraySprites){
+            if (NSNotFound == [items indexOfObject:sprite2] && [sprite2 superview]) {
+                [sprite2.pushBehavior removeItem:sprite2];
+                [anim removeBehavior:sprite2.pushBehavior];
+                [gravity removeItem:sprite2];
+                [sprite2 removeFromSuperview];
+                [sprite2 setTimeInvilade];
+            }
         }
     };
 }
@@ -364,6 +369,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     
     int spritesNumShouldDrop = 0;
+    NSMutableArray *mutArraySprites = [[NSMutableArray alloc] init];
     for (NSNumber *num in arrayshouldRemoveIndexpath) {
         int indexpathrow = [num intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
@@ -375,9 +381,10 @@ static NSString * const reuseIdentifier = @"Cell";
             [sprite removeFromSuperview];
             sprite.frame = rect;
             [self.view addSubview:sprite];
-            [self beginActionAnimatorBehavior:sprite];
+            [mutArraySprites addObject:sprite];
         }
     }
+    [self beginActionAnimatorBehavior:mutArraySprites];
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];

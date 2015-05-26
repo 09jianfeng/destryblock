@@ -11,4 +11,5 @@
 @interface SpriteUIView : UIView
 @property(nonatomic, retain)UIPushBehavior *pushBehavior;
 -(void)generatePushBehavior;
+-(void)setTimeInvilade;
 @end

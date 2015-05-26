@@ -271,7 +271,7 @@
 #pragma mark -
 #pragma mark 动画
 -(void)beginAnimation:(UIButton *)bt{
-    //1.绕中心圆移动 Circle move   没用先
+    //1.绕中心圆移动 Circle move   没添加进去先
     CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
     pathAnimation.calculationMode = kCAAnimationPaced;
     pathAnimation.fillMode = kCAFillModeForwards;
