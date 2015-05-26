@@ -261,13 +261,16 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.animator addBehavior:sprite.pushBehavior];
     
     [self.gravity addItem:sprite];
+    
+    __weak UIGravityBehavior *gravity = self.gravity;
     //当物体离开了屏幕范围要移除掉，以免占用cpu资源
-    UIDynamicAnimator *anim = self.animator;
+    __weak UIDynamicAnimator *anim = self.animator;
     CGRect rect = self.view.bounds;
     self.gravity.action = ^{
         NSArray* items = [anim itemsInRect:rect];
         if (NSNotFound == [items indexOfObject:sprite]) {
             [anim removeBehavior:sprite.pushBehavior];
+            [gravity removeItem:sprite];
             [sprite removeFromSuperview];
         }
     };
@@ -350,7 +353,7 @@ static NSString * const reuseIdentifier = @"Cell";
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
         UIView *pointsImageView = [[UIView alloc]initWithFrame:cell.bounds];
         pointsImageView.layer.contents = (__bridge id)([UIImage imageNamed:@"back_point.png"].CGImage);
-        pointsImageView.alpha = 1.0;
+        pointsImageView.alpha = 0.5;
         [cell addSubview:pointsImageView];
         [UIView animateWithDuration:0.3 animations:^{
             pointsImageView.alpha = 0.0;
