@@ -10,7 +10,6 @@
 
 @interface SpriteUIView()
 @property(nonatomic, retain) NSTimer * timer;
-@property(nonatomic, retain) NSMutableArray *scaleLayers;
 @end
 
 @implementation SpriteUIView
@@ -37,7 +36,7 @@
     scaleAnimation.autoreverses = NO;
     scaleAnimation.fillMode = kCAFillModeForwards;
     scaleAnimation.repeatCount = 0;
-    scaleAnimation.duration = 0.5;
+    scaleAnimation.duration = 0.3;
     scaleAnimation.delegate = self;
     scaleAnimation.removedOnCompletion = NO;
     [scaleAnimation setValue:scaleLayer forKey:@"MyScaleLayerType"];
@@ -67,5 +66,6 @@
 -(void)dealloc{
     [self.timer invalidate];
     self.timer = nil;
+    self.pushBehavior = nil;
 }
 @end

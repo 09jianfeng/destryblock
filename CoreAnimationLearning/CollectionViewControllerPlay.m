@@ -19,7 +19,6 @@
    int seconde;
    int pushNomalcount;
    int magnitude;
-
 }
 
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -31,6 +30,7 @@
 @property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) UILabel *labelPoints;
 @property(nonatomic, assign) int Allpoints;
+@property(nonatomic, strong) NSMutableArray *mutArraySprites;
 @end
 
 @implementation CollectionViewControllerPlay
@@ -48,6 +48,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)dealloc{
+    self.mutArraySprites = nil;
     self.audioplayerCorrect = nil;
     self.audioplayerError = nil;
     self.gameAlgorithm = nil;
@@ -251,8 +252,12 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 //被拆的动画效果
--(void)beginActionAnimatorBehavior:(NSMutableArray *)arraySprites{
+-(void)beginActionAnimatorBehavior:(__weak NSMutableArray *)arraySprites{
     for(SpriteUIView *sprite in arraySprites){
+        if (sprite.pushBehavior) {
+            continue;
+        }
+        
         //给个斜着向上的速度
         [sprite generatePushBehavior];
         int randy = arc4random()%pushNomalcount;
@@ -369,7 +374,9 @@ static NSString * const reuseIdentifier = @"Cell";
     
     
     int spritesNumShouldDrop = 0;
-    NSMutableArray *mutArraySprites = [[NSMutableArray alloc] init];
+    if (!self.mutArraySprites) {
+        self.mutArraySprites = [[NSMutableArray alloc] init];
+    }
     for (NSNumber *num in arrayshouldRemoveIndexpath) {
         int indexpathrow = [num intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
@@ -381,10 +388,10 @@ static NSString * const reuseIdentifier = @"Cell";
             [sprite removeFromSuperview];
             sprite.frame = rect;
             [self.view addSubview:sprite];
-            [mutArraySprites addObject:sprite];
+            [self.mutArraySprites addObject:sprite];
         }
     }
-    [self beginActionAnimatorBehavior:mutArraySprites];
+    [self beginActionAnimatorBehavior:self.mutArraySprites];
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];
