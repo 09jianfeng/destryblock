@@ -13,6 +13,8 @@ NSString *levelinfo = @"levelinfoInkeyvalue";
 NSString *levelinfoScore = @"levelinfoScore";
 NSString *levelinfoTime = @"levelinfotime";
 NSString *levelinfoStarNum = @"levelinfoStarNum";
+NSString *levelinfoWidthNum = @"levelinfoWidthNum";
+NSString *levelinfoColorNum = @"levelinfoColorNum";
 
 @interface LevelAndUserInfo()
 @property(nonatomic,retain) NSMutableArray *arrayLevelInfos;
@@ -20,7 +22,7 @@ NSString *levelinfoStarNum = @"levelinfoStarNum";
 
 @implementation LevelAndUserInfo
 
-static int  levelAllNum=90;
+static int  levelAllNum=45;
 
 +(id)shareInstance{
     static LevelAndUserInfo *level = nil;
@@ -48,9 +50,15 @@ static int  levelAllNum=90;
     
     mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
-        int time = 60 - levelAllNum%10;
+        int time = 60 - i%5;
+        int widthNum = 7 + i%5;
+        int colorNum = 3 + i/5;
+        
         NSString *timeString = [NSString stringWithFormat:@"%d",time];
-        NSDictionary *leveldic = [NSDictionary dictionaryWithObjectsAndKeys:@"0",levelinfoScore,@"0",levelinfoStarNum,timeString,levelinfoTime, nil];
+        NSString *widthNumString = [NSString stringWithFormat:@"%d",widthNum];
+        NSString *colorNumString = [NSString stringWithFormat:@"%d",colorNum];
+        
+        NSDictionary *leveldic = [NSDictionary dictionaryWithObjectsAndKeys:@"0",levelinfoScore,@"0",levelinfoStarNum,timeString,levelinfoTime,widthNumString,levelinfoWidthNum,colorNumString,levelinfoColorNum,nil];
         [mutArrayLevels addObject:leveldic];
     }
     

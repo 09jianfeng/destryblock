@@ -15,6 +15,8 @@ extern NSString *levelinfo;
 extern NSString *levelinfoScore;
 extern NSString *levelinfoTime;
 extern NSString *levelinfoStarNum;
+extern NSString *levelinfoWidthNum;
+extern NSString *levelinfoColorNum;
 
 @interface LevelDialogView()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 @property(nonatomic, retain) UIDynamicAnimator *theAnimator;
@@ -234,23 +236,28 @@ extern NSString *levelinfoStarNum;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-    collecPlay.gameInitTypeNum += (int)indexPath.row;
     collecPlay.view.backgroundColor = [UIColor whiteColor];
     collecPlay.collectionView.backgroundColor = [UIColor whiteColor];
     NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:indexPath.row];
+    //每一关的参数设置
     int timeLimit = [[dicLevels objectForKey:levelinfoTime] intValue];
+    int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];
+    int colorNum = [[dicLevels objectForKey:levelinfoColorNum] intValue];
+    
     collecPlay.timeLimit = timeLimit;
     collecPlay.gameLevelIndex = (int)indexPath.row;
+    collecPlay.widthNum = widthNum;
+    collecPlay.gameInitTypeNum = colorNum;
     
     [self.viewController addChildViewController:collecPlay];
     [self.viewController.view addSubview:collecPlay.view];
     
-    [self.theAnimator removeAllBehaviors];
-    UIView *levelBaseView = (UIView *)[self viewWithTag:1000];
-    [UIView animateWithDuration:0.3 animations:^{
-        levelBaseView.frame = CGRectMake(levelBaseView.frame.origin.x, -levelBaseView.frame.size.height, levelBaseView.frame.size.width, levelBaseView.frame.size.height);
-    } completion:^(BOOL isfinish){
-        [self removeFromSuperview];
-    }];
+//    [self.theAnimator removeAllBehaviors];
+//    UIView *levelBaseView = (UIView *)[self viewWithTag:1000];
+//    [UIView animateWithDuration:0.3 animations:^{
+//        levelBaseView.frame = CGRectMake(levelBaseView.frame.origin.x, -levelBaseView.frame.size.height, levelBaseView.frame.size.width, levelBaseView.frame.size.height);
+//    } completion:^(BOOL isfinish){
+//        [self removeFromSuperview];
+//    }];
 }
 @end

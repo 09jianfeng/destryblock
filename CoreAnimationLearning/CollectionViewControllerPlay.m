@@ -17,7 +17,9 @@
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
 {
    int seconde;
+   //跟推力有关
    int pushNomalcount;
+   //重力
    int magnitude;
 }
 
@@ -83,7 +85,7 @@ static NSString * const reuseIdentifier = @"Cell";
     int processHeight = 20;
     //如果是ipad 横向右13.0个方块
     if (IsPadUIBlockGame()) {
-        _widthNum = 13.0;
+        _widthNum +=2;
         pushNomalcount *=7;
         magnitude = 3;
         processHeight = 40;
@@ -160,7 +162,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)endTheGame{
     [self.timer invalidate];
     NSString *message = @"";
-    if (self.Allpoints > [_gameAlgorithm getAllValueBlockNum]) {
+    if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
         message = [NSString stringWithFormat:@"恭喜过关\n您的总分是：%d",self.Allpoints];
     }else{

@@ -13,6 +13,7 @@
 #import "BallView.h"
 #import "LevelDialogView.h"
 #import "SystemInfo.h"
+#import "WebViewGifPlayer.h"
 
 @interface ViewController (){
     float radius;
@@ -72,6 +73,12 @@
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
     [self addCircle];
+    
+    WebViewGifPlayer *gifPlayer = [[WebViewGifPlayer alloc] initWithFrame:CGRectMake(circleX, circleY - radius*4, 200, 200)];
+    [gifPlayer beginPlayGifWithPath:[[NSBundle mainBundle] pathForResource:@"hudie" ofType:@"gif"]];
+    [self.view addSubview:gifPlayer];
+    self.view.backgroundColor = [UIColor clearColor];
+    gifPlayer.transform = CGAffineTransformMakeScale(0.3, 0.3);
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -313,5 +320,4 @@
     //开演
     [bt.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
 }
-
 @end
