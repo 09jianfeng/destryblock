@@ -61,6 +61,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIImage *backImage = [UIImage imageNamed:@"playing_background"];
+    self.collectionView.layer.contents = (__bridge id)(backImage.CGImage);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -301,21 +303,22 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (indexPath.row%2) {
         if (!_noBackgroundImage) {
-            UIImage *imageBlack = [UIImage imageNamed:@"backgroundwhite.png"];
+            UIImage *imageBlack = [UIImage imageNamed:@"playing_cellbackground"];
             cell.layer.contents = (__bridge id)(imageBlack.CGImage);
+//            cell.backgroundColor = [UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:0.5];
         }
         
     }else{
         if (!_noBackgroundImage) {
-            UIImage *imageBlack = [UIImage imageNamed:@"background.png"];
+            UIImage *imageBlack = [UIImage imageNamed:@"playing_cellbackground"];
             cell.layer.contents = (__bridge id)(imageBlack.CGImage);
+//            cell.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
         }
     }
     
-    cell.layer.borderColor = [UIColor blackColor].CGColor;
     SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
     if (!sprite) {
-        sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(1.0, 1.0, cell.frame.size.width - 2, cell.frame.size.height - 2)];
+        sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
         [cell addSubview:sprite];
         sprite.tag = 1001;
     }
