@@ -17,6 +17,7 @@ extern NSString *levelinfoTime;
 extern NSString *levelinfoStarNum;
 extern NSString *levelinfoWidthNum;
 extern NSString *levelinfoColorNum;
+extern NSString *playingViewExitNotification;
 
 @interface LevelDialogView()<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UICollectionViewDelegate>
 @property(nonatomic, retain) UIDynamicAnimator *theAnimator;
@@ -34,12 +35,14 @@ extern NSString *levelinfoColorNum;
     self = [super initWithFrame:frame];
     if (self) {
         [self initAndAddOtherSubview];
-        _arrayGuanka = [LevelAndUserInfo levelInfos];
+        _arrayGuanka = [[LevelAndUserInfo shareInstance] arrayLevelInfos];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playingViewExitNotification:) name:playingViewExitNotification object:nil];
     }
     return self;
 }
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:playingViewExitNotification];
     [self.theAnimator removeAllBehaviors];
     self.theAnimator = nil;
 }
@@ -251,13 +254,11 @@ extern NSString *levelinfoColorNum;
     
     [self.viewController addChildViewController:collecPlay];
     [self.viewController.view addSubview:collecPlay.view];
-    
-//    [self.theAnimator removeAllBehaviors];
-//    UIView *levelBaseView = (UIView *)[self viewWithTag:1000];
-//    [UIView animateWithDuration:0.3 animations:^{
-//        levelBaseView.frame = CGRectMake(levelBaseView.frame.origin.x, -levelBaseView.frame.size.height, levelBaseView.frame.size.width, levelBaseView.frame.size.height);
-//    } completion:^(BOOL isfinish){
-//        [self removeFromSuperview];
-//    }];
+}
+
+#pragma mark - notification
+-(void)playingViewExitNotification:(id)sender{
+    UIScrollView *scrollview = (UIScrollView *)[self viewWithTag:1100];
+    [self scrollViewDidEndDecelerating:scrollview];
 }
 @end

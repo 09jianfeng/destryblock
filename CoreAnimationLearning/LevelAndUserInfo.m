@@ -17,7 +17,6 @@ NSString *levelinfoWidthNum = @"levelinfoWidthNum";
 NSString *levelinfoColorNum = @"levelinfoColorNum";
 
 @interface LevelAndUserInfo()
-@property(nonatomic,retain) NSMutableArray *arrayLevelInfos;
 @end
 
 @implementation LevelAndUserInfo
@@ -68,7 +67,12 @@ static int  levelAllNum=45;
 
 //通过这关
 +(void)passLevel:(int)levelIndex points:(int)points startNum:(int)startNum{
-    NSDictionary *diclevelinfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",points],levelinfoScore,[NSString stringWithFormat:@"%d",startNum],levelinfoStarNum,@"60",levelinfoTime, nil];
+    NSDictionary *diclevelinfopre =[[[LevelAndUserInfo shareInstance] arrayLevelInfos] objectAtIndex:levelIndex];
+    NSString *time = [diclevelinfopre objectForKey:levelinfoTime];
+    NSString *width = [diclevelinfopre objectForKey:levelinfoWidthNum];
+    NSString *colorNum = [diclevelinfopre objectForKey:levelinfoColorNum];
+    
+    NSDictionary *diclevelinfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",points],levelinfoScore,[NSString stringWithFormat:@"%d",startNum],levelinfoStarNum,time,levelinfoTime,width,levelinfoWidthNum,colorNum,levelinfoColorNum,nil];
     [[[LevelAndUserInfo shareInstance] arrayLevelInfos] setObject:diclevelinfo atIndexedSubscript:levelIndex];
     [GameKeyValue setObject:[[LevelAndUserInfo shareInstance] arrayLevelInfos] forKey:levelinfo];
 }

@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface LevelAndUserInfo : NSObject
+@property(nonatomic,retain) NSMutableArray *arrayLevelInfos;
++(id)shareInstance;
+
 //每一关需要的时间
 +(NSArray *)levelInfos;
 //通过这关

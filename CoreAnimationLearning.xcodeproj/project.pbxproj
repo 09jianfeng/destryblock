@@ -37,6 +37,9 @@
 		782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782B1F891AE35B450051D053 /* Images.xcassets */; };
 		782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782B1F8B1AE35B450051D053 /* LaunchScreen.xib */; };
 		782B1F991AE35B450051D053 /* CoreAnimationLearningTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F981AE35B450051D053 /* CoreAnimationLearningTests.m */; };
+		7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */; };
+		783501121B15D04300830DAE /* muban.png in Resources */ = {isa = PBXBuildFile; fileRef = 783501101B15D04300830DAE /* muban.png */; };
+		783501131B15D04300830DAE /* rope.png in Resources */ = {isa = PBXBuildFile; fileRef = 783501111B15D04300830DAE /* rope.png */; };
 		7836C7DD1AF3CE8D00E4AFAB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7836C7DC1AF3CE8D00E4AFAB /* Accelerate.framework */; };
 		7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */; };
 		7844B7111AEB243D006DE282 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 7844B70F1AEB243D006DE282 /* background.png */; };
@@ -124,6 +127,10 @@
 		782B1F921AE35B450051D053 /* CoreAnimationLearningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreAnimationLearningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		782B1F971AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F981AE35B450051D053 /* CoreAnimationLearningTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreAnimationLearningTests.m; sourceTree = "<group>"; };
+		7835010D1B15C2CE00830DAE /* UIViewFinishPlayAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewFinishPlayAlert.h; sourceTree = "<group>"; };
+		7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewFinishPlayAlert.m; sourceTree = "<group>"; };
+		783501101B15D04300830DAE /* muban.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = muban.png; sourceTree = "<group>"; };
+		783501111B15D04300830DAE /* rope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rope.png; sourceTree = "<group>"; };
 		7836C7DC1AF3CE8D00E4AFAB /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewControllerPlay.h; sourceTree = "<group>"; };
 		7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewControllerPlay.m; sourceTree = "<group>"; };
@@ -212,13 +219,8 @@
 		781FA81C1AED21510048B337 /* playing */ = {
 			isa = PBXGroup;
 			children = (
+				7835010C1B15C27500830DAE /* view */,
 				7844B7201AEB313C006DE282 /* model */,
-				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
-				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
-				781FA8191AED17C50048B337 /* SpriteUIView.h */,
-				781FA81A1AED17C50048B337 /* SpriteUIView.m */,
-				781FA81D1AED2FB60048B337 /* ProGressView.h */,
-				781FA81E1AED2FB60048B337 /* ProGressView.m */,
 			);
 			name = playing;
 			sourceTree = "<group>";
@@ -288,9 +290,26 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7835010C1B15C27500830DAE /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
+				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
+				781FA8191AED17C50048B337 /* SpriteUIView.h */,
+				781FA81A1AED17C50048B337 /* SpriteUIView.m */,
+				781FA81D1AED2FB60048B337 /* ProGressView.h */,
+				781FA81E1AED2FB60048B337 /* ProGressView.m */,
+				7835010D1B15C2CE00830DAE /* UIViewFinishPlayAlert.h */,
+				7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		7844B70E1AEB233F006DE282 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				783501101B15D04300830DAE /* muban.png */,
+				783501111B15D04300830DAE /* rope.png */,
 				78E582551B15AEDA000BD23C /* chan.gif */,
 				78E582561B15AEDA000BD23C /* dragonfly.gif */,
 				78E582571B15AEDA000BD23C /* hudie.gif */,
@@ -424,6 +443,7 @@
 				TargetAttributes = {
 					782B1F781AE35B450051D053 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 9467L372QD;
 					};
 					782B1F911AE35B450051D053 = {
 						CreatedOnToolsVersion = 6.3;
@@ -462,6 +482,7 @@
 				780E175B1AEE4CEF007A4A88 /* 8.png in Resources */,
 				780E175C1AEE4CEF007A4A88 /* 9.png in Resources */,
 				780E17571AEE4CEF007A4A88 /* 4.png in Resources */,
+				783501131B15D04300830DAE /* rope.png in Resources */,
 				78E582591B15AEDA000BD23C /* chan.gif in Resources */,
 				78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */,
 				78CC36251AF4720B00033213 /* circlebutton_6.png in Resources */,
@@ -493,6 +514,7 @@
 				78E50D661B14AE1600ECBACE /* playing_cellbackground.png in Resources */,
 				78CC362D1AF6105600033213 /* guankaopen.png in Resources */,
 				78CC36211AF4720B00033213 /* circlebutton_2.png in Resources */,
+				783501121B15D04300830DAE /* muban.png in Resources */,
 				78CC36241AF4720B00033213 /* circlebutton_5.png in Resources */,
 				78CC36221AF4720B00033213 /* circlebutton_3.png in Resources */,
 				7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */,
@@ -528,6 +550,7 @@
 				78E582541B15ABD0000BD23C /* WebViewGifPlayer.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
+				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
 				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
 				78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */,
 			);
@@ -658,10 +681,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CoreAnimationLearning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -671,10 +696,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CoreAnimationLearning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

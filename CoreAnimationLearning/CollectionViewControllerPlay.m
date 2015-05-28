@@ -13,6 +13,9 @@
 #import "ProGressView.h"
 #import "SystemInfo.h"
 #import "LevelAndUserInfo.h"
+#import "UIViewFinishPlayAlert.h"
+
+NSString *playingViewExitNotification = @"playingViewExitNotification";
 
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
 {
@@ -152,9 +155,12 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)buttonStopPressed:(id)sender{
     [self.timer invalidate];
-    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"是否要退出" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:@"继续", nil];
-    alertview.tag = 2000;
-    [alertview show];
+//    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"是否要退出" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:@"继续", nil];
+//    alertview.tag = 2000;
+//    [alertview show];
+    UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:finish];
+    [finish showView];
 }
 
 #pragma mark -
@@ -425,6 +431,7 @@ static NSString * const reuseIdentifier = @"Cell";
     }else if(buttonIndex == 0){
         [self.view removeFromSuperview];
         [self removeFromParentViewController];
+        [[NSNotificationCenter defaultCenter] postNotificationName:playingViewExitNotification object:nil userInfo:nil];
     }
 }
 @end

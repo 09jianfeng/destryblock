@@ -24,7 +24,7 @@
 //    scaleLayer.backgroundColor = [UIColor blueColor].CGColor;
     scaleLayer.contents = self.layer.contents;
     scaleLayer.opacity = 0.8;
-    scaleLayer.frame = self.frame;
+    scaleLayer.frame = CGRectMake(self.frame.origin.x + self.frame.size.width/4, self.frame.origin.y, self.frame.size.width/2, self.frame.size.height/2);
     scaleLayer.cornerRadius = 10;
     [self.superview.layer addSublayer:scaleLayer];
     
