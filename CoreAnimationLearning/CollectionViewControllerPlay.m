@@ -31,6 +31,7 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 @property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) UILabel *labelPoints;
 @property(nonatomic, assign) int Allpoints;
+//mutArraySprites 存储正在动的sprites
 @property(nonatomic, strong) NSMutableArray *mutArraySprites;
 @end
 
@@ -267,12 +268,15 @@ static NSString * const reuseIdentifier = @"Cell";
     CGRect rect = self.view.bounds;
     self.gravity.action = ^{
         NSArray* items = [anim itemsInRect:rect];
-        for(SpriteUIView *sprite2 in arraySprites){
+        for(int i = 0;i < arraySprites.count;i++){
+            SpriteUIView *sprite2 = [arraySprites objectAtIndex:i];
             if (NSNotFound == [items indexOfObject:sprite2] && [sprite2 superview]) {
                 [sprite2 removeBehaviorWithAnimator:anim];
                 [gravity removeItem:sprite2];
                 [sprite2 removeFromSuperview];
                 [sprite2 setTimeInvilade];
+                [arraySprites removeObjectAtIndex:i];
+                i--;
             }
         }
     };
@@ -295,28 +299,27 @@ static NSString * const reuseIdentifier = @"Cell";
         if (!_noBackgroundImage) {
             UIImage *imageBlack = [UIImage imageNamed:@"playing_cellbackground"];
             cell.layer.contents = (__bridge id)(imageBlack.CGImage);
-//            cell.backgroundColor = [UIColor colorWithRed:0.05 green:0.05 blue:0.05 alpha:0.5];
         }
         
     }else{
         if (!_noBackgroundImage) {
             UIImage *imageBlack = [UIImage imageNamed:@"playing_cellbackground"];
             cell.layer.contents = (__bridge id)(imageBlack.CGImage);
-//            cell.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.5];
         }
-    }
-    
-    SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
-    if (!sprite) {
-        sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
-        [cell addSubview:sprite];
-        sprite.tag = 1001;
     }
     
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
     UIImage *color = [self getColorInColorType:colorType];
-    sprite.layer.contents = (__bridge id)(color.CGImage);
+    if (color) {
+        SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
+        if (!sprite) {
+            sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
+            [cell addSubview:sprite];
+            sprite.tag = 1001;
+        }
+        sprite.layer.contents = (__bridge id)(color.CGImage);
+    }
     
     return cell;
 }

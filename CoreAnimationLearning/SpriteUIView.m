@@ -13,6 +13,13 @@
 @end
 
 @implementation SpriteUIView
+-(id)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+    }
+    return self;
+}
+
 -(void)generateBehaviorAndAdd:(UIDynamicAnimator *)animator{
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self] mode:UIPushBehaviorModeInstantaneous];
     self.itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self]];
@@ -49,7 +56,6 @@
 -(void)timerResponder:(id)sender{
     //演员初始化
     CALayer* scaleLayer = [[CALayer alloc] init];
-//    scaleLayer.backgroundColor = [UIColor blueColor].CGColor;
     scaleLayer.contents = self.layer.contents;
     scaleLayer.opacity = 0.8;
     scaleLayer.frame = CGRectMake(self.frame.origin.x + self.frame.size.width/4, self.frame.origin.y, self.frame.size.width/2, self.frame.size.height/2);
@@ -65,6 +71,7 @@
     scaleAnimation.fillMode = kCAFillModeForwards;
     scaleAnimation.repeatCount = 0;
     scaleAnimation.duration = 0.3;
+    //这个delegate会让self的retainCount加1
     scaleAnimation.delegate = self;
     scaleAnimation.removedOnCompletion = NO;
     [scaleAnimation setValue:scaleLayer forKey:@"MyScaleLayerType"];
@@ -82,6 +89,8 @@
     if (flag) {
         CALayer *layer = [anim valueForKey:@"MyScaleLayerType"];
         if (layer) {
+            //这里必须要removeAnimation，才能令self的retain减一
+            [layer removeAllAnimations];
             [layer removeFromSuperlayer];
         }
     }
