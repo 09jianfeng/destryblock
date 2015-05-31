@@ -7,6 +7,7 @@
 //
 
 #import "SpriteUIView.h"
+#import "macro.h"
 
 @interface SpriteUIView()
 @property(nonatomic, retain) NSTimer * timer;
@@ -101,6 +102,7 @@
 }
 
 -(void)dealloc{
+    HNLOGINFO(@"shifang");
     [self.timer invalidate];
     self.timer = nil;
     self.pushBehavior = nil;

@@ -36,13 +36,13 @@ extern NSString *playingViewExitNotification;
     if (self) {
         [self initAndAddOtherSubview];
         _arrayGuanka = [[LevelAndUserInfo shareInstance] arrayLevelInfos];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playingViewExitNotification:) name:playingViewExitNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(playingViewExitNotificationResponse:) name:playingViewExitNotification object:nil];
     }
     return self;
 }
 
 -(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:playingViewExitNotification];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:playingViewExitNotification object:nil];
     [self.theAnimator removeAllBehaviors];
     self.theAnimator = nil;
 }
@@ -257,7 +257,7 @@ extern NSString *playingViewExitNotification;
 }
 
 #pragma mark - notification
--(void)playingViewExitNotification:(id)sender{
+-(void)playingViewExitNotificationResponse:(id)sender{
     UIScrollView *scrollview = (UIScrollView *)[self viewWithTag:1100];
     [self scrollViewDidEndDecelerating:scrollview];
 }

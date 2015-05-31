@@ -63,6 +63,7 @@
 		78CC362D1AF6105600033213 /* guankaopen.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC362B1AF6105600033213 /* guankaopen.png */; };
 		78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC362F1AF673AA00033213 /* GameKeyValue.m */; };
 		78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC36681AF7C16100033213 /* LevelAndUserInfo.m */; };
+		78E260931B1AEBA600EB9F3E /* GameResultData.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E260921B1AEBA600EB9F3E /* GameResultData.m */; };
 		78E50D661B14AE1600ECBACE /* playing_cellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E50D651B14AE1600ECBACE /* playing_cellbackground.png */; };
 		78E582541B15ABD0000BD23C /* WebViewGifPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E582531B15ABD0000BD23C /* WebViewGifPlayer.m */; };
 		78E582591B15AEDA000BD23C /* chan.gif in Resources */ = {isa = PBXBuildFile; fileRef = 78E582551B15AEDA000BD23C /* chan.gif */; };
@@ -159,6 +160,9 @@
 		78CC362F1AF673AA00033213 /* GameKeyValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKeyValue.m; sourceTree = "<group>"; };
 		78CC36671AF7C16100033213 /* LevelAndUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelAndUserInfo.h; sourceTree = "<group>"; };
 		78CC36681AF7C16100033213 /* LevelAndUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelAndUserInfo.m; sourceTree = "<group>"; };
+		78E260901B1ACB5D00EB9F3E /* macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macro.h; sourceTree = "<group>"; };
+		78E260911B1AEBA600EB9F3E /* GameResultData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultData.h; sourceTree = "<group>"; };
+		78E260921B1AEBA600EB9F3E /* GameResultData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameResultData.m; sourceTree = "<group>"; };
 		78E50D651B14AE1600ECBACE /* playing_cellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playing_cellbackground.png; sourceTree = "<group>"; };
 		78E582521B15ABD0000BD23C /* WebViewGifPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewGifPlayer.h; sourceTree = "<group>"; };
 		78E582531B15ABD0000BD23C /* WebViewGifPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewGifPlayer.m; sourceTree = "<group>"; };
@@ -204,6 +208,7 @@
 		780E17631AEE7D64007A4A88 /* systemInfoAndStorage */ = {
 			isa = PBXGroup;
 			children = (
+				78E260901B1ACB5D00EB9F3E /* macro.h */,
 				78CC362E1AF673AA00033213 /* GameKeyValue.h */,
 				78CC362F1AF673AA00033213 /* GameKeyValue.m */,
 				780E17601AEE7D52007A4A88 /* SystemInfo.h */,
@@ -393,6 +398,8 @@
 		78E2608D1B1A946500EB9F3E /* model */ = {
 			isa = PBXGroup;
 			children = (
+				78E260911B1AEBA600EB9F3E /* GameResultData.h */,
+				78E260921B1AEBA600EB9F3E /* GameResultData.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -584,6 +591,7 @@
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
 				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
 				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
+				78E260931B1AEBA600EB9F3E /* GameResultData.m in Sources */,
 				78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,6 +14,7 @@
 #import "SystemInfo.h"
 #import "LevelAndUserInfo.h"
 #import "UIViewFinishPlayAlert.h"
+#import "GameResultData.h"
 
 NSString *playingViewExitNotification = @"playingViewExitNotification";
 
@@ -156,6 +157,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)endTheGame{
     [self.timer invalidate];
     NSString *message = @"";
+    [GameResultData gameResultAddBrockenBlocks:self.Allpoints];
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
         message = [NSString stringWithFormat:@"恭喜过关\n您的总分是：%d",self.Allpoints];
@@ -419,6 +421,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)exitTheGame{
+    [GameResultData gameResultAddBrockenBlocks:self.Allpoints];
     [self.view removeFromSuperview];
     [self removeFromParentViewController];
     [[NSNotificationCenter defaultCenter] postNotificationName:playingViewExitNotification object:nil userInfo:nil];
