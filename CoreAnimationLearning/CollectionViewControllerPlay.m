@@ -313,14 +313,17 @@ static NSString * const reuseIdentifier = @"Cell";
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
     UIImage *color = [self getColorInColorType:colorType];
+    SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
     if (color) {
-        SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
         if (!sprite) {
             sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
             [cell addSubview:sprite];
             sprite.tag = 1001;
         }
         sprite.layer.contents = (__bridge id)(color.CGImage);
+    }
+    else if(sprite){
+        [sprite removeFromSuperview];
     }
     
     return cell;
