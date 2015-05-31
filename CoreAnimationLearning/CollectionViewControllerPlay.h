@@ -19,4 +19,6 @@
 @property(nonatomic, assign) float timeLimit;
 //第几关。用来获取过关的分数
 @property(nonatomic, assign) int gameLevelIndex;
+
+-(void)exitTheGame;
 @end

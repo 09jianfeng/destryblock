@@ -195,12 +195,8 @@
 		78045D731AF212B700B5A169 /* levelscene */ = {
 			isa = PBXGroup;
 			children = (
-				78CC36661AF7C0C500033213 /* pointsandlevel */,
-				78045D6B1AF1D52400B5A169 /* LevelDialogView.h */,
-				78045D6C1AF1D52400B5A169 /* LevelDialogView.m */,
-				78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */,
-				78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */,
-				78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */,
+				78E2608C1B1A943A00EB9F3E /* view */,
+				78CC36661AF7C0C500033213 /* model */,
 			);
 			name = levelscene;
 			sourceTree = "<group>";
@@ -366,30 +362,66 @@
 		7844B7211AEB3154006DE282 /* manu */ = {
 			isa = PBXGroup;
 			children = (
+				78E2608F1B1A948B00EB9F3E /* controller */,
 				78E582511B15AB47000BD23C /* mainscene */,
 				78045D731AF212B700B5A169 /* levelscene */,
 			);
 			name = manu;
 			sourceTree = "<group>";
 		};
-		78CC36661AF7C0C500033213 /* pointsandlevel */ = {
+		78CC36661AF7C0C500033213 /* model */ = {
 			isa = PBXGroup;
 			children = (
 				78CC36671AF7C16100033213 /* LevelAndUserInfo.h */,
 				78CC36681AF7C16100033213 /* LevelAndUserInfo.m */,
 			);
-			name = pointsandlevel;
+			name = model;
 			sourceTree = "<group>";
 		};
-		78E582511B15AB47000BD23C /* mainscene */ = {
+		78E2608C1B1A943A00EB9F3E /* view */ = {
+			isa = PBXGroup;
+			children = (
+				78045D6B1AF1D52400B5A169 /* LevelDialogView.h */,
+				78045D6C1AF1D52400B5A169 /* LevelDialogView.m */,
+				78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */,
+				78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */,
+				78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		78E2608D1B1A946500EB9F3E /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		78E2608E1B1A946C00EB9F3E /* view */ = {
 			isa = PBXGroup;
 			children = (
 				78E582521B15ABD0000BD23C /* WebViewGifPlayer.h */,
 				78E582531B15ABD0000BD23C /* WebViewGifPlayer.m */,
 				780E17661AEE95CA007A4A88 /* BallView.h */,
 				780E17671AEE95CA007A4A88 /* BallView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
+		78E2608F1B1A948B00EB9F3E /* controller */ = {
+			isa = PBXGroup;
+			children = (
 				782B1F831AE35B450051D053 /* ViewController.h */,
 				782B1F841AE35B450051D053 /* ViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		78E582511B15AB47000BD23C /* mainscene */ = {
+			isa = PBXGroup;
+			children = (
+				78E2608E1B1A946C00EB9F3E /* view */,
+				78E2608D1B1A946500EB9F3E /* model */,
 			);
 			name = mainscene;
 			sourceTree = "<group>";

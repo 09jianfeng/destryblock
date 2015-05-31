@@ -155,11 +155,9 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)buttonStopPressed:(id)sender{
     [self.timer invalidate];
-//    UIAlertView *alertview = [[UIAlertView alloc] initWithTitle:@"" message:@"是否要退出" delegate:self cancelButtonTitle:@"退出" otherButtonTitles:@"继续", nil];
-//    alertview.tag = 2000;
-//    [alertview show];
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:finish];
+    finish.collectionViewController = self;
     [finish showView];
 }
 
@@ -265,6 +263,7 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)beginActionAnimatorBehavior:(__weak NSMutableArray *)arraySprites{
     for(SpriteUIView *sprite in arraySprites){
         if (sprite.pushBehavior) {
+            //正在执行动画，下一个
             continue;
         }
         
@@ -272,6 +271,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [sprite generatePushBehavior];
         int randy = arc4random()%pushNomalcount;
         int randx = arc4random()%(pushNomalcount*2) - pushNomalcount;
+        
         [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
         sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
         [self.animator addBehavior:sprite.pushBehavior];
@@ -286,8 +286,7 @@ static NSString * const reuseIdentifier = @"Cell";
         NSArray* items = [anim itemsInRect:rect];
         for(SpriteUIView *sprite2 in arraySprites){
             if (NSNotFound == [items indexOfObject:sprite2] && [sprite2 superview]) {
-                [sprite2.pushBehavior removeItem:sprite2];
-                [anim removeBehavior:sprite2.pushBehavior];
+                [sprite2 removeBehaviorWithAnimator:anim];
                 [gravity removeItem:sprite2];
                 [sprite2 removeFromSuperview];
                 [sprite2 setTimeInvilade];
@@ -424,14 +423,22 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         if (alertView.tag == 2000) {
-            self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+            [self continueGame];
         }else{
           [self replayGame];
         }
     }else if(buttonIndex == 0){
-        [self.view removeFromSuperview];
-        [self removeFromParentViewController];
-        [[NSNotificationCenter defaultCenter] postNotificationName:playingViewExitNotification object:nil userInfo:nil];
+        [self exitTheGame];
     }
+}
+
+-(void)exitTheGame{
+    [self.view removeFromSuperview];
+    [self removeFromParentViewController];
+    [[NSNotificationCenter defaultCenter] postNotificationName:playingViewExitNotification object:nil userInfo:nil];
+}
+
+-(void)continueGame{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 @end

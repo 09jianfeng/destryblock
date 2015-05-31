@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CollectionViewControllerPlay.h"
 
 @interface UIViewFinishPlayAlert : UIView
+@property(nonatomic,assign) CollectionViewControllerPlay *collectionViewController;
+
+-(void)continueGame;
 -(void)showView;
 @end

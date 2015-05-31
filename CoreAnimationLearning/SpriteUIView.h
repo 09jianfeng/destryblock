@@ -10,6 +10,9 @@
 
 @interface SpriteUIView : UIView
 @property(nonatomic, retain)UIPushBehavior *pushBehavior;
+@property(nonatomic, retain)UIDynamicItemBehavior *itemBehavior;
+
 -(void)generatePushBehavior;
+-(void)removeBehaviorWithAnimator:(UIDynamicAnimator *)animator;
 -(void)setTimeInvilade;
 @end

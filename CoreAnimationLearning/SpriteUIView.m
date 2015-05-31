@@ -15,7 +15,18 @@
 @implementation SpriteUIView
 -(void)generatePushBehavior{
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self] mode:UIPushBehaviorModeInstantaneous];
+    self.itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self]];
+    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponder:) userInfo:nil repeats:YES];
+}
+
+-(void)removeBehaviorWithAnimator:(UIDynamicAnimator *)animator{
+    if (animator) {
+        [self.pushBehavior removeItem:self];
+        [self.pushBehavior removeItem:self];
+        [animator removeBehavior:self.pushBehavior];
+        [animator removeBehavior:self.itemBehavior];
+    }
 }
 
 -(void)timerResponder:(id)sender{
@@ -67,5 +78,6 @@
     [self.timer invalidate];
     self.timer = nil;
     self.pushBehavior = nil;
+    self.itemBehavior = nil;
 }
 @end
