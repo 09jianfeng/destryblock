@@ -13,17 +13,34 @@
 @end
 
 @implementation SpriteUIView
--(void)generatePushBehavior{
+-(void)generateBehaviorAndAdd:(UIDynamicAnimator *)animator{
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self] mode:UIPushBehaviorModeInstantaneous];
     self.itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self]];
+    _itemBehavior.density = 800.0/(self.frame.size.height*self.frame.size.width);
+    _itemBehavior.elasticity = 0.0;
+    _itemBehavior.friction = 0.0;
+    _itemBehavior.resistance = 0.0;
+    _itemBehavior.allowsRotation = YES;
     
+    //随机旋转方向，推力随机向量
+    int randx = arc4random()%(35*2) - 35;
+    [self.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*(0.3))];
+    self.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerResponder:) userInfo:nil repeats:YES];
+    [self addBehaviorWithAnimator:animator];
+}
+
+-(void)addBehaviorWithAnimator:(UIDynamicAnimator *)animator{
+    if (animator) {
+        [animator addBehavior:self.pushBehavior];
+        [animator addBehavior:self.itemBehavior];
+    }
 }
 
 -(void)removeBehaviorWithAnimator:(UIDynamicAnimator *)animator{
     if (animator) {
         [self.pushBehavior removeItem:self];
-        [self.pushBehavior removeItem:self];
+        [self.itemBehavior removeItem:self];
         [animator removeBehavior:self.pushBehavior];
         [animator removeBehavior:self.itemBehavior];
     }

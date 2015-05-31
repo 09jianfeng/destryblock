@@ -20,10 +20,6 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
 {
    int seconde;
-   //跟推力有关
-   int pushNomalcount;
-   //重力
-   int magnitude;
 }
 
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -73,11 +69,6 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     seconde = 0;
-    pushNomalcount = 35;
-    if (_noBackgroundImage) {
-        pushNomalcount = 5;
-    }
-    magnitude = 2;
     
     // Register cell classes
     [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
@@ -89,8 +80,6 @@ static NSString * const reuseIdentifier = @"Cell";
     //如果是ipad 横向右13.0个方块
     if (IsPadUIBlockGame()) {
         _widthNum +=2;
-        pushNomalcount *=7;
-        magnitude = 3;
         processHeight = 40;
     }
     
@@ -105,7 +94,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
     //只能有一个重力系统
     self.gravity = [[UIGravityBehavior alloc] init];
-    self.gravity.magnitude = magnitude;
+    self.gravity.magnitude = 2;
     [self.animator addBehavior:self.gravity];
     
     self.labelPoints = [[UILabel alloc] init];
@@ -268,13 +257,7 @@ static NSString * const reuseIdentifier = @"Cell";
         }
         
         //给个斜着向上的速度
-        [sprite generatePushBehavior];
-        int randy = arc4random()%pushNomalcount;
-        int randx = arc4random()%(pushNomalcount*2) - pushNomalcount;
-        
-        [sprite.pushBehavior setPushDirection:CGVectorMake(randx/100.0, -1*randy/100.0)];
-        sprite.transform = CGAffineTransformMakeRotation(M_PI*(randx/100.0));
-        [self.animator addBehavior:sprite.pushBehavior];
+        [sprite generateBehaviorAndAdd:self.animator];
         [self.gravity addItem:sprite];
     }
     

@@ -12,7 +12,7 @@
 @property(nonatomic, retain)UIPushBehavior *pushBehavior;
 @property(nonatomic, retain)UIDynamicItemBehavior *itemBehavior;
 
--(void)generatePushBehavior;
+-(void)generateBehaviorAndAdd:(UIDynamicAnimator *)animator;
 -(void)removeBehaviorWithAnimator:(UIDynamicAnimator *)animator;
 -(void)setTimeInvilade;
 @end
