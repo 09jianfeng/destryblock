@@ -16,6 +16,14 @@
 #import "UIViewFinishPlayAlert.h"
 #import "GameResultData.h"
 
+extern NSString *levelinfo;
+extern NSString *levelinfoScore;
+extern NSString *levelinfoTime;
+extern NSString *levelinfoStarNum;
+extern NSString *levelinfoWidthNum;
+extern NSString *levelinfoColorNum;
+extern NSString *playingViewExitNotification;
+
 NSString *playingViewExitNotification = @"playingViewExitNotification";
 
 @interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
@@ -177,6 +185,29 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)replayGame{
+    self.Allpoints = 0;
+    [self.processView setprocess:0.0];
+    seconde = 0;
+    CGFloat width = self.view.frame.size.width/_widthNum;
+    int heightnum = self.view.frame.size.height/width - 1;
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:0.65];
+    [self.collectionView reloadData];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+}
+
+-(void)nextLevel{
+    NSArray* _arrayGuanka = [[LevelAndUserInfo shareInstance] arrayLevelInfos];
+    NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:_gameLevelIndex+1];
+    //每一关的参数设置
+    int timeLimit = [[dicLevels objectForKey:levelinfoTime] intValue];
+    int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];
+    int colorNum = [[dicLevels objectForKey:levelinfoColorNum] intValue];
+    _timeLimit = timeLimit;
+    _gameLevelIndex += 1;
+    _widthNum = widthNum;
+    _gameInitTypeNum = colorNum;
+    
+    
     self.Allpoints = 0;
     [self.processView setprocess:0.0];
     seconde = 0;

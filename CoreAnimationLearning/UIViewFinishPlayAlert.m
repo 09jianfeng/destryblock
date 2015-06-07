@@ -82,7 +82,11 @@
     
     UIButton *buttonNext = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert*2 + buttonSize, board.frame.size.height - buttonSize - 40, buttonSize, buttonSize)];
     buttonNext.backgroundColor = [UIColor grayColor];
-    [buttonNext setTitle:@"Cont" forState:UIControlStateNormal];
+    NSString *conOrNext = @"Cont";
+    if (!_isStop) {
+        conOrNext = @"Next";
+    }
+    [buttonNext setTitle:conOrNext forState:UIControlStateNormal];
     buttonNext.layer.cornerRadius = buttonSize/2;
     [buttonNext addTarget:self action:@selector(buttonNextLevelPressed:) forControlEvents:UIControlEventTouchUpInside];
     [board addSubview:buttonNext];
@@ -155,6 +159,15 @@
         } completion:^(BOOL isFinish){
             [self removeFromSuperview];
             [self.collectionViewController continueGame];
+        }];
+    }else{
+        [self.ani removeAllBehaviors];
+        UIView *board = [self viewWithTag:40000];
+        [UIView animateWithDuration:0.3 animations:^{
+            board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
+        } completion:^(BOOL isFinish){
+            [self removeFromSuperview];
+            [self.collectionViewController nextLevel];
         }];
     }
 }

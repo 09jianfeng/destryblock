@@ -16,6 +16,7 @@ static NSString *GAMERESULTDATAKEY = @"GAMERESULTDATAKEY";
     int allBlocksPre = [GameResultData getAllBlockenBlocks];
     allBlocksPre += blocks;
     [GameKeyValue setObject:[NSNumber numberWithInt:allBlocksPre] forKey:GAMERESULTDATAKEY];
+    [GameKeyValue synchronize];
 }
 
 +(int)getAllBlockenBlocks{

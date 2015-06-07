@@ -62,6 +62,7 @@ static int  levelAllNum=45;
     }
     
     [GameKeyValue setObject:mutArrayLevels forKey:levelinfo];
+    [GameKeyValue synchronize];
     return mutArrayLevels;
 }
 
@@ -75,6 +76,7 @@ static int  levelAllNum=45;
     NSDictionary *diclevelinfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",points],levelinfoScore,[NSString stringWithFormat:@"%d",startNum],levelinfoStarNum,time,levelinfoTime,width,levelinfoWidthNum,colorNum,levelinfoColorNum,nil];
     [[[LevelAndUserInfo shareInstance] arrayLevelInfos] setObject:diclevelinfo atIndexedSubscript:levelIndex];
     [GameKeyValue setObject:[[LevelAndUserInfo shareInstance] arrayLevelInfos] forKey:levelinfo];
+    [GameKeyValue synchronize];
 }
 
 //0 没有通过，1、2、3分别表示几颗星

@@ -22,4 +22,5 @@
 
 -(void)exitTheGame;
 -(void)continueGame;
+-(void)nextLevel;
 @end
