@@ -28,6 +28,20 @@ extern NSString *playingViewExitNotification;
     [super viewDidLoad];
     self.view.backgroundColor = [GameResultData getMainScreenBackgroundColor];
     
+    UILabel *labelChai = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height/4 - 40)];
+    labelChai.textColor = [UIColor whiteColor];
+    labelChai.textAlignment = NSTextAlignmentCenter;
+    labelChai.text = @"拆";
+    labelChai.font = [UIFont systemFontOfSize:70];
+    [self.view addSubview:labelChai];
+    UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 40, self.view.frame.size.width, self.view.frame.size.height/4)];
+    labelFangKuai.textAlignment = NSTextAlignmentCenter;
+    labelFangKuai.textColor = [UIColor whiteColor];
+    labelFangKuai.font = [UIFont systemFontOfSize:50];
+    labelFangKuai.text =@"方 块";
+    [self.view addSubview:labelFangKuai];
+    
+    
     UIButton *buttonPlay = [UIButton buttonWithType:UIButtonTypeCustom];
     int buttonPlaysize = self.view.frame.size.width/2.0 - 20;
     int buttonPlayx = self.view.frame.size.width/2 - buttonPlaysize/2;

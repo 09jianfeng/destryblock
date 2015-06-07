@@ -42,7 +42,7 @@
     UILabel *labelTargetNum = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, board.frame.size.width/2, 30)];
     labelTargetNum.textAlignment = NSTextAlignmentCenter;
     labelTargetNum.text = [NSString stringWithFormat:@"%d",self.target];
-    labelTargetNum.textColor = [UIColor blackColor];
+    labelTargetNum.textColor = [UIColor whiteColor];
     [board addSubview:labelTargetNum];
     
     UILabel *labelTotal = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, 10, board.frame.size.width/2, 30)];
@@ -53,7 +53,7 @@
     UILabel *labelTotalNum = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, 40, board.frame.size.width/2, 30)];
     labelTotalNum.textAlignment = NSTextAlignmentCenter;
     labelTotalNum.text = [NSString stringWithFormat:@"%d",self.total];
-    labelTotalNum.textColor = [UIColor blackColor];
+    labelTotalNum.textColor = [UIColor whiteColor];
     [board addSubview:labelTotalNum];
     
     
@@ -68,7 +68,7 @@
     UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y - 40 - buttonSize)];
     labelScoreNum.textAlignment = NSTextAlignmentCenter;
     labelScoreNum.text = [NSString stringWithFormat:@"%d",self.score];
-    labelScoreNum.textColor = [UIColor blackColor];
+    labelScoreNum.textColor = [UIColor whiteColor];
     [board addSubview:labelScoreNum];
     
     
