@@ -21,4 +21,5 @@
 @property(nonatomic, assign) int gameLevelIndex;
 
 -(void)exitTheGame;
+-(void)continueGame;
 @end

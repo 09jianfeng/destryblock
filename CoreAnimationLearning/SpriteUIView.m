@@ -57,7 +57,7 @@
 -(void)timerResponder:(id)sender{
     //演员初始化
     CALayer* scaleLayer = [[CALayer alloc] init];
-    scaleLayer.contents = self.layer.contents;
+    scaleLayer.backgroundColor = self.layer.backgroundColor;
     scaleLayer.opacity = 0.8;
     scaleLayer.frame = CGRectMake(self.frame.origin.x + self.frame.size.width/4, self.frame.origin.y, self.frame.size.width/2, self.frame.size.height/2);
     scaleLayer.cornerRadius = 10;

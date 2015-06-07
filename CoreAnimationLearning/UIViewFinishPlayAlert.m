@@ -7,6 +7,7 @@
 //
 
 #import "UIViewFinishPlayAlert.h"
+#import "GameResultData.h"
 
 @interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
@@ -24,27 +25,68 @@
     return self;
 }
 
--(void)continueGame{
-    
-}
 
 -(void)showView{
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
     UIView *board = [[UIView alloc] initWithFrame:CGRectMake(20, -400, self.frame.size.width - 20*2, 300)];
-    UIImage *boardImage = [UIImage imageNamed:@"muban"];
-    board.backgroundColor = [UIColor clearColor];
-    board.layer.contents = (__bridge id)(boardImage.CGImage);
+    board.backgroundColor = [GameResultData getMainScreenBackgroundColor];
+    board.tag = 40000;
+    board.layer.cornerRadius = board.frame.size.width/8;
     
-    UIView *ropeLeft = [[UIView alloc] initWithFrame:CGRectMake(30,0 - self.frame.size.height, 50, self.frame.size.height)];
-    ropeLeft.backgroundColor = [UIColor clearColor];
-    UIImage *ropeImage = [UIImage imageNamed:@"rope"];
-    UIView *ropeRight = [[UIView alloc] initWithFrame:CGRectMake(board.frame.size.width - 40 - 50,0 - self.frame.size.height, 50, self.frame.size.height)];
-    ropeRight.backgroundColor = [UIColor clearColor];
-    ropeLeft.layer.contents = (__bridge id)(ropeImage.CGImage);
-    ropeRight.layer.contents = (__bridge id)(ropeImage.CGImage);
-    [board addSubview:ropeLeft];
-    [board addSubview:ropeRight];
+    UILabel *labelTarget = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, board.frame.size.width/2, 30)];
+    labelTarget.textAlignment = NSTextAlignmentCenter;
+    labelTarget.text = @"Target";
+    labelTarget.textColor = [UIColor blackColor];
+    [board addSubview:labelTarget];
+    UILabel *labelTargetNum = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, board.frame.size.width/2, 30)];
+    labelTargetNum.textAlignment = NSTextAlignmentCenter;
+    labelTargetNum.text = [NSString stringWithFormat:@"%d",self.target];
+    labelTargetNum.textColor = [UIColor blackColor];
+    [board addSubview:labelTargetNum];
+    
+    UILabel *labelTotal = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, 10, board.frame.size.width/2, 30)];
+    labelTotal.textAlignment = NSTextAlignmentCenter;
+    labelTotal.text = @"Total";
+    labelTotal.textColor = [UIColor blackColor];
+    [board addSubview:labelTotal];
+    UILabel *labelTotalNum = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, 40, board.frame.size.width/2, 30)];
+    labelTotalNum.textAlignment = NSTextAlignmentCenter;
+    labelTotalNum.text = [NSString stringWithFormat:@"%d",self.total];
+    labelTotalNum.textColor = [UIColor blackColor];
+    [board addSubview:labelTotalNum];
+    
+    
+    int buttonSize = board.frame.size.width/4;
+    int buttonInsert = buttonSize*2/3;
+    
+    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y, board.frame.size.width, 30)];
+    labelScore.textAlignment = NSTextAlignmentCenter;
+    labelScore.text = @"Score";
+    labelScore.textColor = [UIColor blackColor];
+    [board addSubview:labelScore];
+    UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y - 40 - buttonSize)];
+    labelScoreNum.textAlignment = NSTextAlignmentCenter;
+    labelScoreNum.text = [NSString stringWithFormat:@"%d",self.score];
+    labelScoreNum.textColor = [UIColor blackColor];
+    [board addSubview:labelScoreNum];
+    
+    
+    
+    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert, board.frame.size.height - buttonSize - 40, buttonSize, buttonSize)];
+    buttonBack.backgroundColor = [UIColor grayColor];
+    buttonBack.layer.cornerRadius = buttonSize/2;
+    [buttonBack setTitle:@"Back" forState:UIControlStateNormal];
+    [buttonBack addTarget:self action:@selector(buttonbackPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [board addSubview:buttonBack];
+    
+    UIButton *buttonNext = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert*2 + buttonSize, board.frame.size.height - buttonSize - 40, buttonSize, buttonSize)];
+    buttonNext.backgroundColor = [UIColor grayColor];
+    [buttonNext setTitle:@"Cont" forState:UIControlStateNormal];
+    buttonNext.layer.cornerRadius = buttonSize/2;
+    [buttonNext addTarget:self action:@selector(buttonNextLevelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [board addSubview:buttonNext];
+    
     
     [self.gravity addItem:board];
     UIAttachmentBehavior *attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:board attachedToAnchor:CGPointMake(self.frame.size.width/2, self.frame.size.height/2)];
@@ -53,17 +95,6 @@
     [attachmentBehavior setFrequency:3];
     [self.ani addBehavior:attachmentBehavior];
     [self addSubview:board];
-    
-    int buttonSize = board.frame.size.height/6;
-    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(30, board.frame.size.height - buttonSize - 40, board.frame.size.width/2 - 30 - 30/2, buttonSize)];
-    buttonBack.backgroundColor = [UIColor grayColor];
-    [buttonBack addTarget:self action:@selector(buttonbackPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [board addSubview:buttonBack];
-    
-    UIButton *buttonNext = [[UIButton alloc] initWithFrame:CGRectMake(buttonBack.frame.size.width+30*2, board.frame.size.height - buttonSize - 40, board.frame.size.width/2 - 30 - 30/2, buttonSize)];
-    buttonNext.backgroundColor = [UIColor grayColor];
-    [buttonBack addTarget:self action:@selector(buttonNextLevelPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [board addSubview:buttonNext];
     
     
     //添加粒子效果,树叶往下掉
@@ -116,7 +147,16 @@
 }
 
 -(void)buttonNextLevelPressed:(id)sender{
-    
+    if (self.isStop) {
+        [self.ani removeAllBehaviors];
+        UIView *board = [self viewWithTag:40000];
+        [UIView animateWithDuration:0.3 animations:^{
+            board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
+        } completion:^(BOOL isFinish){
+            [self removeFromSuperview];
+            [self.collectionViewController continueGame];
+        }];
+    }
 }
 
 -(void)dealloc{

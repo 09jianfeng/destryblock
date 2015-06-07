@@ -64,8 +64,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIImage *backImage = [UIImage imageNamed:@"playing_background"];
-    self.collectionView.layer.contents = (__bridge id)(backImage.CGImage);
+    self.collectionView.backgroundColor = [GameResultData getMainScreenBackgroundColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -147,6 +146,11 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)buttonStopPressed:(id)sender{
     [self.timer invalidate];
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
+    finish.target = [_gameAlgorithm getAllValueBlockNum];
+    finish.score = self.Allpoints;
+    finish.total = [GameResultData getAllBlockenBlocks];
+    finish.isStop = YES;
+    finish.tag = 3000;
     [self.view addSubview:finish];
     finish.collectionViewController = self;
     [finish showView];
@@ -156,16 +160,20 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark logic
 -(void)endTheGame{
     [self.timer invalidate];
-    NSString *message = @"";
     [GameResultData gameResultAddBrockenBlocks:self.Allpoints];
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
-        message = [NSString stringWithFormat:@"恭喜过关\n您的总分是：%d",self.Allpoints];
-    }else{
-        message = [NSString stringWithFormat:@"很遗憾\n您的总分是：%d",self.Allpoints];
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:message delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"重玩",nil];
-    [alert show];
+    
+    UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
+    finish.target = [_gameAlgorithm getAllValueBlockNum];
+    finish.score = self.Allpoints;
+    finish.total = [GameResultData getAllBlockenBlocks];
+    finish.isStop = NO;
+    finish.tag = 3000;
+    [self.view addSubview:finish];
+    finish.collectionViewController = self;
+    [finish showView];
 }
 
 -(void)replayGame{
@@ -199,56 +207,6 @@ static NSString * const reuseIdentifier = @"Cell";
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width + 1;
     return heightnum*_widthNum;
-}
-
--(UIImage *)getColorInColorType:(blockcolor)blockcolorType{
-    switch (blockcolorType) {
-        case blockcolornone:
-            return nil;
-            break;
-        case blockcolor1:
-            return [UIImage imageNamed:@"1.png"];
-            break;
-        case blockcolor2:
-            return [UIImage imageNamed:@"2.png"];
-            break;
-        case blockcolor3:
-            return [UIImage imageNamed:@"3.png"];
-            break;
-        case blockcolor4:
-            return [UIImage imageNamed:@"4.png"];
-            break;
-        
-        case blockcolor5:
-            return [UIImage imageNamed:@"5.png"];
-            break;
-        case blockcolor6:
-            return [UIImage imageNamed:@"6.png"];
-            break;
-        case blockcolor7:
-            return [UIImage imageNamed:@"7.png"];
-            break;
-        case blockcolor8:
-            return [UIImage imageNamed:@"8.png"];
-            break;
-        case blockcolor9:
-            return [UIImage imageNamed:@"9.png"];
-            break;
-        case blockcolor10:
-            return [UIImage imageNamed:@"10.png"];
-            break;
-        case blockcolor11:
-            return [UIImage imageNamed:@"11.png"];
-            break;
-        case blockcolor12:
-            return [UIImage imageNamed:@"12.png"];
-            break;
-
-        default:
-            return nil;
-            break;
-    }
-    return nil;
 }
 
 //被拆的动画效果
@@ -312,15 +270,18 @@ static NSString * const reuseIdentifier = @"Cell";
     
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
-    UIImage *color = [self getColorInColorType:colorType];
+    UIColor *color = [GameResultData getColorInColorType:colorType];
     SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
     if (color) {
+        int spritSize = cell.frame.size.width*6/7;
+        int insert = cell.frame.size.width/10;
         if (!sprite) {
-            sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(0.0, 0.0, cell.frame.size.width, cell.frame.size.height)];
+            sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(insert, insert, spritSize, spritSize)];
             [cell addSubview:sprite];
             sprite.tag = 1001;
         }
-        sprite.layer.contents = (__bridge id)(color.CGImage);
+        sprite.layer.cornerRadius = spritSize/4.0;
+        sprite.backgroundColor = color;
     }
     else if(sprite){
         [sprite removeFromSuperview];
@@ -409,6 +370,7 @@ static NSString * const reuseIdentifier = @"Cell";
 //cell反选时被调用(多选时才生效)
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
 }
+
 #pragma mark -
 #pragma mark alertviewDelegate
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
@@ -425,8 +387,14 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)exitTheGame{
     [GameResultData gameResultAddBrockenBlocks:self.Allpoints];
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.alpha = 0.0;
+    } completion:^(BOOL isFinish){
+        [self.view removeFromSuperview];
+        [self removeFromParentViewController];
+    }];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:playingViewExitNotification object:nil userInfo:nil];
 }
 

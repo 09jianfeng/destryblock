@@ -49,9 +49,9 @@ static int  levelAllNum=45;
     
     mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
-        int time = 60 - i%5;
-        int widthNum = 7 + i%5;
-        int colorNum = 3 + i/5;
+        int time = 60 - i%3;
+        int widthNum = 7 + i%3;
+        int colorNum = 3 + i/3;
         
         NSString *timeString = [NSString stringWithFormat:@"%d",time];
         NSString *widthNumString = [NSString stringWithFormat:@"%d",widthNum];
