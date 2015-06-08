@@ -15,4 +15,5 @@
 -(void)generateBehaviorAndAdd:(UIDynamicAnimator *)animator;
 -(void)removeBehaviorWithAnimator:(UIDynamicAnimator *)animator;
 -(void)setTimeInvilade;
+-(void)beginAnimation;
 @end

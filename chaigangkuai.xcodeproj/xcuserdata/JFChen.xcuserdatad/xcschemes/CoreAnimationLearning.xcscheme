@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "782B1F781AE35B450051D053"
-               BuildableName = "CoreAnimationLearning.app"
-               BlueprintName = "CoreAnimationLearning"
-               ReferencedContainer = "container:CoreAnimationLearning.xcodeproj">
+               BuildableName = "chaigangkuai.app"
+               BlueprintName = "chaigangkuai"
+               ReferencedContainer = "container:chaigangkuai.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "782B1F911AE35B450051D053"
-               BuildableName = "CoreAnimationLearningTests.xctest"
-               BlueprintName = "CoreAnimationLearningTests"
-               ReferencedContainer = "container:CoreAnimationLearning.xcodeproj">
+               BuildableName = "chaigangkuaiTests.xctest"
+               BlueprintName = "chaigangkuaiTests"
+               ReferencedContainer = "container:chaigangkuai.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "782B1F911AE35B450051D053"
-               BuildableName = "CoreAnimationLearningTests.xctest"
-               BlueprintName = "CoreAnimationLearningTests"
-               ReferencedContainer = "container:CoreAnimationLearning.xcodeproj">
+               BuildableName = "chaigangkuaiTests.xctest"
+               BlueprintName = "chaigangkuaiTests"
+               ReferencedContainer = "container:chaigangkuai.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "782B1F781AE35B450051D053"
-            BuildableName = "CoreAnimationLearning.app"
-            BlueprintName = "CoreAnimationLearning"
-            ReferencedContainer = "container:CoreAnimationLearning.xcodeproj">
+            BuildableName = "chaigangkuai.app"
+            BlueprintName = "chaigangkuai"
+            ReferencedContainer = "container:chaigangkuai.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "782B1F781AE35B450051D053"
-            BuildableName = "CoreAnimationLearning.app"
-            BlueprintName = "CoreAnimationLearning"
-            ReferencedContainer = "container:CoreAnimationLearning.xcodeproj">
+            BuildableName = "chaigangkuai.app"
+            BlueprintName = "chaigangkuai"
+            ReferencedContainer = "container:chaigangkuai.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -96,9 +96,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "782B1F781AE35B450051D053"
-            BuildableName = "CoreAnimationLearning.app"
-            BlueprintName = "CoreAnimationLearning"
-            ReferencedContainer = "container:CoreAnimationLearning.xcodeproj">
+            BuildableName = "chaigangkuai.app"
+            BlueprintName = "chaigangkuai"
+            ReferencedContainer = "container:chaigangkuai.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -43,7 +43,7 @@ extern NSString *playingViewExitNotification;
     
     
     UIButton *buttonPlay = [UIButton buttonWithType:UIButtonTypeCustom];
-    int buttonPlaysize = self.view.frame.size.width/2.0 - 20;
+    int buttonPlaysize = self.view.frame.size.height/4.0 - self.view.frame.size.height/25;
     int buttonPlayx = self.view.frame.size.width/2 - buttonPlaysize/2;
     int buttonPlayy = self.view.frame.size.height/2;
     buttonPlay.frame = CGRectMake(buttonPlayx, buttonPlayy - 20, buttonPlaysize, buttonPlaysize);
@@ -55,7 +55,7 @@ extern NSString *playingViewExitNotification;
     [self.view addSubview:buttonPlay];
     
     int insertWidth = 10;
-    int buttonSmallSize = (self.view.frame.size.width - insertWidth*8)/4;
+    int buttonSmallSize = (self.view.frame.size.height/2 - insertWidth*8)/4;
     
     UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonSetting.frame = CGRectMake(insertWidth, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
@@ -88,7 +88,6 @@ extern NSString *playingViewExitNotification;
     buttonGuanka.backgroundColor = [UIColor grayColor];
     [buttonGuanka setTitle:@"Share" forState:UIControlStateNormal];
     [self.view addSubview:buttonGuanka];
-
 }
 
 -(void)buttonPlayPressed:(id)sender{

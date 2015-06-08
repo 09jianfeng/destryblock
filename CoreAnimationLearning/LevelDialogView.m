@@ -24,6 +24,7 @@ extern NSString *playingViewExitNotification;
 @property(nonatomic, assign) int count;
 @property(nonatomic, assign) int cellImageNum;
 @property(nonatomic, assign) NSArray *arrayGuanka;
+@property(nonatomic, assign) int currentPage;
 @end
 
 @implementation LevelDialogView
@@ -116,6 +117,7 @@ extern NSString *playingViewExitNotification;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     UIPageControl *pageview = (UIPageControl *)[self viewWithTag:1200];
     pageview.currentPage = page;
+    self.currentPage = page;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -174,7 +176,7 @@ extern NSString *playingViewExitNotification;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCellLevel *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionidentiferLevel" forIndexPath:indexPath];
     
-    NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:indexPath.row];
+    NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:(indexPath.row * (self.currentPage +1))];
     int startNum = [[dicLevelInfos objectForKey:levelinfoStarNum] intValue];
     UIImage *imageclose = nil;
     UIColor *colorForItem = nil;
@@ -220,7 +222,7 @@ extern NSString *playingViewExitNotification;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-    NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:indexPath.row];
+    NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:(indexPath.row * (self.currentPage +1))];
     //每一关的参数设置
     int timeLimit = [[dicLevels objectForKey:levelinfoTime] intValue];
     int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];

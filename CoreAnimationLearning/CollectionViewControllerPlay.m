@@ -15,6 +15,7 @@
 #import "LevelAndUserInfo.h"
 #import "UIViewFinishPlayAlert.h"
 #import "GameResultData.h"
+#import "SpriteView2.h"
 
 extern NSString *levelinfo;
 extern NSString *levelinfoScore;
@@ -240,7 +241,7 @@ static NSString * const reuseIdentifier = @"Cell";
     return heightnum*_widthNum;
 }
 
-//被拆的动画效果
+//SpriteUIView被拆的动画效果
 -(void)beginActionAnimatorBehavior:(__weak NSMutableArray *)arraySprites{
     for(SpriteUIView *sprite in arraySprites){
         if (sprite.pushBehavior) {
@@ -302,17 +303,18 @@ static NSString * const reuseIdentifier = @"Cell";
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
     UIColor *color = [GameResultData getColorInColorType:colorType];
-    SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
+    SpriteView2 *sprite = (SpriteView2 *)[cell viewWithTag:1001];
     if (color) {
         int spritSize = cell.frame.size.width*6/7;
         int insert = cell.frame.size.width/10;
         if (!sprite) {
-            sprite = [[SpriteUIView alloc] initWithFrame:CGRectMake(insert, insert, spritSize, spritSize)];
+            sprite = [[SpriteView2 alloc] initWithFrame:CGRectMake(insert, insert, spritSize, spritSize)];
             [cell addSubview:sprite];
             sprite.tag = 1001;
         }
         sprite.layer.cornerRadius = spritSize/4.0;
         sprite.backgroundColor = color;
+        [sprite beginAnimation];
     }
     else if(sprite){
         [sprite removeFromSuperview];
@@ -374,17 +376,19 @@ static NSString * const reuseIdentifier = @"Cell";
         int indexpathrow = [num intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
-        SpriteUIView *sprite = (SpriteUIView *)[cell viewWithTag:1001];
+        SpriteView2 *sprite = (SpriteView2 *)[cell viewWithTag:1001];
         if (sprite) {
             spritesNumShouldDrop++;
             CGRect rect = [sprite convertRect:sprite.frame toView:self.view];
             [sprite removeFromSuperview];
             sprite.frame = rect;
             [self.view addSubview:sprite];
-            [self.mutArraySprites addObject:sprite];
+//            [self.mutArraySprites addObject:sprite];
+            [sprite lp_explode];
         }
     }
-    [self beginActionAnimatorBehavior:self.mutArraySprites];
+    
+//    [self beginActionAnimatorBehavior:self.mutArraySprites];
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];

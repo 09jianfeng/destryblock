@@ -21,6 +21,50 @@
     return self;
 }
 
+-(void)beginAnimation{
+    //1.绕中心圆移动 Circle move   没添加进去先
+    CAKeyframeAnimation *pathAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    pathAnimation.calculationMode = kCAAnimationPaced;
+    pathAnimation.fillMode = kCAFillModeForwards;
+    pathAnimation.removedOnCompletion = false;
+    pathAnimation.repeatCount = MAXFLOAT;
+    pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    CGMutablePathRef curvedPath = CGPathCreateMutable();
+    CGRect circleContainer = CGRectInset(self.frame, self.frame.size.width/2-3, self.frame.size.width/2-3);
+    CGPathAddEllipseInRect(curvedPath, nil, circleContainer);
+    pathAnimation.path = curvedPath;
+    float randNumP = (arc4random()%5 + 20)/10.0;
+    pathAnimation.duration = randNumP;
+    
+    //x方向伸缩
+    CAKeyframeAnimation *scaleX = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
+    scaleX.values = @[@1.0,@0.9,@1.0];
+    scaleX.keyTimes = @[@0.0,@0.5,@1.0];
+    scaleX.repeatCount = MAXFLOAT;
+    scaleX.autoreverses = YES;
+    scaleX.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    float randNumx = (arc4random()%30 + 20)/10.0;
+    scaleX.duration = randNumx;
+    
+    //y方向伸缩
+    CAKeyframeAnimation *scaleY = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
+    scaleY.values = @[@1.0,@0.9,@1.0];
+    scaleY.keyTimes = @[@0.0,@0.5,@1.0];
+    scaleY.repeatCount = MAXFLOAT;
+    scaleY.autoreverses = YES;
+    scaleY.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    float randNumy = (arc4random()%30 + 20)/10.0;
+    scaleY.duration = randNumy;
+    
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.autoreverses = YES;
+    groupAnnimation.duration = (arc4random()%30 + 30)/10.0;
+    groupAnnimation.animations = @[scaleX, scaleY];
+    groupAnnimation.repeatCount = MAXFLOAT;
+    //开演
+    [self.layer addAnimation:groupAnnimation forKey:@"groupAnnimation"];
+}
+
 -(void)generateBehaviorAndAdd:(UIDynamicAnimator *)animator{
     self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self] mode:UIPushBehaviorModeInstantaneous];
     self.itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self]];
