@@ -29,7 +29,7 @@
 -(void)showView{
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
-    UIView *board = [[UIView alloc] initWithFrame:CGRectMake(20, -400, self.frame.size.width - 20*2, 300)];
+    UIView *board = [[UIView alloc] initWithFrame:CGRectMake(20, -self.frame.size.height/2, self.frame.size.width - 20*2, self.frame.size.height/2)];
     board.backgroundColor = [GameResultData getMainScreenBackgroundColor];
     board.tag = 40000;
     board.layer.cornerRadius = board.frame.size.width/8;

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GameAlgorithm.h"
 
 @interface CollectionViewControllerPlay : UICollectionViewController
+@property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
+
 //是否要背景图片
 @property(nonatomic, assign) BOOL noBackgroundImage;
 //横向的方块个数

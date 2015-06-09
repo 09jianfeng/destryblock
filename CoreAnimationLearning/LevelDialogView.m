@@ -117,7 +117,7 @@ extern NSString *playingViewExitNotification;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     UIPageControl *pageview = (UIPageControl *)[self viewWithTag:1200];
     pageview.currentPage = page;
-    self.currentPage = page;
+    self.currentPage = page >= 3 ? 3 : page ;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -176,7 +176,7 @@ extern NSString *playingViewExitNotification;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewCellLevel *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"collectionidentiferLevel" forIndexPath:indexPath];
     
-    NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:(indexPath.row * (self.currentPage +1))];
+    NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:(indexPath.row + self.currentPage*12)];
     int startNum = [[dicLevelInfos objectForKey:levelinfoStarNum] intValue];
     UIImage *imageclose = nil;
     UIColor *colorForItem = nil;
@@ -188,7 +188,8 @@ extern NSString *playingViewExitNotification;
         colorForItem = [GameResultData getLockColor];
     }
     
-    int imageViewSize = cell.frame.size.width*3/4;
+    int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
+    int imageViewSize = legth*3/4;
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, imageViewSize, imageViewSize)];
     imageview.tag = 5000+indexPath.row;
     cell.tag = 6000+indexPath.row;
@@ -206,7 +207,8 @@ extern NSString *playingViewExitNotification;
     UIImageView *imageview = (UIImageView*)[self viewWithTag:tag];
     UICollectionView *collectionview = (UICollectionView *)[self viewWithTag:1110];
     CollectionViewCellLevel *cell = (CollectionViewCellLevel *)[collectionview viewWithTag:celltag];
-    int imageViewSize = cell.frame.size.width*3/4;
+    int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
+    int imageViewSize = legth*3/4;
     if (imageview && cell) {
         [UIView animateWithDuration:0.05 animations:^{
             imageview.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, imageViewSize, imageViewSize);;
@@ -222,13 +224,11 @@ extern NSString *playingViewExitNotification;
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
-    NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:(indexPath.row * (self.currentPage +1))];
+    NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:(indexPath.row + self.currentPage*12)];
     //每一关的参数设置
-    int timeLimit = [[dicLevels objectForKey:levelinfoTime] intValue];
     int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];
     int colorNum = [[dicLevels objectForKey:levelinfoColorNum] intValue];
     
-    collecPlay.timeLimit = timeLimit;
     collecPlay.gameLevelIndex = (int)indexPath.row;
     collecPlay.widthNum = widthNum;
     collecPlay.gameInitTypeNum = colorNum;

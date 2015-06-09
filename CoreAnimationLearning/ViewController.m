@@ -32,12 +32,12 @@ extern NSString *playingViewExitNotification;
     labelChai.textColor = [UIColor whiteColor];
     labelChai.textAlignment = NSTextAlignmentCenter;
     labelChai.text = @"拆";
-    labelChai.font = [UIFont systemFontOfSize:70];
+    labelChai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:80];
     [self.view addSubview:labelChai];
     UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 40, self.view.frame.size.width, self.view.frame.size.height/4)];
     labelFangKuai.textAlignment = NSTextAlignmentCenter;
     labelFangKuai.textColor = [UIColor whiteColor];
-    labelFangKuai.font = [UIFont systemFontOfSize:50];
+    labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:60];
     labelFangKuai.text =@"方 块";
     [self.view addSubview:labelFangKuai];
     
@@ -55,13 +55,13 @@ extern NSString *playingViewExitNotification;
     [self.view addSubview:buttonPlay];
     
     int insertWidth = 10;
-    int buttonSmallSize = (self.view.frame.size.height/2 - insertWidth*8)/4;
+    int buttonSmallSize = (self.view.frame.size.width - insertWidth*8)/4;
     
     UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonSetting.frame = CGRectMake(insertWidth, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
-    buttonSetting.backgroundColor = [UIColor grayColor];
+    buttonSetting.backgroundColor = [GameResultData getColorInColorType:2];
     [buttonSetting setTitle:@"Setting" forState:UIControlStateNormal];
     [self.view addSubview:buttonSetting];
     
@@ -69,7 +69,7 @@ extern NSString *playingViewExitNotification;
     buttonNoADS.frame = CGRectMake(insertWidth*3 + buttonSmallSize, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
-    buttonNoADS.backgroundColor = [UIColor grayColor];
+    buttonNoADS.backgroundColor = [GameResultData getColorInColorType:3];
     [buttonNoADS setTitle:@"NoADS" forState:UIControlStateNormal];
     [self.view addSubview:buttonNoADS];
     
@@ -77,7 +77,7 @@ extern NSString *playingViewExitNotification;
     buttonPaiMing.frame = CGRectMake(insertWidth*5 + buttonSmallSize*2, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
     buttonPaiMing.layer.masksToBounds = YES;
-    buttonPaiMing.backgroundColor = [UIColor grayColor];
+    buttonPaiMing.backgroundColor = [GameResultData getColorInColorType:5];
     [buttonPaiMing setTitle:@"PaiM" forState:UIControlStateNormal];
     [self.view addSubview:buttonPaiMing];
     
@@ -85,7 +85,7 @@ extern NSString *playingViewExitNotification;
     buttonGuanka.frame = CGRectMake(insertWidth*7 + buttonSmallSize*3, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonGuanka.layer.cornerRadius = buttonSmallSize/4;
     buttonGuanka.layer.masksToBounds = YES;
-    buttonGuanka.backgroundColor = [UIColor grayColor];
+    buttonGuanka.backgroundColor = [GameResultData getColorInColorType:4];
     [buttonGuanka setTitle:@"Share" forState:UIControlStateNormal];
     [self.view addSubview:buttonGuanka];
 }

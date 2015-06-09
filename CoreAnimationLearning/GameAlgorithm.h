@@ -26,8 +26,6 @@ typedef enum{
 }blockcolor;
 
 @interface GameAlgorithm : NSObject
-@property(nonatomic,assign) float blockTypeNumpercent;
-@property(nonatomic,assign) float allblockNumpercent;
 
 -(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent;
 

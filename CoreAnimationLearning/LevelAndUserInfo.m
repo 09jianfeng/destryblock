@@ -21,7 +21,7 @@ NSString *levelinfoColorNum = @"levelinfoColorNum";
 
 @implementation LevelAndUserInfo
 
-static int  levelAllNum=45;
+static int  levelAllNum=36;
 
 +(id)shareInstance{
     static LevelAndUserInfo *level = nil;
@@ -50,7 +50,7 @@ static int  levelAllNum=45;
     mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
         int time = 60 - i%3;
-        int widthNum = 7 + i%3;
+        int widthNum = 9 + i%3;
         int colorNum = 3 + i/3;
         
         NSString *timeString = [NSString stringWithFormat:@"%d",time];

@@ -31,8 +31,6 @@
 -(id)initWithWidthNum:(int)widthNum heightNum:(int)heightNum gamecolorexternNum:(int)gamecolorexternNum allblockNumpercent:(float)allblockNumpercent{
     self = [super init];
     if (self) {
-        self.blockTypeNumpercent = 0.03;
-        self.allblockNumpercent = 0.65;
         [self initTable:widthNum heightNum:heightNum gamecolorexternNum:gamecolorexternNum allblockNumpercent:allblockNumpercent];
     }
     return self;

@@ -34,7 +34,6 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioplayerError;
-@property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
 @property(nonatomic, retain) UIDynamicAnimator *animator;
 @property(nonatomic, retain) UIGravityBehavior *gravity;
 @property(nonatomic, retain) ProGressView *processView;
@@ -99,6 +98,8 @@ static NSString * const reuseIdentifier = @"Cell";
     
     float allblockNump = 0.65;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:allblockNump];
+    //时间根据总块数生成
+    _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -200,10 +201,8 @@ static NSString * const reuseIdentifier = @"Cell";
     NSArray* _arrayGuanka = [[LevelAndUserInfo shareInstance] arrayLevelInfos];
     NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:_gameLevelIndex+1];
     //每一关的参数设置
-    int timeLimit = [[dicLevels objectForKey:levelinfoTime] intValue];
     int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];
     int colorNum = [[dicLevels objectForKey:levelinfoColorNum] intValue];
-    _timeLimit = timeLimit;
     _gameLevelIndex += 1;
     _widthNum = widthNum;
     _gameInitTypeNum = colorNum;
@@ -215,6 +214,9 @@ static NSString * const reuseIdentifier = @"Cell";
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:0.65];
+    //时间根据时间生成
+    _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
+    
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
@@ -308,10 +310,11 @@ static NSString * const reuseIdentifier = @"Cell";
         int spritSize = cell.frame.size.width*6/7;
         int insert = cell.frame.size.width/10;
         if (!sprite) {
-            sprite = [[SpriteView2 alloc] initWithFrame:CGRectMake(insert, insert, spritSize, spritSize)];
+            sprite = [[SpriteView2 alloc] init];
             [cell addSubview:sprite];
             sprite.tag = 1001;
         }
+        sprite.frame = CGRectMake(insert, insert, spritSize, spritSize);
         sprite.layer.cornerRadius = spritSize/4.0;
         sprite.backgroundColor = color;
         [sprite beginAnimation];
