@@ -12,6 +12,7 @@
 @interface GameResultData : NSObject
 +(void)gameResultAddBrockenBlocks:(int)blocks;
 +(int)getAllBlockenBlocks;
++(void)sendPerfectAchivement;
 
 +(UIColor *)getMainScreenBackgroundColor;
 

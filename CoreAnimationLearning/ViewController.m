@@ -13,6 +13,7 @@
 #import "LevelDialogView.h"
 #import "SystemInfo.h"
 #import "GameResultData.h"
+#import "GameCenter.h"
 
 extern NSString *playingViewExitNotification;
 
@@ -79,6 +80,7 @@ extern NSString *playingViewExitNotification;
     buttonPaiMing.layer.masksToBounds = YES;
     buttonPaiMing.backgroundColor = [GameResultData getColorInColorType:5];
     [buttonPaiMing setTitle:@"PaiM" forState:UIControlStateNormal];
+    [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPaiMing];
     
     UIButton *buttonGuanka = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -90,6 +92,8 @@ extern NSString *playingViewExitNotification;
     [self.view addSubview:buttonGuanka];
 }
 
+
+#pragma mark - buttonClickEvent
 -(void)buttonPlayPressed:(id)sender{
     LevelDialogView *levelDialog = [[LevelDialogView alloc] initWithFrame:self.view.frame];
     levelDialog.viewController = self;
@@ -98,6 +102,18 @@ extern NSString *playingViewExitNotification;
     [UIView animateWithDuration:0.3 animations:^{
         levelDialog.alpha = 1.0;
     }];
+}
+
+-(void)buttonPaiMingPressed:(id)sender{
+    GameCenter *gameCenterModel = [[GameCenter alloc] init];
+    gameCenterModel.delegate = self;
+    [gameCenterModel authenticateLocalPlayer];
+    [gameCenterModel showGameCenter];
+}
+
+#pragma mark - gameCenterDelegate
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

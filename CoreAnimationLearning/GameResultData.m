@@ -8,6 +8,7 @@
 
 #import "GameResultData.h"
 #import "GameKeyValue.h"
+#import "GameCenter.h"
 
 static NSString *GAMERESULTDATAKEY = @"GAMERESULTDATAKEY";
 
@@ -17,6 +18,13 @@ static NSString *GAMERESULTDATAKEY = @"GAMERESULTDATAKEY";
     allBlocksPre += blocks;
     [GameKeyValue setObject:[NSNumber numberWithInt:allBlocksPre] forKey:GAMERESULTDATAKEY];
     [GameKeyValue synchronize];
+    GameCenter *gameCenter = [[GameCenter alloc] init];
+    [gameCenter reportScore:allBlocksPre forCategory:@"1002"];
+}
+
++(void)sendPerfectAchivement{
+    GameCenter *gameCenter = [[GameCenter alloc] init];
+    [gameCenter reportAchievementIdentifier:@"1004" percentComplete:100.0];
 }
 
 +(int)getAllBlockenBlocks{

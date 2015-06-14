@@ -53,6 +53,8 @@
 		78AE01511B0C710300FE1558 /* back_point.png in Resources */ = {isa = PBXBuildFile; fileRef = 78AE01501B0C710300FE1558 /* back_point.png */; };
 		78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C4E0261B2575D00047B834 /* SpriteView2.m */; };
 		78C4E0291B25885F0047B834 /* xingkong.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78C4E0281B25885F0047B834 /* xingkong.jpg */; };
+		78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C4E02B1B26EFE50047B834 /* GameCenter.m */; };
+		78C4E02E1B26EFFB0047B834 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C4E02D1B26EFFB0047B834 /* GameKit.framework */; };
 		78CC36201AF4720B00033213 /* circlebutton_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361A1AF4720B00033213 /* circlebutton_1.png */; };
 		78CC36211AF4720B00033213 /* circlebutton_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361B1AF4720B00033213 /* circlebutton_2.png */; };
 		78CC36221AF4720B00033213 /* circlebutton_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 78CC361C1AF4720B00033213 /* circlebutton_3.png */; };
@@ -138,6 +140,9 @@
 		78C4E0251B2575D00047B834 /* SpriteView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView2.h; sourceTree = "<group>"; };
 		78C4E0261B2575D00047B834 /* SpriteView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView2.m; sourceTree = "<group>"; };
 		78C4E0281B25885F0047B834 /* xingkong.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = xingkong.jpg; sourceTree = "<group>"; };
+		78C4E02A1B26EFE50047B834 /* GameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenter.h; sourceTree = "<group>"; };
+		78C4E02B1B26EFE50047B834 /* GameCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameCenter.m; sourceTree = "<group>"; };
+		78C4E02D1B26EFFB0047B834 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		78CC361A1AF4720B00033213 /* circlebutton_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_1.png; sourceTree = "<group>"; };
 		78CC361B1AF4720B00033213 /* circlebutton_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_2.png; sourceTree = "<group>"; };
 		78CC361C1AF4720B00033213 /* circlebutton_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circlebutton_3.png; sourceTree = "<group>"; };
@@ -169,6 +174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78C4E02E1B26EFFB0047B834 /* GameKit.framework in Frameworks */,
 				7836C7DD1AF3CE8D00E4AFAB /* Accelerate.framework in Frameworks */,
 				780E17651AEE7DDB007A4A88 /* UIKit.framework in Frameworks */,
 				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
@@ -211,6 +217,7 @@
 		782B1F701AE35B450051D053 = {
 			isa = PBXGroup;
 			children = (
+				78C4E02D1B26EFFB0047B834 /* GameKit.framework */,
 				7836C7DC1AF3CE8D00E4AFAB /* Accelerate.framework */,
 				780E17641AEE7DDB007A4A88 /* UIKit.framework */,
 				7844B7191AEB29B0006DE282 /* AVFoundation.framework */,
@@ -385,6 +392,8 @@
 			children = (
 				78E260911B1AEBA600EB9F3E /* GameResultData.h */,
 				78E260921B1AEBA600EB9F3E /* GameResultData.m */,
+				78C4E02A1B26EFE50047B834 /* GameCenter.h */,
+				78C4E02B1B26EFE50047B834 /* GameCenter.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -524,6 +533,7 @@
 			files = (
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
+				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
 				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
