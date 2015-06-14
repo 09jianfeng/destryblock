@@ -181,19 +181,18 @@ extern NSString *playingViewExitNotification;
     UIImage *imageclose = nil;
     UIColor *colorForItem = nil;
     if (startNum > 0) {
-        imageclose = [UIImage imageNamed:@"guankaopen.png"];
-        colorForItem = [GameDataGlobal getUnLockColor];
+        imageclose = [UIImage imageNamed:@"lockOpen.png"];
     }else{
-        imageclose = [UIImage imageNamed:@"guankaclose.png"];
-        colorForItem = [GameDataGlobal getLockColor];
+        imageclose = [UIImage imageNamed:@"lockClose.png"];
     }
     
+    colorForItem = [UIColor whiteColor];
     int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
     int imageViewSize = legth*3/4;
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, imageViewSize, imageViewSize)];
     imageview.tag = 5000+indexPath.row;
     cell.tag = 6000+indexPath.row;
-//    imageview.image = imageclose;
+    imageview.image = imageclose;
     imageview.layer.cornerRadius = imageViewSize/4;
     imageview.backgroundColor = colorForItem;
     [collectionView addSubview:imageview];
