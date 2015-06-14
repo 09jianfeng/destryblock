@@ -119,7 +119,7 @@
     snowflake.lifetime		= 2.0;
     snowflake.lifetimeRange = 4;
     
-    snowflake.scale = 0.05;
+//    snowflake.scale = 0.05;
     snowflake.velocity		= 200;				// 粒子速度
     snowflake.velocityRange = 100;
     snowflake.yAcceleration = 200;
