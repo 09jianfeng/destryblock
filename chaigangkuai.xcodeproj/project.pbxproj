@@ -52,6 +52,10 @@
 		7882DD711B2D20770049A296 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD701B2D20770049A296 /* Foundation.framework */; };
 		7882DD7E1B2D22FF0049A296 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD7B1B2D22FF0049A296 /* libWeChatSDK.a */; };
 		7882DD801B2D76270049A296 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD7F1B2D76270049A296 /* libc++.dylib */; };
+		7882DD831B2D7F880049A296 /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7882DD821B2D7F880049A296 /* IAPManager.m */; };
+		7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD841B2D7FA50049A296 /* StoreKit.framework */; };
+		7882DD8A1B2D7FFB0049A296 /* ActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7882DD871B2D7FFB0049A296 /* ActivityIndicator.m */; };
+		7882DD8B1B2D7FFB0049A296 /* DialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7882DD891B2D7FFB0049A296 /* DialogView.m */; };
 		78AE01511B0C710300FE1558 /* back_point.png in Resources */ = {isa = PBXBuildFile; fileRef = 78AE01501B0C710300FE1558 /* back_point.png */; };
 		78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C4E0261B2575D00047B834 /* SpriteView2.m */; };
 		78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C4E02B1B26EFE50047B834 /* GameCenter.m */; };
@@ -126,6 +130,13 @@
 		7882DD7C1B2D22FF0049A296 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApi.h; path = thirdPart/WeChatSDK_1.5/WXApi.h; sourceTree = "<group>"; };
 		7882DD7D1B2D22FF0049A296 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WXApiObject.h; path = thirdPart/WeChatSDK_1.5/WXApiObject.h; sourceTree = "<group>"; };
 		7882DD7F1B2D76270049A296 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		7882DD811B2D7F880049A296 /* IAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPManager.h; sourceTree = "<group>"; };
+		7882DD821B2D7F880049A296 /* IAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPManager.m; sourceTree = "<group>"; };
+		7882DD841B2D7FA50049A296 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		7882DD861B2D7FFB0049A296 /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
+		7882DD871B2D7FFB0049A296 /* ActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityIndicator.m; sourceTree = "<group>"; };
+		7882DD881B2D7FFB0049A296 /* DialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogView.h; sourceTree = "<group>"; };
+		7882DD891B2D7FFB0049A296 /* DialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogView.m; sourceTree = "<group>"; };
 		78AE01501B0C710300FE1558 /* back_point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back_point.png; sourceTree = "<group>"; };
 		78C4E0251B2575D00047B834 /* SpriteView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView2.h; sourceTree = "<group>"; };
 		78C4E0261B2575D00047B834 /* SpriteView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView2.m; sourceTree = "<group>"; };
@@ -147,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */,
 				7882DD801B2D76270049A296 /* libc++.dylib in Frameworks */,
 				7882DD711B2D20770049A296 /* Foundation.framework in Frameworks */,
 				7882DD6F1B2D20660049A296 /* libsqlite3.0.dylib in Frameworks */,
@@ -196,6 +208,7 @@
 		782B1F701AE35B450051D053 = {
 			isa = PBXGroup;
 			children = (
+				7882DD841B2D7FA50049A296 /* StoreKit.framework */,
 				7882DD7F1B2D76270049A296 /* libc++.dylib */,
 				7882DD701B2D20770049A296 /* Foundation.framework */,
 				7882DD6E1B2D20660049A296 /* libsqlite3.0.dylib */,
@@ -347,6 +360,17 @@
 			name = weixin;
 			sourceTree = "<group>";
 		};
+		7882DD8C1B2D80AE0049A296 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				7882DD861B2D7FFB0049A296 /* ActivityIndicator.h */,
+				7882DD871B2D7FFB0049A296 /* ActivityIndicator.m */,
+				7882DD881B2D7FFB0049A296 /* DialogView.h */,
+				7882DD891B2D7FFB0049A296 /* DialogView.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		78CC36661AF7C0C500033213 /* model */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +395,8 @@
 		78E2608D1B1A946500EB9F3E /* model */ = {
 			isa = PBXGroup;
 			children = (
+				7882DD811B2D7F880049A296 /* IAPManager.h */,
+				7882DD821B2D7F880049A296 /* IAPManager.m */,
 				78E260911B1AEBA600EB9F3E /* GameResultData.h */,
 				78E260921B1AEBA600EB9F3E /* GameResultData.m */,
 				78C4E02A1B26EFE50047B834 /* GameCenter.h */,
@@ -393,6 +419,7 @@
 		78E582511B15AB47000BD23C /* mainscene */ = {
 			isa = PBXGroup;
 			children = (
+				7882DD8C1B2D80AE0049A296 /* view */,
 				78E2608D1B1A946500EB9F3E /* model */,
 			);
 			name = mainscene;
@@ -492,7 +519,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7882DD831B2D7F880049A296 /* IAPManager.m in Sources */,
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
+				7882DD8B1B2D7FFB0049A296 /* DialogView.m in Sources */,
 				7882DD671B2D1BD40049A296 /* WeiXinShare.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
 				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
@@ -505,6 +534,7 @@
 				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
+				7882DD8A1B2D7FFB0049A296 /* ActivityIndicator.m in Sources */,
 				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
 				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
 				78E260931B1AEBA600EB9F3E /* GameResultData.m in Sources */,

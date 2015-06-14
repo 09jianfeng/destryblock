@@ -15,6 +15,7 @@
 #import "GameResultData.h"
 #import "GameCenter.h"
 #import "WeiXinShare.h"
+#import "IAPManager.h"
 
 extern NSString *playingViewExitNotification;
 
@@ -73,6 +74,7 @@ extern NSString *playingViewExitNotification;
     buttonNoADS.layer.masksToBounds = YES;
     buttonNoADS.backgroundColor = [GameResultData getColorInColorType:3];
     [buttonNoADS setTitle:@"NoADS" forState:UIControlStateNormal];
+    [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
     
     UIButton *buttonPaiMing = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -115,6 +117,10 @@ extern NSString *playingViewExitNotification;
 
 -(void)buttonSharePressed:(id)sender{
     [WeiXinShare sendMessageAndImageToWebChat:1];
+}
+
+-(void)buttonNoADSPress:(id)sender{
+    [[IAPManager shareInstance] buy];
 }
 
 #pragma mark - gameCenterDelegate

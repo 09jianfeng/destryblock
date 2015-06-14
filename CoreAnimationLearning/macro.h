@@ -13,7 +13,6 @@
 #ifndef XOR_KEY
 #define XOR_KEY 0xBB
 #endif
-extern void HNMixstring(unsigned char *str, unsigned char key);
 
 //*** begin Debug Utils
 
