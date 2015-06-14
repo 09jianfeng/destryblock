@@ -14,6 +14,7 @@
 #import "SystemInfo.h"
 #import "GameResultData.h"
 #import "GameCenter.h"
+#import "WeiXinShare.h"
 
 extern NSString *playingViewExitNotification;
 
@@ -83,13 +84,14 @@ extern NSString *playingViewExitNotification;
     [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPaiMing];
     
-    UIButton *buttonGuanka = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonGuanka.frame = CGRectMake(insertWidth*7 + buttonSmallSize*3, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
-    buttonGuanka.layer.cornerRadius = buttonSmallSize/4;
-    buttonGuanka.layer.masksToBounds = YES;
-    buttonGuanka.backgroundColor = [GameResultData getColorInColorType:4];
-    [buttonGuanka setTitle:@"Share" forState:UIControlStateNormal];
-    [self.view addSubview:buttonGuanka];
+    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonShare.frame = CGRectMake(insertWidth*7 + buttonSmallSize*3, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
+    buttonShare.layer.cornerRadius = buttonSmallSize/4;
+    buttonShare.layer.masksToBounds = YES;
+    buttonShare.backgroundColor = [GameResultData getColorInColorType:4];
+    [buttonShare setTitle:@"Share" forState:UIControlStateNormal];
+    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonShare];
 }
 
 
@@ -109,6 +111,10 @@ extern NSString *playingViewExitNotification;
     gameCenterModel.delegate = self;
     [gameCenterModel authenticateLocalPlayer];
     [gameCenterModel showGameCenter];
+}
+
+-(void)buttonSharePressed:(id)sender{
+    [WeiXinShare sendMessageAndImageToWebChat:1];
 }
 
 #pragma mark - gameCenterDelegate
