@@ -64,7 +64,7 @@
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
     buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
-    [buttonSetting setTitle:@"Setting" forState:UIControlStateNormal];
+    [buttonSetting setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
     [self.view addSubview:buttonSetting];
     
     UIButton *buttonNoADS = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,7 +72,7 @@
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
     buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
-    [buttonNoADS setTitle:@"NoADS" forState:UIControlStateNormal];
+    [buttonNoADS setTitle:@" NoAD " forState:UIControlStateNormal];
     [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
     
@@ -81,7 +81,7 @@
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
     buttonPaiMing.layer.masksToBounds = YES;
     buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
-    [buttonPaiMing setTitle:@"PaiM" forState:UIControlStateNormal];
+    [buttonPaiMing setImage:[UIImage imageNamed:@"paiming"] forState:UIControlStateNormal];
     [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPaiMing];
     
@@ -90,7 +90,7 @@
     buttonShare.layer.cornerRadius = buttonSmallSize/4;
     buttonShare.layer.masksToBounds = YES;
     buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
-    [buttonShare setTitle:@"Share" forState:UIControlStateNormal];
+    [buttonShare setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
     
