@@ -11,7 +11,7 @@
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
 #import "macro.h"
-#import "GameResultData.h"
+#import "GameDataGlobal.h"
 
 @interface LPParticleLayer : CALayer
 @property (nonatomic, strong) UIBezierPath *particlePath;

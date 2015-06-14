@@ -142,7 +142,7 @@
         AddCardToWXCardPackageResp* temp = (AddCardToWXCardPackageResp*)resp;
         NSMutableString* cardStr = [[NSMutableString alloc] init];
         for (WXCardItem* cardItem in temp.cardAry) {
-            [cardStr appendString:[NSString stringWithFormat:@"cardid:%@ cardext:%@ cardstate:%d\n",cardItem.cardId,cardItem.extMsg,cardItem.cardState]];
+            [cardStr appendString:[NSString stringWithFormat:@"cardid:%@ cardext:%@ cardstate:%d\n",cardItem.cardId,cardItem.extMsg,(unsigned int)cardItem.cardState]];
         }
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"add card resp" message:cardStr delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alert show];

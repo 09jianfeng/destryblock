@@ -62,7 +62,7 @@
 		78C4E02E1B26EFFB0047B834 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C4E02D1B26EFFB0047B834 /* GameKit.framework */; };
 		78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC362F1AF673AA00033213 /* GameKeyValue.m */; };
 		78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC36681AF7C16100033213 /* LevelAndUserInfo.m */; };
-		78E260931B1AEBA600EB9F3E /* GameResultData.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E260921B1AEBA600EB9F3E /* GameResultData.m */; };
+		78E260931B1AEBA600EB9F3E /* GameDataGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */; };
 		78E50D661B14AE1600ECBACE /* playing_cellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E50D651B14AE1600ECBACE /* playing_cellbackground.png */; };
 /* End PBXBuildFile section */
 
@@ -148,8 +148,8 @@
 		78CC36671AF7C16100033213 /* LevelAndUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelAndUserInfo.h; sourceTree = "<group>"; };
 		78CC36681AF7C16100033213 /* LevelAndUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelAndUserInfo.m; sourceTree = "<group>"; };
 		78E260901B1ACB5D00EB9F3E /* macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macro.h; sourceTree = "<group>"; };
-		78E260911B1AEBA600EB9F3E /* GameResultData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameResultData.h; sourceTree = "<group>"; };
-		78E260921B1AEBA600EB9F3E /* GameResultData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameResultData.m; sourceTree = "<group>"; };
+		78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataGlobal.h; sourceTree = "<group>"; };
+		78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataGlobal.m; sourceTree = "<group>"; };
 		78E50D651B14AE1600ECBACE /* playing_cellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = playing_cellbackground.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -397,8 +397,8 @@
 			children = (
 				7882DD811B2D7F880049A296 /* IAPManager.h */,
 				7882DD821B2D7F880049A296 /* IAPManager.m */,
-				78E260911B1AEBA600EB9F3E /* GameResultData.h */,
-				78E260921B1AEBA600EB9F3E /* GameResultData.m */,
+				78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */,
+				78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */,
 				78C4E02A1B26EFE50047B834 /* GameCenter.h */,
 				78C4E02B1B26EFE50047B834 /* GameCenter.m */,
 				7882DD651B2D1BD40049A296 /* WeiXinShare.h */,
@@ -537,7 +537,7 @@
 				7882DD8A1B2D7FFB0049A296 /* ActivityIndicator.m in Sources */,
 				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
 				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
-				78E260931B1AEBA600EB9F3E /* GameResultData.m in Sources */,
+				78E260931B1AEBA600EB9F3E /* GameDataGlobal.m in Sources */,
 				78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

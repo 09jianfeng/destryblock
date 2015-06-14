@@ -10,9 +10,13 @@
 #import <StoreKit/SKProductsRequest.h>
 #import <StoreKit/SKPaymentQueue.h>
 
-@interface IAPManager : NSObject<SKProductsRequestDelegate,SKPaymentTransactionObserver>
+@protocol IAPManagerDelegate <NSObject>
+-(void)buySuccess;
+@end
 
-+(IAPManager *)shareInstance;
+@interface IAPManager : NSObject<SKProductsRequestDelegate,SKPaymentTransactionObserver>
+@property(nonatomic, assign) id<IAPManagerDelegate> delegate;
+
 -(void)buy;
 -(void)restore;
 @end

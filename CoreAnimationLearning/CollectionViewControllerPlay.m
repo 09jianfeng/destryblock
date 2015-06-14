@@ -14,7 +14,7 @@
 #import "SystemInfo.h"
 #import "LevelAndUserInfo.h"
 #import "UIViewFinishPlayAlert.h"
-#import "GameResultData.h"
+#import "GameDataGlobal.h"
 #import "SpriteView2.h"
 
 extern NSString *levelinfo;
@@ -72,7 +72,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.collectionView.backgroundColor = [GameResultData getMainScreenBackgroundColor];
+    self.collectionView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -158,7 +158,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
     finish.target = [_gameAlgorithm getAllValueBlockNum];
     finish.score = self.Allpoints;
-    finish.total = [GameResultData getAllBlockenBlocks];
+    finish.total = [GameDataGlobal getAllBlockenBlocks];
     finish.isStop = YES;
     finish.tag = 3000;
     [self.view addSubview:finish];
@@ -170,7 +170,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark logic
 -(void)endTheGame{
     [self.timer invalidate];
-    [GameResultData gameResultAddBrockenBlocks:self.Allpoints];
+    [GameDataGlobal gameResultAddBrockenBlocks:self.Allpoints];
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
     }
@@ -178,7 +178,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
     finish.target = [_gameAlgorithm getAllValueBlockNum];
     finish.score = self.Allpoints;
-    finish.total = [GameResultData getAllBlockenBlocks];
+    finish.total = [GameDataGlobal getAllBlockenBlocks];
     finish.isStop = NO;
     finish.tag = 3000;
     [self.view addSubview:finish];
@@ -304,7 +304,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     //获取该块的颜色
     int colorType = [self.gameAlgorithm getColorInthisPlace:(int)indexPath.row];
-    UIColor *color = [GameResultData getColorInColorType:colorType];
+    UIColor *color = [GameDataGlobal getColorInColorType:colorType];
     SpriteView2 *sprite = (SpriteView2 *)[cell viewWithTag:1001];
     if (color) {
         int spritSize = cell.frame.size.width*6/7;
@@ -424,7 +424,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)exitTheGame{
-    [GameResultData gameResultAddBrockenBlocks:self.Allpoints];
+    [GameDataGlobal gameResultAddBrockenBlocks:self.Allpoints];
     
     [UIView animateWithDuration:0.3 animations:^{
         self.view.alpha = 0.0;

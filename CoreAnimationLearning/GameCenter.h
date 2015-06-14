@@ -10,9 +10,15 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 
+@protocol GameCenterDelegate <NSObject>
+
+-(void)userLoginSuccess;
+
+@end
+
 @interface GameCenter : NSObject
 //viewcontroller需要实现 GKGameCenterControllerDelegate，的- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController 方法
-@property(nonatomic, assign) ViewController *delegate;
+@property(nonatomic, assign) ViewController<GameCenterDelegate> *delegate;
 
 - (void)showGameCenter;
 //身份验证

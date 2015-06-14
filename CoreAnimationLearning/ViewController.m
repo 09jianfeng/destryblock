@@ -12,15 +12,14 @@
 #import <dlfcn.h>
 #import "LevelDialogView.h"
 #import "SystemInfo.h"
-#import "GameResultData.h"
+#import "GameDataGlobal.h"
 #import "GameCenter.h"
 #import "WeiXinShare.h"
 #import "IAPManager.h"
+#import "macro.h"
 
-extern NSString *playingViewExitNotification;
-
-@interface ViewController (){
-}
+@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
+@property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @end
 
 @implementation ViewController
@@ -29,7 +28,7 @@ extern NSString *playingViewExitNotification;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [GameResultData getMainScreenBackgroundColor];
+    self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
     UILabel *labelChai = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height/4 - 40)];
     labelChai.textColor = [UIColor whiteColor];
@@ -64,7 +63,7 @@ extern NSString *playingViewExitNotification;
     buttonSetting.frame = CGRectMake(insertWidth, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
-    buttonSetting.backgroundColor = [GameResultData getColorInColorType:2];
+    buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
     [buttonSetting setTitle:@"Setting" forState:UIControlStateNormal];
     [self.view addSubview:buttonSetting];
     
@@ -72,7 +71,7 @@ extern NSString *playingViewExitNotification;
     buttonNoADS.frame = CGRectMake(insertWidth*3 + buttonSmallSize, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
-    buttonNoADS.backgroundColor = [GameResultData getColorInColorType:3];
+    buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
     [buttonNoADS setTitle:@"NoADS" forState:UIControlStateNormal];
     [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
@@ -81,7 +80,7 @@ extern NSString *playingViewExitNotification;
     buttonPaiMing.frame = CGRectMake(insertWidth*5 + buttonSmallSize*2, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
     buttonPaiMing.layer.masksToBounds = YES;
-    buttonPaiMing.backgroundColor = [GameResultData getColorInColorType:5];
+    buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
     [buttonPaiMing setTitle:@"PaiM" forState:UIControlStateNormal];
     [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPaiMing];
@@ -90,10 +89,14 @@ extern NSString *playingViewExitNotification;
     buttonShare.frame = CGRectMake(insertWidth*7 + buttonSmallSize*3, self.view.frame.size.height/2 + buttonPlaysize + insertWidth, buttonSmallSize, buttonSmallSize);
     buttonShare.layer.cornerRadius = buttonSmallSize/4;
     buttonShare.layer.masksToBounds = YES;
-    buttonShare.backgroundColor = [GameResultData getColorInColorType:4];
+    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
     [buttonShare setTitle:@"Share" forState:UIControlStateNormal];
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
+    
+    GameCenter *gameCenterModel = [[GameCenter alloc] init];
+    gameCenterModel.delegate = self;
+    [gameCenterModel authenticateLocalPlayer];
 }
 
 
@@ -111,8 +114,12 @@ extern NSString *playingViewExitNotification;
 -(void)buttonPaiMingPressed:(id)sender{
     GameCenter *gameCenterModel = [[GameCenter alloc] init];
     gameCenterModel.delegate = self;
-    [gameCenterModel authenticateLocalPlayer];
-    [gameCenterModel showGameCenter];
+    if (_isUserHavedLoginGameCenter) {
+        [gameCenterModel showGameCenter];
+    }else{
+        [gameCenterModel authenticateLocalPlayer];
+    }
+    
 }
 
 -(void)buttonSharePressed:(id)sender{
@@ -120,7 +127,8 @@ extern NSString *playingViewExitNotification;
 }
 
 -(void)buttonNoADSPress:(id)sender{
-    [[IAPManager shareInstance] buy];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"是否确定用“$1”去掉游戏内广告" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"购买",@"恢复", nil];
+    [alert show];
 }
 
 #pragma mark - gameCenterDelegate
@@ -128,4 +136,40 @@ extern NSString *playingViewExitNotification;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - UIAlertVIewDelegate
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 0:
+        {
+        }
+            break;
+        case 1:
+        {
+            IAPManager *iap = [[IAPManager alloc] init];
+            iap.delegate = self;
+            [iap buy];
+        }
+            break;
+        case 2:
+        {
+            IAPManager *iap = [[IAPManager alloc] init];
+            iap.delegate = self;
+            [iap restore];
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark - iapManagerDelegate
+-(void)buySuccess{
+    HNLOGINFO(@"购买成功");
+}
+
+#pragma mark - GameCenterLoginSuccessDelegate
+-(void)userLoginSuccess{
+    self.isUserHavedLoginGameCenter = YES;
+}
 @end

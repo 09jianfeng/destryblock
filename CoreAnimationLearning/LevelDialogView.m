@@ -10,7 +10,7 @@
 #import "CollectionViewCellLevel.h"
 #import "CollectionViewControllerPlay.h"
 #import "LevelAndUserInfo.h"
-#import "GameResultData.h"
+#import "GameDataGlobal.h"
 
 extern NSString *levelinfo;
 extern NSString *levelinfoScore;
@@ -50,7 +50,7 @@ extern NSString *playingViewExitNotification;
 #pragma mark 子视图
 -(void)initAndAddOtherSubview{
     UIView* levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    levelBaseView.backgroundColor = [GameResultData getMainScreenBackgroundColor];
+    levelBaseView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     levelBaseView.tag = 1000;
     [self addSubview:levelBaseView];
     
@@ -182,10 +182,10 @@ extern NSString *playingViewExitNotification;
     UIColor *colorForItem = nil;
     if (startNum > 0) {
         imageclose = [UIImage imageNamed:@"guankaopen.png"];
-        colorForItem = [GameResultData getUnLockColor];
+        colorForItem = [GameDataGlobal getUnLockColor];
     }else{
         imageclose = [UIImage imageNamed:@"guankaclose.png"];
-        colorForItem = [GameResultData getLockColor];
+        colorForItem = [GameDataGlobal getLockColor];
     }
     
     int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;

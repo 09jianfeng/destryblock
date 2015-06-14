@@ -1,5 +1,5 @@
 //
-//  GameResultData.h
+//  GameDataGlobal.h
 //  CoreAnimationLearning
 //
 //  Created by JFChen on 15/5/31.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface GameResultData : NSObject
+@interface GameDataGlobal : NSObject
 +(void)gameResultAddBrockenBlocks:(int)blocks;
 +(int)getAllBlockenBlocks;
 +(void)sendPerfectAchivement;

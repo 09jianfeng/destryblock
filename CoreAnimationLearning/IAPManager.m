@@ -150,7 +150,9 @@
                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
                 [alerView show];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"com.book.wulinchuanqivip" object:nil];
+                if (self.delegate) {
+                    [self.delegate buySuccess];
+                }
                 [[ActivityIndicator shareInstance] closeActivityIndicator];
                 break;
             }
@@ -169,7 +171,9 @@
             {
                 [self restoreTransaction:transaction];
                 HNLOGINFO(@"-----已经购买过该商品 --------");
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"com.book.wulinchuanqivip" object:nil];
+                if (self.delegate) {
+                    [self.delegate buySuccess];
+                }
                 UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"Alert"
                                                                     message:@"已经购买过商品"
                                                                    delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];
@@ -237,7 +241,6 @@
 
 -(void) paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
     HNLOGINFO(@"-------paymentQueue----，恢复内购出错");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"com.book.wulinchuanqivip" object:nil];
     UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"Alert"
                                                         message:@"恢复失败"
                                                        delegate:nil cancelButtonTitle:NSLocalizedString(@"Close（关闭）",nil) otherButtonTitles:nil];

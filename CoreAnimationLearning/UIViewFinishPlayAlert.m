@@ -7,7 +7,7 @@
 //
 
 #import "UIViewFinishPlayAlert.h"
-#import "GameResultData.h"
+#import "GameDataGlobal.h"
 
 @interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
@@ -30,7 +30,7 @@
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
     UIView *board = [[UIView alloc] initWithFrame:CGRectMake(20, -self.frame.size.height/2, self.frame.size.width - 20*2, self.frame.size.height/2)];
-    board.backgroundColor = [GameResultData getMainScreenBackgroundColor];
+    board.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     board.tag = 40000;
     board.layer.cornerRadius = board.frame.size.width/8;
     

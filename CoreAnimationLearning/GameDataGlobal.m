@@ -1,22 +1,22 @@
 //
-//  GameResultData.m
+//  GameDataGlobal.m
 //  CoreAnimationLearning
 //
 //  Created by JFChen on 15/5/31.
 //  Copyright (c) 2015年 JFChen. All rights reserved.
 //
 
-#import "GameResultData.h"
+#import "GameDataGlobal.h"
 #import "GameKeyValue.h"
 #import "GameCenter.h"
 
-static NSString *GAMERESULTDATAKEY = @"GAMERESULTDATAKEY";
+static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 
-@implementation GameResultData
+@implementation GameDataGlobal
 +(void)gameResultAddBrockenBlocks:(int)blocks{
-    int allBlocksPre = [GameResultData getAllBlockenBlocks];
+    int allBlocksPre = [GameDataGlobal getAllBlockenBlocks];
     allBlocksPre += blocks;
-    [GameKeyValue setObject:[NSNumber numberWithInt:allBlocksPre] forKey:GAMERESULTDATAKEY];
+    [GameKeyValue setObject:[NSNumber numberWithInt:allBlocksPre] forKey:GameDataGlobalKEY];
     [GameKeyValue synchronize];
     GameCenter *gameCenter = [[GameCenter alloc] init];
     [gameCenter reportScore:allBlocksPre forCategory:@"1002"];
@@ -28,7 +28,7 @@ static NSString *GAMERESULTDATAKEY = @"GAMERESULTDATAKEY";
 }
 
 +(int)getAllBlockenBlocks{
-    return [[GameKeyValue objectForKey:GAMERESULTDATAKEY] intValue];
+    return [[GameKeyValue objectForKey:GameDataGlobalKEY] intValue];
 }
 
 +(UIColor *)getMainScreenBackgroundColor{

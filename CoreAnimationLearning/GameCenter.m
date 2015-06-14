@@ -9,6 +9,7 @@
 #import "GameCenter.h"
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
+#import "macro.h"
 
 @implementation GameCenter
 
@@ -18,17 +19,19 @@
     [[GKLocalPlayer localPlayer] setAuthenticateHandler:^(UIViewController *viewController,NSError *error){
         if (error == nil) {
             //成功处理
-            NSLog(@"成功");
-            NSLog(@"1--alias--.%@",[GKLocalPlayer localPlayer].alias);
-            NSLog(@"2--authenticated--.%d",[GKLocalPlayer localPlayer].authenticated);
-            NSLog(@"3--isFriend--.%d",[GKLocalPlayer localPlayer].isFriend);
-            NSLog(@"4--playerID--.%@",[GKLocalPlayer localPlayer].playerID);
-            NSLog(@"5--underage--.%d",[GKLocalPlayer localPlayer].underage);
+            HNLOGINFO(@"成功");
+            HNLOGINFO(@"1--alias--.%@",[GKLocalPlayer localPlayer].alias);
+            HNLOGINFO(@"2--authenticated--.%d",[GKLocalPlayer localPlayer].authenticated);
+            HNLOGINFO(@"3--isFriend--.%d",[GKLocalPlayer localPlayer].isFriend);
+            HNLOGINFO(@"4--playerID--.%@",[GKLocalPlayer localPlayer].playerID);
+            HNLOGINFO(@"5--underage--.%d",[GKLocalPlayer localPlayer].underage);
             if(viewController)
             [self.delegate presentViewController:viewController animated:YES completion:nil];
+            
+            [self.delegate userLoginSuccess];
         }else {
             //错误处理
-            NSLog(@"失败  %@",error);
+            HNLOGINFO(@"失败  %@",error);
         }
     }];
 }
@@ -57,12 +60,12 @@
         if (error != nil)
         {
             // handle the reporting error
-            NSLog(@"上传分数出错.");
+            HNLOGINFO(@"上传分数出错.");
             //If your application receives a network error, you should not discard the score.
             //Instead, store the score object and attempt to report the player’s process at
             //a later time.
         }else {
-            NSLog(@"上传分数成功");
+            HNLOGINFO(@"上传分数成功");
         }
     }];
 
@@ -92,20 +95,20 @@
         [leaderboardRequest loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
             if (error != nil){
                 // handle the error.
-                NSLog(@"下载失败");
+                HNLOGINFO(@"下载失败");
             }
             if (scores != nil){
                 // process the score information.
-                NSLog(@"下载成功....");
+                HNLOGINFO(@"下载成功....");
                 NSArray *tempScore = [NSArray arrayWithArray:leaderboardRequest.scores];
                 for (GKScore *obj in tempScore) {
-                    NSLog(@"    playerID            : %@",obj.playerID);
-                    NSLog(@"    category            : %@",obj.leaderboardIdentifier);
-                    NSLog(@"    date                : %@",obj.date);
-                    NSLog(@"    formattedValue    : %@",obj.formattedValue);
-                    NSLog(@"    value                : %d",(int)obj.value);
-                    NSLog(@"    rank                : %d",(int)obj.rank);
-                    NSLog(@"**************************************");
+                    HNLOGINFO(@"    playerID            : %@",obj.playerID);
+                    HNLOGINFO(@"    category            : %@",obj.leaderboardIdentifier);
+                    HNLOGINFO(@"    date                : %@",obj.date);
+                    HNLOGINFO(@"    formattedValue    : %@",obj.formattedValue);
+                    HNLOGINFO(@"    value                : %d",(int)obj.value);
+                    HNLOGINFO(@"    rank                : %d",(int)obj.rank);
+                    HNLOGINFO(@"**************************************");
                 }
             }
         }];
@@ -152,11 +155,11 @@
         }
         if (players != nil)
         {
-            NSLog(@"得到好友的alias成功");
+            HNLOGINFO(@"得到好友的alias成功");
             GKPlayer *friend1 = [players objectAtIndex:0];
-            NSLog(@"friedns---alias---%@",friend1.alias);
-            NSLog(@"friedns---isFriend---%d",friend1.isFriend);
-            NSLog(@"friedns---playerID---%@",friend1.playerID);
+            HNLOGINFO(@"friedns---alias---%@",friend1.alias);
+            HNLOGINFO(@"friedns---isFriend---%d",friend1.isFriend);
+            HNLOGINFO(@"friedns---playerID---%@",friend1.playerID);
         }
     }];
 }
@@ -178,15 +181,15 @@
                  //attempt to report the progress until it is successfully reported.
                  //The GKAchievement class supports the NSCoding protocol to allow your
                  //application to archive an achie
-                 NSLog(@"报告成就进度失败 ,错误信息为: \n %@",error);
+                 HNLOGINFO(@"报告成就进度失败 ,错误信息为: \n %@",error);
              }else {
                  //对用户提示,已经完成XX%进度
-                 NSLog(@"报告成就进度---->成功!");
-                 NSLog(@"    completed:%d",achievement.completed);
-//                 NSLog(@"    hidden:%d",achievement.hidden);
-                 NSLog(@"    lastReportedDate:%@",achievement.lastReportedDate);
-                 NSLog(@"    percentComplete:%f",achievement.percentComplete);
-                 NSLog(@"    identifier:%@",achievement.identifier);
+                 HNLOGINFO(@"报告成就进度---->成功!");
+                 HNLOGINFO(@"    completed:%d",achievement.completed);
+//                 HNLOGINFO(@"    hidden:%d",achievement.hidden);
+                 HNLOGINFO(@"    lastReportedDate:%@",achievement.lastReportedDate);
+                 HNLOGINFO(@"    percentComplete:%f",achievement.percentComplete);
+                 HNLOGINFO(@"    identifier:%@",achievement.identifier);
              }
          }];
     }
