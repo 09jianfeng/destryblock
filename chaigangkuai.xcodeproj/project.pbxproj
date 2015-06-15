@@ -31,6 +31,7 @@
 		783256971B2F321A007178D4 /* 1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 783256941B2F321A007178D4 /* 1.mp3 */; };
 		783256981B2F321A007178D4 /* 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 783256951B2F321A007178D4 /* 2.mp3 */; };
 		783256991B2F321A007178D4 /* 3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 783256961B2F321A007178D4 /* 3.mp3 */; };
+		7832569B1B2F369D007178D4 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7832569A1B2F369D007178D4 /* click.mp3 */; };
 		7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */; };
 		7836C7DD1AF3CE8D00E4AFAB /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7836C7DC1AF3CE8D00E4AFAB /* Accelerate.framework */; };
 		7837633C1B2E4CCD00F70207 /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 7837633B1B2E4CCD00F70207 /* back.png */; };
@@ -100,6 +101,7 @@
 		783256941B2F321A007178D4 /* 1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1.mp3; sourceTree = "<group>"; };
 		783256951B2F321A007178D4 /* 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 2.mp3; sourceTree = "<group>"; };
 		783256961B2F321A007178D4 /* 3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 3.mp3; sourceTree = "<group>"; };
+		7832569A1B2F369D007178D4 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		7835010D1B15C2CE00830DAE /* UIViewFinishPlayAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewFinishPlayAlert.h; sourceTree = "<group>"; };
 		7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewFinishPlayAlert.m; sourceTree = "<group>"; };
 		7836C7DC1AF3CE8D00E4AFAB /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -293,6 +295,7 @@
 		7844B70E1AEB233F006DE282 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				7832569A1B2F369D007178D4 /* click.mp3 */,
 				783256941B2F321A007178D4 /* 1.mp3 */,
 				783256951B2F321A007178D4 /* 2.mp3 */,
 				783256961B2F321A007178D4 /* 3.mp3 */,
@@ -498,6 +501,7 @@
 				780E176C1AEF07E0007A4A88 /* Default-568h@2x.png in Resources */,
 				780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */,
 				783763401B2E503A00F70207 /* pause.png in Resources */,
+				7832569B1B2F369D007178D4 /* click.mp3 in Resources */,
 				78E50D661B14AE1600ECBACE /* playing_cellbackground.png in Resources */,
 				7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */,
 				782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */,

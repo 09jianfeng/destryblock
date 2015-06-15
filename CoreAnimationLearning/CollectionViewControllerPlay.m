@@ -32,8 +32,6 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
    int seconde;
 }
 
-@property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
-@property(nonatomic, retain) AVAudioPlayer *audioplayerError;
 @property(nonatomic, retain) UIDynamicAnimator *animator;
 @property(nonatomic, retain) UIGravityBehavior *gravity;
 @property(nonatomic, retain) ProGressView *processView;
@@ -60,8 +58,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)dealloc{
     self.mutArraySprites = nil;
-    self.audioplayerCorrect = nil;
-    self.audioplayerError = nil;
     self.gameAlgorithm = nil;
     self.animator = nil;
     self.gravity = nil;
@@ -222,21 +218,6 @@ static NSString * const reuseIdentifier = @"Cell";
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
--(void)playAudioIsCorrect:(int)statue{
-    NSString *stringCottect = [NSString stringWithFormat:@"%d.mp3",statue];
-    if (statue>3) {
-        stringCottect = @"error.mp3";
-    }
-    
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    self.audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [self.audioplayerCorrect prepareToPlay];
-    [self.audioplayerCorrect play];
-}
-
 -(int)numberOfblock{
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width + 1;
@@ -393,9 +374,9 @@ static NSString * const reuseIdentifier = @"Cell";
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
     if (spritesNumShouldDrop > 1) {
-        [self playAudioIsCorrect:spritesNumShouldDrop-1];
+        [GameDataGlobal playAudioIsCorrect:spritesNumShouldDrop-1];
     }else{
-        [self playAudioIsCorrect:4];
+        [GameDataGlobal playAudioIsCorrect:4];
     }
     
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];

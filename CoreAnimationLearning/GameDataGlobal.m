@@ -9,10 +9,43 @@
 #import "GameDataGlobal.h"
 #import "GameKeyValue.h"
 #import "GameCenter.h"
+#import <AVFoundation/AVFoundation.h>
 
 static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 
+@interface GameDataGlobal()
+@property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
+@end
+
 @implementation GameDataGlobal
++(id)shareInstance{
+    static GameDataGlobal *game = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        game = [[GameDataGlobal alloc] init];
+    });
+    return game;
+}
+
++(void)playAudioIsCorrect:(int)statue{
+    NSString *stringCottect = [NSString stringWithFormat:@"%d.mp3",statue];
+    if (statue == 4) {
+        stringCottect = @"error.mp3";
+    }else if (statue ==5){
+        stringCottect = @"click.mp3";
+    }
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
+
 +(void)gameResultAddBrockenBlocks:(int)blocks{
     int allBlocksPre = [GameDataGlobal getAllBlockenBlocks];
     allBlocksPre += blocks;

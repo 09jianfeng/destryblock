@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @interface GameDataGlobal : NSObject
++(void)playAudioIsCorrect:(int)statue;
 +(void)gameResultAddBrockenBlocks:(int)blocks;
 +(int)getAllBlockenBlocks;
 +(void)sendPerfectAchivement;

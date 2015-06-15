@@ -109,6 +109,7 @@
     [UIView animateWithDuration:0.3 animations:^{
         levelDialog.alpha = 1.0;
     }];
+    [GameDataGlobal playAudioIsCorrect:5];
 }
 
 -(void)buttonPaiMingPressed:(id)sender{
@@ -120,15 +121,18 @@
         [gameCenterModel authenticateLocalPlayer];
     }
     
+    [GameDataGlobal playAudioIsCorrect:5];
 }
 
 -(void)buttonSharePressed:(id)sender{
     [WeiXinShare sendMessageAndImageToWebChat:1];
+    [GameDataGlobal playAudioIsCorrect:5];
 }
 
 -(void)buttonNoADSPress:(id)sender{
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"是否确定用“$1”去掉游戏内广告" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"购买",@"恢复", nil];
     [alert show];
+    [GameDataGlobal playAudioIsCorrect:5];
 }
 
 #pragma mark - gameCenterDelegate
