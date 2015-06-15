@@ -20,15 +20,6 @@
 @end
 
 @implementation IAPManager
-+(IAPManager *)shareInstance{
-    static IAPManager *iapMana = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        iapMana = [IAPManager new];
-    });
-    return iapMana;
-}
-
 -(id)init{
     self  = [super init];
     if (self) {

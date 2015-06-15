@@ -92,9 +92,9 @@ extern NSString *playingViewExitNotification;
     
     int buttonBackSize = levelBaseView.frame.size.width/4.0;
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, scrollview.frame.size.height + pageControl.frame.size.height*2,buttonBackSize, buttonBackSize)];
-    button.backgroundColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:1.0];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitle:@"Back" forState:UIControlStateNormal];
+//    [button setTitle:@"Back" forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     button.tag = 1300;
     button.layer.cornerRadius = buttonBackSize/2;
     [button addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];

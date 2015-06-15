@@ -118,9 +118,10 @@ static NSString * const reuseIdentifier = @"Cell";
         [self.view addSubview:self.labelPoints];
     }
     
-    UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonStop.frame = CGRectMake(self.view.frame.size.width - 100,self.view.frame.size.height - processHeight, 50, 20);
     [buttonStop addTarget:self action:@selector(buttonStopPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonStop setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
     [self.view addSubview:buttonStop];
     
     int labelLen = 180;
@@ -221,13 +222,12 @@ static NSString * const reuseIdentifier = @"Cell";
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
 
--(void)playAudioIsCorrect:(BOOL)isCorrect{
-    NSString *stringCottect = @"";
-    if (isCorrect) {
-        stringCottect = @"correct.mp3";
-    }else{
+-(void)playAudioIsCorrect:(int)statue{
+    NSString *stringCottect = [NSString stringWithFormat:@"%d.mp3",statue];
+    if (statue>3) {
         stringCottect = @"error.mp3";
     }
+    
     //1.音频文件的url路径
     NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
     //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
@@ -349,7 +349,6 @@ static NSString * const reuseIdentifier = @"Cell";
     } completion:^(BOOL finish){
         cell.alpha = 1;
     }];
-    [self playAudioIsCorrect:YES];
     
     NSMutableArray *mutableShoulUpdate = nil;
     //获取要remove掉的label
@@ -390,10 +389,15 @@ static NSString * const reuseIdentifier = @"Cell";
             [sprite lp_explode];
         }
     }
-    
 //    [self beginActionAnimatorBehavior:self.mutArraySprites];
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
+    if (spritesNumShouldDrop > 1) {
+        [self playAudioIsCorrect:spritesNumShouldDrop-1];
+    }else{
+        [self playAudioIsCorrect:4];
+    }
+    
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];
     
     [_gameAlgorithm isHaveBlockToDestroy:^(BOOL isHave){

@@ -52,11 +52,11 @@
     buttonPlay.layer.cornerRadius = buttonPlaysize/4;
     buttonPlay.layer.masksToBounds = NO;
     buttonPlay.backgroundColor = [UIColor grayColor];
-    [buttonPlay setTitle:@"Play" forState:UIControlStateNormal];
+    [buttonPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
     [buttonPlay addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPlay];
     
-    int insertWidth = 10;
+    int insertWidth = self.view.frame.size.width/30;
     int buttonSmallSize = (self.view.frame.size.width - insertWidth*8)/4;
     
     UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -64,7 +64,7 @@
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
     buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
-    [buttonSetting setImage:[UIImage imageNamed:@"shezhi"] forState:UIControlStateNormal];
+    [buttonSetting setImage:[UIImage imageNamed:@"voiceOpen"] forState:UIControlStateNormal];
     [self.view addSubview:buttonSetting];
     
     UIButton *buttonNoADS = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -72,7 +72,7 @@
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
     buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
-    [buttonNoADS setTitle:@" NoAD " forState:UIControlStateNormal];
+    [buttonNoADS setImage:[UIImage imageNamed:@"noads"] forState:UIControlStateNormal];
     [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
     
