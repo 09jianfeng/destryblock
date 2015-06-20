@@ -91,14 +91,21 @@ extern NSString *playingViewExitNotification;
     [levelBaseView addSubview:pageControl];
     
     int buttonBackSize = levelBaseView.frame.size.width/4.0;
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, scrollview.frame.size.height + pageControl.frame.size.height*2,buttonBackSize, buttonBackSize)];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [button setTitle:@"Back" forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    button.tag = 1300;
-    button.layer.cornerRadius = buttonBackSize/2;
-    [button addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
-    [levelBaseView addSubview:button];
+    
+    UIButton *buttonQuiteGame = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonBackSize/5,buttonBackSize, buttonBackSize*3/5)];
+    buttonQuiteGame.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:181.0/255.0 blue:180.0/255.0 alpha:1.0];
+    [buttonQuiteGame setTitle:@"经典模式" forState:UIControlStateNormal];
+    [buttonQuiteGame setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+    buttonQuiteGame.layer.cornerRadius = buttonBackSize/8;
+    [levelBaseView addSubview:buttonQuiteGame];
+    
+    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, self.frame.size.height-buttonBackSize,buttonBackSize, buttonBackSize)];
+    [buttonBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [buttonBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    buttonBack.tag = 1300;
+    buttonBack.layer.cornerRadius = buttonBackSize/2;
+    [buttonBack addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
+    [levelBaseView addSubview:buttonBack];
 }
 
 -(void)buttonPressedGoback:(id)sender{
@@ -210,10 +217,12 @@ extern NSString *playingViewExitNotification;
     int imageViewSize = legth*3/4;
     if (imageview && cell) {
         [UIView animateWithDuration:0.05 animations:^{
-            imageview.frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y, imageViewSize, imageViewSize);;
+            int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
+            int imageViewSize = legth*3/4;
+            imageview.frame = CGRectMake(cell.frame.origin.x+(cell.frame.size.width-imageViewSize)/2, cell.frame.origin.y+(cell.frame.size.height-imageViewSize)/2, imageViewSize, imageViewSize);
         } completion:^(BOOL isfinish){
             [imageview removeFromSuperview];
-            imageview.frame = CGRectMake(0, 0, imageViewSize, imageViewSize);
+            imageview.frame = CGRectMake((cell.frame.size.width-imageViewSize)/2,(cell.frame.size.height-imageViewSize)/2, imageViewSize, imageViewSize);
             [cell addSubview:imageview];
             [self diguiAnimation];
         }];
