@@ -21,7 +21,7 @@ NSString *levelinfoColorNum = @"levelinfoColorNum";
 
 @implementation LevelAndUserInfo
 
-static int  levelAllNum=36;
+static int  levelAllNum=60;
 
 +(id)shareInstance{
     static LevelAndUserInfo *level = nil;
@@ -40,7 +40,8 @@ static int  levelAllNum=36;
     return self;
 }
 
-//生成过每一关需要的时间
+
+#pragma mark - 生成过每一关需要的时间，设置关卡难易度
 +(NSArray *)levelInfos{
     NSMutableArray *mutArrayLevels = [GameKeyValue objectForKey:levelinfo];
     if (mutArrayLevels) {
@@ -49,9 +50,9 @@ static int  levelAllNum=36;
     
     mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
-        int time = 60 - i%3;
-        int widthNum = 9 + i%3;
-        int colorNum = 3 + i/3;
+        int time = 60 - i%6;
+        int widthNum = 7 + i%6;
+        int colorNum = 3 + i/6;
         
         NSString *timeString = [NSString stringWithFormat:@"%d",time];
         NSString *widthNumString = [NSString stringWithFormat:@"%d",widthNum];
@@ -66,7 +67,7 @@ static int  levelAllNum=36;
     return mutArrayLevels;
 }
 
-//通过这关
+#pragma mark - 通过这关
 +(void)passLevel:(int)levelIndex points:(int)points startNum:(int)startNum{
     NSDictionary *diclevelinfopre =[[[LevelAndUserInfo shareInstance] arrayLevelInfos] objectAtIndex:levelIndex];
     NSString *time = [diclevelinfopre objectForKey:levelinfoTime];

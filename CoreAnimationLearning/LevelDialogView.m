@@ -12,6 +12,8 @@
 #import "LevelAndUserInfo.h"
 #import "GameDataGlobal.h"
 
+#define PAGENUM 5
+
 extern NSString *levelinfo;
 extern NSString *levelinfoScore;
 extern NSString *levelinfoTime;
@@ -63,7 +65,7 @@ extern NSString *playingViewExitNotification;
     scrollview.showsHorizontalScrollIndicator = NO;
     scrollview.showsVerticalScrollIndicator = NO;
     scrollview.scrollsToTop = NO;
-    scrollview.contentSize = CGSizeMake(scrollview.frame.size.width *3, scrollview.frame.size.height);
+    scrollview.contentSize = CGSizeMake(scrollview.frame.size.width *PAGENUM, scrollview.frame.size.height);
     scrollview.contentOffset = CGPointMake(0, 0);
     scrollview.tag = 1100;
     scrollview.delegate = self;
@@ -86,7 +88,7 @@ extern NSString *playingViewExitNotification;
     UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, scrollview.bounds.size.height,  levelBaseView.bounds.size.width, 20)];
     pageControl.backgroundColor = [UIColor clearColor];
     pageControl.pageIndicatorTintColor = [UIColor grayColor];
-    pageControl.numberOfPages = 3;
+    pageControl.numberOfPages = PAGENUM;
     pageControl.tag = 1200;
     [levelBaseView addSubview:pageControl];
     
@@ -124,7 +126,7 @@ extern NSString *playingViewExitNotification;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     UIPageControl *pageview = (UIPageControl *)[self viewWithTag:1200];
     pageview.currentPage = page;
-    self.currentPage = page >= 3 ? 3 : page ;
+    self.currentPage = page >= PAGENUM ? PAGENUM : page ;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
@@ -189,11 +191,12 @@ extern NSString *playingViewExitNotification;
     UIColor *colorForItem = nil;
     if (startNum > 0) {
         imageclose = [UIImage imageNamed:@"lockOpen.png"];
+        colorForItem = [UIColor whiteColor];
     }else{
         imageclose = [UIImage imageNamed:@"lockClose.png"];
+        colorForItem = [UIColor grayColor];
     }
     
-    colorForItem = [UIColor whiteColor];
     int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
     int imageViewSize = legth*3/4;
     UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, imageViewSize, imageViewSize)];
