@@ -11,6 +11,7 @@
 #import "CollectionViewControllerPlay.h"
 #import "LevelAndUserInfo.h"
 #import "GameDataGlobal.h"
+#import "SystemInfo.h"
 
 #define PAGENUM 5
 
@@ -72,7 +73,7 @@ extern NSString *playingViewExitNotification;
     [levelBaseView addSubview:scrollview];
     
     UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
-    UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 20, scrollview.bounds.size.width-40, scrollview.bounds.size.height) collectionViewLayout:collectionviewflow];
+    UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(20, 20, scrollview.bounds.size.width-40, scrollview.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
     collectionViewLevel1.dataSource = self;
     collectionViewLevel1.delegate = self;
     collectionViewLevel1.backgroundColor = [UIColor clearColor];
@@ -92,16 +93,21 @@ extern NSString *playingViewExitNotification;
     pageControl.tag = 1200;
     [levelBaseView addSubview:pageControl];
     
-    int buttonBackSize = levelBaseView.frame.size.width/4.0;
-    
-    UIButton *buttonQuiteGame = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonBackSize/5,buttonBackSize, buttonBackSize*3/5)];
+    int legth = (collectionViewLevel1.frame.size.width/3) < (collectionViewLevel1.frame.size.height/4)? (collectionViewLevel1.frame.size.width/3):(collectionViewLevel1.frame.size.height/4);
+    legth = legth*3/4;
+    if (IsPadUIBlockGame()) {
+        legth = legth*2/3;
+    }
+    int buttonQuiteSize =legth;
+    UIButton *buttonQuiteGame = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonQuiteSize, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonQuiteSize/5,buttonQuiteSize*2, buttonQuiteSize)];
     buttonQuiteGame.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:181.0/255.0 blue:180.0/255.0 alpha:1.0];
     [buttonQuiteGame setTitle:@"经典模式" forState:UIControlStateNormal];
     [buttonQuiteGame setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    buttonQuiteGame.layer.cornerRadius = buttonBackSize/8;
+    buttonQuiteGame.layer.cornerRadius = buttonQuiteSize/4;
     [levelBaseView addSubview:buttonQuiteGame];
     
-    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, self.frame.size.height-buttonBackSize,buttonBackSize, buttonBackSize)];
+    int buttonBackSize = (self.frame.size.height - buttonQuiteGame.frame.origin.y - buttonQuiteGame.frame.size.height)/2;
+    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, buttonQuiteGame.frame.origin.y + buttonQuiteGame.frame.size.height + buttonBackSize/2,buttonBackSize, buttonBackSize)];
     [buttonBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [buttonBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     buttonBack.tag = 1300;
@@ -187,9 +193,10 @@ extern NSString *playingViewExitNotification;
     
     NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:(indexPath.row + self.currentPage*12)];
     int startNum = [[dicLevelInfos objectForKey:levelinfoStarNum] intValue];
+    int levelPoints = [[dicLevelInfos objectForKey:levelinfoScore] intValue];
     UIImage *imageclose = nil;
     UIColor *colorForItem = nil;
-    if (startNum > 0) {
+    if (levelPoints > 0) {
         imageclose = [UIImage imageNamed:@"lockOpen.png"];
         colorForItem = [UIColor whiteColor];
     }else{
@@ -197,15 +204,43 @@ extern NSString *playingViewExitNotification;
         colorForItem = [UIColor grayColor];
     }
     
-    int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
-    int imageViewSize = legth*3/4;
-    UIImageView *imageview = [[UIImageView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, imageViewSize, imageViewSize)];
-    imageview.tag = 5000+indexPath.row;
-    cell.tag = 6000+indexPath.row;
-    imageview.image = imageclose;
-    imageview.layer.cornerRadius = imageViewSize/4;
-    imageview.backgroundColor = colorForItem;
-    [collectionView addSubview:imageview];
+    {//锁上面的视图
+        int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
+        legth = legth*3/4;
+        if (IsPadUIBlockGame()) {
+            legth = legth*2/3;
+        }
+        
+        UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(collectionView.frame.size.width+cell.frame.origin.x, cell.frame.origin.y, legth, legth)];
+        baseView.tag = 5000+indexPath.row;
+        cell.tag = 6000+indexPath.row;
+        baseView.layer.cornerRadius = legth/4;
+        baseView.backgroundColor = colorForItem;
+        [collectionView addSubview:baseView];
+        
+        int imageViewSize = legth;
+        UIImageView *imageViewLock = [[UIImageView alloc] initWithImage:imageclose];
+        imageViewLock.frame = CGRectMake(legth/2 - imageViewSize/2, 0, imageViewSize, imageViewSize);
+        [baseView addSubview:imageViewLock];
+        
+        int startInsert = 3;
+        int startSize = (legth - startInsert*4)/3;
+        UIImage *imageStart = nil;
+        for (int i = 0; i < 3; i++) {
+            if (startNum > 0) {
+               imageStart = [UIImage imageNamed:@"result_star"];
+                startNum--;
+            }else{
+                imageStart = [UIImage imageNamed:@"result_star_2"];
+            }
+            
+            UIImageView *imageViewStar = [[UIImageView alloc] initWithImage:imageStart];
+            imageViewStar.frame = CGRectMake(startInsert*(i+1) + startSize*i, imageViewSize, startSize, startSize);
+            [baseView addSubview:imageViewStar];
+        }
+        
+    }
+    
     return cell;
 }
 
@@ -217,15 +252,17 @@ extern NSString *playingViewExitNotification;
     UICollectionView *collectionview = (UICollectionView *)[self viewWithTag:1110];
     CollectionViewCellLevel *cell = (CollectionViewCellLevel *)[collectionview viewWithTag:celltag];
     int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
-    int imageViewSize = legth*3/4;
+    legth = legth*3/4;
+    if (IsPadUIBlockGame()) {
+        legth = legth*2/3;
+    }
+    
     if (imageview && cell) {
         [UIView animateWithDuration:0.05 animations:^{
-            int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
-            int imageViewSize = legth*3/4;
-            imageview.frame = CGRectMake(cell.frame.origin.x+(cell.frame.size.width-imageViewSize)/2, cell.frame.origin.y+(cell.frame.size.height-imageViewSize)/2, imageViewSize, imageViewSize);
+            imageview.frame = CGRectMake(cell.frame.origin.x+(cell.frame.size.width-legth)/2, cell.frame.origin.y+(cell.frame.size.height-legth)/2, legth, legth);
         } completion:^(BOOL isfinish){
             [imageview removeFromSuperview];
-            imageview.frame = CGRectMake((cell.frame.size.width-imageViewSize)/2,(cell.frame.size.height-imageViewSize)/2, imageViewSize, imageViewSize);
+            imageview.frame = CGRectMake((cell.frame.size.width-legth)/2,(cell.frame.size.height-legth)/2, legth, legth);
             [cell addSubview:imageview];
             [self diguiAnimation];
         }];

@@ -40,6 +40,7 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 @property(nonatomic, assign) int Allpoints;
 //mutArraySprites 存储正在动的sprites
 @property(nonatomic, strong) NSMutableArray *mutArraySprites;
+@property(nonatomic, assign) int starNum;
 @end
 
 @implementation CollectionViewControllerPlay
@@ -169,7 +170,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [self.timer invalidate];
     [GameDataGlobal gameResultAddBrockenBlocks:self.Allpoints];
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
-        [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:3];
+        [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:self.starNum];
     }
     
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
@@ -377,6 +378,11 @@ static NSString * const reuseIdentifier = @"Cell";
         [GameDataGlobal playAudioIsCorrect:spritesNumShouldDrop-1];
     }else{
         [GameDataGlobal playAudioIsCorrect:4];
+    }
+    
+    //根据4个的爆破数来决定星星的多少
+    if (spritesNumShouldDrop >= 4) {
+        self.starNum++;
     }
     
     self.labelPoints.text = [NSString stringWithFormat:@"%d",_Allpoints];
