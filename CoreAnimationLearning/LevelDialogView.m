@@ -239,6 +239,15 @@ extern NSString *playingViewExitNotification;
             [baseView addSubview:imageViewStar];
         }
         
+        UILabel *uilabelSerial = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewSize+startSize, legth, cell.frame.size.height - imageViewSize - startSize)];
+        uilabelSerial.font = [UIFont systemFontOfSize:12];
+        if (IsPadUIBlockGame()) {
+            uilabelSerial.font = [UIFont systemFontOfSize:22];
+        }
+        uilabelSerial.textColor = [UIColor whiteColor];
+        uilabelSerial.text = [NSString stringWithFormat:@"%td",12*self.currentPage + indexPath.row+1];
+        uilabelSerial.textAlignment = NSTextAlignmentCenter;
+        [baseView addSubview:uilabelSerial];
     }
     
     return cell;
@@ -259,10 +268,10 @@ extern NSString *playingViewExitNotification;
     
     if (imageview && cell) {
         [UIView animateWithDuration:0.05 animations:^{
-            imageview.frame = CGRectMake(cell.frame.origin.x+(cell.frame.size.width-legth)/2, cell.frame.origin.y+(cell.frame.size.height-legth)/2, legth, legth);
+            imageview.frame = CGRectMake(cell.frame.origin.x+(cell.frame.size.width-legth)/2, cell.frame.origin.y, legth, legth);
         } completion:^(BOOL isfinish){
             [imageview removeFromSuperview];
-            imageview.frame = CGRectMake((cell.frame.size.width-legth)/2,(cell.frame.size.height-legth)/2, legth, legth);
+            imageview.frame = CGRectMake((cell.frame.size.width-legth)/2,0, legth, legth);
             [cell addSubview:imageview];
             [self diguiAnimation];
         }];
@@ -277,7 +286,7 @@ extern NSString *playingViewExitNotification;
     int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];
     int colorNum = [[dicLevels objectForKey:levelinfoColorNum] intValue];
     
-    collecPlay.gameLevelIndex = (int)indexPath.row;
+    collecPlay.gameLevelIndex = (int)indexPath.row + self.currentPage*12;
     collecPlay.widthNum = widthNum;
     collecPlay.gameInitTypeNum = colorNum;
     
