@@ -54,6 +54,10 @@
         lableExit.textColor = [GameDataGlobal getColorInColorType:1];
         lableExit.font = [UIFont systemFontOfSize:46];
         [board addSubview:lableExit];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           [self shake:lableExit minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
+        });
+        
     }else if(_isSuccess){
         //星星
         int starLeftRightInsert = board.frame.size.width/16;
@@ -73,11 +77,15 @@
         }
     }else{
         UILabel *lableExit = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, board.frame.size.width, board.frame.size.height/3)];
-        lableExit.text = @"很遗憾";
+        lableExit.text = @"时间到";
         lableExit.textAlignment = NSTextAlignmentCenter;
         lableExit.textColor = [GameDataGlobal getColorInColorType:1];
         lableExit.font = [UIFont systemFontOfSize:46];
         [board addSubview:lableExit];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self shake:lableExit minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
+        });
     }
     
     
@@ -144,7 +152,6 @@
     buttonNext.layer.cornerRadius = buttonSize/2;
     [buttonNext addTarget:self action:@selector(buttonNextLevelPressed:) forControlEvents:UIControlEventTouchUpInside];
     [board addSubview:buttonNext];
-    
     
     //重力效果
     [self.gravity addItem:board];
@@ -286,6 +293,27 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self beginStarImageAnimator];
     });
+}
+
+#pragma mark - 抖动
+//maxAngle最小震动幅度，angleDuration递减的角度，times震动次数，duration每次震动的时间
+-(void)shake:(UIView *)view minAngle:(CGFloat)minAngle angleDuration:(CGFloat)angleDuration times:(int)times duration:(double)duration{
+    if (times <= 0) {
+        view.transform = CGAffineTransformIdentity;
+        return;
+    }
+    
+    CGFloat angel = minAngle + angleDuration * times/2;
+    if (times%2==0) {
+        angel = -angel;
+    }
+    
+    times--;
+    [UIView animateWithDuration:duration animations:^{
+        view.transform = CGAffineTransformMakeRotation(angel);
+    } completion:^(BOOL isfinish){
+        [self shake:view minAngle:minAngle angleDuration:angleDuration times:times duration:duration];
+    }];
 }
 
 #pragma mark - 按钮事件
