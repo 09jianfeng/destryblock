@@ -239,7 +239,8 @@ extern NSString *playingViewExitNotification;
             [baseView addSubview:imageViewStar];
         }
         
-        UILabel *uilabelSerial = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewSize+startSize, legth, cell.frame.size.height - imageViewSize - startSize)];
+        int labelSize = (cell.frame.size.height - imageViewSize - startSize)*2/3;
+        UILabel *uilabelSerial = [[UILabel alloc] initWithFrame:CGRectMake(0, imageViewSize+startSize, legth, labelSize)];
         uilabelSerial.font = [UIFont systemFontOfSize:12];
         if (IsPadUIBlockGame()) {
             uilabelSerial.font = [UIFont systemFontOfSize:22];

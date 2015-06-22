@@ -183,7 +183,7 @@
     CAEmitterCell* rocket = [CAEmitterCell emitterCell];
     rocket.name = @"rocketName";
     rocket.birthRate		= 2.0;
-    rocket.emissionRange	= 0.15* M_PI;  // some variation in angle，发射角度
+    rocket.emissionRange	= 0.05* M_PI;  // some variation in angle，发射角度
     rocket.velocity			= 380;
     rocket.velocityRange	= 100;
     rocket.yAcceleration	= 75;
@@ -204,23 +204,23 @@
     burst.birthRate			= 7.0;		// at the end of travel
     burst.velocity			= 0;
     burst.scale				= 2.5;
-    burst.redSpeed			=-1.5;		// shifting
+    burst.redSpeed			=+1.5;		// shifting
     burst.blueSpeed			=+1.5;		// shifting
     burst.greenSpeed		=+1.0;		// shifting
     burst.lifetime			= 0.2;
     
     // and finally, the sparks
     CAEmitterCell* spark = [CAEmitterCell emitterCell];
-    spark.birthRate			= 200;
+    spark.birthRate			= 100;
     spark.velocity			= 125;
     spark.emissionRange		= 2* M_PI;	// 360 deg
     spark.yAcceleration		= 75;		// gravity
     spark.lifetime			= 3;
-    spark.contents			= (id) [[UIImage imageNamed:@"DazStarOutline"] CGImage];
+    spark.contents			= (id) [[UIImage imageNamed:@"snow1"] CGImage];
     spark.scaleSpeed		=-0.2;
-    spark.greenSpeed		=-0.1;
+    spark.greenSpeed		=0.1;
     spark.redSpeed			= 0.4;
-    spark.blueSpeed			=-0.1;
+    spark.blueSpeed			=0.1;
     spark.alphaSpeed		=-0.25;
     spark.spin				= 2* M_PI;
     spark.spinRange			= 2* M_PI;
