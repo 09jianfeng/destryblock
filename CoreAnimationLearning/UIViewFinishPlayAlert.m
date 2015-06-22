@@ -8,10 +8,12 @@
 
 #import "UIViewFinishPlayAlert.h"
 #import "GameDataGlobal.h"
+#import "SystemInfo.h"
 
 @interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
 @property(nonatomic,retain) UIGravityBehavior *gravity;
+@property(nonatomic,retain) NSMutableArray *arrayImageView;
 @end
 
 @implementation UIViewFinishPlayAlert
@@ -20,6 +22,8 @@
     if (self) {
         self.ani = [[UIDynamicAnimator alloc] init];
         self.gravity = [[UIGravityBehavior alloc] init];
+        self.arrayImageView = [[NSMutableArray alloc] init];
+        self.isStop = YES;
         [self.ani addBehavior:self.gravity];
     }
     return self;
@@ -29,60 +33,81 @@
 -(void)showView{
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
-    UIView *board = [[UIView alloc] initWithFrame:CGRectMake(20, -self.frame.size.height/2, self.frame.size.width - 20*2, self.frame.size.height/2)];
+    int boarInsert = self.frame.size.width/8;
+    if (IsPadUIBlockGame()) {
+        boarInsert = self.frame.size.width/6;
+    }
+    int boarWidth = self.frame.size.width - boarInsert*2;
+    int boarHeigh = self.frame.size.height/2;
+    UIView *board = [[UIView alloc] initWithFrame:CGRectMake(boarInsert, -self.frame.size.height/2, boarWidth, boarHeigh)];
     board.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     board.tag = 40000;
-    board.layer.cornerRadius = board.frame.size.width/8;
+    board.layer.cornerRadius = 20;
     
-    UILabel *labelTarget = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, board.frame.size.width/2, 30)];
+    //星星
+    int starLeftRightInsert = board.frame.size.width/16;
+    int starInsert = 0;
+    int starSize = (board.frame.size.width - starInsert*4 - starLeftRightInsert*2)/3;
+    for (int i = 0 ; i < 3 ; i++) {
+        UIImageView *imageViewStar = [[UIImageView alloc] initWithFrame:CGRectMake(starLeftRightInsert + starInsert*(i+1) + starSize*i, abs(i-1)*20, starSize, starSize)];
+        if (self.starNum > 0) {
+            imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+            self.starNum--;
+            [self.arrayImageView addObject:imageViewStar];
+        }else{
+            imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+        }
+        
+        [board addSubview:imageViewStar];
+    }
+    
+    UILabel *labelTarget = [[UILabel alloc] initWithFrame:CGRectMake(0, board.frame.size.height/3, board.frame.size.width/2, 30)];
     labelTarget.textAlignment = NSTextAlignmentCenter;
-    labelTarget.text = @"Target";
+    labelTarget.text = @"目标";
     labelTarget.textColor = [UIColor blackColor];
     [board addSubview:labelTarget];
-    UILabel *labelTargetNum = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, board.frame.size.width/2, 30)];
+    UILabel *labelTargetNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTarget.frame.origin.y+labelTarget.frame.size.height, board.frame.size.width/2, 30)];
     labelTargetNum.textAlignment = NSTextAlignmentCenter;
     labelTargetNum.text = [NSString stringWithFormat:@"%d",self.target];
-    labelTargetNum.textColor = [UIColor whiteColor];
+    labelTargetNum.textColor = [UIColor blackColor];
     [board addSubview:labelTargetNum];
     
-    UILabel *labelTotal = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, 10, board.frame.size.width/2, 30)];
+    UILabel *labelTotal = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, board.frame.size.height/3, board.frame.size.width/2, 30)];
     labelTotal.textAlignment = NSTextAlignmentCenter;
-    labelTotal.text = @"Total";
+    labelTotal.text = @"总共";
     labelTotal.textColor = [UIColor blackColor];
     [board addSubview:labelTotal];
-    UILabel *labelTotalNum = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, 40, board.frame.size.width/2, 30)];
+    UILabel *labelTotalNum = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, labelTotal.frame.size.height+labelTotal.frame.origin.y, board.frame.size.width/2, 30)];
     labelTotalNum.textAlignment = NSTextAlignmentCenter;
     labelTotalNum.text = [NSString stringWithFormat:@"%d",self.total];
-    labelTotalNum.textColor = [UIColor whiteColor];
+    labelTotalNum.textColor = [UIColor blackColor];
     [board addSubview:labelTotalNum];
     
     
-    int buttonSize = board.frame.size.width/4;
+    int buttonSize = board.frame.size.width/5;
     int buttonInsert = buttonSize*2/3;
     
-    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y, board.frame.size.width, 30)];
+    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y + 10, board.frame.size.width, 30)];
     labelScore.textAlignment = NSTextAlignmentCenter;
-    labelScore.text = @"Score";
+    labelScore.text = @"分数";
     labelScore.textColor = [UIColor blackColor];
     [board addSubview:labelScore];
-    UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y - 40 - buttonSize)];
+    UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y- 10 - buttonSize)];
     labelScoreNum.textAlignment = NSTextAlignmentCenter;
     labelScoreNum.text = [NSString stringWithFormat:@"%d",self.score];
-    labelScoreNum.textColor = [UIColor whiteColor];
+    labelScoreNum.textColor = [UIColor blackColor];
     [board addSubview:labelScoreNum];
     
-    
-    
-    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert, board.frame.size.height - buttonSize - 40, buttonSize, buttonSize)];
+    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
     buttonBack.backgroundColor = [UIColor grayColor];
     buttonBack.layer.cornerRadius = buttonSize/2;
-    [buttonBack setTitle:@"Back" forState:UIControlStateNormal];
+    [buttonBack setTitle:@"退出" forState:UIControlStateNormal];
     [buttonBack addTarget:self action:@selector(buttonbackPressed:) forControlEvents:UIControlEventTouchUpInside];
     [board addSubview:buttonBack];
     
-    UIButton *buttonNext = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert*2 + buttonSize, board.frame.size.height - buttonSize - 40, buttonSize, buttonSize)];
+    UIButton *buttonNext = [[UIButton alloc] initWithFrame:CGRectMake(board.frame.size.width - buttonSize - buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
     buttonNext.backgroundColor = [UIColor grayColor];
-    NSString *conOrNext = @"Cont";
+    NSString *conOrNext = @"继续";
     if (!_isStop) {
         conOrNext = @"Next";
     }
@@ -92,6 +117,7 @@
     [board addSubview:buttonNext];
     
     
+    //重力效果
     [self.gravity addItem:board];
     UIAttachmentBehavior *attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:board attachedToAnchor:CGPointMake(self.frame.size.width/2, self.frame.size.height/2)];
     [attachmentBehavior setLength:0];
@@ -99,49 +125,179 @@
     [attachmentBehavior setFrequency:3];
     [self.ani addBehavior:attachmentBehavior];
     [self addSubview:board];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self beginStarImageAnimator];
+    });
     
     
-    //添加粒子效果,树叶往下掉
-    // 设置粒子发射的地方
-    CAEmitterLayer *snowEmitter = [CAEmitterLayer layer];
-    snowEmitter.emitterPosition = CGPointMake(self.bounds.size.width / 2.0, -50);
-    snowEmitter.emitterSize		= CGSizeMake(board.frame.size.width/2, 0);
+//    //添加粒子效果,树叶往下掉
+//    // 设置粒子发射的地方
+//    CAEmitterLayer *snowEmitter = [CAEmitterLayer layer];
+//    snowEmitter.emitterPosition = CGPointMake(self.bounds.size.width / 2.0, -50);
+//    snowEmitter.emitterSize		= CGSizeMake(board.frame.size.width/2, 0);
+//    
+//    // Spawn points for the flakes are within on the outline of the line
+//    snowEmitter.emitterMode		= kCAEmitterLayerSurface;
+//    snowEmitter.emitterShape	= kCAEmitterLayerLine;
+//    
+//    // Configure the snowflake emitter cell
+//    CAEmitterCell *snowflake = [CAEmitterCell emitterCell];
+//    
+//    snowflake.name = @"snowflake";
+//    snowflake.birthRate		= 10.0;
+//    snowflake.lifetime		= 2.0;
+//    snowflake.lifetimeRange = 4;
+//    
+//    //    snowflake.scale = 0.05;
+//    snowflake.velocity		= 200;				// 粒子速度
+//    snowflake.velocityRange = 100;
+//    snowflake.yAcceleration = 200;
+//    snowflake.emissionLongitude = 0;
+//    snowflake.emissionRange = 1 * M_PI;		// 周围发射角度
+//    snowflake.spinRange		= 0.25 * M_PI;		// 粒子旋转角度
+//    
+//    snowflake.contents		= (id) [[UIImage imageNamed:@"leaf"] CGImage];
+//    snowflake.color			= [[UIColor colorWithRed:0.600 green:0.658 blue:0.743 alpha:1.000] CGColor];
+//    
+//    // Make the flakes seem inset in the background
+//    snowEmitter.shadowOpacity = 1.0;
+//    snowEmitter.shadowRadius  = 0.0;
+//    snowEmitter.shadowOffset  = CGSizeMake(0.0, 1.0);
+//    snowEmitter.shadowColor   = [[UIColor whiteColor] CGColor];
+//    
+//    // Add everything to our backing layer below the UIContol defined in the storyboard
+//    snowEmitter.emitterCells = [NSArray arrayWithObject:snowflake];
+//    [self.layer insertSublayer:snowEmitter atIndex:0];
+//    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [snowEmitter setValue:[NSNumber numberWithFloat:0.5] forKeyPath:@"emitterCells.snowflake.birthRate"];
+//    });
+}
+
+#pragma mark - 烟火效果
+-(void)beginFireWorkAnimation{
+    // 烟火发射器，在底部
+    CAEmitterLayer *fireworksEmitter = [CAEmitterLayer layer];
+    CGRect viewBounds = self.layer.bounds;
+    fireworksEmitter.emitterPosition = CGPointMake(viewBounds.size.width/2, viewBounds.size.height);
+    fireworksEmitter.emitterSize	= CGSizeMake(5.0, 0.0);
+    fireworksEmitter.emitterMode	= kCAEmitterLayerOutline;
+    fireworksEmitter.emitterShape	= kCAEmitterLayerLine;
+    fireworksEmitter.renderMode		= kCAEmitterLayerAdditive;
+    fireworksEmitter.seed = (arc4random()%100)+1;
     
-    // Spawn points for the flakes are within on the outline of the line
-    snowEmitter.emitterMode		= kCAEmitterLayerSurface;
-    snowEmitter.emitterShape	= kCAEmitterLayerLine;
+    // 烟火弹
+    CAEmitterCell* rocket = [CAEmitterCell emitterCell];
+    rocket.name = @"rocketName";
+    rocket.birthRate		= 2.0;
+    rocket.emissionRange	= 0.15* M_PI;  // some variation in angle，发射角度
+    rocket.velocity			= 380;
+    rocket.velocityRange	= 100;
+    rocket.yAcceleration	= 75;
+    rocket.lifetime			= 1.52;	// we cannot set the birthrate < 1.0 for the burst
     
-    // Configure the snowflake emitter cell
-    CAEmitterCell *snowflake = [CAEmitterCell emitterCell];
+    rocket.contents			= (id) [[UIImage imageNamed:@"DazRing"] CGImage];
+    rocket.scale			= 0.2;
+    rocket.color			= [[UIColor colorWithRed:0.9 green:0.5 blue:0.5 alpha:1.0] CGColor];
+    rocket.greenRange		= 1.0;		// different colors
+    rocket.redRange			= 1.0;
+    rocket.blueRange		= 1.0;
+    rocket.spinRange		= M_PI;		// slow spin
     
-    snowflake.name = @"snowflake";
-    snowflake.birthRate		= 10.0;
-    snowflake.lifetime		= 2.0;
-    snowflake.lifetimeRange = 4;
     
-//    snowflake.scale = 0.05;
-    snowflake.velocity		= 200;				// 粒子速度
-    snowflake.velocityRange = 100;
-    snowflake.yAcceleration = 200;
-    snowflake.emissionLongitude = 0;
-    snowflake.emissionRange = 1 * M_PI;		// 周围发射角度
-    snowflake.spinRange		= 0.25 * M_PI;		// 粒子旋转角度
+    // the burst object cannot be seen, but will spawn the sparks
+    // we change the color here, since the sparks inherit its value
+    CAEmitterCell* burst = [CAEmitterCell emitterCell];
+    burst.birthRate			= 7.0;		// at the end of travel
+    burst.velocity			= 0;
+    burst.scale				= 2.5;
+    burst.redSpeed			=-1.5;		// shifting
+    burst.blueSpeed			=+1.5;		// shifting
+    burst.greenSpeed		=+1.0;		// shifting
+    burst.lifetime			= 0.2;
     
-    snowflake.contents		= (id) [[UIImage imageNamed:@"leaf"] CGImage];
-    snowflake.color			= [[UIColor colorWithRed:0.600 green:0.658 blue:0.743 alpha:1.000] CGColor];
+    // and finally, the sparks
+    CAEmitterCell* spark = [CAEmitterCell emitterCell];
+    spark.birthRate			= 200;
+    spark.velocity			= 125;
+    spark.emissionRange		= 2* M_PI;	// 360 deg
+    spark.yAcceleration		= 75;		// gravity
+    spark.lifetime			= 3;
+    spark.contents			= (id) [[UIImage imageNamed:@"DazStarOutline"] CGImage];
+    spark.scaleSpeed		=-0.2;
+    spark.greenSpeed		=-0.1;
+    spark.redSpeed			= 0.4;
+    spark.blueSpeed			=-0.1;
+    spark.alphaSpeed		=-0.25;
+    spark.spin				= 2* M_PI;
+    spark.spinRange			= 2* M_PI;
     
-    // Make the flakes seem inset in the background
-    snowEmitter.shadowOpacity = 1.0;
-    snowEmitter.shadowRadius  = 0.0;
-    snowEmitter.shadowOffset  = CGSizeMake(0.0, 1.0);
-    snowEmitter.shadowColor   = [[UIColor whiteColor] CGColor];
+    // putting it together
+    fireworksEmitter.emitterCells	= [NSArray arrayWithObject:rocket];
+    rocket.emitterCells				= [NSArray arrayWithObject:burst];
+    burst.emitterCells				= [NSArray arrayWithObject:spark];
+    [self.layer addSublayer:fireworksEmitter];
     
-    // Add everything to our backing layer below the UIContol defined in the storyboard
-    snowEmitter.emitterCells = [NSArray arrayWithObject:snowflake];
-    [self.layer insertSublayer:snowEmitter atIndex:0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [fireworksEmitter setValue:[NSNumber numberWithFloat:0.0] forKeyPath:@"emitterCells.rocketName.birthRate"];
+    });
+}
+
+#pragma mark - 执行星星动画
+-(void)beginStarImageAnimator{
+    if (self.arrayImageView.count == 0) {
+        if (!_isStop) {
+            [self beginFireWorkAnimation];
+        }
+        return;
+    }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [snowEmitter setValue:[NSNumber numberWithFloat:0.5] forKeyPath:@"emitterCells.snowflake.birthRate"];
+    
+    UIImageView *imageView = [self.arrayImageView objectAtIndex:0];
+    CALayer *imageLayer = [[CALayer alloc] init];
+    imageLayer.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
+    imageLayer.contents = (__bridge id)([UIImage imageNamed:@"result_star"].CGImage);
+    [imageView.layer addSublayer:imageLayer];
+    
+    //透明度渐变
+    CABasicAnimation *opacity = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    opacity.fromValue = [NSNumber numberWithFloat:0.0];
+    opacity.toValue = [NSNumber numberWithFloat:1.0];
+    opacity.autoreverses = NO;
+    opacity.fillMode = kCAFillModeBackwards;
+    opacity.repeatCount = 0;
+    opacity.duration = 0.3;
+    
+    //旋转
+    CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotateAnimation.fromValue = [NSNumber numberWithFloat:0.0];
+    rotateAnimation.toValue = [NSNumber numberWithFloat:-6.0 * M_PI];
+    rotateAnimation.autoreverses = NO;
+    rotateAnimation.repeatCount = 0;
+    rotateAnimation.duration = 0.3;
+    
+    //放大缩小
+    CABasicAnimation *scaleAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    scaleAnimation.fromValue = [NSNumber numberWithFloat:4];
+    scaleAnimation.toValue = [NSNumber numberWithFloat:1];
+    //自动按照原来的轨迹往回播动画
+    scaleAnimation.autoreverses = NO;
+    scaleAnimation.fillMode = kCAFillModeForwards;
+    scaleAnimation.repeatCount = 0;
+    scaleAnimation.duration = 0.3;
+    
+    CAAnimationGroup *groupAnnimation = [CAAnimationGroup animation];
+    groupAnnimation.duration = 0.3;
+    groupAnnimation.autoreverses = NO;
+    groupAnnimation.animations = @[opacity, scaleAnimation,rotateAnimation];
+    groupAnnimation.repeatCount = 0;
+    
+    [imageLayer addAnimation:groupAnnimation forKey:@"scaleAndOpacity"];
+    
+    
+    [self.arrayImageView removeObjectAtIndex:0];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self beginStarImageAnimator];
     });
 }
 
@@ -173,7 +329,9 @@
 }
 
 -(void)dealloc{
+    self.arrayImageView = nil;
     self.ani = nil;
     self.gravity = nil;
 }
 @end
+

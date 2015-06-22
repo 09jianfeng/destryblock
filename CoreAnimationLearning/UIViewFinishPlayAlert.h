@@ -15,6 +15,8 @@
 @property(nonatomic,assign) int score;
 @property(nonatomic,assign) CollectionViewControllerPlay *collectionViewController;
 @property(nonatomic,assign) BOOL isStop;
+@property(nonatomic,assign) int starNum;
 
 -(void)showView;
+-(void)beginStarImageAnimator;
 @end

@@ -42,6 +42,8 @@
 		7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7844B7191AEB29B0006DE282 /* AVFoundation.framework */; };
 		7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B71B1AEB2BDB006DE282 /* error.mp3 */; };
 		7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B71E1AEB3119006DE282 /* GameAlgorithm.m */; };
+		7860DFBB1B37FCF90024D2B5 /* DazRing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFB91B37FCF90024D2B5 /* DazRing.png */; };
+		7860DFBC1B37FCF90024D2B5 /* DazStarOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */; };
 		7882DD671B2D1BD40049A296 /* WeiXinShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 7882DD661B2D1BD40049A296 /* WeiXinShare.m */; };
 		7882DD6B1B2D20520049A296 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD6A1B2D20520049A296 /* SystemConfiguration.framework */; };
 		7882DD6D1B2D20580049A296 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD6C1B2D20580049A296 /* libz.dylib */; };
@@ -118,6 +120,8 @@
 		7844B71B1AEB2BDB006DE282 /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = error.mp3; sourceTree = "<group>"; };
 		7844B71D1AEB3119006DE282 /* GameAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAlgorithm.h; sourceTree = "<group>"; };
 		7844B71E1AEB3119006DE282 /* GameAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAlgorithm.m; sourceTree = "<group>"; };
+		7860DFB91B37FCF90024D2B5 /* DazRing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DazRing.png; sourceTree = "<group>"; };
+		7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DazStarOutline.png; sourceTree = "<group>"; };
 		7882DD651B2D1BD40049A296 /* WeiXinShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiXinShare.h; sourceTree = "<group>"; };
 		7882DD661B2D1BD40049A296 /* WeiXinShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiXinShare.m; sourceTree = "<group>"; };
 		7882DD6A1B2D20520049A296 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -299,6 +303,8 @@
 		7844B70E1AEB233F006DE282 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				7860DFB91B37FCF90024D2B5 /* DazRing.png */,
+				7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */,
 				782C6A0C1B3666B600A56A9C /* result_star_2.png */,
 				782C6A0D1B3666B600A56A9C /* result_star.png */,
 				7832569A1B2F369D007178D4 /* click.mp3 */,
@@ -503,12 +509,14 @@
 				7837633C1B2E4CCD00F70207 /* back.png in Resources */,
 				7882DD901B2DAF5C0049A296 /* lockOpen.png in Resources */,
 				782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */,
+				7860DFBB1B37FCF90024D2B5 /* DazRing.png in Resources */,
 				783256931B2F2AB9007178D4 /* voiceOpen.png in Resources */,
 				7832568F1B2F277A007178D4 /* noads.png in Resources */,
 				783256921B2F2AB9007178D4 /* voiceClose.png in Resources */,
 				780E176C1AEF07E0007A4A88 /* Default-568h@2x.png in Resources */,
 				780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */,
 				783763401B2E503A00F70207 /* pause.png in Resources */,
+				7860DFBC1B37FCF90024D2B5 /* DazStarOutline.png in Resources */,
 				7832569B1B2F369D007178D4 /* click.mp3 in Resources */,
 				78E50D661B14AE1600ECBACE /* playing_cellbackground.png in Resources */,
 				7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */,

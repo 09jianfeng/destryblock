@@ -169,15 +169,16 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)endTheGame{
     [self.timer invalidate];
     [GameDataGlobal gameResultAddBrockenBlocks:self.Allpoints];
-    if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
-        [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:self.starNum];
-    }
     
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
     finish.target = [_gameAlgorithm getAllValueBlockNum];
     finish.score = self.Allpoints;
     finish.total = [GameDataGlobal getAllBlockenBlocks];
-    finish.isStop = NO;
+    if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
+        [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:self.starNum];
+        finish.isStop = NO;
+    }
+    finish.starNum = self.starNum;
     finish.tag = 3000;
     [self.view addSubview:finish];
     finish.collectionViewController = self;
@@ -190,6 +191,7 @@ static NSString * const reuseIdentifier = @"Cell";
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
+    self.starNum = 0;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:0.65];
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
@@ -205,7 +207,7 @@ static NSString * const reuseIdentifier = @"Cell";
     _widthNum = widthNum;
     _gameInitTypeNum = colorNum;
     
-    
+    self.starNum = 0;
     self.Allpoints = 0;
     [self.processView setprocess:0.0];
     seconde = 0;
