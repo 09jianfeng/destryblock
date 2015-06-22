@@ -9,6 +9,8 @@
 #import "UIViewFinishPlayAlert.h"
 #import "GameDataGlobal.h"
 #import "SystemInfo.h"
+#import "SpriteView2.h"
+#import "CustomButton.h"
 
 @interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
@@ -44,23 +46,42 @@
     board.tag = 40000;
     board.layer.cornerRadius = 20;
     
-    //星星
-    int starLeftRightInsert = board.frame.size.width/16;
-    int starInsert = 0;
-    int starSize = (board.frame.size.width - starInsert*4 - starLeftRightInsert*2)/3;
-    for (int i = 0 ; i < 3 ; i++) {
-        UIImageView *imageViewStar = [[UIImageView alloc] initWithFrame:CGRectMake(starLeftRightInsert + starInsert*(i+1) + starSize*i, abs(i-1)*20, starSize, starSize)];
-        if (self.starNum > 0) {
-            imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
-            self.starNum--;
-            [self.arrayImageView addObject:imageViewStar];
-        }else{
-            imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+    //上边区域
+    if (_isStop) {
+        UILabel *lableExit = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, board.frame.size.width, board.frame.size.height/3)];
+        lableExit.text = @"暂停";
+        lableExit.textAlignment = NSTextAlignmentCenter;
+        lableExit.textColor = [GameDataGlobal getColorInColorType:1];
+        lableExit.font = [UIFont systemFontOfSize:46];
+        [board addSubview:lableExit];
+    }else if(_isSuccess){
+        //星星
+        int starLeftRightInsert = board.frame.size.width/16;
+        int starInsert = 0;
+        int starSize = (board.frame.size.width - starInsert*4 - starLeftRightInsert*2)/3;
+        for (int i = 0 ; i < 3 ; i++) {
+            UIImageView *imageViewStar = [[UIImageView alloc] initWithFrame:CGRectMake(starLeftRightInsert + starInsert*(i+1) + starSize*i, abs(i-1)*20, starSize, starSize)];
+            if (self.starNum > 0) {
+                imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+                self.starNum--;
+                [self.arrayImageView addObject:imageViewStar];
+            }else{
+                imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+            }
+            
+            [board addSubview:imageViewStar];
         }
-        
-        [board addSubview:imageViewStar];
+    }else{
+        UILabel *lableExit = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, board.frame.size.width, board.frame.size.height/3)];
+        lableExit.text = @"很遗憾";
+        lableExit.textAlignment = NSTextAlignmentCenter;
+        lableExit.textColor = [GameDataGlobal getColorInColorType:1];
+        lableExit.font = [UIFont systemFontOfSize:46];
+        [board addSubview:lableExit];
     }
     
+    
+    //标题
     UILabel *labelTarget = [[UILabel alloc] initWithFrame:CGRectMake(0, board.frame.size.height/3, board.frame.size.width/2, 30)];
     labelTarget.textAlignment = NSTextAlignmentCenter;
     labelTarget.text = @"目标";
@@ -85,11 +106,11 @@
     
     
     int buttonSize = board.frame.size.width/5;
-    int buttonInsert = buttonSize*2/3;
+    int buttonInsert = buttonSize*1/3;
     
     UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y + 10, board.frame.size.width, 30)];
     labelScore.textAlignment = NSTextAlignmentCenter;
-    labelScore.text = @"分数";
+    labelScore.text = @"当前分数";
     labelScore.textColor = [UIColor blackColor];
     [board addSubview:labelScore];
     UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y- 10 - buttonSize)];
@@ -98,15 +119,23 @@
     labelScoreNum.textColor = [UIColor blackColor];
     [board addSubview:labelScoreNum];
     
-    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
-    buttonBack.backgroundColor = [UIColor grayColor];
+    //按钮
+    CustomButton *buttonBack = [[CustomButton alloc] initWithFrame:CGRectMake(buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
+    buttonBack.backgroundColor = [GameDataGlobal getColorInColorType:2];
     buttonBack.layer.cornerRadius = buttonSize/2;
     [buttonBack setTitle:@"退出" forState:UIControlStateNormal];
     [buttonBack addTarget:self action:@selector(buttonbackPressed:) forControlEvents:UIControlEventTouchUpInside];
     [board addSubview:buttonBack];
     
-    UIButton *buttonNext = [[UIButton alloc] initWithFrame:CGRectMake(board.frame.size.width - buttonSize - buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
-    buttonNext.backgroundColor = [UIColor grayColor];
+    CustomButton *buttonReplay = [[CustomButton alloc] initWithFrame:CGRectMake(board.frame.size.width/2 - buttonSize/2, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
+    buttonReplay.layer.cornerRadius = buttonSize/2;
+    buttonReplay.backgroundColor = [GameDataGlobal getColorInColorType:3];
+    [buttonReplay setTitle:@"重玩" forState:UIControlStateNormal];
+    [buttonReplay addTarget:self action:@selector(buttonReplayPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [board addSubview:buttonReplay];
+    
+    CustomButton *buttonNext = [[CustomButton alloc] initWithFrame:CGRectMake(board.frame.size.width - buttonSize - buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
+    buttonNext.backgroundColor = [GameDataGlobal getColorInColorType:4];
     NSString *conOrNext = @"继续";
     if (!_isStop) {
         conOrNext = @"Next";
@@ -129,49 +158,6 @@
         [self beginStarImageAnimator];
     });
     
-    
-//    //添加粒子效果,树叶往下掉
-//    // 设置粒子发射的地方
-//    CAEmitterLayer *snowEmitter = [CAEmitterLayer layer];
-//    snowEmitter.emitterPosition = CGPointMake(self.bounds.size.width / 2.0, -50);
-//    snowEmitter.emitterSize		= CGSizeMake(board.frame.size.width/2, 0);
-//    
-//    // Spawn points for the flakes are within on the outline of the line
-//    snowEmitter.emitterMode		= kCAEmitterLayerSurface;
-//    snowEmitter.emitterShape	= kCAEmitterLayerLine;
-//    
-//    // Configure the snowflake emitter cell
-//    CAEmitterCell *snowflake = [CAEmitterCell emitterCell];
-//    
-//    snowflake.name = @"snowflake";
-//    snowflake.birthRate		= 10.0;
-//    snowflake.lifetime		= 2.0;
-//    snowflake.lifetimeRange = 4;
-//    
-//    //    snowflake.scale = 0.05;
-//    snowflake.velocity		= 200;				// 粒子速度
-//    snowflake.velocityRange = 100;
-//    snowflake.yAcceleration = 200;
-//    snowflake.emissionLongitude = 0;
-//    snowflake.emissionRange = 1 * M_PI;		// 周围发射角度
-//    snowflake.spinRange		= 0.25 * M_PI;		// 粒子旋转角度
-//    
-//    snowflake.contents		= (id) [[UIImage imageNamed:@"leaf"] CGImage];
-//    snowflake.color			= [[UIColor colorWithRed:0.600 green:0.658 blue:0.743 alpha:1.000] CGColor];
-//    
-//    // Make the flakes seem inset in the background
-//    snowEmitter.shadowOpacity = 1.0;
-//    snowEmitter.shadowRadius  = 0.0;
-//    snowEmitter.shadowOffset  = CGSizeMake(0.0, 1.0);
-//    snowEmitter.shadowColor   = [[UIColor whiteColor] CGColor];
-//    
-//    // Add everything to our backing layer below the UIContol defined in the storyboard
-//    snowEmitter.emitterCells = [NSArray arrayWithObject:snowflake];
-//    [self.layer insertSublayer:snowEmitter atIndex:0];
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [snowEmitter setValue:[NSNumber numberWithFloat:0.5] forKeyPath:@"emitterCells.snowflake.birthRate"];
-//    });
 }
 
 #pragma mark - 烟火效果
@@ -246,7 +232,8 @@
 #pragma mark - 执行星星动画
 -(void)beginStarImageAnimator{
     if (self.arrayImageView.count == 0) {
-        if (!_isStop) {
+        //过关的话放烟火
+        if (_isSuccess) {
             [self beginFireWorkAnimation];
         }
         return;
@@ -306,6 +293,17 @@
     [self.collectionViewController exitTheGame];
 }
 
+-(void)buttonReplayPressed:(id)sender{
+    [self.ani removeAllBehaviors];
+    UIView *board = [self viewWithTag:40000];
+    [UIView animateWithDuration:0.3 animations:^{
+        board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
+    } completion:^(BOOL isFinish){
+        [self removeFromSuperview];
+        [self.collectionViewController replayGame];
+    }];
+}
+
 -(void)buttonNextLevelPressed:(id)sender{
     if (self.isStop) {
         [self.ani removeAllBehaviors];
@@ -316,7 +314,7 @@
             [self removeFromSuperview];
             [self.collectionViewController continueGame];
         }];
-    }else{
+    }else if(_isSuccess){
         [self.ani removeAllBehaviors];
         UIView *board = [self viewWithTag:40000];
         [UIView animateWithDuration:0.3 animations:^{

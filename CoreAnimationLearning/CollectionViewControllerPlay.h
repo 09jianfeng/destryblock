@@ -26,4 +26,5 @@
 -(void)exitTheGame;
 -(void)continueGame;
 -(void)nextLevel;
+-(void)replayGame;
 @end

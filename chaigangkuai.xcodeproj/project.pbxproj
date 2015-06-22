@@ -44,6 +44,9 @@
 		7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B71E1AEB3119006DE282 /* GameAlgorithm.m */; };
 		7860DFBB1B37FCF90024D2B5 /* DazRing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFB91B37FCF90024D2B5 /* DazRing.png */; };
 		7860DFBC1B37FCF90024D2B5 /* DazStarOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */; };
+		7860DFC01B383BCF0024D2B5 /* snow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFBF1B383BCF0024D2B5 /* snow1.png */; };
+		7860DFC51B383BDE0024D2B5 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7860DFC21B383BDE0024D2B5 /* CustomButton.m */; };
+		7860DFC61B383BDE0024D2B5 /* EmitterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7860DFC41B383BDE0024D2B5 /* EmitterView.m */; };
 		7882DD671B2D1BD40049A296 /* WeiXinShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 7882DD661B2D1BD40049A296 /* WeiXinShare.m */; };
 		7882DD6B1B2D20520049A296 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD6A1B2D20520049A296 /* SystemConfiguration.framework */; };
 		7882DD6D1B2D20580049A296 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7882DD6C1B2D20580049A296 /* libz.dylib */; };
@@ -122,6 +125,11 @@
 		7844B71E1AEB3119006DE282 /* GameAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAlgorithm.m; sourceTree = "<group>"; };
 		7860DFB91B37FCF90024D2B5 /* DazRing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DazRing.png; sourceTree = "<group>"; };
 		7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DazStarOutline.png; sourceTree = "<group>"; };
+		7860DFBF1B383BCF0024D2B5 /* snow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow1.png; sourceTree = "<group>"; };
+		7860DFC11B383BDE0024D2B5 /* CustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButton.h; sourceTree = "<group>"; };
+		7860DFC21B383BDE0024D2B5 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
+		7860DFC31B383BDE0024D2B5 /* EmitterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterView.h; sourceTree = "<group>"; };
+		7860DFC41B383BDE0024D2B5 /* EmitterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmitterView.m; sourceTree = "<group>"; };
 		7882DD651B2D1BD40049A296 /* WeiXinShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiXinShare.h; sourceTree = "<group>"; };
 		7882DD661B2D1BD40049A296 /* WeiXinShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeiXinShare.m; sourceTree = "<group>"; };
 		7882DD6A1B2D20520049A296 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -286,6 +294,10 @@
 		7835010C1B15C27500830DAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				7860DFC11B383BDE0024D2B5 /* CustomButton.h */,
+				7860DFC21B383BDE0024D2B5 /* CustomButton.m */,
+				7860DFC31B383BDE0024D2B5 /* EmitterView.h */,
+				7860DFC41B383BDE0024D2B5 /* EmitterView.m */,
 				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
 				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
 				781FA8191AED17C50048B337 /* SpriteUIView.h */,
@@ -303,6 +315,7 @@
 		7844B70E1AEB233F006DE282 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				7860DFBF1B383BCF0024D2B5 /* snow1.png */,
 				7860DFB91B37FCF90024D2B5 /* DazRing.png */,
 				7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */,
 				782C6A0C1B3666B600A56A9C /* result_star_2.png */,
@@ -508,6 +521,7 @@
 				780E176D1AEF07E0007A4A88 /* Default.png in Resources */,
 				7837633C1B2E4CCD00F70207 /* back.png in Resources */,
 				7882DD901B2DAF5C0049A296 /* lockOpen.png in Resources */,
+				7860DFC01B383BCF0024D2B5 /* snow1.png in Resources */,
 				782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */,
 				7860DFBB1B37FCF90024D2B5 /* DazRing.png in Resources */,
 				783256931B2F2AB9007178D4 /* voiceOpen.png in Resources */,
@@ -534,6 +548,7 @@
 				7882DD831B2D7F880049A296 /* IAPManager.m in Sources */,
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
 				7882DD8B1B2D7FFB0049A296 /* DialogView.m in Sources */,
+				7860DFC51B383BDE0024D2B5 /* CustomButton.m in Sources */,
 				7882DD671B2D1BD40049A296 /* WeiXinShare.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
 				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
@@ -545,6 +560,7 @@
 				782B1F821AE35B450051D053 /* AppDelegate.m in Sources */,
 				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
+				7860DFC61B383BDE0024D2B5 /* EmitterView.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
 				7882DD8A1B2D7FFB0049A296 /* ActivityIndicator.m in Sources */,
 				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
