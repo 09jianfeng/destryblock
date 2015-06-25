@@ -10,7 +10,7 @@
 
 typedef void(^ExplodeCompletion)(void);
 
-@interface SpriteView2 : UIView
+@interface SpriteView2 : UIButton
 @property (nonatomic, copy) ExplodeCompletion completionCallback;
 
 - (void)lp_explode;

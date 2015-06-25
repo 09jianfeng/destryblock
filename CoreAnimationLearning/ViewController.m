@@ -17,6 +17,7 @@
 #import "WeiXinShare.h"
 #import "IAPManager.h"
 #import "macro.h"
+#import "SpriteView2.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
@@ -44,7 +45,8 @@
     [self.view addSubview:labelFangKuai];
     
     
-    UIButton *buttonPlay = [UIButton buttonWithType:UIButtonTypeCustom];
+    SpriteView2 *buttonPlay = [SpriteView2 buttonWithType:UIButtonTypeCustom];
+    [buttonPlay beginAnimation];
     int buttonPlaysize = self.view.frame.size.height/4.0 - self.view.frame.size.height/25;
     int buttonPlayx = self.view.frame.size.width/2 - buttonPlaysize/2;
     int buttonPlayy = self.view.frame.size.height/2;
@@ -102,6 +104,17 @@
 
 #pragma mark - buttonClickEvent
 -(void)buttonPlayPressed:(id)sender{
+    SpriteView2 *sprit = (SpriteView2*)sender;
+    SpriteView2 *buttonPlay = [SpriteView2 buttonWithType:UIButtonTypeCustom];
+    buttonPlay.frame = sprit.frame;
+    buttonPlay.layer.cornerRadius = buttonPlay.frame.size.width/4;
+    buttonPlay.layer.masksToBounds = NO;
+    buttonPlay.backgroundColor = [UIColor grayColor];
+    [buttonPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [self.view addSubview:buttonPlay];
+    
+    
+    
     LevelDialogView *levelDialog = [[LevelDialogView alloc] initWithFrame:self.view.frame];
     levelDialog.viewController = self;
     levelDialog.alpha = 0.0;
@@ -109,7 +122,13 @@
     [UIView animateWithDuration:0.3 animations:^{
         levelDialog.alpha = 1.0;
     }];
-    [GameDataGlobal playAudioIsCorrect:5];
+    [GameDataGlobal playAudioIsCorrect:3];
+    
+    sprit.hidden = YES;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        sprit.hidden = NO;
+    });
+    [buttonPlay lp_explode];
 }
 
 -(void)buttonPaiMingPressed:(id)sender{

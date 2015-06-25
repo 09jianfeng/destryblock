@@ -274,7 +274,7 @@ float randomFloat()
         }
         else
         {
-            [layer removeFromSuperlayer];
+//            [layer removeFromSuperlayer];
         }
     }
 }
