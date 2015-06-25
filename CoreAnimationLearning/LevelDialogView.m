@@ -52,7 +52,7 @@ extern NSString *playingViewExitNotification;
 #pragma mark -
 #pragma mark 子视图
 -(void)initAndAddOtherSubview{
-    UIView* levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    UIView* levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.width/8, self.frame.size.width, self.frame.size.height)];
     levelBaseView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     levelBaseView.tag = 1000;
     [self addSubview:levelBaseView];
@@ -98,16 +98,18 @@ extern NSString *playingViewExitNotification;
     if (IsPadUIBlockGame()) {
         legth = legth*2/3;
     }
-    int buttonQuiteSize =legth;
-    UIButton *buttonQuiteGame = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonQuiteSize, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonQuiteSize/5,buttonQuiteSize*2, buttonQuiteSize)];
-    buttonQuiteGame.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:181.0/255.0 blue:180.0/255.0 alpha:1.0];
-    [buttonQuiteGame setTitle:@"经典模式" forState:UIControlStateNormal];
-    [buttonQuiteGame setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-    buttonQuiteGame.layer.cornerRadius = buttonQuiteSize/4;
-    [levelBaseView addSubview:buttonQuiteGame];
     
-    int buttonBackSize = (self.frame.size.height - buttonQuiteGame.frame.origin.y - buttonQuiteGame.frame.size.height)/2;
-    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonBackSize/2, buttonQuiteGame.frame.origin.y + buttonQuiteGame.frame.size.height + buttonBackSize/2,buttonBackSize, buttonBackSize)];
+    
+    int buttonQuiteSize =legth;
+//    UIButton *buttonQuiteGame = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonQuiteSize, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonQuiteSize/5,buttonQuiteSize*2, buttonQuiteSize)];
+//    buttonQuiteGame.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:181.0/255.0 blue:180.0/255.0 alpha:1.0];
+//    [buttonQuiteGame setTitle:@"经典模式" forState:UIControlStateNormal];
+//    [buttonQuiteGame setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//    buttonQuiteGame.layer.cornerRadius = buttonQuiteSize/4;
+//    [levelBaseView addSubview:buttonQuiteGame];
+    
+    int buttonBackSize = legth;
+    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2-buttonQuiteSize/2, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonQuiteSize/5, buttonQuiteSize, buttonQuiteSize)];
     [buttonBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [buttonBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     buttonBack.tag = 1300;
@@ -245,7 +247,7 @@ extern NSString *playingViewExitNotification;
         if (IsPadUIBlockGame()) {
             uilabelSerial.font = [UIFont systemFontOfSize:22];
         }
-        uilabelSerial.textColor = [UIColor whiteColor];
+        uilabelSerial.textColor = [UIColor blackColor];
         uilabelSerial.text = [NSString stringWithFormat:@"%td",12*self.currentPage + indexPath.row+1];
         uilabelSerial.textAlignment = NSTextAlignmentCenter;
         [baseView addSubview:uilabelSerial];

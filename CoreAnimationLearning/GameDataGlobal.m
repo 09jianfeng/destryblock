@@ -105,19 +105,19 @@ static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
             return [UIColor colorWithRed:200/255.0 green:103/255.0 blue:64/255.0 alpha:1.0];
             break;
         case 8:
-            return [UIColor colorWithRed:80/255.0 green:83/255.0 blue:84/255.0 alpha:1.0];
+            return [UIColor colorWithRed:110/255.0 green:110/255.0 blue:34/255.0 alpha:1.0];
             break;
         case 9:
             return [UIColor colorWithRed:110/255.0 green:83/255.0 blue:84/255.0 alpha:1.0];
             break;
         case 10:
-            return [UIColor colorWithRed:10/255.0 green:43/255.0 blue:84/255.0 alpha:1.0];
+            return [UIColor colorWithRed:10/255.0 green:43/255.0 blue:200/255.0 alpha:1.0];
             break;
         case 11:
             return [UIColor colorWithRed:220/255.0 green:83/255.0 blue:44/255.0 alpha:1.0];
             break;
         case 12:
-            return [UIColor colorWithRed:50/255.0 green:30/255.0 blue:84/255.0 alpha:1.0];
+            return [UIColor colorWithRed:200/255.0 green:30/255.0 blue:84/255.0 alpha:1.0];
             break;
             
         default:
