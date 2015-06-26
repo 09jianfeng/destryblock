@@ -12,6 +12,7 @@
 #import "LevelAndUserInfo.h"
 #import "GameDataGlobal.h"
 #import "SystemInfo.h"
+#import "KYAnimatedPageControl.h"
 
 #define PAGENUM 5
 
@@ -28,6 +29,7 @@ extern NSString *playingViewExitNotification;
 @property(nonatomic, assign) int cellImageNum;
 @property(nonatomic, assign) NSArray *arrayGuanka;
 @property(nonatomic, assign) int currentPage;
+@property(nonatomic, retain) KYAnimatedPageControl *pageControl;
 @end
 
 @implementation LevelDialogView
@@ -86,12 +88,22 @@ extern NSString *playingViewExitNotification;
         [self diguiAnimation];
     });
     
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, scrollview.bounds.size.height,  levelBaseView.bounds.size.width, 20)];
-    pageControl.backgroundColor = [UIColor clearColor];
-    pageControl.pageIndicatorTintColor = [UIColor grayColor];
-    pageControl.numberOfPages = PAGENUM;
-    pageControl.tag = 1200;
-    [levelBaseView addSubview:pageControl];
+    int pageViewSize = scrollview.frame.size.width/2.0;
+    self.pageControl = [[KYAnimatedPageControl alloc] initWithFrame:CGRectMake(self.frame.size.width/2-pageViewSize/2, scrollview.bounds.size.height,  pageViewSize, 20)];
+    _pageControl.backgroundColor = [UIColor clearColor];
+    _pageControl.pageCount = 5;
+    _pageControl.unSelectedColor = [GameDataGlobal getColorInColorType:2];
+    _pageControl.selectedColor = [GameDataGlobal getColorInColorType:5];
+    _pageControl.bindScrollView = scrollview;
+    _pageControl.shouldShowProgressLine = YES;
+    _pageControl.indicatorStyle = IndicatorStyleGooeyCircle;
+    _pageControl.indicatorSize = 20;
+    _pageControl.swipeEnable = YES;
+    _pageControl.tag = 1200;
+    _pageControl.didSelectIndexBlock = ^(NSInteger index){
+        NSLog(@"Did Selected index : %ld",(long)index);
+    };
+    [levelBaseView addSubview:_pageControl];
     
     int legth = (collectionViewLevel1.frame.size.width/3) < (collectionViewLevel1.frame.size.height/4)? (collectionViewLevel1.frame.size.width/3):(collectionViewLevel1.frame.size.height/4);
     legth = legth*3/4;
@@ -99,17 +111,9 @@ extern NSString *playingViewExitNotification;
         legth = legth*2/3;
     }
     
-    
     int buttonQuiteSize =legth;
-//    UIButton *buttonQuiteGame = [[UIButton alloc] initWithFrame:CGRectMake(levelBaseView.frame.size.width/2-buttonQuiteSize, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonQuiteSize/5,buttonQuiteSize*2, buttonQuiteSize)];
-//    buttonQuiteGame.backgroundColor = [UIColor colorWithRed:133.0/255.0 green:181.0/255.0 blue:180.0/255.0 alpha:1.0];
-//    [buttonQuiteGame setTitle:@"经典模式" forState:UIControlStateNormal];
-//    [buttonQuiteGame setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-//    buttonQuiteGame.layer.cornerRadius = buttonQuiteSize/4;
-//    [levelBaseView addSubview:buttonQuiteGame];
-    
     int buttonBackSize = legth;
-    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2-buttonQuiteSize/2, scrollview.frame.size.height + pageControl.frame.size.height*2 + buttonQuiteSize/5, buttonQuiteSize, buttonQuiteSize)];
+    UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2-buttonQuiteSize/2, scrollview.frame.size.height + _pageControl.frame.size.height*2 + buttonQuiteSize/5, buttonQuiteSize, buttonQuiteSize)];
     [buttonBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [buttonBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
     buttonBack.tag = 1300;
@@ -130,14 +134,23 @@ extern NSString *playingViewExitNotification;
 #pragma mark -
 #pragma mark UIScrollerView的代理
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //Indicator动画
+    [self.pageControl.indicator animateIndicatorWithScrollView:scrollView andIndicator:self.pageControl];
+    
+    if (scrollView.dragging || scrollView.isDecelerating || scrollView.tracking) {
+        //背景线条动画
+        [self.pageControl.pageControlLine animateSelectedLineWithScrollView:scrollView];
+    }
+    
+    
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    UIPageControl *pageview = (UIPageControl *)[self viewWithTag:1200];
-    pageview.currentPage = page;
     self.currentPage = page >= PAGENUM ? PAGENUM : page ;
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    self.pageControl.indicator.lastContentOffset = scrollView.contentOffset.x;
+    
     UICollectionView *collection = (UICollectionView *)[self viewWithTag:1110];
     if (collection) {
         [collection removeFromSuperview];
@@ -160,6 +173,16 @@ extern NSString *playingViewExitNotification;
         [self diguiAnimation];
     });
 }
+
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    [self.pageControl.indicator restoreAnimation:@(1.0/self.pageControl.pageCount)];
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    self.pageControl.indicator.lastContentOffset = scrollView.contentOffset.x;
+}
+
 
 #pragma mark -
 #pragma mark UICollection的代理

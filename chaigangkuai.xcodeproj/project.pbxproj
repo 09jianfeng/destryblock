@@ -42,6 +42,12 @@
 		7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7844B7191AEB29B0006DE282 /* AVFoundation.framework */; };
 		7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B71B1AEB2BDB006DE282 /* error.mp3 */; };
 		7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B71E1AEB3119006DE282 /* GameAlgorithm.m */; };
+		784E5DC71B3CCC69006FB684 /* GooeyCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DBC1B3CCC69006FB684 /* GooeyCircle.m */; };
+		784E5DC81B3CCC69006FB684 /* Indicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DBE1B3CCC69006FB684 /* Indicator.m */; };
+		784E5DC91B3CCC69006FB684 /* KYAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC01B3CCC69006FB684 /* KYAnimatedPageControl.m */; };
+		784E5DCA1B3CCC69006FB684 /* KYSpringLayerAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC21B3CCC69006FB684 /* KYSpringLayerAnimation.m */; };
+		784E5DCB1B3CCC69006FB684 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC41B3CCC69006FB684 /* Line.m */; };
+		784E5DCC1B3CCC69006FB684 /* RotateRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC61B3CCC69006FB684 /* RotateRect.m */; };
 		7860DFBB1B37FCF90024D2B5 /* DazRing.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFB91B37FCF90024D2B5 /* DazRing.png */; };
 		7860DFBC1B37FCF90024D2B5 /* DazStarOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */; };
 		7860DFC01B383BCF0024D2B5 /* snow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFBF1B383BCF0024D2B5 /* snow1.png */; };
@@ -123,6 +129,18 @@
 		7844B71B1AEB2BDB006DE282 /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = error.mp3; sourceTree = "<group>"; };
 		7844B71D1AEB3119006DE282 /* GameAlgorithm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAlgorithm.h; sourceTree = "<group>"; };
 		7844B71E1AEB3119006DE282 /* GameAlgorithm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAlgorithm.m; sourceTree = "<group>"; };
+		784E5DBB1B3CCC69006FB684 /* GooeyCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GooeyCircle.h; path = animatePageControl/GooeyCircle.h; sourceTree = "<group>"; };
+		784E5DBC1B3CCC69006FB684 /* GooeyCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GooeyCircle.m; path = animatePageControl/GooeyCircle.m; sourceTree = "<group>"; };
+		784E5DBD1B3CCC69006FB684 /* Indicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Indicator.h; path = animatePageControl/Indicator.h; sourceTree = "<group>"; };
+		784E5DBE1B3CCC69006FB684 /* Indicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Indicator.m; path = animatePageControl/Indicator.m; sourceTree = "<group>"; };
+		784E5DBF1B3CCC69006FB684 /* KYAnimatedPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KYAnimatedPageControl.h; path = animatePageControl/KYAnimatedPageControl.h; sourceTree = "<group>"; };
+		784E5DC01B3CCC69006FB684 /* KYAnimatedPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KYAnimatedPageControl.m; path = animatePageControl/KYAnimatedPageControl.m; sourceTree = "<group>"; };
+		784E5DC11B3CCC69006FB684 /* KYSpringLayerAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KYSpringLayerAnimation.h; path = animatePageControl/KYSpringLayerAnimation.h; sourceTree = "<group>"; };
+		784E5DC21B3CCC69006FB684 /* KYSpringLayerAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KYSpringLayerAnimation.m; path = animatePageControl/KYSpringLayerAnimation.m; sourceTree = "<group>"; };
+		784E5DC31B3CCC69006FB684 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Line.h; path = animatePageControl/Line.h; sourceTree = "<group>"; };
+		784E5DC41B3CCC69006FB684 /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Line.m; path = animatePageControl/Line.m; sourceTree = "<group>"; };
+		784E5DC51B3CCC69006FB684 /* RotateRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateRect.h; path = animatePageControl/RotateRect.h; sourceTree = "<group>"; };
+		784E5DC61B3CCC69006FB684 /* RotateRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotateRect.m; path = animatePageControl/RotateRect.m; sourceTree = "<group>"; };
 		7860DFB91B37FCF90024D2B5 /* DazRing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DazRing.png; sourceTree = "<group>"; };
 		7860DFBA1B37FCF90024D2B5 /* DazStarOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DazStarOutline.png; sourceTree = "<group>"; };
 		7860DFBF1B383BCF0024D2B5 /* snow1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snow1.png; sourceTree = "<group>"; };
@@ -364,6 +382,25 @@
 			name = MainManu;
 			sourceTree = "<group>";
 		};
+		784E5DBA1B3CCC4D006FB684 /* KYAnimationPageControl */ = {
+			isa = PBXGroup;
+			children = (
+				784E5DBB1B3CCC69006FB684 /* GooeyCircle.h */,
+				784E5DBC1B3CCC69006FB684 /* GooeyCircle.m */,
+				784E5DBD1B3CCC69006FB684 /* Indicator.h */,
+				784E5DBE1B3CCC69006FB684 /* Indicator.m */,
+				784E5DBF1B3CCC69006FB684 /* KYAnimatedPageControl.h */,
+				784E5DC01B3CCC69006FB684 /* KYAnimatedPageControl.m */,
+				784E5DC11B3CCC69006FB684 /* KYSpringLayerAnimation.h */,
+				784E5DC21B3CCC69006FB684 /* KYSpringLayerAnimation.m */,
+				784E5DC31B3CCC69006FB684 /* Line.h */,
+				784E5DC41B3CCC69006FB684 /* Line.m */,
+				784E5DC51B3CCC69006FB684 /* RotateRect.h */,
+				784E5DC61B3CCC69006FB684 /* RotateRect.m */,
+			);
+			name = KYAnimationPageControl;
+			sourceTree = "<group>";
+		};
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
@@ -405,6 +442,7 @@
 		78E2608C1B1A943A00EB9F3E /* view */ = {
 			isa = PBXGroup;
 			children = (
+				784E5DBA1B3CCC4D006FB684 /* KYAnimationPageControl */,
 				78045D6B1AF1D52400B5A169 /* LevelDialogView.h */,
 				78045D6C1AF1D52400B5A169 /* LevelDialogView.m */,
 				78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */,
@@ -546,21 +584,27 @@
 			buildActionMask = 2147483647;
 			files = (
 				7882DD831B2D7F880049A296 /* IAPManager.m in Sources */,
+				784E5DCA1B3CCC69006FB684 /* KYSpringLayerAnimation.m in Sources */,
 				780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */,
+				784E5DC71B3CCC69006FB684 /* GooeyCircle.m in Sources */,
+				784E5DCC1B3CCC69006FB684 /* RotateRect.m in Sources */,
 				7882DD8B1B2D7FFB0049A296 /* DialogView.m in Sources */,
 				7860DFC51B383BDE0024D2B5 /* CustomButton.m in Sources */,
 				7882DD671B2D1BD40049A296 /* WeiXinShare.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
 				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
+				784E5DCB1B3CCC69006FB684 /* Line.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
 				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
+				784E5DC81B3CCC69006FB684 /* Indicator.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,
 				781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */,
 				782B1F821AE35B450051D053 /* AppDelegate.m in Sources */,
 				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
 				7860DFC61B383BDE0024D2B5 /* EmitterView.m in Sources */,
+				784E5DC91B3CCC69006FB684 /* KYAnimatedPageControl.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
 				7882DD8A1B2D7FFB0049A296 /* ActivityIndicator.m in Sources */,
 				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
