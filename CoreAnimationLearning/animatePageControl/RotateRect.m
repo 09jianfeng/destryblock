@@ -45,8 +45,6 @@
 
 #pragma mark -- override  class func
 -(void)drawInContext:(CGContextRef)ctx{
-    
-    
     UIBezierPath *rectPath = [UIBezierPath bezierPathWithRect:self.currentRect];
     CGPathRef path = createPathRotatedAroundBoundingBoxCenter(rectPath.CGPath, _index * M_PI_2 );
     rectPath.CGPath  = path;
@@ -54,9 +52,7 @@
     CGContextSetFillColorWithColor(ctx, self.indicatorColor.CGColor);
     CGContextFillPath(ctx);
     
-
     CGPathRelease(path);
-
 }
 
 
@@ -87,28 +83,15 @@ static CGPathRef createPathRotatedAroundBoundingBoxCenter(CGPathRef path, CGFloa
 #pragma mark -- override superclass method
 
 -(void)animateIndicatorWithScrollView:(UIScrollView *)scrollView andIndicator:(KYAnimatedPageControl *)pgctl{
-    
-
-
     CGFloat originX = (scrollView.contentOffset.x / scrollView.frame.size.width) * (pgctl.frame.size.width / (pgctl.pageCount-1));
-    
-
     _index = (scrollView.contentOffset.x / scrollView.frame.size.width);
-    
-    
     if (originX - self.indicatorSize/2 <= 0) {
-        
         self.currentRect = CGRectMake(0, self.frame.size.height/2-self.indicatorSize/2, self.indicatorSize, self.indicatorSize);
-        
     }else if ((originX - self.indicatorSize/2) >= self.frame.size.width - self.indicatorSize){
-        
         self.currentRect = CGRectMake(self.frame.size.width - self.indicatorSize, self.frame.size.height/2-self.indicatorSize/2, self.indicatorSize, self.indicatorSize);
-        
     }else{
-        
         self.currentRect = CGRectMake(originX - self.indicatorSize/2, self.frame.size.height/2-self.indicatorSize/2, self.indicatorSize, self.indicatorSize);
     }
-    
     
     [self setNeedsDisplay];
     

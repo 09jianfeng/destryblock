@@ -12,8 +12,4 @@
 
 @interface RotateRect : Indicator
 
-
-
-
-
 @end

@@ -131,7 +131,7 @@
         //背景线条动画
         [self.line animateSelectedLineToNewIndex:index+1];
 
-        //scrollview 滑动
+        //scrollview 不滑动
         [self.bindScrollView setContentOffset:CGPointMake(self.bindScrollView.frame.size.width *index, 0) animated:YES];
         
         //恢复动画

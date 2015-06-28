@@ -48,7 +48,9 @@ extern NSString *playingViewExitNotification;
 }
 
 -(void)dealloc{
+    NSLog(@"level info 释放");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:playingViewExitNotification object:nil];
+    self.pageControl = nil;
 }
 
 #pragma mark -
@@ -97,11 +99,12 @@ extern NSString *playingViewExitNotification;
     _pageControl.bindScrollView = scrollview;
     _pageControl.shouldShowProgressLine = YES;
     _pageControl.indicatorStyle = IndicatorStyleGooeyCircle;
-    _pageControl.indicatorSize = 20;
+    _pageControl.indicatorSize = self.frame.size.width/26;
     _pageControl.swipeEnable = YES;
     _pageControl.tag = 1200;
+    __weak LevelDialogView *selfr = self;
     _pageControl.didSelectIndexBlock = ^(NSInteger index){
-        NSLog(@"Did Selected index : %ld",(long)index);
+        [selfr jumpToPage:(int)index-1 scrollView:scrollview];
     };
     [levelBaseView addSubview:_pageControl];
     
@@ -131,6 +134,27 @@ extern NSString *playingViewExitNotification;
     }];
 }
 
+-(void)jumpToPage:(int)page scrollView:(UIScrollView*)scrollView{
+    self.currentPage = page;
+    _cellImageNum = 0;
+    UICollectionView *collection = (UICollectionView *)[self viewWithTag:1110];
+    if (collection) {
+        [collection removeFromSuperview];
+    }
+    
+    UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
+    UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollView.frame.size.width*page + 20, 20, scrollView.bounds.size.width-40, scrollView.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
+    collectionViewLevel1.dataSource = self;
+    collectionViewLevel1.delegate = self;
+    collectionViewLevel1.backgroundColor = [UIColor clearColor];
+    //注册CollectionViewCellLevell的identifier
+    [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
+    collectionViewLevel1.tag = 1110;
+    [scrollView addSubview:collectionViewLevel1];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self diguiAnimation];
+    });
+}
 #pragma mark -
 #pragma mark UIScrollerView的代理
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -151,27 +175,9 @@ extern NSString *playingViewExitNotification;
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     self.pageControl.indicator.lastContentOffset = scrollView.contentOffset.x;
     
-    UICollectionView *collection = (UICollectionView *)[self viewWithTag:1110];
-    if (collection) {
-        [collection removeFromSuperview];
-    }
-    
-    _cellImageNum = 0;
     CGFloat pageWidth = scrollView.frame.size.width;
     int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    
-    UICollectionViewFlowLayout *collectionviewflow = [[UICollectionViewFlowLayout alloc] init];
-    UICollectionView* collectionViewLevel1 = [[UICollectionView alloc] initWithFrame:CGRectMake(scrollView.frame.size.width*page + 20, 20, scrollView.bounds.size.width-40, scrollView.bounds.size.height - 40) collectionViewLayout:collectionviewflow];
-    collectionViewLevel1.dataSource = self;
-    collectionViewLevel1.delegate = self;
-    collectionViewLevel1.backgroundColor = [UIColor clearColor];
-    //注册CollectionViewCellLevell的identifier
-    [collectionViewLevel1 registerClass:[CollectionViewCellLevel class] forCellWithReuseIdentifier:@"collectionidentiferLevel"];
-    collectionViewLevel1.tag = 1110;
-    [scrollView addSubview:collectionViewLevel1];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self diguiAnimation];
-    });
+    [self jumpToPage:page scrollView:scrollView];
 }
 
 
