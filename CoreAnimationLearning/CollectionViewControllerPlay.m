@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "GameAlgorithm.h"
 #import "SpriteUIView.h"
-#import "ProGressView.h"
+#import "UIViewProgress.h"
 #import "SystemInfo.h"
 #import "LevelAndUserInfo.h"
 #import "UIViewFinishPlayAlert.h"
@@ -34,7 +34,7 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 
 @property(nonatomic, retain) UIDynamicAnimator *animator;
 @property(nonatomic, retain) UIGravityBehavior *gravity;
-@property(nonatomic, retain) ProGressView *processView;
+@property(nonatomic, retain) UIViewProgress *processView;
 @property(nonatomic, retain) NSTimer *timer;
 @property(nonatomic, retain) UILabel *labelPoints;
 @property(nonatomic, assign) int Allpoints;
@@ -125,9 +125,12 @@ static NSString * const reuseIdentifier = @"Cell";
     if (IsPadUIBlockGame()) {
         labelLen = 620;
     }
-    self.processView = [[ProGressView alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - processHeight+10, labelLen, 5)];
-    self.processView.backgroundColor = [UIColor whiteColor];
+    self.processView = [[UIViewProgress alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - processHeight+10, labelLen, 5)];
     self.processView.alpha = 0.5;
+    self.processView.progress = 0;
+    self.processView.trackColor = [UIColor grayColor];
+    self.processView.progressColor = [GameDataGlobal getColorInColorType:1];
+    self.processView.progressWidth = 5.0;
     if (!_noBackgroundImage) {
         [self.view addSubview:self.processView];
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
@@ -144,7 +147,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark 事件
 -(void)timerResponce:(id)sender{
     seconde++;
-    [self.processView setprocess:seconde/_timeLimit];
+    self.processView.progress = seconde/_timeLimit;
     
     if (seconde > _timeLimit) {
         [self endTheGame];
@@ -188,7 +191,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)replayGame{
     self.Allpoints = 0;
-    [self.processView setprocess:0.0];
+    self.processView.progress = 0;
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
@@ -210,7 +213,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     self.starNum = 0;
     self.Allpoints = 0;
-    [self.processView setprocess:0.0];
+    self.processView.progress = 0;
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;

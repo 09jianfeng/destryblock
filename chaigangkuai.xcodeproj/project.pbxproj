@@ -17,7 +17,7 @@
 		780E176D1AEF07E0007A4A88 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E176A1AEF07E0007A4A88 /* Default.png */; };
 		780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E176B1AEF07E0007A4A88 /* Default@2x.png */; };
 		781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781FA81A1AED17C50048B337 /* SpriteUIView.m */; };
-		781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781FA81E1AED2FB60048B337 /* ProGressView.m */; };
+		782AFA621B3FDA14005910B7 /* UIViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 782AFA611B3FDA14005910B7 /* UIViewProgress.m */; };
 		782B1F7F1AE35B450051D053 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F7E1AE35B450051D053 /* main.m */; };
 		782B1F821AE35B450051D053 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F811AE35B450051D053 /* AppDelegate.m */; };
 		782B1F851AE35B450051D053 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F841AE35B450051D053 /* ViewController.m */; };
@@ -93,8 +93,8 @@
 		780E176B1AEF07E0007A4A88 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		781FA8191AED17C50048B337 /* SpriteUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteUIView.h; sourceTree = "<group>"; };
 		781FA81A1AED17C50048B337 /* SpriteUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteUIView.m; sourceTree = "<group>"; };
-		781FA81D1AED2FB60048B337 /* ProGressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProGressView.h; sourceTree = "<group>"; };
-		781FA81E1AED2FB60048B337 /* ProGressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProGressView.m; sourceTree = "<group>"; };
+		782AFA601B3FDA14005910B7 /* UIViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewProgress.h; path = ../../../../demo/JellyAnimation/JellyAnimation/JellyAnimation/UIViewProgress.h; sourceTree = "<group>"; };
+		782AFA611B3FDA14005910B7 /* UIViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewProgress.m; path = ../../../../demo/JellyAnimation/JellyAnimation/JellyAnimation/UIViewProgress.m; sourceTree = "<group>"; };
 		782B1F791AE35B450051D053 /* chaigangkuai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chaigangkuai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		782B1F7D1AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F7E1AE35B450051D053 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -312,6 +312,8 @@
 		7835010C1B15C27500830DAE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				782AFA601B3FDA14005910B7 /* UIViewProgress.h */,
+				782AFA611B3FDA14005910B7 /* UIViewProgress.m */,
 				7860DFC11B383BDE0024D2B5 /* CustomButton.h */,
 				7860DFC21B383BDE0024D2B5 /* CustomButton.m */,
 				7860DFC31B383BDE0024D2B5 /* EmitterView.h */,
@@ -320,8 +322,6 @@
 				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
 				781FA8191AED17C50048B337 /* SpriteUIView.h */,
 				781FA81A1AED17C50048B337 /* SpriteUIView.m */,
-				781FA81D1AED2FB60048B337 /* ProGressView.h */,
-				781FA81E1AED2FB60048B337 /* ProGressView.m */,
 				7835010D1B15C2CE00830DAE /* UIViewFinishPlayAlert.h */,
 				7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */,
 				78C4E0251B2575D00047B834 /* SpriteView2.h */,
@@ -596,10 +596,10 @@
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
 				784E5DCB1B3CCC69006FB684 /* Line.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
+				782AFA621B3FDA14005910B7 /* UIViewProgress.m in Sources */,
 				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
 				784E5DC81B3CCC69006FB684 /* Indicator.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,
-				781FA81F1AED2FB60048B337 /* ProGressView.m in Sources */,
 				782B1F821AE35B450051D053 /* AppDelegate.m in Sources */,
 				7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */,
 				782B1F7F1AE35B450051D053 /* main.m in Sources */,
