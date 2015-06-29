@@ -167,6 +167,21 @@ static NSString * const reuseIdentifier = @"Cell";
     [finish showView];
 }
 
+#pragma mark - 动画
+-(void)addScoreNumImageVew:(int)score frame:(CGRect)frame{
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"+%d.png",score]]];
+    int imageViewSize = self.view.frame.size.width/10;
+    imageView.frame = CGRectMake(frame.origin.x + frame.size.width/2 - imageViewSize/2, frame.origin.y + frame.size.height/2 - imageViewSize/2, imageViewSize, imageViewSize);
+    [self.view addSubview:imageView];
+    [UIView animateWithDuration:1 animations:^{
+        CGAffineTransform transform = CGAffineTransformMakeScale(1.5, 1.5);
+        imageView.transform = transform;
+        imageView.alpha = 0.0;
+    } completion:^(BOOL isfinish){
+        [imageView removeFromSuperview];
+    }];
+}
+
 #pragma mark -
 #pragma mark logic
 -(void)endTheGame{
@@ -380,6 +395,7 @@ static NSString * const reuseIdentifier = @"Cell";
 //    [self beginActionAnimatorBehavior:self.mutArraySprites];
     
     _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
+    [self addScoreNumImageVew:spritesNumShouldDrop*2 - 2 frame:cell.frame];
     if (spritesNumShouldDrop > 1) {
         [GameDataGlobal playAudioIsCorrect:spritesNumShouldDrop-1];
     }else{
