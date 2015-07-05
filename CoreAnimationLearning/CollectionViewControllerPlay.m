@@ -170,7 +170,7 @@ static NSString * const reuseIdentifier = @"Cell";
 #pragma mark - 动画
 -(void)addScoreNumImageVew:(int)score frame:(CGRect)frame{
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"+%d.png",score]]];
-    int imageViewSize = self.view.frame.size.width/10;
+    int imageViewSize = self.view.frame.size.width/20;
     imageView.frame = CGRectMake(frame.origin.x + frame.size.width/2 - imageViewSize/2, frame.origin.y + frame.size.height/2 - imageViewSize/2, imageViewSize, imageViewSize);
     [self.view addSubview:imageView];
     [UIView animateWithDuration:1 animations:^{
