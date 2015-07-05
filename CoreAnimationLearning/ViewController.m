@@ -141,13 +141,8 @@
     UIView *baseView = [self.view viewWithTag:30001];
     
     if (baseView) {
-        NSArray *buttonArray = [baseView subviews];
         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:50 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            baseView.frame = CGRectMake(buttonSetting.frame.origin.x, buttonSetting.frame.origin.y, 0, 0);
-            for (int i = 0; i < buttonArray.count; i++) {
-                UIButton *subButton = [buttonArray objectAtIndex:i];
-                subButton.frame = CGRectMake(0, 0, 0, 0);
-            }
+            baseView.alpha = 0.0;
         } completion:^(BOOL isFinish){
             [baseView removeFromSuperview];
         }];
