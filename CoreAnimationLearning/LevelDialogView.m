@@ -86,7 +86,7 @@ extern NSString *playingViewExitNotification;
     collectionViewLevel1.tag = 1110;
     [scrollview addSubview:collectionViewLevel1];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self diguiAnimation];
     });
     
@@ -237,7 +237,7 @@ extern NSString *playingViewExitNotification;
     
     {//锁上面的视图
         int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
-        legth = legth*3/4;
+        legth = legth*2/3;
         if (IsPadUIBlockGame()) {
             legth = legth*2/3;
         }
@@ -251,7 +251,7 @@ extern NSString *playingViewExitNotification;
         
         int imageViewSize = legth;
         UIImageView *imageViewLock = [[UIImageView alloc] initWithImage:imageclose];
-        imageViewLock.frame = CGRectMake(legth/2 - imageViewSize/2, 0, imageViewSize, imageViewSize);
+        imageViewLock.frame = baseView.bounds;
         [baseView addSubview:imageViewLock];
         
         int startInsert = 3;
@@ -293,7 +293,7 @@ extern NSString *playingViewExitNotification;
     UICollectionView *collectionview = (UICollectionView *)[self viewWithTag:1110];
     CollectionViewCellLevel *cell = (CollectionViewCellLevel *)[collectionview viewWithTag:celltag];
     int legth = cell.frame.size.width < cell.frame.size.height?cell.frame.size.width:cell.frame.size.height;
-    legth = legth*3/4;
+    legth = legth*2/3;
     if (IsPadUIBlockGame()) {
         legth = legth*2/3;
     }

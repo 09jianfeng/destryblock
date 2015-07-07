@@ -40,7 +40,7 @@
         boarInsert = self.frame.size.width/6;
     }
     int boarWidth = self.frame.size.width - boarInsert*2;
-    int boarHeigh = self.frame.size.height/2;
+    int boarHeigh = self.frame.size.height/2 > 284 ? self.frame.size.height/2 : 284;
     UIView *board = [[UIView alloc] initWithFrame:CGRectMake(boarInsert, -self.frame.size.height/2, boarWidth, boarHeigh)];
     board.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     board.tag = 40000;

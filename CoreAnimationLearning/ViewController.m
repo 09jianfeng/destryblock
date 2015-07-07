@@ -66,7 +66,7 @@
     int buttonSmallSize = (self.view.frame.size.width - insertWidth*5)/4;
     
     UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonSetting.frame = CGRectMake(insertWidth, self.view.frame.size.height/2 + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
     buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
@@ -75,7 +75,7 @@
     [self.view addSubview:buttonSetting];
     
     UIButton *buttonNoADS = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, self.view.frame.size.height/2 + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
     buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
@@ -84,7 +84,7 @@
     [self.view addSubview:buttonNoADS];
     
     UIButton *buttonPaiMing = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, self.view.frame.size.height/2 + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
     buttonPaiMing.layer.masksToBounds = YES;
     buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
@@ -93,7 +93,7 @@
     [self.view addSubview:buttonPaiMing];
     
     UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, self.view.frame.size.height/2 + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonShare.layer.cornerRadius = buttonSmallSize/4;
     buttonShare.layer.masksToBounds = YES;
     buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
@@ -109,17 +109,6 @@
 
 #pragma mark - buttonClickEvent
 -(void)buttonPlayPressed:(id)sender{
-    SpriteView2 *sprit = (SpriteView2*)sender;
-    SpriteView2 *buttonPlay = [SpriteView2 buttonWithType:UIButtonTypeCustom];
-    buttonPlay.frame = sprit.frame;
-    buttonPlay.layer.cornerRadius = buttonPlay.frame.size.width/4;
-    buttonPlay.layer.masksToBounds = NO;
-    buttonPlay.backgroundColor = [UIColor grayColor];
-    [buttonPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-    [self.view addSubview:buttonPlay];
-    
-    
-    
     LevelDialogView *levelDialog = [[LevelDialogView alloc] initWithFrame:self.view.frame];
     levelDialog.viewController = self;
     levelDialog.alpha = 0.0;
@@ -127,13 +116,6 @@
     [UIView animateWithDuration:0.3 animations:^{
         levelDialog.alpha = 1.0;
     }];
-    [GameDataGlobal playAudioIsCorrect:3];
-    
-    sprit.hidden = YES;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        sprit.hidden = NO;
-    });
-    [buttonPlay lp_explode];
 }
 
 -(void)buttonSettingPressed:(id)sender{
@@ -162,15 +144,16 @@
         [self.view insertSubview:baseView belowSubview:buttonSetting];
         
         int count = 4;
-        int subButtonInsert = baseViewWidth/10;
-        int subBUttonInsertTop = baseViewWidth/10;
-        int subButtonInsertButtom = baseViewWidth/12;
+        float subButtonInsert = baseViewWidth/10;
+        float beishu =9.4 - self.view.frame.size.height/88;
+        float subBUttonInsertTop = baseViewHeight/beishu;
+        float subButtonInsertButtom = baseViewHeight/beishu;
         if (IsPadUIBlockGame()) {
-            subBUttonInsertTop = baseViewWidth/15;
-            subButtonInsertButtom = baseViewWidth/20;
+            subBUttonInsertTop = baseViewHeight/15;
+            subButtonInsertButtom = baseViewHeight/20;
         }
-        int subButtonSize = baseViewHeight - subBUttonInsertTop - subButtonInsertButtom;
-        int subButtonInsertHeade = (baseViewWidth - subButtonSize*count - subButtonInsert*5)*4/5;
+        float subButtonSize = baseViewHeight - subBUttonInsertTop - subButtonInsertButtom;
+        float subButtonInsertHeade = (baseViewWidth - subButtonSize*count - subButtonInsert*5)*4/5;
         
         NSMutableArray *mutArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < count; i++) {

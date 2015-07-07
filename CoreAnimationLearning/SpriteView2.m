@@ -18,6 +18,9 @@
 @end
 
 @implementation LPParticleLayer
+-(void)dealloc{
+    self.particlePath = nil;
+}
 @end
 
 
@@ -110,7 +113,7 @@ float randomFloat()
 {
     
     self.userInteractionEnabled = NO;
-    
+
     if (callback)
     {
         self.completionCallback = callback;
@@ -192,7 +195,6 @@ float randomFloat()
     [sublayersArray enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         
         LPParticleLayer *layer = (LPParticleLayer *)obj;
-        
         //Path
         CAKeyframeAnimation *moveAnim = [CAKeyframeAnimation animationWithKeyPath:@"position"];
         moveAnim.path = layer.particlePath.CGPath;
@@ -200,26 +202,17 @@ float randomFloat()
         moveAnim.fillMode=kCAFillModeForwards;
         NSArray *timingFunctions = [NSArray arrayWithObjects:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],nil];
         [moveAnim setTimingFunctions:timingFunctions];
-        
         float r = randomFloat();
-        
         NSTimeInterval speed = 2.35*r;
-        
         CAKeyframeAnimation *transformAnim = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-        
         CATransform3D startingScale = layer.transform;
         CATransform3D endingScale = CATransform3DConcat(CATransform3DMakeScale(randomFloat(), randomFloat(), randomFloat()), CATransform3DMakeRotation(M_PI*(1+randomFloat()), randomFloat(), randomFloat(), randomFloat()));
-        
         NSArray *boundsValues = [NSArray arrayWithObjects:[NSValue valueWithCATransform3D:startingScale],
-                                 
                                  [NSValue valueWithCATransform3D:endingScale], nil];
         [transformAnim setValues:boundsValues];
-        
         NSArray *times = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0],
                           [NSNumber numberWithFloat:speed*.25], nil];
         [transformAnim setKeyTimes:times];
-        
-        
         timingFunctions = [NSArray arrayWithObjects:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
                            [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn],
                            [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut], [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut],
@@ -259,12 +252,12 @@ float randomFloat()
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
     LPParticleLayer *layer = [theAnimation valueForKey:@"animationLayer"];
-    
     if (layer)
     {
         //make sure we dont have any more
         if ([[self.layer sublayers] count]==1)
         {
+            [layer removeFromSuperlayer];
             if (self.completionCallback)
             {
                 self.completionCallback();
@@ -274,7 +267,7 @@ float randomFloat()
         }
         else
         {
-//            [layer removeFromSuperlayer];
+            [layer removeFromSuperlayer];
         }
     }
 }
