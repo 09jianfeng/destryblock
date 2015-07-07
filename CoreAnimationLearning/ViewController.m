@@ -21,6 +21,7 @@
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
+@property(nonatomic,assign) BOOL voiceClosed;
 @end
 
 @implementation ViewController
@@ -128,13 +129,20 @@
     
     
     UIView *baseView = [self.view viewWithTag:30001];
+    NSArray *subViews = [baseView subviews];
     
     if (baseView) {
         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseIn animations:^{
             buttonSetting.transform = CGAffineTransformIdentity;
-            baseView.alpha = 0.0;
         } completion:^(BOOL isFinish){
             [baseView removeFromSuperview];
+        }];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            for (UIView *subView in subViews) {
+                subView.frame = CGRectMake(0, 0, 0, 0);
+            }
+            baseView.frame = CGRectMake(buttonSetting.frame.origin.x + buttonSetting.frame.size.width, buttonSetting.frame.origin.y+buttonSetting.frame.size.height, 0, 0);
         }];
     }
     else{
@@ -176,11 +184,35 @@
             buttonSetting.transform = CGAffineTransformMakeRotation(M_PI);
             baseView.frame = CGRectMake(baseViewWidthInsert, buttonSetting.frame.size.height + buttonSetting.frame.origin.y + baseViewHeightInsert, baseViewWidth, baseViewHeight);
             for (int i = 0; i < count; i++) {
+                UIImage *buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"image_setting_%d",i+1]];
                 UIButton *subButton = [mutArray objectAtIndex:i];
+                [subButton setImage:buttonImage forState:UIControlStateNormal];
+                subButton.tag = 40000+i;
+                [subButton addTarget:self action:@selector(buttonPressedsubSetting:) forControlEvents:UIControlEventTouchUpInside];
                 subButton.frame = CGRectMake(subButtonInsertHeade + subButtonInsert*(i+1) + subButtonSize*i, subBUttonInsertTop, subButtonSize, subButtonSize);
             }
         } completion:^(BOOL isFinish){
         }];
+    }
+}
+
+-(void)buttonPressedsubSetting:(id)sender{
+    UIButton *button = (UIButton *)sender;
+    self.voiceClosed = !self.voiceClosed;
+    int i = button.tag - 40000;
+    switch (i) {
+        case 0:
+        {
+            if (self.voiceClosed) {
+                [button setImage:[UIImage imageNamed:@"image_setting_1_open"] forState:UIControlStateNormal];
+            }else{
+                [button setImage:[UIImage imageNamed:@"image_setting_1"] forState:UIControlStateNormal];
+            }
+        }
+            break;
+            
+        default:
+            break;
     }
 }
 
