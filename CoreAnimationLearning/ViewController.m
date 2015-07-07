@@ -35,12 +35,16 @@
     labelChai.textColor = [UIColor whiteColor];
     labelChai.textAlignment = NSTextAlignmentCenter;
     labelChai.text = @"拆";
-    labelChai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:80];
+    int size = 80;
+    if (IsPadUIBlockGame()) {
+        size = 160;
+    }
+    labelChai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size];
     [self.view addSubview:labelChai];
     UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 40, self.view.frame.size.width, self.view.frame.size.height/4)];
     labelFangKuai.textAlignment = NSTextAlignmentCenter;
     labelFangKuai.textColor = [UIColor whiteColor];
-    labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:60];
+    labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size-20];
     labelFangKuai.text =@"方 块";
     [self.view addSubview:labelFangKuai];
     
@@ -54,7 +58,7 @@
     buttonPlay.layer.cornerRadius = buttonPlaysize/4;
     buttonPlay.layer.masksToBounds = NO;
     buttonPlay.backgroundColor = [UIColor grayColor];
-    [buttonPlay setImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [buttonPlay setImage:[UIImage imageNamed:@"image_play"] forState:UIControlStateNormal];
     [buttonPlay addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPlay];
     
@@ -70,7 +74,7 @@
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
     buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
-    [buttonSetting setImage:[UIImage imageNamed:@"voiceOpen"] forState:UIControlStateNormal];
+    [buttonSetting setImage:[UIImage imageNamed:@"image_shezhi"] forState:UIControlStateNormal];
     [buttonSetting addTarget:self action:@selector(buttonSettingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonSetting];
     
@@ -79,7 +83,7 @@
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
     buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
-    [buttonNoADS setImage:[UIImage imageNamed:@"noads"] forState:UIControlStateNormal];
+    [buttonNoADS setImage:[UIImage imageNamed:@"image_noads"] forState:UIControlStateNormal];
     [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
     
@@ -88,7 +92,7 @@
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
     buttonPaiMing.layer.masksToBounds = YES;
     buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
-    [buttonPaiMing setImage:[UIImage imageNamed:@"paiming"] forState:UIControlStateNormal];
+    [buttonPaiMing setImage:[UIImage imageNamed:@"image_paiming"] forState:UIControlStateNormal];
     [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPaiMing];
     
@@ -97,7 +101,7 @@
     buttonShare.layer.cornerRadius = buttonSmallSize/4;
     buttonShare.layer.masksToBounds = YES;
     buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
-    [buttonShare setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
+    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
     
@@ -109,21 +113,25 @@
 
 #pragma mark - buttonClickEvent
 -(void)buttonPlayPressed:(id)sender{
-    LevelDialogView *levelDialog = [[LevelDialogView alloc] initWithFrame:self.view.frame];
+    LevelDialogView *levelDialog = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
     levelDialog.viewController = self;
     levelDialog.alpha = 0.0;
+    levelDialog.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     [self.view addSubview:levelDialog];
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.8 animations:^{
         levelDialog.alpha = 1.0;
     }];
 }
 
 -(void)buttonSettingPressed:(id)sender{
     UIButton *buttonSetting = (UIButton*)sender;
+    
+    
     UIView *baseView = [self.view viewWithTag:30001];
     
     if (baseView) {
-        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:50 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            buttonSetting.transform = CGAffineTransformIdentity;
             baseView.alpha = 0.0;
         } completion:^(BOOL isFinish){
             [baseView removeFromSuperview];
@@ -137,23 +145,23 @@
         
         baseView = [[UIView alloc] init];
         baseView.tag = 30001;
-        UIImage *baseViewBack = [UIImage imageNamed:@"baseViewDialog"];
+        UIImage *baseViewBack = [UIImage imageNamed:@"image_baseViewDialog"];
         baseView.layer.contents = (__bridge id)(baseViewBack.CGImage);
         baseView.backgroundColor = [UIColor clearColor];
         baseView.center = buttonSetting.center;
         [self.view insertSubview:baseView belowSubview:buttonSetting];
         
         int count = 4;
-        float subButtonInsert = baseViewWidth/10;
+        float subButtonInsert = baseViewWidth/20;
         float beishu =9.4 - self.view.frame.size.height/88;
         float subBUttonInsertTop = baseViewHeight/beishu;
         float subButtonInsertButtom = baseViewHeight/beishu;
         if (IsPadUIBlockGame()) {
-            subBUttonInsertTop = baseViewHeight/15;
+            subBUttonInsertTop = baseViewHeight/3.5;
             subButtonInsertButtom = baseViewHeight/20;
         }
-        float subButtonSize = baseViewHeight - subBUttonInsertTop - subButtonInsertButtom;
-        float subButtonInsertHeade = (baseViewWidth - subButtonSize*count - subButtonInsert*5)*4/5;
+        float subButtonSize = self.view.frame.size.width/8;
+        float subButtonInsertHeade = (baseViewWidth - subButtonSize*count - subButtonInsert*5)*3/5;
         
         NSMutableArray *mutArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < count; i++) {
@@ -165,13 +173,13 @@
         }
         
         [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.4 initialSpringVelocity:10 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            buttonSetting.transform = CGAffineTransformMakeRotation(M_PI);
             baseView.frame = CGRectMake(baseViewWidthInsert, buttonSetting.frame.size.height + buttonSetting.frame.origin.y + baseViewHeightInsert, baseViewWidth, baseViewHeight);
             for (int i = 0; i < count; i++) {
                 UIButton *subButton = [mutArray objectAtIndex:i];
                 subButton.frame = CGRectMake(subButtonInsertHeade + subButtonInsert*(i+1) + subButtonSize*i, subBUttonInsertTop, subButtonSize, subButtonSize);
             }
         } completion:^(BOOL isFinish){
-            
         }];
     }
 }

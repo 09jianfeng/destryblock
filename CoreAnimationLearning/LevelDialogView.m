@@ -118,7 +118,7 @@ extern NSString *playingViewExitNotification;
     int buttonBackSize = legth;
     UIButton *buttonBack = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width/2-buttonQuiteSize/2, scrollview.frame.size.height + _pageControl.frame.size.height*2 + buttonQuiteSize/5, buttonQuiteSize, buttonQuiteSize)];
     [buttonBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [buttonBack setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [buttonBack setImage:[UIImage imageNamed:@"image_back"] forState:UIControlStateNormal];
     buttonBack.tag = 1300;
     buttonBack.layer.cornerRadius = buttonBackSize/2;
     [buttonBack addTarget:self action:@selector(buttonPressedGoback:) forControlEvents:UIControlEventTouchUpInside];
@@ -228,10 +228,10 @@ extern NSString *playingViewExitNotification;
     UIImage *imageclose = nil;
     UIColor *colorForItem = nil;
     if (levelPoints > 0) {
-        imageclose = [UIImage imageNamed:@"lockOpen.png"];
+        imageclose = [UIImage imageNamed:@"image_lockOpen.png"];
         colorForItem = [UIColor whiteColor];
     }else{
-        imageclose = [UIImage imageNamed:@"lockClose.png"];
+        imageclose = [UIImage imageNamed:@"image_lockClose.png"];
         colorForItem = [UIColor grayColor];
     }
     
@@ -259,10 +259,10 @@ extern NSString *playingViewExitNotification;
         UIImage *imageStart = nil;
         for (int i = 0; i < 3; i++) {
             if (startNum > 0) {
-               imageStart = [UIImage imageNamed:@"result_star"];
+               imageStart = [UIImage imageNamed:@"image_result_star"];
                 startNum--;
             }else{
-                imageStart = [UIImage imageNamed:@"result_star_2"];
+                imageStart = [UIImage imageNamed:@"image_result_star_2"];
             }
             
             UIImageView *imageViewStar = [[UIImageView alloc] initWithImage:imageStart];

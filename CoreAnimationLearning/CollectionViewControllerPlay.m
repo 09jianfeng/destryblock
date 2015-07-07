@@ -118,7 +118,7 @@ static NSString * const reuseIdentifier = @"Cell";
     UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonStop.frame = CGRectMake(self.view.frame.size.width - 100,self.view.frame.size.height - processHeight, 50, 20);
     [buttonStop addTarget:self action:@selector(buttonStopPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonStop setImage:[UIImage imageNamed:@"pause"] forState:UIControlStateNormal];
+    [buttonStop setImage:[UIImage imageNamed:@"image_pause"] forState:UIControlStateNormal];
     [self.view addSubview:buttonStop];
     
     int labelLen = 180;
@@ -294,13 +294,13 @@ static NSString * const reuseIdentifier = @"Cell";
     
     if (indexPath.row%2) {
         if (!_noBackgroundImage) {
-            UIImage *imageBlack = [UIImage imageNamed:@"playing_cellbackground"];
+            UIImage *imageBlack = [UIImage imageNamed:@"image_playing_cellbackground"];
             cell.layer.contents = (__bridge id)(imageBlack.CGImage);
         }
         
     }else{
         if (!_noBackgroundImage) {
-            UIImage *imageBlack = [UIImage imageNamed:@"playing_cellbackground"];
+            UIImage *imageBlack = [UIImage imageNamed:@"image_playing_cellbackground"];
             cell.layer.contents = (__bridge id)(imageBlack.CGImage);
         }
     }
