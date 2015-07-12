@@ -24,4 +24,6 @@
 +(UIColor *)getLockColor;
 +(UIColor *)getUnLockColor;
 +(UIColor *)getColorInColorType:(int)blockcolorType;
+
++(UIImage *)getImageForindex:(int)imageIndex;
 @end

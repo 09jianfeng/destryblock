@@ -126,4 +126,8 @@ static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
     }
     return nil;
 }
+
++(UIImage *)getImageForindex:(int)imageIndex{
+    return [UIImage imageNamed:[NSString stringWithFormat:@"image_star_%d",imageIndex]];
+}
 @end

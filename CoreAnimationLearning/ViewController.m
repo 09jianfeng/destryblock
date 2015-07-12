@@ -22,6 +22,7 @@
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,assign) BOOL voiceClosed;
+@property(nonatomic,assign) BOOL musicClosed;
 @end
 
 @implementation ViewController
@@ -42,6 +43,8 @@
     }
     labelChai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size];
     [self.view addSubview:labelChai];
+    [self alwaysShake:3 view:labelChai];
+    
     UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 40, self.view.frame.size.width, self.view.frame.size.height/4)];
     labelFangKuai.textAlignment = NSTextAlignmentCenter;
     labelFangKuai.textColor = [UIColor whiteColor];
@@ -71,46 +74,98 @@
     int buttonSmallSize = (self.view.frame.size.width - insertWidth*5)/4;
     
     UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
     buttonSetting.layer.masksToBounds = YES;
     buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
     [buttonSetting setImage:[UIImage imageNamed:@"image_shezhi"] forState:UIControlStateNormal];
     [buttonSetting addTarget:self action:@selector(buttonSettingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonSetting];
+    buttonSetting.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    } completion:^(BOOL isfinish){
+    }];
+    
     
     UIButton *buttonNoADS = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
     buttonNoADS.layer.masksToBounds = YES;
     buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
     [buttonNoADS setImage:[UIImage imageNamed:@"image_noads"] forState:UIControlStateNormal];
     [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
+    buttonNoADS.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    } completion:^(BOOL isFinish){
+    }];
+    
     
     UIButton *buttonPaiMing = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
     buttonPaiMing.layer.masksToBounds = YES;
     buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
     [buttonPaiMing setImage:[UIImage imageNamed:@"image_paiming"] forState:UIControlStateNormal];
     [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPaiMing];
+    buttonPaiMing.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    } completion:^(BOOL isfinish){
+    }];
     
     UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
     buttonShare.layer.cornerRadius = buttonSmallSize/4;
     buttonShare.layer.masksToBounds = YES;
     buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
     [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
+    buttonShare.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight, buttonSmallSize, buttonSmallSize);
+    } completion:^(BOOL isFinish){
+    }];
+    
     
     GameCenter *gameCenterModel = [[GameCenter alloc] init];
     gameCenterModel.delegate = self;
     [gameCenterModel authenticateLocalPlayer];
 }
 
+-(void)viewWillAppear:(BOOL)animated{
+//    UIImage *image  = [UIImage imageNamed:@"image_main_background"];
+//    self.view.layer.contents = (__bridge id)(image.CGImage);
+//    [super viewWillAppear:animated];
+}
+
+#pragma mark -震动效果
+-(void)alwaysShake:(int)timeInteval view:(UIView *)view{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self shake:view minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
+        [self alwaysShake:timeInteval view:view];
+    });
+}
+
+//maxAngle最小震动幅度，angleDuration递减的角度，times震动次数，duration每次震动的时间
+-(void)shake:(UIView *)view minAngle:(CGFloat)minAngle angleDuration:(CGFloat)angleDuration times:(int)times duration:(double)duration{
+    if (times <= 0) {
+        view.transform = CGAffineTransformIdentity;
+        return;
+    }
+    
+    CGFloat angel = minAngle + angleDuration * times/2;
+    if (times%2==0) {
+        angel = -angel;
+    }
+    
+    times--;
+    [UIView animateWithDuration:duration animations:^{
+        view.transform = CGAffineTransformMakeRotation(angel);
+    } completion:^(BOOL isfinish){
+        [self shake:view minAngle:minAngle angleDuration:angleDuration times:times duration:duration];
+    }];
+}
 
 #pragma mark - buttonClickEvent
 -(void)buttonPlayPressed:(id)sender{
@@ -198,11 +253,11 @@
 
 -(void)buttonPressedsubSetting:(id)sender{
     UIButton *button = (UIButton *)sender;
-    self.voiceClosed = !self.voiceClosed;
-    int i = button.tag - 40000;
+    int i = (int)button.tag - 40000;
     switch (i) {
         case 0:
         {
+            self.voiceClosed = !self.voiceClosed;
             if (self.voiceClosed) {
                 [button setImage:[UIImage imageNamed:@"image_setting_1_open"] forState:UIControlStateNormal];
             }else{
@@ -210,6 +265,29 @@
             }
         }
             break;
+        case 1:
+        {
+            self.musicClosed = !self.musicClosed;
+            if (self.musicClosed) {
+                [button setImage:[UIImage imageNamed:@"image_setting_2_close"] forState:UIControlStateNormal];
+            }else{
+                [button setImage:[UIImage imageNamed:@"image_setting_2"] forState:UIControlStateNormal];
+            }
+        }
+            break;
+            
+        case 2:
+        {
+            
+        }
+            break;
+            
+        case 3:
+        {
+            
+        }
+            break;
+
             
         default:
             break;
