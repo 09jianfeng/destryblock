@@ -59,12 +59,12 @@
 - (void) sendLinkContent:(enum WXScene)scene
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = @"专访张小龙：产品之上的世界观";
-    message.description = @"微信的平台化发展方向是否真的会让这个原本简洁的产品变得臃肿？在国际化发展方向上，微信面临的问题真的是文化差异壁垒吗？腾讯高级副总裁、微信产品负责人张小龙给出了自己的回复。";
-    [message setThumbImage:[UIImage imageNamed:@"2.png"]];
+    message.title = @"拆方块（最简陋的消除类游戏，我都懒得吐槽了。自取）";
+    message.description = @"最简陋的消除类游戏，我TM都不想吐槽了";
+    [message setThumbImage:[UIImage imageNamed:@"Icon.png"]];
     
     WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = @"http://tech.qq.com/zt2012/tmtdecode/252.htm";
+    ext.webpageUrl = @"https://itunes.apple.com/cn/app/du-xiao-shuo-jing-dian-jing-hua/id911315677?mt=8";
     
     message.mediaObject = ext;
     message.mediaTagName = @"WECHAT_TAG_JUMP_SHOWRANK";

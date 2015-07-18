@@ -28,6 +28,10 @@ static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 }
 
 +(void)playAudioIsCorrect:(int)statue{
+    if([[GameDataGlobal shareInstance] gameVoiceClose]){
+        return;
+    }
+    
     NSString *stringCottect = [NSString stringWithFormat:@"%d.mp3",statue];
     if (statue == 4) {
         stringCottect = @"error.mp3";

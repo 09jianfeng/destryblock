@@ -10,6 +10,11 @@
 #import <UIKit/UIKit.h>
 
 @interface GameDataGlobal : NSObject
+@property(nonatomic,assign) BOOL gameVoiceClose;
+@property(nonatomic,assign) BOOL gameMusicClose;
+
++(id)shareInstance;
+
 //播放音效
 +(void)playAudioIsCorrect:(int)statue;
 //增加被破坏的方块数
@@ -25,5 +30,6 @@
 +(UIColor *)getUnLockColor;
 +(UIColor *)getColorInColorType:(int)blockcolorType;
 
+//获取图片
 +(UIImage *)getImageForindex:(int)imageIndex;
 @end

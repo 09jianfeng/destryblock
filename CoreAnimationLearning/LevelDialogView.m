@@ -132,6 +132,8 @@ extern NSString *playingViewExitNotification;
     } completion:^(BOOL isfinish){
         [self removeFromSuperview];
     }];
+    
+    [self.viewController viewAnimation];
 }
 
 -(void)jumpToPage:(int)page scrollView:(UIScrollView*)scrollView{

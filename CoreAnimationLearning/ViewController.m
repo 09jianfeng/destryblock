@@ -21,8 +21,6 @@
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
-@property(nonatomic,assign) BOOL voiceClosed;
-@property(nonatomic,assign) BOOL musicClosed;
 @end
 
 @implementation ViewController
@@ -63,6 +61,7 @@
     
     
     SpriteView2 *buttonPlay = [SpriteView2 buttonWithType:UIButtonTypeCustom];
+    buttonPlay.tag = 500000;
     [buttonPlay beginAnimation];
     int buttonPlaysize = self.view.frame.size.height/4.0 - self.view.frame.size.height/25;
     int buttonPlayx = self.view.frame.size.width/2 - buttonPlaysize/2;
@@ -75,6 +74,47 @@
     [buttonPlay addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPlay];
     
+    UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonSetting.tag = 500001;
+    buttonSetting.layer.masksToBounds = YES;
+    buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
+    [buttonSetting setImage:[UIImage imageNamed:@"image_shezhi"] forState:UIControlStateNormal];
+    [buttonSetting addTarget:self action:@selector(buttonSettingPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonSetting];
+    
+    UIButton *buttonNoADS = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonNoADS.tag = 500002;
+    buttonNoADS.layer.masksToBounds = YES;
+    buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
+    [buttonNoADS setImage:[UIImage imageNamed:@"image_noads"] forState:UIControlStateNormal];
+    [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonNoADS];
+    
+    UIButton *buttonPaiMing = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonPaiMing.tag = 500003;
+    buttonPaiMing.layer.masksToBounds = YES;
+    buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
+    [buttonPaiMing setImage:[UIImage imageNamed:@"image_paiming"] forState:UIControlStateNormal];
+    [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonPaiMing];
+    
+    
+    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonShare.tag = 500004;
+    buttonShare.layer.masksToBounds = YES;
+    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
+    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
+    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonShare];
+   
+    [self viewAnimation];
+    
+    GameCenter *gameCenterModel = [[GameCenter alloc] init];
+    gameCenterModel.delegate = self;
+    [gameCenterModel authenticateLocalPlayer];
+}
+
+-(void)viewAnimation{
     int insertWidth = self.view.frame.size.width/20;
     int insertHeight = self.view.frame.size.width/30;
     if (IsPadUIBlockGame()) {
@@ -82,68 +122,41 @@
     }
     int buttonSmallSize = (self.view.frame.size.width - insertWidth*5)/4;
     
-    UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonSetting.tag = 500001;
+    UIButton *buttonPlay = (UIButton*)[self.view viewWithTag:500000];
+    
+    UIButton *buttonSetting = (UIButton *)[self.view viewWithTag:500001];
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
-    buttonSetting.layer.masksToBounds = YES;
-    buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
-    [buttonSetting setImage:[UIImage imageNamed:@"image_shezhi"] forState:UIControlStateNormal];
-    [buttonSetting addTarget:self action:@selector(buttonSettingPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buttonSetting];
-    buttonSetting.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonSetting.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+        buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isfinish){
     }];
     
     
-    UIButton *buttonNoADS = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonNoADS.tag = 500002;
+    UIButton *buttonNoADS = (UIButton *)[self.view viewWithTag:500002];
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
-    buttonNoADS.layer.masksToBounds = YES;
-    buttonNoADS.backgroundColor = [GameDataGlobal getColorInColorType:3];
-    [buttonNoADS setImage:[UIImage imageNamed:@"image_noads"] forState:UIControlStateNormal];
-    [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buttonNoADS];
-    buttonNoADS.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonNoADS.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+        buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isFinish){
     }];
     
     
-    UIButton *buttonPaiMing = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonPaiMing.tag = 500003;
+    UIButton *buttonPaiMing = (UIButton*)[self.view viewWithTag:500003];
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
-    buttonPaiMing.layer.masksToBounds = YES;
-    buttonPaiMing.backgroundColor = [GameDataGlobal getColorInColorType:5];
-    [buttonPaiMing setImage:[UIImage imageNamed:@"image_paiming"] forState:UIControlStateNormal];
-    [buttonPaiMing addTarget:self action:@selector(buttonPaiMingPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buttonPaiMing];
-    buttonPaiMing.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonPaiMing.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+        buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isfinish){
     }];
     
-    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonShare.tag = 500004;
+    UIButton *buttonShare = (UIButton*)[self.view viewWithTag:500004];
     buttonShare.layer.cornerRadius = buttonSmallSize/4;
-    buttonShare.layer.masksToBounds = YES;
-    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
-    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
-    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buttonShare];
-    buttonShare.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonShare.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, buttonPlay.frame.origin.y + buttonPlaysize + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+        buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isFinish){
     }];
-    
-    
-    GameCenter *gameCenterModel = [[GameCenter alloc] init];
-    gameCenterModel.delegate = self;
-    [gameCenterModel authenticateLocalPlayer];
 }
 
 #pragma mark -震动效果
@@ -176,6 +189,8 @@
 
 #pragma mark - buttonClickEvent
 -(void)buttonPlayPressed:(id)sender{
+    [GameDataGlobal playAudioIsCorrect:5];
+    
     LevelDialogView *levelDialog = [[LevelDialogView alloc] initWithFrame:self.view.bounds];
     levelDialog.viewController = self;
     levelDialog.alpha = 0.0;
@@ -187,9 +202,9 @@
 }
 
 -(void)buttonSettingPressed:(id)sender{
+    [GameDataGlobal playAudioIsCorrect:5];
+    
     UIButton *buttonSetting = (UIButton*)sender;
-    
-    
     UIView *baseView = [self.view viewWithTag:30001];
     NSArray *subViews = [baseView subviews];
     
@@ -254,6 +269,16 @@
             baseView.frame = CGRectMake(baseViewWidthInsert, buttonSetting.frame.size.height + buttonSetting.frame.origin.y + baseViewHeightInsert, baseViewWidth, baseViewHeight);
             for (int i = 0; i < count; i++) {
                 UIImage *buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"image_setting_%d",i+1]];
+                if (i == 0) {
+                    if ([[GameDataGlobal shareInstance] gameVoiceClose]) {
+                        buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"image_setting_1_open"]];
+                    }
+                }else if (i == 1){
+                    if ([[GameDataGlobal shareInstance] gameMusicClose]) {
+                        buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"image_setting_2_close"]];
+                    }
+                }
+                
                 UIButton *subButton = [mutArray objectAtIndex:i];
                 [subButton setImage:buttonImage forState:UIControlStateNormal];
                 subButton.tag = 40000+i;
@@ -261,18 +286,20 @@
                 subButton.frame = CGRectMake(subButtonInsertHeade + subButtonInsert*(i+1) + subButtonSize*i, subBUttonInsertTop, subButtonSize, subButtonSize);
             }
         } completion:^(BOOL isFinish){
+            
         }];
     }
 }
 
 -(void)buttonPressedsubSetting:(id)sender{
     UIButton *button = (UIButton *)sender;
+    GameDataGlobal *dataGlobal = [GameDataGlobal shareInstance];
     int i = (int)button.tag - 40000;
     switch (i) {
         case 0:
         {
-            self.voiceClosed = !self.voiceClosed;
-            if (self.voiceClosed) {
+            dataGlobal.gameVoiceClose = !dataGlobal.gameVoiceClose;
+            if (dataGlobal.gameVoiceClose) {
                 [button setImage:[UIImage imageNamed:@"image_setting_1_open"] forState:UIControlStateNormal];
             }else{
                 [button setImage:[UIImage imageNamed:@"image_setting_1"] forState:UIControlStateNormal];
@@ -281,8 +308,8 @@
             break;
         case 1:
         {
-            self.musicClosed = !self.musicClosed;
-            if (self.musicClosed) {
+            dataGlobal.gameMusicClose = !dataGlobal.gameMusicClose;
+            if (dataGlobal.gameMusicClose) {
                 [button setImage:[UIImage imageNamed:@"image_setting_2_close"] forState:UIControlStateNormal];
             }else{
                 [button setImage:[UIImage imageNamed:@"image_setting_2"] forState:UIControlStateNormal];

@@ -11,6 +11,6 @@
 
 @interface ViewController : UIViewController<GKGameCenterControllerDelegate>
 
-
+-(void)viewAnimation;
 @end
 
