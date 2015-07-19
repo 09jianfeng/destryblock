@@ -17,6 +17,8 @@
 #import "GameDataGlobal.h"
 #import "SpriteView2.h"
 
+#define AllblockNumpercent 0.65
+
 extern NSString *levelinfo;
 extern NSString *levelinfoScore;
 extern NSString *levelinfoTime;
@@ -93,8 +95,7 @@ static NSString * const reuseIdentifier = @"Cell";
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width-1;
     
-    float allblockNump = 0.65;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:allblockNump];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据总块数生成
     _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
     
@@ -211,7 +212,7 @@ static NSString * const reuseIdentifier = @"Cell";
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
     self.starNum = 0;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:0.65];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
@@ -232,7 +233,7 @@ static NSString * const reuseIdentifier = @"Cell";
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
-    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:0.65];
+    self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据时间生成
     _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
     

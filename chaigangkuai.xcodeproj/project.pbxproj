@@ -57,6 +57,7 @@
 		783E47551B5211DE00CE6963 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 783E474A1B5211DE00CE6963 /* iTunesArtwork.png */; };
 		783E47561B5211DE00CE6963 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 783E474B1B5211DE00CE6963 /* iTunesArtwork@2x.png */; };
 		783E47571B5211DE00CE6963 /* Original.png in Resources */ = {isa = PBXBuildFile; fileRef = 783E474C1B5211DE00CE6963 /* Original.png */; };
+		783E475A1B5A351C00CE6963 /* GameIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 783E47591B5A351C00CE6963 /* GameIntroductionView.m */; };
 		7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */; };
 		7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7844B7191AEB29B0006DE282 /* AVFoundation.framework */; };
 		7844B71C1AEB2BDB006DE282 /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 7844B71B1AEB2BDB006DE282 /* error.mp3 */; };
@@ -163,6 +164,8 @@
 		783E474A1B5211DE00CE6963 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtwork.png; path = icon/iTunesArtwork.png; sourceTree = SOURCE_ROOT; };
 		783E474B1B5211DE00CE6963 /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iTunesArtwork@2x.png"; path = "icon/iTunesArtwork@2x.png"; sourceTree = SOURCE_ROOT; };
 		783E474C1B5211DE00CE6963 /* Original.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Original.png; path = icon/Original.png; sourceTree = SOURCE_ROOT; };
+		783E47581B5A351C00CE6963 /* GameIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameIntroductionView.h; sourceTree = "<group>"; };
+		783E47591B5A351C00CE6963 /* GameIntroductionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameIntroductionView.m; sourceTree = "<group>"; };
 		7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewControllerPlay.h; sourceTree = "<group>"; };
 		7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewControllerPlay.m; sourceTree = "<group>"; };
 		7844B7171AEB28F5006DE282 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -499,6 +502,8 @@
 				7882DD871B2D7FFB0049A296 /* ActivityIndicator.m */,
 				7882DD881B2D7FFB0049A296 /* DialogView.h */,
 				7882DD891B2D7FFB0049A296 /* DialogView.m */,
+				783E47581B5A351C00CE6963 /* GameIntroductionView.h */,
+				783E47591B5A351C00CE6963 /* GameIntroductionView.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -682,6 +687,7 @@
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
 				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
+				783E475A1B5A351C00CE6963 /* GameIntroductionView.m in Sources */,
 				784E5DCB1B3CCC69006FB684 /* Line.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
 				782AFA621B3FDA14005910B7 /* UIViewProgress.m in Sources */,

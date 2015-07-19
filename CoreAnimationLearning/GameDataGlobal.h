@@ -32,4 +32,7 @@
 
 //获取图片
 +(UIImage *)getImageForindex:(int)imageIndex;
+
+//判断是否是第一次安装
++(BOOL)gameIsFirstTimePlay;
 @end

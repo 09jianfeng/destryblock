@@ -18,6 +18,7 @@
 #import "IAPManager.h"
 #import "macro.h"
 #import "SpriteView2.h"
+#import "GameIntroductionView.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
@@ -325,7 +326,9 @@
             
         case 3:
         {
-            
+            GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
+            [introductionView gameBeginIntroduction];
+            [self.view addSubview:introductionView];
         }
             break;
 

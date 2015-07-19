@@ -12,6 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
+static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
 
 @interface GameDataGlobal()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -133,5 +134,15 @@ static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 
 +(UIImage *)getImageForindex:(int)imageIndex{
     return [UIImage imageNamed:[NSString stringWithFormat:@"image_star_%d",imageIndex]];
+}
+
+//判断是否是第一次安装
++(BOOL)gameIsFirstTimePlay{
+    BOOL isNoFirstInstall = [[GameKeyValue objectForKey:GameDataIsFirstInstall] boolValue];
+    if (!isNoFirstInstall) {
+        [GameKeyValue setObject:[NSNumber numberWithBool:YES] forKey:GameDataIsFirstInstall];
+    }
+    
+    return !isNoFirstInstall;
 }
 @end
