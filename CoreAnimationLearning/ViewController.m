@@ -53,7 +53,7 @@
     [self.view addSubview:labelChai];
     [self alwaysShake:3 view:labelChai];
     
-    UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 40, self.view.frame.size.width, self.view.frame.size.height/4)];
+    UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 20, self.view.frame.size.width, self.view.frame.size.height/4)];
     labelFangKuai.textAlignment = NSTextAlignmentCenter;
     labelFangKuai.textColor = [UIColor whiteColor];
     labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size-20];
@@ -232,6 +232,9 @@
             baseViewWidth = self.view.frame.size.width*4/5 - baseViewWidthInsert*2;
         }
         int baseViewHeight = self.view.frame.size.height - buttonSetting.frame.origin.y - buttonSetting.frame.size.height - baseViewHeightInsert*2;
+        if (self.view.frame.size.height < 500) {
+            baseViewHeight = baseViewHeight + baseViewHeightInsert*2;
+        }
         
         baseView = [[UIView alloc] init];
         baseView.tag = 30001;
