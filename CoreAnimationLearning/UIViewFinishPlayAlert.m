@@ -78,6 +78,9 @@
     }else{
         UILabel *lableExit = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, board.frame.size.width, board.frame.size.height/3)];
         lableExit.text = @"时间到";
+        if (!_isTimesup) {
+            lableExit.text = @"很遗憾";
+        }
         lableExit.textAlignment = NSTextAlignmentCenter;
         lableExit.textColor = [GameDataGlobal getColorInColorType:1];
         lableExit.font = [UIFont systemFontOfSize:46];

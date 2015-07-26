@@ -22,6 +22,7 @@
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
+@property(nonatomic,retain) IAPManager *iap;
 @end
 
 @implementation ViewController
@@ -39,6 +40,8 @@
         introductionView.viewController = self;
         [self.view addSubview:introductionView];
     }
+    
+    [GameDataGlobal playAudioMainMusic];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -285,7 +288,7 @@
                         buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"image_setting_1_open"]];
                     }
                 }else if (i == 1){
-                    if ([[GameDataGlobal shareInstance] gameMusicClose]) {
+                    if (![[GameDataGlobal shareInstance] gameMusicClose]) {
                         buttonImage = [UIImage imageNamed:[NSString stringWithFormat:@"image_setting_2_close"]];
                     }
                 }
@@ -319,8 +322,8 @@
             break;
         case 1:
         {
-            dataGlobal.gameMusicClose = !dataGlobal.gameMusicClose;
-            if (dataGlobal.gameMusicClose) {
+            [GameDataGlobal playAudioMainMusic];
+            if (!dataGlobal.gameMusicClose) {
                 [button setImage:[UIImage imageNamed:@"image_setting_2_close"] forState:UIControlStateNormal];
             }else{
                 [button setImage:[UIImage imageNamed:@"image_setting_2"] forState:UIControlStateNormal];
@@ -387,9 +390,9 @@
             break;
         case 1:
         {
-            IAPManager *iap = [[IAPManager alloc] init];
-            iap.delegate = self;
-            [iap buy];
+             self.iap = [[IAPManager alloc] init];
+            self.iap.delegate = self;
+            [self.iap buy];
         }
             break;
         case 2:
@@ -407,6 +410,7 @@
 
 #pragma mark - iapManagerDelegate
 -(void)buySuccess{
+    [GameDataGlobal gameSetIsNOADS];
     HNLOGINFO(@"购买成功");
 }
 

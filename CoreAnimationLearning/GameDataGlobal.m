@@ -13,9 +13,11 @@
 
 static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
+static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
 
 @interface GameDataGlobal()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
+@property(nonatomic, retain) AVAudioPlayer *audioMain;
 @end
 
 @implementation GameDataGlobal
@@ -33,11 +35,11 @@ static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
         return;
     }
     
-    NSString *stringCottect = [NSString stringWithFormat:@"%d.mp3",statue];
+    NSString *stringCottect = [NSString stringWithFormat:@"music_%d.mp3",statue];
     if (statue == 4) {
-        stringCottect = @"error.mp3";
+        stringCottect = @"music_error.mp3";
     }else if (statue ==5){
-        stringCottect = @"click.mp3";
+        stringCottect = @"music_click.mp3";
     }
     
     //1.音频文件的url路径
@@ -48,6 +50,27 @@ static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
     [audioplayerCorrect prepareToPlay];
     [audioplayerCorrect play];
     [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
++(void)playAudioMainMusic{
+    GameDataGlobal *dataGlobal = [GameDataGlobal shareInstance];
+    dataGlobal.gameMusicClose = !dataGlobal.gameMusicClose;
+    
+    if(![[GameDataGlobal shareInstance] gameMusicClose]){
+        [[GameDataGlobal shareInstance] setAudioMain:nil];
+        return;
+    }
+    
+    NSString *stringCottect = [NSString stringWithFormat:@"music_main.mp3"];
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    audioplayerCorrect.numberOfLoops = 10000;
+    [[GameDataGlobal shareInstance] setAudioMain:audioplayerCorrect];
 }
 
 
@@ -144,5 +167,14 @@ static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
     }
     
     return !isNoFirstInstall;
+}
+
++(BOOL)gameIsNoADS{
+    BOOL isNOADS = [[GameKeyValue objectForKey:GameDataIsNOADS] boolValue];
+    return isNOADS;
+}
+
++(void)gameSetIsNOADS{
+    [GameKeyValue setObject:[NSNumber numberWithBool:YES] forKey:GameDataIsNOADS];
 }
 @end

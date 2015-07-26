@@ -202,6 +202,9 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.tag = 3000;
     [self.view addSubview:finish];
     finish.collectionViewController = self;
+    if (seconde > _timeLimit) {
+        finish.isTimesup = YES;
+    }
     [finish showView];
 }
 

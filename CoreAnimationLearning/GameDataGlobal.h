@@ -17,6 +17,7 @@
 
 //播放音效
 +(void)playAudioIsCorrect:(int)statue;
++(void)playAudioMainMusic;
 //增加被破坏的方块数
 +(void)gameResultAddBrockenBlocks:(int)blocks;
 //获得被破坏的方块总数
@@ -35,4 +36,8 @@
 
 //判断是否是第一次安装
 +(BOOL)gameIsFirstTimePlay;
+
+//是否购买了去掉广告
++(BOOL)gameIsNoADS;
++(void)gameSetIsNOADS;
 @end

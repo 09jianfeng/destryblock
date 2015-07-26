@@ -17,6 +17,7 @@
 @property(nonatomic,assign) BOOL isStop;
 @property(nonatomic,assign) int starNum;
 @property(nonatomic,assign) BOOL isSuccess;
+@property(nonatomic,assign) BOOL isTimesup;
 
 -(void)showView;
 -(void)beginStarImageAnimator;
