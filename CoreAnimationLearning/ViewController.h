@@ -12,5 +12,6 @@
 @interface ViewController : UIViewController<GKGameCenterControllerDelegate>
 
 -(void)viewAnimation;
+-(void)buttonSettingPressed:(id)sender;
 @end
 

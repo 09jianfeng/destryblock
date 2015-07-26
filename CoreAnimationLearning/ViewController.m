@@ -32,6 +32,13 @@
     [super viewDidLoad];
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     [self addSubViews];
+    
+    if ([GameDataGlobal gameIsFirstTimePlay]) {
+        GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
+        [introductionView gameBeginIntroduction];
+        introductionView.viewController = self;
+        [self.view addSubview:introductionView];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -331,7 +338,9 @@
         {
             GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
             [introductionView gameBeginIntroduction];
+            introductionView.viewController = self;
             [self.view addSubview:introductionView];
+            [self buttonSettingPressed:nil];
         }
             break;
 

@@ -88,13 +88,13 @@
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{    
     if (self.scrollView.contentOffset.x > scrollView.frame.size.width*4) {
+        [self.viewController viewAnimation];
         [UIView animateWithDuration:0.5 animations:^{
             self.alpha = 0.0;
         } completion:^(BOOL isFinish){
             [self removeFromSuperview];
         }];
     }
-    
 }
 
 @end

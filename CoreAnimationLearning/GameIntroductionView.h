@@ -10,5 +10,7 @@
 #import "ViewController.h"
 
 @interface GameIntroductionView : UIView
+@property(nonatomic, assign) ViewController *viewController;
+
 -(void)gameBeginIntroduction;
 @end
