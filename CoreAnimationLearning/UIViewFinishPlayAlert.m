@@ -150,6 +150,9 @@
     NSString *conOrNext = @"继续";
     if (!_isStop) {
         conOrNext = @"Next";
+        if (_isTimesup && !_isSuccess) {
+            conOrNext = @"视频";
+        }
     }
     [buttonNext setTitle:conOrNext forState:UIControlStateNormal];
     buttonNext.layer.cornerRadius = buttonSize/2;
@@ -354,6 +357,10 @@
             [self removeFromSuperview];
             [self.collectionViewController nextLevel];
         }];
+    }else if (_isTimesup){
+        //播放视频，然后继续消下去
+        [self.collectionViewController playByWatchVideo];
+        [self removeFromSuperview];
     }
 }
 

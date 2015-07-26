@@ -27,4 +27,5 @@
 -(void)continueGame;
 -(void)nextLevel;
 -(void)replayGame;
+-(void)playByWatchVideo;
 @end

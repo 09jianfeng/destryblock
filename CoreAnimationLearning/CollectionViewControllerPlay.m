@@ -46,6 +46,7 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 @property(nonatomic, assign) int starNum;
 //多盟
 @property(nonatomic, retain) DMInterstitialAdController *dmController;
+@property(nonatomic, assign) BOOL isWatchVideoContinue;
 
 @end
 
@@ -192,6 +193,11 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark -
 #pragma mark logic
+//看视频重新玩的
+-(void)playByWatchVideo{
+    self.isWatchVideoContinue = YES;
+}
+
 -(void)endTheGame{
     [self.timer invalidate];
     [GameDataGlobal gameResultAddBrockenBlocks:self.Allpoints];
@@ -222,6 +228,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.Allpoints = 0;
     self.processView.progress = 0;
     seconde = 0;
+    self.isWatchVideoContinue = NO;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
     self.starNum = 0;
@@ -243,6 +250,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.starNum = 0;
     self.Allpoints = 0;
     self.processView.progress = 0;
+    self.isWatchVideoContinue = NO;
     seconde = 0;
     CGFloat width = self.view.frame.size.width/_widthNum;
     int heightnum = self.view.frame.size.height/width - 1;
@@ -408,7 +416,10 @@ static NSString * const reuseIdentifier = @"Cell";
     }
 //    [self beginActionAnimatorBehavior:self.mutArraySprites];
     
-    _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
+    if (!self.isWatchVideoContinue) {
+        _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
+    }
+    
     [self addScoreNumImageVew:spritesNumShouldDrop*2 - 2 frame:cell.frame];
     if (spritesNumShouldDrop > 1) {
         [GameDataGlobal playAudioIsCorrect:spritesNumShouldDrop-1];
