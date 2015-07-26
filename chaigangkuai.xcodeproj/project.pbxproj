@@ -104,6 +104,18 @@
 		78B1C36E1B64C6FA009CB13F /* music_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78B1C36B1B64C6FA009CB13F /* music_1.mp3 */; };
 		78B1C36F1B64C6FA009CB13F /* music_click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78B1C36C1B64C6FA009CB13F /* music_click.mp3 */; };
 		78B1C3701B64C6FA009CB13F /* music_error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78B1C36D1B64C6FA009CB13F /* music_error.mp3 */; };
+		78B1C37A1B650E70009CB13F /* DomobAdSDKBundle in Resources */ = {isa = PBXBuildFile; fileRef = 78B1C3781B650E70009CB13F /* DomobAdSDKBundle */; };
+		78B1C37B1B650E70009CB13F /* libDomobAdSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C3791B650E70009CB13F /* libDomobAdSDK.a */; };
+		78B1C37D1B650F04009CB13F /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C37C1B650F04009CB13F /* libsqlite3.dylib */; };
+		78B1C37E1B650F0B009CB13F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7844B7171AEB28F5006DE282 /* CoreMedia.framework */; };
+		78B1C3801B650F16009CB13F /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C37F1B650F16009CB13F /* MediaPlayer.framework */; };
+		78B1C3821B650F23009CB13F /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C3811B650F23009CB13F /* QuartzCore.framework */; };
+		78B1C3841B650F2E009CB13F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C3831B650F2E009CB13F /* CoreText.framework */; };
+		78B1C3861B650F3A009CB13F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C3851B650F3A009CB13F /* CoreGraphics.framework */; };
+		78B1C3881B650F4C009CB13F /* PassKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C3871B650F4C009CB13F /* PassKit.framework */; };
+		78B1C38A1B650F54009CB13F /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C3891B650F54009CB13F /* Social.framework */; };
+		78B1C38C1B650F5F009CB13F /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C38B1B650F5F009CB13F /* EventKit.framework */; };
+		78B1C38E1B650F71009CB13F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78B1C38D1B650F71009CB13F /* AudioToolbox.framework */; };
 		78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C4E0261B2575D00047B834 /* SpriteView2.m */; };
 		78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C4E02B1B26EFE50047B834 /* GameCenter.m */; };
 		78C4E02E1B26EFFB0047B834 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C4E02D1B26EFFB0047B834 /* GameKit.framework */; };
@@ -241,6 +253,23 @@
 		78B1C36B1B64C6FA009CB13F /* music_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_1.mp3; sourceTree = "<group>"; };
 		78B1C36C1B64C6FA009CB13F /* music_click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_click.mp3; sourceTree = "<group>"; };
 		78B1C36D1B64C6FA009CB13F /* music_error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_error.mp3; sourceTree = "<group>"; };
+		78B1C3721B650E70009CB13F /* DMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMAdView.h; path = thirdPart/DomobAdSDK/DMAdView.h; sourceTree = "<group>"; };
+		78B1C3731B650E70009CB13F /* DMFeedsAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMFeedsAdView.h; path = thirdPart/DomobAdSDK/DMFeedsAdView.h; sourceTree = "<group>"; };
+		78B1C3741B650E70009CB13F /* DMInterstitialAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMInterstitialAdController.h; path = thirdPart/DomobAdSDK/DMInterstitialAdController.h; sourceTree = "<group>"; };
+		78B1C3751B650E70009CB13F /* DMRTSplashAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMRTSplashAdController.h; path = thirdPart/DomobAdSDK/DMRTSplashAdController.h; sourceTree = "<group>"; };
+		78B1C3761B650E70009CB13F /* DMSplashAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMSplashAdController.h; path = thirdPart/DomobAdSDK/DMSplashAdController.h; sourceTree = "<group>"; };
+		78B1C3771B650E70009CB13F /* DMTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMTools.h; path = thirdPart/DomobAdSDK/DMTools.h; sourceTree = "<group>"; };
+		78B1C3781B650E70009CB13F /* DomobAdSDKBundle */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DomobAdSDKBundle; path = thirdPart/DomobAdSDK/DomobAdSDKBundle; sourceTree = "<group>"; };
+		78B1C3791B650E70009CB13F /* libDomobAdSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDomobAdSDK.a; path = thirdPart/DomobAdSDK/libDomobAdSDK.a; sourceTree = "<group>"; };
+		78B1C37C1B650F04009CB13F /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		78B1C37F1B650F16009CB13F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		78B1C3811B650F23009CB13F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		78B1C3831B650F2E009CB13F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		78B1C3851B650F3A009CB13F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		78B1C3871B650F4C009CB13F /* PassKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PassKit.framework; path = System/Library/Frameworks/PassKit.framework; sourceTree = SDKROOT; };
+		78B1C3891B650F54009CB13F /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		78B1C38B1B650F5F009CB13F /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		78B1C38D1B650F71009CB13F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		78C4E0251B2575D00047B834 /* SpriteView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteView2.h; sourceTree = "<group>"; };
 		78C4E0261B2575D00047B834 /* SpriteView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpriteView2.m; sourceTree = "<group>"; };
 		78C4E02A1B26EFE50047B834 /* GameCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameCenter.h; sourceTree = "<group>"; };
@@ -261,17 +290,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7882DD6B1B2D20520049A296 /* SystemConfiguration.framework in Frameworks */,
+				78B1C38E1B650F71009CB13F /* AudioToolbox.framework in Frameworks */,
+				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
+				78B1C38C1B650F5F009CB13F /* EventKit.framework in Frameworks */,
+				78B1C38A1B650F54009CB13F /* Social.framework in Frameworks */,
+				78B1C3881B650F4C009CB13F /* PassKit.framework in Frameworks */,
 				7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */,
+				78B1C3861B650F3A009CB13F /* CoreGraphics.framework in Frameworks */,
+				78B1C3841B650F2E009CB13F /* CoreText.framework in Frameworks */,
+				78B1C3821B650F23009CB13F /* QuartzCore.framework in Frameworks */,
+				78B1C3801B650F16009CB13F /* MediaPlayer.framework in Frameworks */,
+				78B1C37E1B650F0B009CB13F /* CoreMedia.framework in Frameworks */,
+				78B1C37D1B650F04009CB13F /* libsqlite3.dylib in Frameworks */,
 				7882DD801B2D76270049A296 /* libc++.dylib in Frameworks */,
 				7882DD711B2D20770049A296 /* Foundation.framework in Frameworks */,
 				7882DD6F1B2D20660049A296 /* libsqlite3.0.dylib in Frameworks */,
 				7882DD7E1B2D22FF0049A296 /* libWeChatSDK.a in Frameworks */,
+				78B1C37B1B650E70009CB13F /* libDomobAdSDK.a in Frameworks */,
 				7882DD6D1B2D20580049A296 /* libz.dylib in Frameworks */,
-				7882DD6B1B2D20520049A296 /* SystemConfiguration.framework in Frameworks */,
 				78C4E02E1B26EFFB0047B834 /* GameKit.framework in Frameworks */,
 				7836C7DD1AF3CE8D00E4AFAB /* Accelerate.framework in Frameworks */,
 				780E17651AEE7DDB007A4A88 /* UIKit.framework in Frameworks */,
-				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +351,15 @@
 		782B1F701AE35B450051D053 = {
 			isa = PBXGroup;
 			children = (
+				78B1C38D1B650F71009CB13F /* AudioToolbox.framework */,
+				78B1C38B1B650F5F009CB13F /* EventKit.framework */,
+				78B1C3891B650F54009CB13F /* Social.framework */,
+				78B1C3871B650F4C009CB13F /* PassKit.framework */,
+				78B1C3851B650F3A009CB13F /* CoreGraphics.framework */,
+				78B1C3831B650F2E009CB13F /* CoreText.framework */,
+				78B1C3811B650F23009CB13F /* QuartzCore.framework */,
+				78B1C37F1B650F16009CB13F /* MediaPlayer.framework */,
+				78B1C37C1B650F04009CB13F /* libsqlite3.dylib */,
 				7882DD841B2D7FA50049A296 /* StoreKit.framework */,
 				7882DD7F1B2D76270049A296 /* libc++.dylib */,
 				7882DD701B2D20770049A296 /* Foundation.framework */,
@@ -516,6 +565,7 @@
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
+				78B1C3711B650E29009CB13F /* duomeng */,
 				7882DD7A1B2D22E20049A296 /* weixin */,
 			);
 			name = thirtPart;
@@ -542,6 +592,21 @@
 				783E47591B5A351C00CE6963 /* GameIntroductionView.m */,
 			);
 			name = view;
+			sourceTree = "<group>";
+		};
+		78B1C3711B650E29009CB13F /* duomeng */ = {
+			isa = PBXGroup;
+			children = (
+				78B1C3721B650E70009CB13F /* DMAdView.h */,
+				78B1C3731B650E70009CB13F /* DMFeedsAdView.h */,
+				78B1C3741B650E70009CB13F /* DMInterstitialAdController.h */,
+				78B1C3751B650E70009CB13F /* DMRTSplashAdController.h */,
+				78B1C3761B650E70009CB13F /* DMSplashAdController.h */,
+				78B1C3771B650E70009CB13F /* DMTools.h */,
+				78B1C3781B650E70009CB13F /* DomobAdSDKBundle */,
+				78B1C3791B650E70009CB13F /* libDomobAdSDK.a */,
+			);
+			name = duomeng;
 			sourceTree = "<group>";
 		};
 		78CC36661AF7C0C500033213 /* model */ = {
@@ -675,6 +740,7 @@
 				78257D221B4175DE00635D4F /* image_+-2.png in Resources */,
 				780D30931B22F83F0038FF26 /* image_leaf.png in Resources */,
 				782C6A0E1B3666B600A56A9C /* image_result_star_2.png in Resources */,
+				78B1C37A1B650E70009CB13F /* DomobAdSDKBundle in Resources */,
 				7882DD961B2DD32F0049A296 /* image_share.png in Resources */,
 				783E474E1B5211DE00CE6963 /* Icon-72@2x.png in Resources */,
 				78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */,
@@ -872,7 +938,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/WeChatSDK_1.5",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/DomobAdSDK",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = chaigangkuai;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -891,7 +959,9 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/WeChatSDK_1.5",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/DomobAdSDK",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = chaigangkuai;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

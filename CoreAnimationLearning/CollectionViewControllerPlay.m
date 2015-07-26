@@ -16,6 +16,7 @@
 #import "UIViewFinishPlayAlert.h"
 #import "GameDataGlobal.h"
 #import "SpriteView2.h"
+#import "DMInterstitialAdController.h"
 
 #define AllblockNumpercent 0.65
 
@@ -43,6 +44,9 @@ NSString *playingViewExitNotification = @"playingViewExitNotification";
 //mutArraySprites 存储正在动的sprites
 @property(nonatomic, strong) NSMutableArray *mutArraySprites;
 @property(nonatomic, assign) int starNum;
+//多盟
+@property(nonatomic, retain) DMInterstitialAdController *dmController;
+
 @end
 
 @implementation CollectionViewControllerPlay
@@ -60,6 +64,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)dealloc{
+    self.dmController = nil;
     self.mutArraySprites = nil;
     self.gameAlgorithm = nil;
     self.animator = nil;
@@ -72,6 +77,8 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.collectionView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+    self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:self];
+    [self.dmController loadAd];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -206,6 +213,9 @@ static NSString * const reuseIdentifier = @"Cell";
         finish.isTimesup = YES;
     }
     [finish showView];
+    
+    [self.dmController present];
+    [self.dmController loadAd];
 }
 
 -(void)replayGame{
