@@ -66,11 +66,11 @@
         for (int i = 0 ; i < 3 ; i++) {
             UIImageView *imageViewStar = [[UIImageView alloc] initWithFrame:CGRectMake(starLeftRightInsert + starInsert*(i+1) + starSize*i, abs(i-1)*20, starSize, starSize)];
             if (self.starNum > 0) {
-                imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+                imageViewStar.image = [UIImage imageNamed:@"image_result_star_2"];
                 self.starNum--;
                 [self.arrayImageView addObject:imageViewStar];
             }else{
-                imageViewStar.image = [UIImage imageNamed:@"result_star_2"];
+                imageViewStar.image = [UIImage imageNamed:@"image_result_star_2"];
             }
             
             [board addSubview:imageViewStar];
@@ -192,7 +192,7 @@
     rocket.yAcceleration	= 75;
     rocket.lifetime			= 1.52;	// we cannot set the birthrate < 1.0 for the burst
     
-    rocket.contents			= (id) [[UIImage imageNamed:@"DazRing"] CGImage];
+    rocket.contents			= (id) [[UIImage imageNamed:@"image_DazRing"] CGImage];
     rocket.scale			= 0.2;
     rocket.color			= [[UIColor colorWithRed:0.9 green:0.5 blue:0.5 alpha:1.0] CGColor];
     rocket.greenRange		= 1.0;		// different colors
@@ -219,7 +219,7 @@
     spark.emissionRange		= 2* M_PI;	// 360 deg
     spark.yAcceleration		= 75;		// gravity
     spark.lifetime			= 3;
-    spark.contents			= (id) [[UIImage imageNamed:@"snow1"] CGImage];
+    spark.contents			= (id) [[UIImage imageNamed:@"image_snow1"] CGImage];
     spark.scaleSpeed		=-0.2;
     spark.greenSpeed		=0.1;
     spark.redSpeed			= 0.4;
@@ -253,7 +253,7 @@
     UIImageView *imageView = [self.arrayImageView objectAtIndex:0];
     CALayer *imageLayer = [[CALayer alloc] init];
     imageLayer.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
-    imageLayer.contents = (__bridge id)([UIImage imageNamed:@"result_star"].CGImage);
+    imageLayer.contents = (__bridge id)([UIImage imageNamed:@"image_result_star"].CGImage);
     [imageView.layer addSublayer:imageLayer];
     
     //透明度渐变

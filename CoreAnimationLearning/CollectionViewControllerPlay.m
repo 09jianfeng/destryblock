@@ -177,7 +177,7 @@ static NSString * const reuseIdentifier = @"Cell";
 
 #pragma mark - 动画
 -(void)addScoreNumImageVew:(int)score frame:(CGRect)frame{
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"+%d.png",score]]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"image_+%d.png",score]]];
     int imageViewSize = self.view.frame.size.width/20;
     imageView.frame = CGRectMake(frame.origin.x + frame.size.width/2 - imageViewSize/2, frame.origin.y + frame.size.height/2 - imageViewSize/2, imageViewSize, imageViewSize);
     [self.view addSubview:imageView];
@@ -376,7 +376,7 @@ static NSString * const reuseIdentifier = @"Cell";
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
         UIView *pointsImageView = [[UIView alloc]initWithFrame:cell.bounds];
-        pointsImageView.layer.contents = (__bridge id)([UIImage imageNamed:@"back_point.png"].CGImage);
+        pointsImageView.layer.contents = (__bridge id)([UIImage imageNamed:@"image_back_point.png"].CGImage);
         pointsImageView.alpha = 0.5;
         [cell addSubview:pointsImageView];
         [UIView animateWithDuration:0.3 animations:^{

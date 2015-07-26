@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AE541FCE-1B16-4C00-9689-ADB2BA71AD07</string>
+	<key>IDESourceControlProjectName</key>
+	<string>project</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>8C9ECB919E9CDF847E3D7047B387C39FC52AD7CA</key>
+		<string>https://github.com/09jianfeng/JellyAnimation.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>chaigangkuai.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>8C9ECB919E9CDF847E3D7047B387C39FC52AD7CA</key>
+		<string>../../../../../demo/JellyAnimation</string>
+	</dict>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8C9ECB919E9CDF847E3D7047B387C39FC52AD7CA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>JellyAnimation</string>
+		</dict>
+	</array>
+</dict>
+</plist>

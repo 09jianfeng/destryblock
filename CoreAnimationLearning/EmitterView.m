@@ -35,7 +35,7 @@
 
         fire.color = [color CGColor];  //粒子颜色
         //fire.contents = (id)[[UIImage imageNamed:@"Particles_fire.png"] CGImage];
-        fire.contents = (id)[[UIImage imageNamed:@"snow1.png"] CGImage]; //cell内容，一般是一个CGImage
+        fire.contents = (id)[[UIImage imageNamed:@"image_snow1.png"] CGImage]; //cell内容，一般是一个CGImage
         fire.velocity = 30;     //速度
         fire.velocityRange = 1; //速度范围
         fire.emissionRange = 2; //发射角度

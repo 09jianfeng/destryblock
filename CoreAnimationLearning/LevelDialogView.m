@@ -330,6 +330,8 @@ extern NSString *playingViewExitNotification;
     [UIView animateWithDuration:0.3 animations:^{
         collecPlay.view.alpha = 1.0;
     }];
+    
+    if([[GameDataGlobal shareInstance] gameMusicClose])
     [GameDataGlobal playAudioMainMusic];
 }
 
@@ -337,6 +339,8 @@ extern NSString *playingViewExitNotification;
 -(void)playingViewExitNotificationResponse:(id)sender{
     UIScrollView *scrollview = (UIScrollView *)[self viewWithTag:1100];
     [self scrollViewDidEndDecelerating:scrollview];
+    
+    if ([[GameDataGlobal shareInstance] gameMusicClose])
     [GameDataGlobal playAudioMainMusic];
 }
 @end
