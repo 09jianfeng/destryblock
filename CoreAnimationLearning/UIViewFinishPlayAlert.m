@@ -11,11 +11,15 @@
 #import "SystemInfo.h"
 #import "SpriteView2.h"
 #import "CustomButton.h"
+#import "IndependentVideoManager.h"
+#import "macro.h"
+#import "CocoBVideo.h"
 
-@interface UIViewFinishPlayAlert()
+@interface UIViewFinishPlayAlert()<IndependentVideoManagerDelegate>
 @property(nonatomic,retain) UIDynamicAnimator *ani;
 @property(nonatomic,retain) UIGravityBehavior *gravity;
 @property(nonatomic,retain) NSMutableArray *arrayImageView;
+@property(nonatomic,retain) IndependentVideoManager *independvideo;
 @end
 
 @implementation UIViewFinishPlayAlert
@@ -358,13 +362,140 @@
             [self.collectionViewController nextLevel];
         }];
     }else if (_isTimesup){
-        //播放视频，然后继续消下去
-        [self.collectionViewController playByWatchVideo];
-        [self removeFromSuperview];
+        int rand = random()%2;
+        if (rand) {
+            [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
+            [CocoBVideo cBVideoPlay:self.collectionViewController cBVideoPlayFinishCallBackBlock:
+             ^(BOOL isFinish){
+                 
+            } cBVideoPlayConfigCallBackBlock:
+             ^(BOOL isLegal){
+                 if (isLegal) {
+                     //播放视频，然后继续消下去
+                     [self.collectionViewController playByWatchVideo];
+                     [self removeFromSuperview];
+                 }
+             }];
+            
+        }else{
+            self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"TestPubID" andUserID:@"userid"];
+            [self.independvideo presentIndependentVideoWithViewController:self.collectionViewController];
+            self.independvideo.delegate = self;
+        }
     }
 }
 
+#pragma mark -多盟的视频代理
+/**
+ *  开始加载数据。
+ *  Independent video starts to fetch info.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidStartLoad:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"开始加载数据");
+}
+
+
+/**
+ *  加载完成。
+ *  Fetching independent video successfully.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidFinishLoad:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"加载完成");
+}
+
+
+/**
+ *  加载失败。可能的原因由error部分提供，例如网络连接失败、被禁用等。
+ *   Failed to load independent video.
+ 
+ *
+ *  @param manager IndependentVideoManager
+ *  @param error   error
+ */
+- (void)ivManager:(IndependentVideoManager *)manager
+failedLoadWithError:(NSError *)error{
+    HNLOGINFO(@"加载失败，%@",error);
+}
+
+
+/**
+ *  被呈现出来时，回调该方法。
+ *  Called when independent video will be presented.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerWillPresent:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频呈现出来");
+}
+
+
+
+/**
+ *  页面关闭。
+ *  Independent video closed.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频页面关闭");
+}
+
+
+/**
+ *  当视频播放完成后，回调该方法。
+ *  Independent video complete play
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerCompletePlayVideo:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频播放完成");
+    //播放视频，然后继续消下去
+    [self.collectionViewController playByWatchVideo];
+    [self removeFromSuperview];
+}
+
+
+
+/**
+ *  成功获取视频积分
+ *  Complete independent video.
+ *
+ *  @param manager IndependentVideoManager
+ *  @param totalPoint
+ *  @param consumedPoint
+ *  @param currentPoint
+ */
+
+- (void)ivCompleteIndependentVideo:(IndependentVideoManager *)manager
+                    withTotalPoint:(NSNumber *)totalPoint
+                     consumedPoint:(NSNumber *)consumedPoint
+                      currentPoint:(NSNumber *)currentPoint{
+    HNLOGINFO(@"成功获取视频积分");
+}
+
+
+
+
+/**
+ *  获取视频积分出错
+ *  Uncomplete independent video.
+ *
+ *  @param manager IndependentVideoManager
+ *  @param error
+ */
+
+- (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
+                                  withError:(NSError *)error{
+    HNLOGINFO(@"获取视频积分出错");
+}
+
 -(void)dealloc{
+    self.independvideo.delegate = nil;
+    self.independvideo = nil;
     self.arrayImageView = nil;
     self.ani = nil;
     self.gravity = nil;

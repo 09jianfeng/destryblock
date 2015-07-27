@@ -17,6 +17,8 @@
 #import "GameDataGlobal.h"
 #import "SpriteView2.h"
 #import "DMInterstitialAdController.h"
+#import "macro.h"
+#import "NewWorldSpt.h"
 
 #define AllblockNumpercent 0.65
 
@@ -30,7 +32,7 @@ extern NSString *playingViewExitNotification;
 
 NSString *playingViewExitNotification = @"playingViewExitNotification";
 
-@interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
+@interface CollectionViewControllerPlay ()<UIAlertViewDelegate,DMInterstitialAdControllerDelegate>
 {
    int seconde;
 }
@@ -80,9 +82,14 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:self];
     [self.dmController loadAd];
+    self.dmController.delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
+    if (self.timer) {
+        return;
+    }
+    
     [super viewWillAppear:animated];
     seconde = 0;
     
@@ -220,8 +227,16 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     [finish showView];
     
-    [self.dmController present];
-    [self.dmController loadAd];
+    int ran = arc4random()%2;
+    ran = 0;
+    if (ran) {
+        [self.dmController present];
+        [self.dmController loadAd];
+    }else{
+        [NewWorldSpt showQQWSPTAction:^(BOOL isClosed){
+            
+        }];
+    }
 }
 
 -(void)replayGame{
@@ -477,4 +492,61 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)continueGame{
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
 }
+
+#pragma mark -多盟插屏代理
+#pragma mark -
+#pragma mark DMInterstitialAdController Delegate
+// 当插屏广告被成功加载后，回调该方法
+// This method will be used after the ad has been loaded successfully
+- (void)dmInterstitialSuccessToLoadAd:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] success to load ad.");
+}
+
+// 当插屏广告加载失败后，回调该方法
+// This method will be used after failed
+- (void)dmInterstitialFailToLoadAd:(DMInterstitialAdController *)dmInterstitial withError:(NSError *)err
+{
+    HNLOGINFO(@"[Domob Interstitial] fail to load ad. %@", err);
+}
+
+// 当插屏广告要被呈现出来前，回调该方法
+// This method will be used before being presented
+- (void)dmInterstitialWillPresentScreen:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] will present.");
+}
+
+// 当插屏广告被关闭后，回调该方法
+// This method will be used after Interstitial view  has been closed
+- (void)dmInterstitialDidDismissScreen:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] did dismiss.");
+    
+    // 插屏广告关闭后，加载一条新广告用于下次呈现
+    //prepair for the next advertisement view
+    [self.dmController loadAd];
+}
+
+// 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
+// When will be showing a Modal View, call this method. Such as open built-in browser
+- (void)dmInterstitialWillPresentModalView:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] will present modal view.");
+}
+
+// 当呈现的 Modal View 被关闭后，回调该方法。如内置浏览器被关闭。
+// When presented Modal View is closed, this method will be called. Such as built-in browser is closed
+- (void)dmInterstitialDidDismissModalView:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] did dismiss modal view.");
+}
+
+// 当因用户的操作（如点击下载类广告，需要跳转到Store），需要离开当前应用时，回调该方法
+// When the result of the user's actions (such as clicking download class advertising, you need to jump to the Store), need to leave the current application, this method will be called
+- (void)dmInterstitialApplicationWillEnterBackground:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] will enter background.");
+}
+
 @end

@@ -19,6 +19,7 @@
 #import "macro.h"
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
+#import "NewWorldSpt.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
@@ -42,6 +43,10 @@
     }
     
     [GameDataGlobal playAudioMainMusic];
+    
+    //youmispot
+    [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
+    [NewWorldSpt initQQWDeveLoper:0];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
