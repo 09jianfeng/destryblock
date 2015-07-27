@@ -22,7 +22,7 @@
 }
 
 -(void)setBackgroundColor:(UIColor *)backgroundColor{
-    emitterView = [[EmitterView alloc] initWithFrame:CGRectZero color:backgroundColor];
+    emitterView = [[EmitterView alloc] initWithFrame:CGRectMake(self.frame.size.width/2, self.frame.size.height/2, 0, 0) color:backgroundColor];
     [self addSubview:emitterView];
     [super setBackgroundColor:backgroundColor];
 
@@ -44,7 +44,8 @@
     animation.timingFunction = [CAMediaTimingFunction functionWithName:@"easeInEaseOut"];
     animation.repeatCount = MAXFLOAT;
     animation.path = path;
-    [emitterView.layer addAnimation:animation forKey:@"test"];
+    //注释掉路径，不在路径上跑着先
+//    [emitterView.layer addAnimation:animation forKey:@"test"];
     self.layer.cornerRadius = self.frame.size.width/2;
     self.layer.masksToBounds = YES;
 }
