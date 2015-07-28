@@ -36,6 +36,7 @@
         self.isStop = YES;
         [self.ani addBehavior:self.gravity];
         
+        // !!!:多盟插屏广告初始化
         self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:self.collectionViewController];
         [self.dmController loadAd];
         self.dmController.delegate = self;
@@ -272,18 +273,29 @@
     burst.emitterCells				= [NSArray arrayWithObject:spark];
     [self.layer addSublayer:fireworksEmitter];
     
+    // !!!: 插屏代码展示
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [fireworksEmitter setValue:[NSNumber numberWithFloat:0.0] forKeyPath:@"emitterCells.rocketName.birthRate"];
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             int ran = arc4random()%2;
-            ran = 0;
             if (ran) {
-                [self.dmController present];
-                [self.dmController loadAd];
+                if([self.dmController isReady]){
+                    [self.dmController present];
+                    [self.dmController loadAd];
+                }else{
+                    [self.dmController loadAd];
+                    [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                        
+                    }];
+                }
+                
             }else{
-                [NewWorldSpt showQQWSPTAction:^(BOOL isClosed){
-                    
+                [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                    if (!isShow) {
+                        [self.dmController present];
+                        [self.dmController loadAd];
+                    }
                 }];
             }
         });
@@ -405,7 +417,9 @@
             [self removeFromSuperview];
             [self.collectionViewController nextLevel];
         }];
+        
     }else if (_isTimesup){
+        // !!!:视频广告代码
         int rand = random()%2;
         if (!rand) {
             [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
