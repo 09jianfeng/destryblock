@@ -212,6 +212,7 @@
 #pragma mark - 烟火效果
 -(void)begainAudioFirework:(int)times{
     if (times <= 0) {
+        [GameDataGlobal playAudioCheer];
         return;
     }
     

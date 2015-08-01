@@ -140,6 +140,19 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
     [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
 }
 
++(void)playAudioCheer{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_finish_cheer.mp3"];
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
 #pragma mark - game result
 +(void)gameResultAddBrockenBlocks:(int)blocks{
     int allBlocksPre = [GameDataGlobal getAllBlockenBlocks];
