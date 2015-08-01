@@ -67,9 +67,7 @@
         lableExit.textColor = [GameDataGlobal getColorInColorType:1];
         lableExit.font = [UIFont systemFontOfSize:46];
         [board addSubview:lableExit];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-           [self shake:lableExit minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
-        });
+        [self alwaysShake:2 view:lableExit];
         
     }else if(_isSuccess){
         //星星
@@ -99,9 +97,7 @@
         lableExit.font = [UIFont systemFontOfSize:46];
         [board addSubview:lableExit];
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self shake:lableExit minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
-        });
+        [self alwaysShake:2 view:lableExit];
     }
     
     
@@ -132,12 +128,12 @@
     int buttonSize = board.frame.size.width/5;
     int buttonInsert = buttonSize*1/3;
     
-    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y + 10, board.frame.size.width, 30)];
+    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y, board.frame.size.width, 30)];
     labelScore.textAlignment = NSTextAlignmentCenter;
     labelScore.text = @"当前分数";
     labelScore.textColor = [UIColor blackColor];
     [board addSubview:labelScore];
-    UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y- 10 - buttonSize)];
+    UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y - 5,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y- 10 - buttonSize)];
     labelScoreNum.textAlignment = NSTextAlignmentCenter;
     labelScoreNum.tag = 400001;
     labelScoreNum.text = [NSString stringWithFormat:@"0"];
@@ -190,6 +186,10 @@
 
 #pragma mark - 分数增加的动画效果
 -(void)scoreAddingWithTimes:(int)fallingScore{
+    if (!(fallingScore%2)) {
+        [GameDataGlobal playAudioNumAdd];
+    }
+    
     if (fallingScore < 0) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self beginStarImageAnimator];
@@ -204,13 +204,30 @@
     scoreNumLabel.textColor = [UIColor whiteColor];
     scoreNumLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:22];
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.02 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self scoreAddingWithTimes:fallingScore-1];
     });
 }
 
 #pragma mark - 烟火效果
+-(void)begainAudioFirework:(int)times{
+    if (times <= 0) {
+        return;
+    }
+    
+    [GameDataGlobal playAudioFireworkShot];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [GameDataGlobal playAudioFireworkShot];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self begainAudioFirework:times-1];
+        });
+    });
+}
+
 -(void)beginFireWorkAnimation{
+    
+    [self begainAudioFirework:3];
+    
     // 烟火发射器，在底部
     CAEmitterLayer *fireworksEmitter = [CAEmitterLayer layer];
     CGRect viewBounds = self.layer.bounds;
@@ -312,7 +329,7 @@
         return;
     }
     
-    
+    [GameDataGlobal playAudioWithStarNum:4-(int)self.arrayImageView.count];
     UIImageView *imageView = [self.arrayImageView objectAtIndex:0];
     CALayer *imageLayer = [[CALayer alloc] init];
     imageLayer.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
@@ -362,6 +379,13 @@
 }
 
 #pragma mark - 抖动
+-(void)alwaysShake:(int)timeInteval view:(UIView *)view{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self shake:view minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
+        [self alwaysShake:timeInteval view:view];
+    });
+}
+
 //maxAngle最小震动幅度，angleDuration递减的角度，times震动次数，duration每次震动的时间
 -(void)shake:(UIView *)view minAngle:(CGFloat)minAngle angleDuration:(CGFloat)angleDuration times:(int)times duration:(double)duration{
     if (times <= 0) {
@@ -384,11 +408,13 @@
 
 #pragma mark - 按钮事件
 -(void)buttonbackPressed:(id)sender{
+    [GameDataGlobal playAudioSwitch];
     [self.collectionViewController exitTheGame];
 }
 
 -(void)buttonReplayPressed:(id)sender{
     [self.ani removeAllBehaviors];
+    [GameDataGlobal playAudioSwitch];
     UIView *board = [self viewWithTag:40000];
     [UIView animateWithDuration:0.3 animations:^{
         board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
@@ -400,6 +426,7 @@
 
 -(void)buttonNextLevelPressed:(id)sender{
     if (self.isStop) {
+        [GameDataGlobal playAudioSwitch];
         [self.ani removeAllBehaviors];
         UIView *board = [self viewWithTag:40000];
         [UIView animateWithDuration:0.3 animations:^{
@@ -409,6 +436,7 @@
             [self.collectionViewController continueGame];
         }];
     }else if(_isSuccess){
+        [GameDataGlobal playAudioSwitch];
         [self.ani removeAllBehaviors];
         UIView *board = [self viewWithTag:40000];
         [UIView animateWithDuration:0.3 animations:^{

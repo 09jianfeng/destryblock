@@ -30,6 +30,8 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
     return game;
 }
 
+
+#pragma mark - 音效
 +(void)playAudioIsCorrect:(int)statue{
     if([[GameDataGlobal shareInstance] gameVoiceClose]){
         return;
@@ -73,7 +75,72 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
     [[GameDataGlobal shareInstance] setAudioMain:audioplayerCorrect];
 }
 
++(void)playAudioWithStarNum:(int)starNum{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_star_%d.mp3",starNum];
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
 
++(void)playAudioNumAdd{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_num_add.mp3"];
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
++(void)playAudioFireworkShot{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_firework_shot.mp3"];
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
++(void)playAudioFireworkExplot{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_firework_explot.mp3"];
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
++(void)playAudioSwitch{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_screen_switch.mp3"];
+    
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
+    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
+    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    //3.缓冲
+    [audioplayerCorrect prepareToPlay];
+    [audioplayerCorrect play];
+    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+}
+
+#pragma mark - game result
 +(void)gameResultAddBrockenBlocks:(int)blocks{
     int allBlocksPre = [GameDataGlobal getAllBlockenBlocks];
     allBlocksPre += blocks;
@@ -91,6 +158,8 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
 +(int)getAllBlockenBlocks{
     return [[GameKeyValue objectForKey:GameDataGlobalKEY] intValue];
 }
+
+#pragma mark - colorSetting
 
 +(UIColor *)getMainScreenBackgroundColor{
     return [UIColor colorWithRed:235/255.0 green:219/255.0 blue:197/255.0 alpha:1.0];
@@ -159,6 +228,8 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
     return [UIImage imageNamed:[NSString stringWithFormat:@"image_star_%d",imageIndex]];
 }
 
+
+#pragma mark - global setting
 //判断是否是第一次安装
 +(BOOL)gameIsFirstTimePlay{
     BOOL isNoFirstInstall = [[GameKeyValue objectForKey:GameDataIsFirstInstall] boolValue];

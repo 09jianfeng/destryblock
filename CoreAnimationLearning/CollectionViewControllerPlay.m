@@ -164,6 +164,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 -(void)buttonStopPressed:(id)sender{
+    [GameDataGlobal playAudioSwitch];
     [self.timer invalidate];
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
     finish.target = [_gameAlgorithm getAllValueBlockNum];
@@ -201,6 +202,9 @@ static NSString * const reuseIdentifier = @"Cell";
 -(void)endTheGame{
     [self.timer invalidate];
     [GameDataGlobal gameResultAddBrockenBlocks:self.Allpoints];
+    
+    //
+    [GameDataGlobal playAudioSwitch];
     
     UIViewFinishPlayAlert *finish = [[UIViewFinishPlayAlert alloc] initWithFrame:self.view.bounds];
     finish.target = [_gameAlgorithm getAllValueBlockNum];

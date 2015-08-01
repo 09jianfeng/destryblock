@@ -331,8 +331,8 @@ extern NSString *playingViewExitNotification;
         collecPlay.view.alpha = 1.0;
     }];
     
-    if([[GameDataGlobal shareInstance] gameMusicClose])
-    [GameDataGlobal playAudioMainMusic];
+//    if([[GameDataGlobal shareInstance] gameMusicClose])
+//    [GameDataGlobal playAudioMainMusic];
 }
 
 #pragma mark - notification
@@ -340,7 +340,7 @@ extern NSString *playingViewExitNotification;
     UIScrollView *scrollview = (UIScrollView *)[self viewWithTag:1100];
     [self scrollViewDidEndDecelerating:scrollview];
     
-    if ([[GameDataGlobal shareInstance] gameMusicClose])
-    [GameDataGlobal playAudioMainMusic];
+//    if ([[GameDataGlobal shareInstance] gameMusicClose])
+//    [GameDataGlobal playAudioMainMusic];
 }
 @end

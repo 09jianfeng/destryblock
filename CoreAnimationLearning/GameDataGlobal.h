@@ -15,9 +15,15 @@
 
 +(id)shareInstance;
 
-//播放音效
+//音效
 +(void)playAudioIsCorrect:(int)statue;
 +(void)playAudioMainMusic;
++(void)playAudioWithStarNum:(int)starNum;
++(void)playAudioNumAdd;
++(void)playAudioFireworkShot;
++(void)playAudioFireworkExplot;
++(void)playAudioSwitch;
+
 //增加被破坏的方块数
 +(void)gameResultAddBrockenBlocks:(int)blocks;
 //获得被破坏的方块总数
