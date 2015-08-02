@@ -193,7 +193,7 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
             return nil;
             break;
         case 1:
-            return [UIColor colorWithRed:244/255.0 green:90/255.0 blue:69/255.0 alpha:1.0];;
+            return [UIColor colorWithRed:0/255.0 green:157/255.0 blue:136/255.0 alpha:1.0];;
             break;
         case 2:
             return [UIColor colorWithRed:186/255.0 green:131/255.0 blue:164/255.0 alpha:1.0];
@@ -206,22 +206,22 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
             break;
             
         case 5:
-            return [UIColor colorWithRed:253/255.0 green:115/255.0 blue:52/255.0 alpha:1.0];
+            return [UIColor colorWithRed:253/255.0 green:102/255.0 blue:107/255.0 alpha:1.0];
             break;
         case 6://
-            return [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:1.0];
+            return [UIColor colorWithRed:0/255.0 green:101/255.0 blue:148/255.0 alpha:1.0];
             break;
         case 7:
             return [UIColor colorWithRed:200/255.0 green:103/255.0 blue:64/255.0 alpha:1.0];
             break;
         case 8:
-            return [UIColor colorWithRed:110/255.0 green:110/255.0 blue:34/255.0 alpha:1.0];
+            return [UIColor colorWithRed:180/255.0 green:180/255.0 blue:180/255.0 alpha:1.0];
             break;
         case 9:
             return [UIColor colorWithRed:110/255.0 green:83/255.0 blue:84/255.0 alpha:1.0];
             break;
         case 10:
-            return [UIColor colorWithRed:10/255.0 green:43/255.0 blue:200/255.0 alpha:1.0];
+            return [UIColor colorWithRed:234/255.0 green:97/255.0 blue:156/255.0 alpha:1.0];
             break;
         case 11:
             return [UIColor colorWithRed:220/255.0 green:83/255.0 blue:44/255.0 alpha:1.0];

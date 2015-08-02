@@ -138,7 +138,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.processView.alpha = 0.5;
     self.processView.progress = 0;
     self.processView.trackColor = [UIColor grayColor];
-    self.processView.progressColor = [GameDataGlobal getColorInColorType:1];
+    self.processView.progressColor = [GameDataGlobal getColorInColorType:5];
     self.processView.progressWidth = 5.0;
     if (!_noBackgroundImage) {
         [self.view addSubview:self.processView];
