@@ -53,12 +53,16 @@ static int  levelAllNum=60;
         int time = 60 - i%6;
         int widthNum = 8 + (i/2)%3;
         int colorNum = 3 + i/6;
+        int starNum = 0-i;
+        int score = 1-i;
         
         NSString *timeString = [NSString stringWithFormat:@"%d",time];
         NSString *widthNumString = [NSString stringWithFormat:@"%d",widthNum];
         NSString *colorNumString = [NSString stringWithFormat:@"%d",colorNum];
+        NSString *starNumString = [NSString stringWithFormat:@"%d",starNum];
+        NSString *scoreString = [NSString stringWithFormat:@"%d",score];
         
-        NSDictionary *leveldic = [NSDictionary dictionaryWithObjectsAndKeys:@"0",levelinfoScore,@"0",levelinfoStarNum,timeString,levelinfoTime,widthNumString,levelinfoWidthNum,colorNumString,levelinfoColorNum,nil];
+        NSDictionary *leveldic = [NSDictionary dictionaryWithObjectsAndKeys:scoreString,levelinfoScore,starNumString,levelinfoStarNum,timeString,levelinfoTime,widthNumString,levelinfoWidthNum,colorNumString,levelinfoColorNum,nil];
         [mutArrayLevels addObject:leveldic];
     }
     
@@ -69,6 +73,10 @@ static int  levelAllNum=60;
 
 #pragma mark - 通过这关
 +(void)passLevel:(int)levelIndex points:(int)points startNum:(int)startNum{
+    if (levelIndex >= [[[LevelAndUserInfo shareInstance] arrayLevelInfos]count]) {
+        return;
+    }
+    
     NSDictionary *diclevelinfopre =[[[LevelAndUserInfo shareInstance] arrayLevelInfos] objectAtIndex:levelIndex];
     NSString *time = [diclevelinfopre objectForKey:levelinfoTime];
     NSString *width = [diclevelinfopre objectForKey:levelinfoWidthNum];

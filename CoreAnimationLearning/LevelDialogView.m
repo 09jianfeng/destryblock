@@ -322,7 +322,12 @@ extern NSString *playingViewExitNotification;
     //每一关的参数设置
     int widthNum = [[dicLevels objectForKey:levelinfoWidthNum] intValue];
     int colorNum = [[dicLevels objectForKey:levelinfoColorNum] intValue];
+    int starNum = [[dicLevels objectForKey:levelinfoStarNum] intValue];
+    int score = [[dicLevels objectForKey:levelinfoScore] intValue];
     
+    if (score <= 0 && starNum < 0) {
+        return;
+    }
     collecPlay.gameLevelIndex = (int)indexPath.row + self.currentPage*12;
     collecPlay.widthNum = widthNum;
     collecPlay.gameInitTypeNum = colorNum;

@@ -212,8 +212,13 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.total = [GameDataGlobal getAllBlockenBlocks];
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:self.starNum];
+        [LevelAndUserInfo passLevel:_gameLevelIndex+1 points:1 startNum:-1];
         finish.isSuccess = YES;
+    }else{
+        [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:-1];
+        finish.isSuccess = NO;
     }
+    
     finish.isStop = NO;
     finish.starNum = self.starNum;
     finish.tag = 3000;
@@ -258,6 +263,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据时间生成
     _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
+    int rand = arc4random()%5;
+    _timeLimit = _timeLimit - rand;
     
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
