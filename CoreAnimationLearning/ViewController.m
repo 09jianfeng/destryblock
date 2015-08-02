@@ -317,7 +317,7 @@
     switch (i) {
         case 0:
         {
-            dataGlobal.gameVoiceClose = !dataGlobal.gameVoiceClose;
+            [GameDataGlobal playAudioVoiceCloseOrOpen];
             if (dataGlobal.gameVoiceClose) {
                 [button setImage:[UIImage imageNamed:@"image_setting_1_open"] forState:UIControlStateNormal];
             }else{

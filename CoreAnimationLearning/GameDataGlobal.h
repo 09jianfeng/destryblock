@@ -17,6 +17,7 @@
 
 //音效
 +(void)playAudioIsCorrect:(int)statue;
++(void)playAudioVoiceCloseOrOpen;
 +(void)playAudioMainMusic;
 +(void)playAudioWithStarNum:(int)starNum;
 +(void)playAudioNumAdd;
@@ -24,6 +25,7 @@
 +(void)playAudioFireworkExplot;
 +(void)playAudioSwitch;
 +(void)playAudioCheer;
++(void)playAudioTimeUp;
 
 //增加被破坏的方块数
 +(void)gameResultAddBrockenBlocks:(int)blocks;

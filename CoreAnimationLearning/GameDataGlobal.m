@@ -14,6 +14,8 @@
 static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
 static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
+static NSString *GameDataIsMusicClose = @"GameDataIsMusicClose";
+static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
 
 @interface GameDataGlobal()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -30,6 +32,17 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
     return game;
 }
 
+-(id)init{
+    self = [super init];
+    if (self) {
+        BOOL isMusicCLosed = [[GameKeyValue objectForKey:GameDataIsMusicClose] boolValue];
+        self.gameMusicClose = isMusicCLosed;
+        BOOL isVoiceCLose = [[GameKeyValue objectForKey:GameDataIsVoiceClose] boolValue];
+        self.gameVoiceClose = isVoiceCLose;
+    }
+    return self;
+}
+
 
 #pragma mark - 音效
 +(void)playAudioIsCorrect:(int)statue{
@@ -44,19 +57,19 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
         stringCottect = @"music_click.mp3";
     }
     
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [audioplayerCorrect prepareToPlay];
-    [audioplayerCorrect play];
-    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+    [self playAudioWithString:stringCottect];
+}
+
++(void)playAudioVoiceCloseOrOpen{
+    GameDataGlobal *dataGlobal = [GameDataGlobal shareInstance];
+    dataGlobal.gameVoiceClose = !dataGlobal.gameVoiceClose;
+    [GameKeyValue setObject:[NSNumber numberWithBool:dataGlobal.gameVoiceClose] forKey:GameDataIsVoiceClose];
 }
 
 +(void)playAudioMainMusic{
     GameDataGlobal *dataGlobal = [GameDataGlobal shareInstance];
     dataGlobal.gameMusicClose = !dataGlobal.gameMusicClose;
+    [GameKeyValue setObject:[NSNumber numberWithBool:!dataGlobal.gameMusicClose] forKey:GameDataIsMusicClose];
     
     if(![[GameDataGlobal shareInstance] gameMusicClose]){
         [[GameDataGlobal shareInstance] setAudioMain:nil];
@@ -77,72 +90,40 @@ static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
 
 +(void)playAudioWithStarNum:(int)starNum{
     NSString *stringCottect = [NSString stringWithFormat:@"music_star_%d.mp3",starNum];
-    
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [audioplayerCorrect prepareToPlay];
-    [audioplayerCorrect play];
-    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+    [self playAudioWithString:stringCottect];
 }
 
 +(void)playAudioNumAdd{
     NSString *stringCottect = [NSString stringWithFormat:@"music_num_add.mp3"];
-    
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [audioplayerCorrect prepareToPlay];
-    [audioplayerCorrect play];
-    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+    [self playAudioWithString:stringCottect];
 }
 
 +(void)playAudioFireworkShot{
     NSString *stringCottect = [NSString stringWithFormat:@"music_firework_shot.mp3"];
-    
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [audioplayerCorrect prepareToPlay];
-    [audioplayerCorrect play];
-    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+    [self playAudioWithString:stringCottect];
 }
 
 +(void)playAudioFireworkExplot{
     NSString *stringCottect = [NSString stringWithFormat:@"music_firework_explot.mp3"];
-    
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [audioplayerCorrect prepareToPlay];
-    [audioplayerCorrect play];
-    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+    [self playAudioWithString:stringCottect];
 }
 
 +(void)playAudioSwitch{
     NSString *stringCottect = [NSString stringWithFormat:@"music_screen_switch.mp3"];
-    
-    //1.音频文件的url路径
-    NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
-    //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）
-    AVAudioPlayer *audioplayerCorrect=[[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
-    //3.缓冲
-    [audioplayerCorrect prepareToPlay];
-    [audioplayerCorrect play];
-    [[GameDataGlobal shareInstance] setAudioplayerCorrect:audioplayerCorrect];
+    [self playAudioWithString:stringCottect];
 }
 
 +(void)playAudioCheer{
     NSString *stringCottect = [NSString stringWithFormat:@"music_finish_cheer.mp3"];
-    
+    [self playAudioWithString:stringCottect];
+}
+
++(void)playAudioTimeUp{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_timeup.mp3"];
+    [self playAudioWithString:stringCottect];
+}
+
++(void)playAudioWithString:(NSString *)stringCottect{
     //1.音频文件的url路径
     NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
     //2.创建播放器（注意：一个AVAudioPlayer只能播放一个url）

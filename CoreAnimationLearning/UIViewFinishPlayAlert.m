@@ -382,6 +382,7 @@
 #pragma mark - 抖动
 -(void)alwaysShake:(int)timeInteval view:(UIView *)view{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [GameDataGlobal playAudioTimeUp];
         [self shake:view minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
         [self alwaysShake:timeInteval view:view];
     });
