@@ -381,10 +381,14 @@
 
 #pragma mark - 抖动
 -(void)alwaysShake:(int)timeInteval view:(UIView *)view{
+    __weak UIViewFinishPlayAlert *selfd = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (![selfd respondsToSelector:@selector(shake:minAngle:angleDuration:times:duration:)] || ![selfd respondsToSelector:@selector(alwaysShake:view:)]) {
+            return ;
+        }
         [GameDataGlobal playAudioTimeUp];
-        [self shake:view minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
-        [self alwaysShake:timeInteval view:view];
+        [selfd shake:view minAngle:0 angleDuration:M_PI/80 times:16 duration:0.1];
+        [selfd alwaysShake:timeInteval view:view];
     });
 }
 
@@ -452,17 +456,17 @@
         // !!!:视频广告代码
         int rand = random()%2;
         if (!rand) {
+            __weak UIViewFinishPlayAlert *selfd = self;
             [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
             [CocoBVideo cBVideoPlay:self.collectionViewController cBVideoPlayFinishCallBackBlock:
              ^(BOOL isFinish){
-                 
+                 if (isFinish) {
+                     //播放视频，然后继续消下去
+                     [selfd.collectionViewController playByWatchVideo];
+                     [selfd removeFromSuperview];
+                 }
             } cBVideoPlayConfigCallBackBlock:
              ^(BOOL isLegal){
-                 if (isLegal) {
-                     //播放视频，然后继续消下去
-                     [self.collectionViewController playByWatchVideo];
-                     [self removeFromSuperview];
-                 }
              }];
             
         }else{
@@ -639,6 +643,8 @@ failedLoadWithError:(NSError *)error{
 
 
 -(void)dealloc{
+    HNLOGINFO(@"uiviewfinishplayalert 释放");
+    self.dmController.delegate = nil;
     self.dmController = nil;
     self.independvideo.delegate = nil;
     self.independvideo = nil;

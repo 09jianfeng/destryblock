@@ -126,6 +126,8 @@ extern NSString *playingViewExitNotification;
 }
 
 -(void)buttonPressedGoback:(id)sender{
+    [GameDataGlobal playAudioIsCorrect:5];
+    
     UIView *levelBaseView = (UIView *)[self viewWithTag:0];
     [UIView animateWithDuration:0.3 animations:^{
         levelBaseView.alpha = 0.0;
@@ -331,6 +333,7 @@ extern NSString *playingViewExitNotification;
         collecPlay.view.alpha = 1.0;
     }];
     
+    [GameDataGlobal playAudioIsCorrect:5];
 //    if([[GameDataGlobal shareInstance] gameMusicClose])
 //    [GameDataGlobal playAudioMainMusic];
 }
