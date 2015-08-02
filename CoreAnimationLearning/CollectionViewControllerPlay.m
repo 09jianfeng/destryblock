@@ -106,6 +106,10 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据总块数生成
     _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
+    int rand = 10-_gameLevelIndex%6;
+    _timeLimit = _timeLimit - rand;
+    int rand2 = arc4random()%4;
+    _timeLimit = _timeLimit - rand2;
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -263,8 +267,10 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据时间生成
     _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
-    int rand = arc4random()%5;
+    int rand = 10-_gameLevelIndex%6;
     _timeLimit = _timeLimit - rand;
+    int rand2 = arc4random()%4;
+    _timeLimit = _timeLimit - rand2;
     
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];

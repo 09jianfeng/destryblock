@@ -24,6 +24,8 @@
 @property(nonatomic,retain) IndependentVideoManager *independvideo;
 //多盟
 @property(nonatomic, retain) DMInterstitialAdController *dmController;
+@property(nonatomic, assign) BOOL isPlayAnimation;
+
 @end
 
 @implementation UIViewFinishPlayAlert
@@ -46,6 +48,8 @@
 
 
 -(void)showView{
+    self.isPlayAnimation = YES;
+    
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
     int boarInsert = self.frame.size.width/8;
@@ -162,7 +166,29 @@
     if (!_isStop) {
         conOrNext = @"Next";
         if (_isTimesup && !_isSuccess) {
-            conOrNext = @"视频";
+            // !!!: 插屏代码展示
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                int ran = arc4random()%4;
+                if (ran == 1) {
+                    if([self.dmController isReady]){
+                        [self.dmController present];
+                        [self.dmController loadAd];
+                    }else{
+                        [self.dmController loadAd];
+                        [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                            
+                        }];
+                    }
+                    
+                }else if(ran == 0){
+                    [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                        if (!isShow) {
+                            [self.dmController present];
+                            [self.dmController loadAd];
+                        }
+                    }];
+                }
+            });
         }
     }
     [buttonNext setTitle:conOrNext forState:UIControlStateNormal];
@@ -210,6 +236,7 @@
 }
 
 #pragma mark - 烟火效果
+//播放音效
 -(void)begainAudioFirework:(int)times{
     if (times <= 0) {
         [GameDataGlobal playAudioCheer];
@@ -294,10 +321,11 @@
     // !!!: 插屏代码展示
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [fireworksEmitter setValue:[NSNumber numberWithFloat:0.0] forKeyPath:@"emitterCells.rocketName.birthRate"];
+        self.isPlayAnimation = NO;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            int ran = arc4random()%2;
-            if (ran) {
+            int ran = arc4random()%4;
+            if (ran == 1) {
                 if([self.dmController isReady]){
                     [self.dmController present];
                     [self.dmController loadAd];
@@ -308,7 +336,7 @@
                     }];
                 }
                 
-            }else{
+            }else if(ran == 0){
                 [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
                     if (!isShow) {
                         [self.dmController present];
@@ -326,6 +354,8 @@
         //过关的话放烟火
         if (_isSuccess) {
             [self beginFireWorkAnimation];
+        }else{
+            self.isPlayAnimation = NO;
         }
         return;
     }
@@ -414,11 +444,19 @@
 
 #pragma mark - 按钮事件
 -(void)buttonbackPressed:(id)sender{
+    if (self.isPlayAnimation) {
+        return;
+    }
+    
     [GameDataGlobal playAudioSwitch];
     [self.collectionViewController exitTheGame];
 }
 
 -(void)buttonReplayPressed:(id)sender{
+    if (self.isPlayAnimation) {
+        return;
+    }
+    
     [self.ani removeAllBehaviors];
     [GameDataGlobal playAudioSwitch];
     UIView *board = [self viewWithTag:40000];
@@ -431,6 +469,10 @@
 }
 
 -(void)buttonNextLevelPressed:(id)sender{
+    if (self.isPlayAnimation) {
+        return;
+    }
+    
     if (self.isStop) {
         [GameDataGlobal playAudioSwitch];
         [self.ani removeAllBehaviors];
@@ -453,27 +495,27 @@
         }];
         
     }else if (_isTimesup){
-        // !!!:视频广告代码
-        int rand = random()%2;
-        if (!rand) {
-            __weak UIViewFinishPlayAlert *selfd = self;
-            [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
-            [CocoBVideo cBVideoPlay:self.collectionViewController cBVideoPlayFinishCallBackBlock:
-             ^(BOOL isFinish){
-                 if (isFinish) {
-                     //播放视频，然后继续消下去
-                     [selfd.collectionViewController playByWatchVideo];
-                     [selfd removeFromSuperview];
-                 }
-            } cBVideoPlayConfigCallBackBlock:
-             ^(BOOL isLegal){
-             }];
-            
-        }else{
-            self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
-            [self.independvideo presentIndependentVideoWithViewController:self.collectionViewController];
-            self.independvideo.delegate = self;
-        }
+//        // !!!:视频广告代码
+//        int rand = random()%2;
+//        if (!rand) {
+//            __weak UIViewFinishPlayAlert *selfd = self;
+//            [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
+//            [CocoBVideo cBVideoPlay:self.collectionViewController cBVideoPlayFinishCallBackBlock:
+//             ^(BOOL isFinish){
+//                 if (isFinish) {
+//                     //播放视频，然后继续消下去
+//                     [selfd.collectionViewController playByWatchVideo];
+//                     [selfd removeFromSuperview];
+//                 }
+//            } cBVideoPlayConfigCallBackBlock:
+//             ^(BOOL isLegal){
+//             }];
+//            
+//        }else{
+//            self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
+//            [self.independvideo presentIndependentVideoWithViewController:self.collectionViewController];
+//            self.independvideo.delegate = self;
+//        }
     }
 }
 
