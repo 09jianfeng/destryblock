@@ -26,6 +26,7 @@
 +(void)playAudioSwitch;
 +(void)playAudioCheer;
 +(void)playAudioTimeUp;
++(void)playAudioLevel;
 
 //增加被破坏的方块数
 +(void)gameResultAddBrockenBlocks:(int)blocks;

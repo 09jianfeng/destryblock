@@ -131,6 +131,8 @@
 }
 
 -(void)viewAnimation{
+    
+    [GameDataGlobal playAudioLevel];
     int insertWidth = self.view.frame.size.width/20;
     int insertHeight = self.view.frame.size.width/30;
     if (IsPadUIBlockGame()) {
@@ -146,6 +148,7 @@
     [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
         buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isfinish){
+        [GameDataGlobal playAudioLevel];
     }];
     
     
@@ -155,6 +158,7 @@
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
         buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isFinish){
+        [GameDataGlobal playAudioLevel];
     }];
     
     

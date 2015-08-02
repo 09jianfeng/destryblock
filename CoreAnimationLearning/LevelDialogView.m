@@ -303,6 +303,7 @@ extern NSString *playingViewExitNotification;
     }
     
     if (imageview && cell) {
+        [GameDataGlobal playAudioLevel];
         [UIView animateWithDuration:0.05 animations:^{
             imageview.frame = CGRectMake(cell.frame.origin.x+(cell.frame.size.width-legth)/2, cell.frame.origin.y, legth, legth);
         } completion:^(BOOL isfinish){

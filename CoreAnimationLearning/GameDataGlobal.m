@@ -123,6 +123,11 @@ static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
     [self playAudioWithString:stringCottect];
 }
 
++(void)playAudioLevel{
+    NSString *stringCottect = [NSString stringWithFormat:@"music_level.mp3"];
+    [self playAudioWithString:stringCottect];
+}
+
 +(void)playAudioWithString:(NSString *)stringCottect{
     //1.音频文件的url路径
     NSURL *url=[[NSBundle mainBundle]URLForResource:stringCottect withExtension:Nil];
