@@ -36,8 +36,10 @@
 +(void)playAudioTimeUp;
 +(void)playAudioLevel;
 
-//增加被破坏的方块数
+//增加被破坏的方块数，并且上传GameCenter
 +(void)gameResultAddBrockenBlocks:(int)blocks;
+//上报过关的关数
++(void)gameResultGuoguan:(int)guanka;
 //获得被破坏的方块总数
 +(int)getAllBlockenBlocks;
 //发送完美爆破成就

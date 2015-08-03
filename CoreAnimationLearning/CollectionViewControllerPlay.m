@@ -214,10 +214,12 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.target = [_gameAlgorithm getAllValueBlockNum];
     finish.score = self.Allpoints;
     finish.total = [GameDataGlobal getAllBlockenBlocks];
+    // !!!: 成功过关
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:self.starNum];
         [LevelAndUserInfo passLevel:_gameLevelIndex+1 points:1 startNum:-1];
         finish.isSuccess = YES;
+        [GameDataGlobal gameResultGuoguan:_gameLevelIndex+1];
     }else{
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:-1];
         finish.isSuccess = NO;

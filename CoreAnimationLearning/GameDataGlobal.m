@@ -18,6 +18,7 @@ static NSString *GameDataIsMusicClose = @"GameDataIsMusicClose";
 static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
 static NSString *GameDataEnergyStorage = @"GameDataEnergyStorage";
 static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
+static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 
 @interface GameDataGlobal()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -189,6 +190,19 @@ static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
     [GameKeyValue synchronize];
     GameCenter *gameCenter = [[GameCenter alloc] init];
     [gameCenter reportScore:allBlocksPre forCategory:@"1002"];
+}
+
+//上报过关的关数
++(void)gameResultGuoguan:(int)guanka{
+    int guankaBest = [[GameKeyValue objectForKey:GameDataBestRecordGuanka] intValue];
+    if (guankaBest >= guanka) {
+        return;
+    }
+    
+    [GameKeyValue setObject:[NSNumber numberWithInt:guanka] forKey:GameDataBestRecordGuanka];
+    GameCenter *gameCenter = [[GameCenter alloc] init];
+    [gameCenter reportScore:guanka forCategory:@"1001"];
+    [GameDataGlobal addGameEnergy:1];
 }
 
 +(void)sendPerfectAchivement{
