@@ -16,6 +16,8 @@ static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
 static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
 static NSString *GameDataIsMusicClose = @"GameDataIsMusicClose";
 static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
+static NSString *GameDataEnergyStorage = @"GameDataEnergyStorage";
+static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
 
 @interface GameDataGlobal()
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -43,6 +45,46 @@ static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
     return self;
 }
 
+#pragma mark - 体力值
+//消耗体力值
++(BOOL)reduceGameEnergy:(int)energy{
+    int restGame = [GameDataGlobal getGameRestEnergy];
+    if (energy > restGame) {
+        return NO;
+    }
+    
+    restGame =  restGame - energy;
+    [GameDataGlobal setGameEnergy:restGame];
+    return YES;
+}
+
+//增加体力值
++(void)addGameEnergy:(int)energy{
+    int restGame = [GameDataGlobal getGameRestEnergy];
+    restGame =  restGame + energy;
+    [GameDataGlobal setGameEnergy:restGame];
+}
+
++(void)setGameEnergy:(int)energy{
+    [GameKeyValue setObject:[NSNumber numberWithInt:energy] forKey:GameDataEnergyStorage];
+}
+
+//剩余体力
++(int)getGameRestEnergy{
+    int day = [[GameKeyValue objectForKey:GameDataEnergyStorageDay] intValue];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd"];
+    NSString *currentDateString = [dateFormatter stringFromDate:[NSDate date]];
+    int currentDate = [currentDateString intValue];
+    
+    if (currentDate != day) {
+        [GameKeyValue setObject:[NSNumber numberWithInt:currentDate] forKey:GameDataEnergyStorageDay];
+        [GameDataGlobal addGameEnergy:6];
+    }
+    
+    int restEnergy = [[GameKeyValue objectForKey:GameDataEnergyStorage] intValue];
+    return restEnergy;
+}
 
 #pragma mark - 音效
 +(void)playAudioIsCorrect:(int)statue{
@@ -232,11 +274,11 @@ static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
 //判断是否是第一次安装
 +(BOOL)gameIsFirstTimePlay{
     BOOL isNoFirstInstall = [[GameKeyValue objectForKey:GameDataIsFirstInstall] boolValue];
-    if (!isNoFirstInstall) {
-        [GameKeyValue setObject:[NSNumber numberWithBool:YES] forKey:GameDataIsFirstInstall];
-    }
-    
     return !isNoFirstInstall;
+}
+
++(void)setGameIsNoFirstTimePlay{
+    [GameKeyValue setObject:[NSNumber numberWithBool:YES] forKey:GameDataIsFirstInstall];
 }
 
 +(BOOL)gameIsNoADS{

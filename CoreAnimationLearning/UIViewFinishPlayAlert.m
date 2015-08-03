@@ -11,17 +11,14 @@
 #import "SystemInfo.h"
 #import "SpriteView2.h"
 #import "CustomButton.h"
-#import "IndependentVideoManager.h"
 #import "macro.h"
-#import "CocoBVideo.h"
 #import "DMInterstitialAdController.h"
 #import "NewWorldSpt.h"
 
-@interface UIViewFinishPlayAlert()<IndependentVideoManagerDelegate,DMInterstitialAdControllerDelegate>
+@interface UIViewFinishPlayAlert()<DMInterstitialAdControllerDelegate>
 @property(nonatomic,retain) UIDynamicAnimator *ani;
 @property(nonatomic,retain) UIGravityBehavior *gravity;
 @property(nonatomic,retain) NSMutableArray *arrayImageView;
-@property(nonatomic,retain) IndependentVideoManager *independvideo;
 //多盟
 @property(nonatomic, retain) DMInterstitialAdController *dmController;
 @property(nonatomic, assign) BOOL isPlayAnimation;
@@ -158,7 +155,9 @@
     buttonReplay.backgroundColor = [GameDataGlobal getColorInColorType:3];
     [buttonReplay setTitle:@"重玩" forState:UIControlStateNormal];
     [buttonReplay addTarget:self action:@selector(buttonReplayPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [board addSubview:buttonReplay];
+    if(!_isStop){
+        [board addSubview:buttonReplay];
+    }
     
     CustomButton *buttonNext = [[CustomButton alloc] initWithFrame:CGRectMake(board.frame.size.width - buttonSize - buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
     buttonNext.backgroundColor = [GameDataGlobal getColorInColorType:4];
@@ -466,6 +465,13 @@
         [self removeFromSuperview];
         [self.collectionViewController replayGame];
     }];
+    
+    if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [GameDataGlobal reduceGameEnergy:1];
 }
 
 -(void)buttonNextLevelPressed:(id)sender{
@@ -483,7 +489,15 @@
             [self removeFromSuperview];
             [self.collectionViewController continueGame];
         }];
-    }else if(_isSuccess){
+    }
+    else if(_isSuccess){
+        if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [alertView show];
+            return;
+        }
+        [GameDataGlobal reduceGameEnergy:1];
+        
         [GameDataGlobal playAudioSwitch];
         [self.ani removeAllBehaviors];
         UIView *board = [self viewWithTag:40000];
@@ -494,137 +508,9 @@
             [self.collectionViewController nextLevel];
         }];
         
-    }else if (_isTimesup){
-//        // !!!:视频广告代码
-//        int rand = random()%2;
-//        if (!rand) {
-//            __weak UIViewFinishPlayAlert *selfd = self;
-//            [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
-//            [CocoBVideo cBVideoPlay:self.collectionViewController cBVideoPlayFinishCallBackBlock:
-//             ^(BOOL isFinish){
-//                 if (isFinish) {
-//                     //播放视频，然后继续消下去
-//                     [selfd.collectionViewController playByWatchVideo];
-//                     [selfd removeFromSuperview];
-//                 }
-//            } cBVideoPlayConfigCallBackBlock:
-//             ^(BOOL isLegal){
-//             }];
-//            
-//        }else{
-//            self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
-//            [self.independvideo presentIndependentVideoWithViewController:self.collectionViewController];
-//            self.independvideo.delegate = self;
-//        }
     }
-}
-
-#pragma mark -多盟的视频代理
-/**
- *  开始加载数据。
- *  Independent video starts to fetch info.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidStartLoad:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"开始加载数据");
-}
-
-
-/**
- *  加载完成。
- *  Fetching independent video successfully.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidFinishLoad:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"加载完成");
-}
-
-
-/**
- *  加载失败。可能的原因由error部分提供，例如网络连接失败、被禁用等。
- *   Failed to load independent video.
- 
- *
- *  @param manager IndependentVideoManager
- *  @param error   error
- */
-- (void)ivManager:(IndependentVideoManager *)manager
-failedLoadWithError:(NSError *)error{
-    HNLOGINFO(@"加载失败，%@",error);
-}
-
-
-/**
- *  被呈现出来时，回调该方法。
- *  Called when independent video will be presented.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerWillPresent:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频呈现出来");
-}
-
-
-
-/**
- *  页面关闭。
- *  Independent video closed.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频页面关闭");
-}
-
-
-/**
- *  当视频播放完成后，回调该方法。
- *  Independent video complete play
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerCompletePlayVideo:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频播放完成");
-    //播放视频，然后继续消下去
-    [self.collectionViewController playByWatchVideo];
-    [self removeFromSuperview];
-}
-
-
-
-/**
- *  成功获取视频积分
- *  Complete independent video.
- *
- *  @param manager IndependentVideoManager
- *  @param totalPoint
- *  @param consumedPoint
- *  @param currentPoint
- */
-
-- (void)ivCompleteIndependentVideo:(IndependentVideoManager *)manager
-                    withTotalPoint:(NSNumber *)totalPoint
-                     consumedPoint:(NSNumber *)consumedPoint
-                      currentPoint:(NSNumber *)currentPoint{
-    HNLOGINFO(@"成功获取视频积分");
-}
-
-
-
-
-/**
- *  获取视频积分出错
- *  Uncomplete independent video.
- *
- *  @param manager IndependentVideoManager
- *  @param error
- */
-
-- (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
-                                  withError:(NSError *)error{
-    HNLOGINFO(@"获取视频积分出错");
+    else if (_isTimesup){
+    }
 }
 
 #pragma mark -多盟插屏代理
@@ -688,8 +574,6 @@ failedLoadWithError:(NSError *)error{
     HNLOGINFO(@"uiviewfinishplayalert 释放");
     self.dmController.delegate = nil;
     self.dmController = nil;
-    self.independvideo.delegate = nil;
-    self.independvideo = nil;
     self.arrayImageView = nil;
     self.ani = nil;
     self.gravity = nil;

@@ -14,6 +14,14 @@
 @property(nonatomic,assign) BOOL gameMusicClose;
 
 +(id)shareInstance;
+//设置体力值
++(void)setGameEnergy:(int)energy;
+//消耗体力值
++(BOOL)reduceGameEnergy:(int)energy;
+//增加体力值
++(void)addGameEnergy:(int)energy;
+//剩余体力
++(int)getGameRestEnergy;
 
 //音效
 +(void)playAudioIsCorrect:(int)statue;
@@ -46,6 +54,7 @@
 
 //判断是否是第一次安装
 +(BOOL)gameIsFirstTimePlay;
++(void)setGameIsNoFirstTimePlay;
 
 //是否购买了去掉广告
 +(BOOL)gameIsNoADS;

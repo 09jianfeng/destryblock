@@ -13,5 +13,6 @@
 
 -(void)viewAnimation;
 -(void)buttonSettingPressed:(id)sender;
+-(void)refreshLableEnergy;
 @end
 

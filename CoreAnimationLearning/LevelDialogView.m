@@ -136,6 +136,7 @@ extern NSString *playingViewExitNotification;
     }];
     
     [self.viewController viewAnimation];
+    [self.viewController refreshLableEnergy];
 }
 
 -(void)jumpToPage:(int)page scrollView:(UIScrollView*)scrollView{
@@ -316,6 +317,13 @@ extern NSString *playingViewExitNotification;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [GameDataGlobal reduceGameEnergy:1];
+    
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
     NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:(indexPath.row + self.currentPage*12)];
@@ -339,17 +347,12 @@ extern NSString *playingViewExitNotification;
         collecPlay.view.alpha = 1.0;
     }];
     
-    [GameDataGlobal playAudioIsCorrect:5];
-//    if([[GameDataGlobal shareInstance] gameMusicClose])
-//    [GameDataGlobal playAudioMainMusic];
-}
+    [GameDataGlobal playAudioIsCorrect:5];}
 
 #pragma mark - notification
 -(void)playingViewExitNotificationResponse:(id)sender{
     UIScrollView *scrollview = (UIScrollView *)[self viewWithTag:1100];
     [self scrollViewDidEndDecelerating:scrollview];
     
-//    if ([[GameDataGlobal shareInstance] gameMusicClose])
-//    [GameDataGlobal playAudioMainMusic];
 }
 @end

@@ -20,10 +20,13 @@
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
 #import "NewWorldSpt.h"
+#import "IndependentVideoManager.h"
+#import "CocoBVideo.h"
 
-@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
+@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,IndependentVideoManagerDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,retain) IAPManager *iap;
+@property(nonatomic,retain) IndependentVideoManager *independvideo;
 @end
 
 @implementation ViewController
@@ -33,26 +36,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
-    [self addSubViews];
-    
-    if ([GameDataGlobal gameIsFirstTimePlay]) {
-        GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
-        [introductionView gameBeginIntroduction];
-        introductionView.viewController = self;
-        [self.view addSubview:introductionView];
-    }
     
     [GameDataGlobal playAudioMainMusic];
     
     //youmispot
     [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
     [NewWorldSpt initQQWDeveLoper:0];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-//    UIImage *image  = [UIImage imageNamed:@"image_main_background"];
-//    self.view.layer.contents = (__bridge id)(image.CGImage);
-//    [super viewWillAppear:animated];
+    
+    //初始化gameCenter
+    GameCenter *gameCenterModel = [[GameCenter alloc] init];
+    gameCenterModel.delegate = self;
+    [gameCenterModel authenticateLocalPlayer];
+    
+    
+    [self addSubViews];
+    
+    if ([GameDataGlobal gameIsFirstTimePlay]) {
+        [GameDataGlobal setGameIsNoFirstTimePlay];
+        GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
+        [introductionView gameBeginIntroduction];
+        introductionView.viewController = self;
+        [self.view addSubview:introductionView];
+    }
 }
 
 -(void)addSubViews{
@@ -123,11 +128,24 @@
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
    
-    [self viewAnimation];
+    int labelEnergyWidth = 90;
+    int labelEnergyHeigh = 20;
+    int labelEnergyInsert = 10;
+    int labelEnergyLabelFont = 20;
+    UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(labelEnergyInsert, labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
+    labelEnergy.tag = 500005;
+    labelEnergy.text = [NSString stringWithFormat:@"体力:%d",[GameDataGlobal getGameRestEnergy]];
+    labelEnergy.textColor = [GameDataGlobal getColorInColorType:5];
+    labelEnergy.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
+    [self.view addSubview:labelEnergy];
     
-    GameCenter *gameCenterModel = [[GameCenter alloc] init];
-    gameCenterModel.delegate = self;
-    [gameCenterModel authenticateLocalPlayer];
+    UIButton *buttonPlayVideo = [[UIButton alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, labelEnergyInsert, labelEnergyHeigh, labelEnergyHeigh)];
+    [buttonPlayVideo setImage:[UIImage imageNamed:@"image_main_video.png"] forState:UIControlStateNormal];
+    [buttonPlayVideo addTarget:self action:@selector(buttonPlayVideoPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonPlayVideo];
+    
+    //执行动画
+    [self viewAnimation];
 }
 
 -(void)viewAnimation{
@@ -179,6 +197,11 @@
     }];
 }
 
+-(void)refreshLableEnergy{
+    UILabel *labelEnergy = (UILabel *)[self.view viewWithTag:500005];
+    labelEnergy.text = [NSString stringWithFormat:@"体力:%d",[GameDataGlobal getGameRestEnergy]];
+}
+
 #pragma mark -震动效果
 -(void)alwaysShake:(int)timeInteval view:(UIView *)view{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -208,6 +231,28 @@
 }
 
 #pragma mark - buttonClickEvent
+-(void)buttonPlayVideoPressed:(id)sender{
+    // !!!:视频广告代码
+    int rand = random()%2;
+    if (!rand) {
+        [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
+        [CocoBVideo cBVideoPlay:self cBVideoPlayFinishCallBackBlock:
+         ^(BOOL isFinish){
+             if (isFinish) {
+                 [GameDataGlobal addGameEnergy:2];
+                 [self refreshLableEnergy];
+            }
+         } cBVideoPlayConfigCallBackBlock:
+         ^(BOOL isLegal){
+         }];
+        
+    }else{
+        self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
+        [self.independvideo presentIndependentVideoWithViewController:self];
+        self.independvideo.delegate = self;
+    }
+}
+
 -(void)buttonPlayPressed:(id)sender{
     [GameDataGlobal playAudioIsCorrect:5];
     
@@ -427,4 +472,113 @@
 -(void)userLoginSuccess{
     self.isUserHavedLoginGameCenter = YES;
 }
+
+#pragma mark -多盟的视频代理
+/**
+ *  开始加载数据。
+ *  Independent video starts to fetch info.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidStartLoad:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"开始加载数据");
+}
+
+
+/**
+ *  加载完成。
+ *  Fetching independent video successfully.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidFinishLoad:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"加载完成");
+}
+
+
+/**
+ *  加载失败。可能的原因由error部分提供，例如网络连接失败、被禁用等。
+ *   Failed to load independent video.
+ 
+ *
+ *  @param manager IndependentVideoManager
+ *  @param error   error
+ */
+- (void)ivManager:(IndependentVideoManager *)manager
+failedLoadWithError:(NSError *)error{
+    HNLOGINFO(@"加载失败，%@",error);
+}
+
+
+/**
+ *  被呈现出来时，回调该方法。
+ *  Called when independent video will be presented.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerWillPresent:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频呈现出来");
+}
+
+
+
+/**
+ *  页面关闭。
+ *  Independent video closed.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频页面关闭");
+}
+
+
+/**
+ *  当视频播放完成后，回调该方法。
+ *  Independent video complete play
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerCompletePlayVideo:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频播放完成");
+    //播放视频，然后继续消下去
+    [GameDataGlobal addGameEnergy:2];
+    [self refreshLableEnergy];
+}
+
+
+
+/**
+ *  成功获取视频积分
+ *  Complete independent video.
+ *
+ *  @param manager IndependentVideoManager
+ *  @param totalPoint
+ *  @param consumedPoint
+ *  @param currentPoint
+ */
+
+- (void)ivCompleteIndependentVideo:(IndependentVideoManager *)manager
+                    withTotalPoint:(NSNumber *)totalPoint
+                     consumedPoint:(NSNumber *)consumedPoint
+                      currentPoint:(NSNumber *)currentPoint{
+    HNLOGINFO(@"成功获取视频积分");
+}
+
+
+
+
+/**
+ *  获取视频积分出错
+ *  Uncomplete independent video.
+ *
+ *  @param manager IndependentVideoManager
+ *  @param error
+ */
+
+- (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
+                                  withError:(NSError *)error{
+    HNLOGINFO(@"获取视频积分出错");
+}
+
 @end
