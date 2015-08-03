@@ -82,6 +82,16 @@ static int  levelAllNum=60;
     NSString *width = [diclevelinfopre objectForKey:levelinfoWidthNum];
     NSString *colorNum = [diclevelinfopre objectForKey:levelinfoColorNum];
     
+    int starNumPre = [[diclevelinfopre objectForKey:levelinfoStarNum] intValue];
+    if (starNumPre > startNum) {
+        startNum = starNumPre;
+    }
+    
+    int scorePre = [[diclevelinfopre objectForKey:levelinfoScore] intValue];
+    if (scorePre > points) {
+        points = scorePre;
+    }
+    
     NSDictionary *diclevelinfo = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",points],levelinfoScore,[NSString stringWithFormat:@"%d",startNum],levelinfoStarNum,time,levelinfoTime,width,levelinfoWidthNum,colorNum,levelinfoColorNum,nil];
     [[[LevelAndUserInfo shareInstance] arrayLevelInfos] setObject:diclevelinfo atIndexedSubscript:levelIndex];
     [GameKeyValue setObject:[[LevelAndUserInfo shareInstance] arrayLevelInfos] forKey:levelinfo];

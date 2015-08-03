@@ -127,14 +127,23 @@
     [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
-   
-    int labelEnergyWidth = 90;
+    
+    int imageEnergyWidth = 30;
+    int imageEnergyHeigh = 30;
+    int imageEnergyInsertRight = 10;
+    int imageEnergyInsertTop = 2;
+    UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, imageEnergyInsertTop, imageEnergyWidth, imageEnergyHeigh)];
+    imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
+    [self.view addSubview:imageViewEnergy];
+    
+    
+    int labelEnergyWidth = 50;
     int labelEnergyHeigh = 20;
     int labelEnergyInsert = 10;
     int labelEnergyLabelFont = 20;
-    UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(labelEnergyInsert, labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
+    UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
     labelEnergy.tag = 500005;
-    labelEnergy.text = [NSString stringWithFormat:@"体力:%d",[GameDataGlobal getGameRestEnergy]];
+    labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
     labelEnergy.textColor = [GameDataGlobal getColorInColorType:5];
     labelEnergy.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
     [self.view addSubview:labelEnergy];
@@ -199,7 +208,7 @@
 
 -(void)refreshLableEnergy{
     UILabel *labelEnergy = (UILabel *)[self.view viewWithTag:500005];
-    labelEnergy.text = [NSString stringWithFormat:@"体力:%d",[GameDataGlobal getGameRestEnergy]];
+    labelEnergy.text = [NSString stringWithFormat:@"X%d",[GameDataGlobal getGameRestEnergy]];
 }
 
 #pragma mark -震动效果
