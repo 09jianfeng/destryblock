@@ -19,8 +19,8 @@
 @property(nonatomic,retain) UIDynamicAnimator *ani;
 @property(nonatomic,retain) UIGravityBehavior *gravity;
 @property(nonatomic,retain) NSMutableArray *arrayImageView;
-//多盟
-@property(nonatomic, retain) DMInterstitialAdController *dmController;
+////多盟
+//@property(nonatomic, retain) DMInterstitialAdController *dmController;
 @property(nonatomic, assign) BOOL isPlayAnimation;
 
 @end
@@ -36,9 +36,9 @@
         [self.ani addBehavior:self.gravity];
         
         // !!!:多盟插屏广告初始化
-        self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:self.collectionViewController];
-        [self.dmController loadAd];
-        self.dmController.delegate = self;
+//        self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:self.collectionViewController];
+//        [self.dmController loadAd];
+//        self.dmController.delegate = self;
     }
     return self;
 }
@@ -169,21 +169,21 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 int ran = arc4random()%4;
                 if (ran == 1) {
-                    if([self.dmController isReady]){
-                        [self.dmController present];
-                        [self.dmController loadAd];
-                    }else{
-                        [self.dmController loadAd];
+//                    if([self.dmController isReady]){
+//                        [self.dmController present];
+//                        [self.dmController loadAd];
+//                    }else{
+//                        [self.dmController loadAd];
                         [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
                             
                         }];
-                    }
+//                    }
                     
                 }else if(ran == 0){
                     [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
                         if (!isShow) {
-                            [self.dmController present];
-                            [self.dmController loadAd];
+//                            [self.dmController present];
+//                            [self.dmController loadAd];
                         }
                     }];
                 }
@@ -325,21 +325,21 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             int ran = arc4random()%4;
             if (ran == 1) {
-                if([self.dmController isReady]){
-                    [self.dmController present];
-                    [self.dmController loadAd];
-                }else{
-                    [self.dmController loadAd];
+//                if([self.dmController isReady]){
+//                    [self.dmController present];
+//                    [self.dmController loadAd];
+//                }else{
+//                    [self.dmController loadAd];
                     [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
                         
                     }];
-                }
+//                }
                 
             }else if(ran == 0){
                 [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
                     if (!isShow) {
-                        [self.dmController present];
-                        [self.dmController loadAd];
+//                        [self.dmController present];
+//                        [self.dmController loadAd];
                     }
                 }];
             }
@@ -448,13 +448,21 @@
     }
     
     [GameDataGlobal playAudioSwitch];
-    [self.collectionViewController exitTheGame];
+    [self.delegate buttonPressedExitTheGame];
 }
 
 -(void)buttonReplayPressed:(id)sender{
     if (self.isPlayAnimation) {
         return;
     }
+    
+    //体力不够不给重玩
+    if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [alertView show];
+        return;
+    }
+    [GameDataGlobal reduceGameEnergy:1];
     
     [self.ani removeAllBehaviors];
     [GameDataGlobal playAudioSwitch];
@@ -463,15 +471,8 @@
         board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
     } completion:^(BOOL isFinish){
         [self removeFromSuperview];
-        [self.collectionViewController replayGame];
+        [self.delegate buttonPressedReplayTheGame];
     }];
-    
-    if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
-        return;
-    }
-    [GameDataGlobal reduceGameEnergy:1];
 }
 
 -(void)buttonNextLevelPressed:(id)sender{
@@ -487,7 +488,7 @@
             board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
         } completion:^(BOOL isFinish){
             [self removeFromSuperview];
-            [self.collectionViewController continueGame];
+            [self.delegate buttonPressedContineTheGame];
         }];
     }
     else if(_isSuccess){
@@ -505,7 +506,7 @@
             board.frame = CGRectMake(board.frame.origin.x, -self.frame.size.height, board.frame.size.width, board.frame.size.height);
         } completion:^(BOOL isFinish){
             [self removeFromSuperview];
-            [self.collectionViewController nextLevel];
+            [self.delegate buttonPressedNextLevel];
         }];
         
     }
@@ -545,7 +546,7 @@
     
     // 插屏广告关闭后，加载一条新广告用于下次呈现
     //prepair for the next advertisement view
-    [self.dmController loadAd];
+//    [self.dmController loadAd];
 }
 
 // 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
@@ -572,8 +573,8 @@
 
 -(void)dealloc{
     HNLOGINFO(@"uiviewfinishplayalert 释放");
-    self.dmController.delegate = nil;
-    self.dmController = nil;
+//    self.dmController.delegate = nil;
+//    self.dmController = nil;
     self.arrayImageView = nil;
     self.ani = nil;
     self.gravity = nil;

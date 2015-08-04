@@ -31,7 +31,7 @@ extern NSString *playingViewExitNotification;
 
 NSString *playingViewExitNotification = @"playingViewExitNotification";
 
-@interface CollectionViewControllerPlay ()<UIAlertViewDelegate>
+@interface CollectionViewControllerPlay ()<UIAlertViewDelegate,UIViewFinishPlayAlertDelegate>
 {
    int seconde;
 }
@@ -118,27 +118,31 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gravity.magnitude = 2;
     [self.animator addBehavior:self.gravity];
     
-    self.labelPoints = [[UILabel alloc] init];
-    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - processHeight, 50, 20);
-    self.labelPoints.text = @"0";
-    self.labelPoints.font = [UIFont systemFontOfSize:18];
-    self.labelPoints.textAlignment = NSTextAlignmentCenter;
-    self.labelPoints.textColor = [UIColor colorWithRed:0.9 green:0.1 blue:0.1 alpha:1.0];
-    if (!_noBackgroundImage) {
-        [self.view addSubview:self.labelPoints];
-    }
+    int imageEnergyWidth = 30;
+    int imageEnergyHeigh = 30;
+    int imageEnergyInsertRight = 10;
+    int imageEnergyInsertTop = -1;
+    UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, self.view.frame.size.height- imageEnergyHeigh -imageEnergyInsertTop, imageEnergyWidth, imageEnergyHeigh)];
+    imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
+    [self.view addSubview:imageViewEnergy];
     
-    UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonStop.frame = CGRectMake(self.view.frame.size.width - 100,self.view.frame.size.height - processHeight, 50, 20);
-    [buttonStop addTarget:self action:@selector(buttonStopPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonStop setImage:[UIImage imageNamed:@"image_pause"] forState:UIControlStateNormal];
-    [self.view addSubview:buttonStop];
     
-    int labelLen = 180;
+    int labelEnergyWidth = 50;
+    int labelEnergyHeigh = 20;
+    int labelEnergyInsert = 0;
+    int labelEnergyLabelFont = 20;
+    UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, self.view.frame.size.height - labelEnergyHeigh - labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
+    labelEnergy.tag = 10001;
+    labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
+    labelEnergy.textColor = [GameDataGlobal getColorInColorType:5];
+    labelEnergy.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
+    [self.view addSubview:labelEnergy];
+    
+    int labelLen = 130;
     if (IsPadUIBlockGame()) {
-        labelLen = 620;
+        labelLen = 580;
     }
-    self.processView = [[UIViewProgress alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height - processHeight+10, labelLen, 5)];
+    self.processView = [[UIViewProgress alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, self.view.frame.size.height - processHeight+10, labelLen, 5)];
     self.processView.alpha = 0.5;
     self.processView.progress = 0;
     self.processView.trackColor = [UIColor grayColor];
@@ -149,6 +153,26 @@ static NSString * const reuseIdentifier = @"Cell";
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
     }
     
+    UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonStop.frame = CGRectMake(self.view.frame.size.width - 90,self.view.frame.size.height - processHeight, 50, 20);
+    [buttonStop addTarget:self action:@selector(buttonStopPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [buttonStop setImage:[UIImage imageNamed:@"image_pause"] forState:UIControlStateNormal];
+    [self.view addSubview:buttonStop];
+    
+    self.labelPoints = [[UILabel alloc] init];
+    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - processHeight, 50, 20);
+    self.labelPoints.text = @"0";
+    self.labelPoints.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
+    self.labelPoints.textAlignment = NSTextAlignmentCenter;
+    self.labelPoints.textColor = [GameDataGlobal getColorInColorType:5];
+    if (!_noBackgroundImage) {
+        [self.view addSubview:self.labelPoints];
+    }
+}
+
+-(void)refreshLabelEnergy{
+    UILabel *labelEnergy = (UILabel *)[self.view viewWithTag:10001];
+    labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -177,7 +201,7 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.isStop = YES;
     finish.tag = 3000;
     [self.view addSubview:finish];
-    finish.collectionViewController = self;
+    finish.delegate = self;
     [finish showView];
 }
 
@@ -229,7 +253,7 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.starNum = self.starNum;
     finish.tag = 3000;
     [self.view addSubview:finish];
-    finish.collectionViewController = self;
+    finish.delegate = self;
     if (seconde > _timeLimit) {
         finish.isTimesup = YES;
     }
@@ -492,6 +516,25 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void)continueGame{
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
+}
+
+#pragma mark - UIViewFinishAlertDelegate
+-(void)buttonPressedExitTheGame{
+    [self exitTheGame];
+}
+
+-(void)buttonPressedReplayTheGame{
+    [self replayGame];
+    [self refreshLabelEnergy];
+}
+
+-(void)buttonPressedContineTheGame{
+    [self continueGame];
+}
+
+-(void)buttonPressedNextLevel{
+    [self nextLevel];
+    [self refreshLabelEnergy];
 }
 
 @end

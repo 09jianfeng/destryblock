@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GameAlgorithm.h"
+#import "UIViewFinishPlayAlert.h"
 
 @interface CollectionViewControllerPlay : UICollectionViewController
 @property(nonatomic, retain) GameAlgorithm *gameAlgorithm;
@@ -22,10 +23,4 @@
 @property(nonatomic, assign) float timeLimit;
 //第几关。用来获取过关的分数
 @property(nonatomic, assign) int gameLevelIndex;
-
--(void)exitTheGame;
--(void)continueGame;
--(void)nextLevel;
--(void)replayGame;
--(void)playByWatchVideo;
 @end
