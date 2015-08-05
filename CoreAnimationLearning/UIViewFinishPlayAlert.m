@@ -12,15 +12,11 @@
 #import "SpriteView2.h"
 #import "CustomButton.h"
 #import "macro.h"
-#import "DMInterstitialAdController.h"
-#import "NewWorldSpt.h"
 
-@interface UIViewFinishPlayAlert()<DMInterstitialAdControllerDelegate>
+@interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
 @property(nonatomic,retain) UIGravityBehavior *gravity;
 @property(nonatomic,retain) NSMutableArray *arrayImageView;
-////多盟
-//@property(nonatomic, retain) DMInterstitialAdController *dmController;
 @property(nonatomic, assign) BOOL isPlayAnimation;
 
 @end
@@ -34,11 +30,6 @@
         self.arrayImageView = [[NSMutableArray alloc] init];
         self.isStop = YES;
         [self.ani addBehavior:self.gravity];
-        
-        // !!!:多盟插屏广告初始化
-//        self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:self.collectionViewController];
-//        [self.dmController loadAd];
-//        self.dmController.delegate = self;
     }
     return self;
 }
@@ -166,27 +157,8 @@
         conOrNext = @"Next";
         if (_isTimesup && !_isSuccess) {
             // !!!: 插屏代码展示
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                int ran = arc4random()%4;
-                if (ran == 1) {
-//                    if([self.dmController isReady]){
-//                        [self.dmController present];
-//                        [self.dmController loadAd];
-//                    }else{
-//                        [self.dmController loadAd];
-                        [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                            
-                        }];
-//                    }
-                    
-                }else if(ran == 0){
-                    [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                        if (!isShow) {
-//                            [self.dmController present];
-//                            [self.dmController loadAd];
-                        }
-                    }];
-                }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[GameDataGlobal shareInstance] showSpot];
             });
         }
     }
@@ -323,26 +295,7 @@
         self.isPlayAnimation = NO;
         
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            int ran = arc4random()%4;
-            if (ran == 1) {
-//                if([self.dmController isReady]){
-//                    [self.dmController present];
-//                    [self.dmController loadAd];
-//                }else{
-//                    [self.dmController loadAd];
-                    [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                        
-                    }];
-//                }
-                
-            }else if(ran == 0){
-                [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                    if (!isShow) {
-//                        [self.dmController present];
-//                        [self.dmController loadAd];
-                    }
-                }];
-            }
+            [[GameDataGlobal shareInstance] showSpot];
         });
     });
 }
@@ -514,67 +467,8 @@
     }
 }
 
-#pragma mark -多盟插屏代理
-#pragma mark -
-#pragma mark DMInterstitialAdController Delegate
-// 当插屏广告被成功加载后，回调该方法
-// This method will be used after the ad has been loaded successfully
-- (void)dmInterstitialSuccessToLoadAd:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] success to load ad.");
-}
-
-// 当插屏广告加载失败后，回调该方法
-// This method will be used after failed
-- (void)dmInterstitialFailToLoadAd:(DMInterstitialAdController *)dmInterstitial withError:(NSError *)err
-{
-    HNLOGINFO(@"[Domob Interstitial] fail to load ad. %@", err);
-}
-
-// 当插屏广告要被呈现出来前，回调该方法
-// This method will be used before being presented
-- (void)dmInterstitialWillPresentScreen:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] will present.");
-}
-
-// 当插屏广告被关闭后，回调该方法
-// This method will be used after Interstitial view  has been closed
-- (void)dmInterstitialDidDismissScreen:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] did dismiss.");
-    
-    // 插屏广告关闭后，加载一条新广告用于下次呈现
-    //prepair for the next advertisement view
-//    [self.dmController loadAd];
-}
-
-// 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
-// When will be showing a Modal View, call this method. Such as open built-in browser
-- (void)dmInterstitialWillPresentModalView:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] will present modal view.");
-}
-
-// 当呈现的 Modal View 被关闭后，回调该方法。如内置浏览器被关闭。
-// When presented Modal View is closed, this method will be called. Such as built-in browser is closed
-- (void)dmInterstitialDidDismissModalView:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] did dismiss modal view.");
-}
-
-// 当因用户的操作（如点击下载类广告，需要跳转到Store），需要离开当前应用时，回调该方法
-// When the result of the user's actions (such as clicking download class advertising, you need to jump to the Store), need to leave the current application, this method will be called
-- (void)dmInterstitialApplicationWillEnterBackground:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] will enter background.");
-}
-
-
 -(void)dealloc{
     HNLOGINFO(@"uiviewfinishplayalert 释放");
-//    self.dmController.delegate = nil;
-//    self.dmController = nil;
     self.arrayImageView = nil;
     self.ani = nil;
     self.gravity = nil;

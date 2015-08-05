@@ -9,11 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+//视频播放完成，成功给用户结算后
+extern NSString *NotificationShouldRefreshEnergyLabel;
+
 @interface GameDataGlobal : NSObject
 @property(nonatomic,assign) BOOL gameVoiceClose;
 @property(nonatomic,assign) BOOL gameMusicClose;
 
 +(id)shareInstance;
+-(void)playVideo;
+-(void)showSpot;
+
+
 //设置体力值
 +(void)setGameEnergy:(int)energy;
 //消耗体力值

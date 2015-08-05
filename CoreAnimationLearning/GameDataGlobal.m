@@ -10,6 +10,14 @@
 #import "GameKeyValue.h"
 #import "GameCenter.h"
 #import <AVFoundation/AVFoundation.h>
+#import "CocoBVideo.h"
+#import "NewWorldSpt.h"
+#import "IndependentVideoManager.h"
+#import "DMInterstitialAdController.h"
+#import "macro.h"
+
+//视频播放完成，成功给用户结算后
+NSString *NotificationShouldRefreshEnergyLabel = @"NotificationShouldRefreshEnergyLabel";
 
 static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
@@ -20,9 +28,12 @@ static NSString *GameDataEnergyStorage = @"GameDataEnergyStorage";
 static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
 static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 
-@interface GameDataGlobal()
+@interface GameDataGlobal()<IndependentVideoManagerDelegate,DMInterstitialAdControllerDelegate>
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioMain;
+@property(nonatomic,retain) IndependentVideoManager *independvideo;
+//多盟
+@property(nonatomic, retain) DMInterstitialAdController *dmController;
 @end
 
 @implementation GameDataGlobal
@@ -42,8 +53,67 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
         self.gameMusicClose = isMusicCLosed;
         BOOL isVoiceCLose = [[GameKeyValue objectForKey:GameDataIsVoiceClose] boolValue];
         self.gameVoiceClose = isVoiceCLose;
+        
+        // !!!:多盟插屏广告初始化
+        self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+        [self.dmController loadAd];
+        self.dmController.delegate = self;
+        
+        //youmispot
+        [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
+        [NewWorldSpt initQQWDeveLoper:0];
     }
     return self;
+}
+
+// !!!:视频广告代码
+-(void)playVideo{
+    //用rootViewController来播放
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    
+    int rand = random()%2;
+    if (!rand) {
+        [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
+        [CocoBVideo cBVideoPlay:rootViewController cBVideoPlayFinishCallBackBlock:
+         ^(BOOL isFinish){
+             if (isFinish) {
+                 [GameDataGlobal addGameEnergy:5];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
+             }
+         } cBVideoPlayConfigCallBackBlock:
+         ^(BOOL isLegal){
+         }];
+        
+    }else{
+        self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
+        [self.independvideo presentIndependentVideoWithViewController:rootViewController];
+        self.independvideo.delegate = self;
+    }
+}
+
+-(void)showSpot{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        int ran = arc4random()%2;
+        if (ran == 1) {
+            if([self.dmController isReady]){
+                [self.dmController present];
+//                [self.dmController loadAd];
+            }else{
+                [self.dmController loadAd];
+                [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                    
+                }];
+            }
+            
+        }else if(ran == 0){
+            [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                if (!isShow) {
+                    [self.dmController present];
+                    [self.dmController loadAd];
+                }
+            }];
+        }
+    });
 }
 
 #pragma mark - 体力值
@@ -302,5 +372,172 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 
 +(void)gameSetIsNOADS{
     [GameKeyValue setObject:[NSNumber numberWithBool:YES] forKey:GameDataIsNOADS];
+}
+
+#pragma mark -多盟的视频代理
+/**
+ *  开始加载数据。
+ *  Independent video starts to fetch info.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidStartLoad:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"开始加载数据");
+}
+
+
+/**
+ *  加载完成。
+ *  Fetching independent video successfully.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidFinishLoad:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"加载完成");
+}
+
+
+/**
+ *  加载失败。可能的原因由error部分提供，例如网络连接失败、被禁用等。
+ *   Failed to load independent video.
+ 
+ *
+ *  @param manager IndependentVideoManager
+ *  @param error   error
+ */
+- (void)ivManager:(IndependentVideoManager *)manager
+failedLoadWithError:(NSError *)error{
+    HNLOGINFO(@"加载失败，%@",error);
+}
+
+
+/**
+ *  被呈现出来时，回调该方法。
+ *  Called when independent video will be presented.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerWillPresent:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频呈现出来");
+}
+
+
+
+/**
+ *  页面关闭。
+ *  Independent video closed.
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频页面关闭");
+}
+
+
+/**
+ *  当视频播放完成后，回调该方法。
+ *  Independent video complete play
+ *
+ *  @param manager IndependentVideoManager
+ */
+- (void)ivManagerCompletePlayVideo:(IndependentVideoManager *)manager{
+    HNLOGINFO(@"视频播放完成");
+    //播放视频，然后继续消下去
+    [GameDataGlobal addGameEnergy:5];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
+}
+
+
+
+/**
+ *  成功获取视频积分
+ *  Complete independent video.
+ *
+ *  @param manager IndependentVideoManager
+ *  @param totalPoint
+ *  @param consumedPoint
+ *  @param currentPoint
+ */
+
+- (void)ivCompleteIndependentVideo:(IndependentVideoManager *)manager
+                    withTotalPoint:(NSNumber *)totalPoint
+                     consumedPoint:(NSNumber *)consumedPoint
+                      currentPoint:(NSNumber *)currentPoint{
+    HNLOGINFO(@"成功获取视频积分");
+}
+
+
+
+
+/**
+ *  获取视频积分出错
+ *  Uncomplete independent video.
+ *
+ *  @param manager IndependentVideoManager
+ *  @param error
+ */
+
+- (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
+                                  withError:(NSError *)error{
+    HNLOGINFO(@"获取视频积分出错");
+}
+
+
+
+
+#pragma mark -多盟插屏代理
+#pragma mark -
+#pragma mark DMInterstitialAdController Delegate
+// 当插屏广告被成功加载后，回调该方法
+// This method will be used after the ad has been loaded successfully
+- (void)dmInterstitialSuccessToLoadAd:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] success to load ad.");
+}
+
+// 当插屏广告加载失败后，回调该方法
+// This method will be used after failed
+- (void)dmInterstitialFailToLoadAd:(DMInterstitialAdController *)dmInterstitial withError:(NSError *)err
+{
+    HNLOGINFO(@"[Domob Interstitial] fail to load ad. %@", err);
+}
+
+// 当插屏广告要被呈现出来前，回调该方法
+// This method will be used before being presented
+- (void)dmInterstitialWillPresentScreen:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] will present.");
+}
+
+// 当插屏广告被关闭后，回调该方法
+// This method will be used after Interstitial view  has been closed
+- (void)dmInterstitialDidDismissScreen:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] did dismiss.");
+    
+    // 插屏广告关闭后，加载一条新广告用于下次呈现
+    //prepair for the next advertisement view
+    //    [self.dmController loadAd];
+}
+
+// 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
+// When will be showing a Modal View, call this method. Such as open built-in browser
+- (void)dmInterstitialWillPresentModalView:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] will present modal view.");
+}
+
+// 当呈现的 Modal View 被关闭后，回调该方法。如内置浏览器被关闭。
+// When presented Modal View is closed, this method will be called. Such as built-in browser is closed
+- (void)dmInterstitialDidDismissModalView:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] did dismiss modal view.");
+}
+
+// 当因用户的操作（如点击下载类广告，需要跳转到Store），需要离开当前应用时，回调该方法
+// When the result of the user's actions (such as clicking download class advertising, you need to jump to the Store), need to leave the current application, this method will be called
+- (void)dmInterstitialApplicationWillEnterBackground:(DMInterstitialAdController *)dmInterstitial
+{
+    HNLOGINFO(@"[Domob Interstitial] will enter background.");
 }
 @end

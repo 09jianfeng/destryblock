@@ -19,14 +19,11 @@
 #import "macro.h"
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
-#import "NewWorldSpt.h"
-#import "IndependentVideoManager.h"
-#import "CocoBVideo.h"
+#import "DialogViewEnergy.h"
 
-@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,IndependentVideoManagerDelegate>
+@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,retain) IAPManager *iap;
-@property(nonatomic,retain) IndependentVideoManager *independvideo;
 @end
 
 @implementation ViewController
@@ -38,10 +35,6 @@
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
     [GameDataGlobal playAudioMainMusic];
-    
-    //youmispot
-    [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
-    [NewWorldSpt initQQWDeveLoper:0];
     
     //初始化gameCenter
     GameCenter *gameCenterModel = [[GameCenter alloc] init];
@@ -58,6 +51,8 @@
         introductionView.viewController = self;
         [self.view addSubview:introductionView];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLableEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
 }
 
 -(void)addSubViews{
@@ -241,25 +236,7 @@
 
 #pragma mark - buttonClickEvent
 -(void)buttonPlayVideoPressed:(id)sender{
-    // !!!:视频广告代码
-    int rand = random()%2;
-    if (!rand) {
-        [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
-        [CocoBVideo cBVideoPlay:self cBVideoPlayFinishCallBackBlock:
-         ^(BOOL isFinish){
-             if (isFinish) {
-                 [GameDataGlobal addGameEnergy:2];
-                 [self refreshLableEnergy];
-            }
-         } cBVideoPlayConfigCallBackBlock:
-         ^(BOOL isLegal){
-         }];
-        
-    }else{
-        self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
-        [self.independvideo presentIndependentVideoWithViewController:self];
-        self.independvideo.delegate = self;
-    }
+    [[GameDataGlobal shareInstance] playVideo];
 }
 
 -(void)buttonPlayPressed:(id)sender{
@@ -276,6 +253,9 @@
 }
 
 -(void)buttonSettingPressed:(id)sender{
+    DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
+    [dialogEnergy show];
+    
     [GameDataGlobal playAudioIsCorrect:5];
     
     UIButton *buttonSetting = (UIButton*)sender;
@@ -480,114 +460,6 @@
 #pragma mark - GameCenterLoginSuccessDelegate
 -(void)userLoginSuccess{
     self.isUserHavedLoginGameCenter = YES;
-}
-
-#pragma mark -多盟的视频代理
-/**
- *  开始加载数据。
- *  Independent video starts to fetch info.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidStartLoad:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"开始加载数据");
-}
-
-
-/**
- *  加载完成。
- *  Fetching independent video successfully.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidFinishLoad:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"加载完成");
-}
-
-
-/**
- *  加载失败。可能的原因由error部分提供，例如网络连接失败、被禁用等。
- *   Failed to load independent video.
- 
- *
- *  @param manager IndependentVideoManager
- *  @param error   error
- */
-- (void)ivManager:(IndependentVideoManager *)manager
-failedLoadWithError:(NSError *)error{
-    HNLOGINFO(@"加载失败，%@",error);
-}
-
-
-/**
- *  被呈现出来时，回调该方法。
- *  Called when independent video will be presented.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerWillPresent:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频呈现出来");
-}
-
-
-
-/**
- *  页面关闭。
- *  Independent video closed.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频页面关闭");
-}
-
-
-/**
- *  当视频播放完成后，回调该方法。
- *  Independent video complete play
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerCompletePlayVideo:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频播放完成");
-    //播放视频，然后继续消下去
-    [GameDataGlobal addGameEnergy:2];
-    [self refreshLableEnergy];
-}
-
-
-
-/**
- *  成功获取视频积分
- *  Complete independent video.
- *
- *  @param manager IndependentVideoManager
- *  @param totalPoint
- *  @param consumedPoint
- *  @param currentPoint
- */
-
-- (void)ivCompleteIndependentVideo:(IndependentVideoManager *)manager
-                    withTotalPoint:(NSNumber *)totalPoint
-                     consumedPoint:(NSNumber *)consumedPoint
-                      currentPoint:(NSNumber *)currentPoint{
-    HNLOGINFO(@"成功获取视频积分");
-}
-
-
-
-
-/**
- *  获取视频积分出错
- *  Uncomplete independent video.
- *
- *  @param manager IndependentVideoManager
- *  @param error
- */
-
-- (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
-                                  withError:(NSError *)error{
-    HNLOGINFO(@"获取视频积分出错");
 }
 
 @end

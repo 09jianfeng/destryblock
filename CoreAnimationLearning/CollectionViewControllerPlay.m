@@ -17,7 +17,6 @@
 #import "GameDataGlobal.h"
 #import "SpriteView2.h"
 #import "macro.h"
-#import "NewWorldSpt.h"
 
 #define AllblockNumpercent 0.65
 
@@ -59,11 +58,13 @@ static NSString * const reuseIdentifier = @"Cell";
         self.widthNum = 11.0;
         self.timeLimit = 50;
         self.gameInitTypeNum = 3.0;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLabelEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
     }
     return self;
 }
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationShouldRefreshEnergyLabel object:nil];
     self.mutArraySprites = nil;
     self.gameAlgorithm = nil;
     self.animator = nil;

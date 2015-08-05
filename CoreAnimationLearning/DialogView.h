@@ -22,8 +22,6 @@ typedef enum {
 
 @interface DialogView : UIView {
  @protected
-    UIViewController            *_platformViewController;
-    
     UIInterfaceOrientation              _orientation;
     BOOL                                _isShowing;
     
@@ -36,6 +34,9 @@ typedef enum {
 @property (nonatomic, retain) UIWindow *window;
 ///用于扩展类目的动画使用,保存显示的时候的视图动画
 @property (nonatomic, assign) DialogViewAnimationTransition transition;
+
+@property (nonatomic, retain) UIViewController            *platformViewController;
+
 
 - (void)show;
 - (void)showInView:(UIView*)view;

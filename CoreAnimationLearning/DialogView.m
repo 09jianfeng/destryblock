@@ -75,6 +75,10 @@ CGAffineTransform RotateTransformForOrientation(UIInterfaceOrientation orientati
 
 #pragma mark -
 #pragma mark 公开的方法
+-(void)dealloc{
+    self.platformViewController = nil;
+    self.window = nil;
+}
 
 - (id)init {
     return [self initWithFrame:CGRectZero];
@@ -92,15 +96,6 @@ CGAffineTransform RotateTransformForOrientation(UIInterfaceOrientation orientati
     if (self.window.hidden) return NO;
     if (self.window.alpha == 0.0f) return NO;
     return _isShowing;
-}
-
-- (void)_dismissViewController {
-    // _platformViewController此时不能销毁, 它的view后面将会返回给上层代码
-    if (_platformViewController) {
-        [_platformViewController.view setHidden:YES];
-        [_platformViewController.view removeFromSuperview];
-    }
-    self.window = nil;
 }
 
 #pragma mark -
@@ -144,7 +139,6 @@ CGAffineTransform RotateTransformForOrientation(UIInterfaceOrientation orientati
     if (_isShowing) {
         _isShowing = NO;
         [self removeFromSuperview];
-        [self _dismissViewController];
     }
 }
 @end

@@ -20,6 +20,7 @@
 		781FF6731B4BF44800C03D4E /* image_shezhi.png in Resources */ = {isa = PBXBuildFile; fileRef = 781FF6721B4BF44800C03D4E /* image_shezhi.png */; };
 		781FF6761B4C1C7800C03D4E /* image_setting_2_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 781FF6741B4C1C7800C03D4E /* image_setting_2_close.png */; };
 		781FF6771B4C1C7800C03D4E /* image_setting_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 781FF6751B4C1C7800C03D4E /* image_setting_2.png */; };
+		782066851B710195009F9B6E /* DialogViewEnergy.m in Sources */ = {isa = PBXBuildFile; fileRef = 782066841B710195009F9B6E /* DialogViewEnergy.m */; };
 		78257D221B4175DE00635D4F /* image_+-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78257D211B4175DE00635D4F /* image_+-2.png */; };
 		782AFA621B3FDA14005910B7 /* UIViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 782AFA611B3FDA14005910B7 /* UIViewProgress.m */; };
 		782B1F7F1AE35B450051D053 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F7E1AE35B450051D053 /* main.m */; };
@@ -178,6 +179,8 @@
 		781FF6721B4BF44800C03D4E /* image_shezhi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_shezhi.png; sourceTree = "<group>"; };
 		781FF6741B4C1C7800C03D4E /* image_setting_2_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_setting_2_close.png; sourceTree = "<group>"; };
 		781FF6751B4C1C7800C03D4E /* image_setting_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_setting_2.png; sourceTree = "<group>"; };
+		782066831B710195009F9B6E /* DialogViewEnergy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewEnergy.h; sourceTree = "<group>"; };
+		782066841B710195009F9B6E /* DialogViewEnergy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewEnergy.m; sourceTree = "<group>"; };
 		78257D211B4175DE00635D4F /* image_+-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_+-2.png"; sourceTree = "<group>"; };
 		782AFA601B3FDA14005910B7 /* UIViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewProgress.h; path = ../../../../demo/JellyAnimation/JellyAnimation/JellyAnimation/UIViewProgress.h; sourceTree = "<group>"; };
 		782AFA611B3FDA14005910B7 /* UIViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewProgress.m; path = ../../../../demo/JellyAnimation/JellyAnimation/JellyAnimation/UIViewProgress.m; sourceTree = "<group>"; };
@@ -719,6 +722,8 @@
 				7882DD891B2D7FFB0049A296 /* DialogView.m */,
 				783E47581B5A351C00CE6963 /* GameIntroductionView.h */,
 				783E47591B5A351C00CE6963 /* GameIntroductionView.m */,
+				782066831B710195009F9B6E /* DialogViewEnergy.h */,
+				782066841B710195009F9B6E /* DialogViewEnergy.m */,
 			);
 			name = view;
 			sourceTree = "<group>";
@@ -726,6 +731,8 @@
 		7885FF7C1B6E581100BF3AE7 /* globalClass */ = {
 			isa = PBXGroup;
 			children = (
+				78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */,
+				78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */,
 			);
 			name = globalClass;
 			sourceTree = "<group>";
@@ -774,8 +781,6 @@
 			children = (
 				7882DD811B2D7F880049A296 /* IAPManager.h */,
 				7882DD821B2D7F880049A296 /* IAPManager.m */,
-				78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */,
-				78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */,
 				78C4E02A1B26EFE50047B834 /* GameCenter.h */,
 				78C4E02B1B26EFE50047B834 /* GameCenter.m */,
 				7882DD651B2D1BD40049A296 /* WeiXinShare.h */,
@@ -980,6 +985,7 @@
 				7860DFC61B383BDE0024D2B5 /* EmitterView.m in Sources */,
 				784E5DC91B3CCC69006FB684 /* KYAnimatedPageControl.m in Sources */,
 				7844B71F1AEB3119006DE282 /* GameAlgorithm.m in Sources */,
+				782066851B710195009F9B6E /* DialogViewEnergy.m in Sources */,
 				7882DD8A1B2D7FFB0049A296 /* ActivityIndicator.m in Sources */,
 				7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */,
 				781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */,
