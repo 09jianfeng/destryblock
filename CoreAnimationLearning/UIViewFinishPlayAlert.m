@@ -12,6 +12,7 @@
 #import "SpriteView2.h"
 #import "CustomButton.h"
 #import "macro.h"
+#import "DialogViewEnergy.h"
 
 @interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
@@ -411,8 +412,8 @@
     
     //体力不够不给重玩
     if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
+        DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
+        [dialogEnergy show];
         return;
     }
     [GameDataGlobal reduceGameEnergy:1];
@@ -446,8 +447,8 @@
     }
     else if(_isSuccess){
         if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-            [alertView show];
+            DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
+            [dialogEnergy show];
             return;
         }
         [GameDataGlobal reduceGameEnergy:1];

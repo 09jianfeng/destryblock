@@ -13,6 +13,7 @@
 #import "GameDataGlobal.h"
 #import "SystemInfo.h"
 #import "KYAnimatedPageControl.h"
+#import "DialogViewEnergy.h"
 
 #define PAGENUM 5
 
@@ -318,10 +319,11 @@ extern NSString *playingViewExitNotification;
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"体力不够啦\n请返回主界面播放视频获取体力" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [alertView show];
+        DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
+        [dialogEnergy show];
         return;
     }
+    
     [GameDataGlobal reduceGameEnergy:1];
     
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];

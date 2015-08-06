@@ -19,22 +19,33 @@
 }
 
 - (void)showInView:(UIView*)view{
+    //场景切换音效
+    [GameDataGlobal playAudioSwitch];
+    
     [super showInView:view];
     
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
     int baseViewWidth = 260;
     int baseViewHeigh = 200;
-    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - baseViewWidth/2, self.frame.size.height/2 - baseViewHeigh/2, baseViewWidth, baseViewHeigh)];
+    UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - baseViewWidth/2, -baseViewHeigh, baseViewWidth, baseViewHeigh)];
+    baseView.tag = 10000;
     baseView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     baseView.layer.cornerRadius = 10.0;
     baseView.layer.masksToBounds = YES;
     [self addSubview:baseView];
+    [UIView animateWithDuration:0.6 delay:0.01 usingSpringWithDamping:0.5 initialSpringVelocity:10 options:UIViewAnimationOptionAllowAnimatedContent
+                     animations:^{
+                         baseView.frame = CGRectMake(self.frame.size.width/2 - baseViewWidth/2, self.frame.size.height/2 - baseViewHeigh/2, baseViewWidth, baseViewHeigh);
+    }
+                     completion:^(BOOL finished) {
+        
+    }];
     
-    UIButton *buttonClose = [[UIButton alloc] initWithFrame:CGRectMake(baseView.frame.origin.x - 20, baseView.frame.origin.y - 20, 30, 30)];
+    UIButton *buttonClose = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [buttonClose setImage:[UIImage imageNamed:@"hn_btn_black_close.png"] forState:UIControlStateNormal];
     [buttonClose addTarget:self action:@selector(buttonClossPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:buttonClose];
+    [baseView addSubview:buttonClose];
     
     UILabel *labelText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, baseViewWidth, baseViewHeigh/2)];
     labelText.text = @"体力不够啦\n看视频补充点体力吧";
@@ -72,7 +83,16 @@
 }
 
 -(void)buttonClossPressed:(id)sender{
-    [self hide];
+    //场景切换音效
+    [GameDataGlobal playAudioSwitch];
+    
+    UIView *baseView = [self viewWithTag:10000];
+    [UIView animateWithDuration:0.3 animations:^{
+        baseView.frame = CGRectMake(baseView.frame.origin.x, -baseView.frame.size.height, baseView.frame.size.width, baseView.frame.size.height);
+    } completion:^(BOOL finished) {
+        [self hide];
+    }];
+    
 }
 
 -(void)buttonVideoPlayPressed:(id)sender{

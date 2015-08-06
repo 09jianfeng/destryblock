@@ -253,9 +253,6 @@
 }
 
 -(void)buttonSettingPressed:(id)sender{
-    DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
-    [dialogEnergy show];
-    
     [GameDataGlobal playAudioIsCorrect:5];
     
     UIButton *buttonSetting = (UIButton*)sender;
