@@ -10,6 +10,9 @@
 #import "GameDataGlobal.h"
 
 @implementation DialogViewEnergy
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
+}
 
 -(id)init{
     self = [super init];
@@ -80,6 +83,8 @@
     UIButton *buttonVideo = [[UIButton alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, baseViewHeigh/2, videoWidth, videoHeigh)];
     [buttonVideo setImage:[UIImage imageNamed:@"image_main_video.png"] forState:UIControlStateNormal];
     [baseView addSubview:buttonVideo];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLabelEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
 }
 
 -(void)buttonClossPressed:(id)sender{
@@ -96,6 +101,11 @@
 }
 
 -(void)buttonVideoPlayPressed:(id)sender{
-    
+    [[GameDataGlobal shareInstance] playVideo];
+}
+
+-(void)refreshLabelEnergy{
+    UILabel *labelEnergy = (UILabel *)[self viewWithTag:500005];
+    labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
 }
 @end

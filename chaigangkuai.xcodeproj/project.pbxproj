@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2EDE60CE1B73557E006610F3 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */; };
+		2EDE60D41B7377C5006610F3 /* UIViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE60D31B7377C5006610F3 /* UIViewProgress.m */; };
 		78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6C1AF1D52400B5A169 /* LevelDialogView.m */; };
 		78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */; };
 		78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */; };
@@ -23,7 +24,6 @@
 		781FF6771B4C1C7800C03D4E /* image_setting_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 781FF6751B4C1C7800C03D4E /* image_setting_2.png */; };
 		782066851B710195009F9B6E /* DialogViewEnergy.m in Sources */ = {isa = PBXBuildFile; fileRef = 782066841B710195009F9B6E /* DialogViewEnergy.m */; };
 		78257D221B4175DE00635D4F /* image_+-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78257D211B4175DE00635D4F /* image_+-2.png */; };
-		782AFA621B3FDA14005910B7 /* UIViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 782AFA611B3FDA14005910B7 /* UIViewProgress.m */; };
 		782B1F7F1AE35B450051D053 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F7E1AE35B450051D053 /* main.m */; };
 		782B1F821AE35B450051D053 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F811AE35B450051D053 /* AppDelegate.m */; };
 		782B1F851AE35B450051D053 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F841AE35B450051D053 /* ViewController.m */; };
@@ -166,6 +166,8 @@
 		2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickLibrary.a; path = thirdPart/UMAnalytics_Sdk_3.5.10/libMobClickLibrary.a; sourceTree = "<group>"; };
 		2EDE60CC1B73557E006610F3 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = thirdPart/UMAnalytics_Sdk_3.5.10/MobClick.h; sourceTree = "<group>"; };
 		2EDE60CD1B73557E006610F3 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClickSocialAnalytics.h; path = thirdPart/UMAnalytics_Sdk_3.5.10/MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		2EDE60D21B7377C5006610F3 /* UIViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewProgress.h; sourceTree = "<group>"; };
+		2EDE60D31B7377C5006610F3 /* UIViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewProgress.m; sourceTree = "<group>"; };
 		78045D6B1AF1D52400B5A169 /* LevelDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDialogView.h; sourceTree = "<group>"; };
 		78045D6C1AF1D52400B5A169 /* LevelDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelDialogView.m; sourceTree = "<group>"; };
 		78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCellLevel.h; sourceTree = "<group>"; };
@@ -186,8 +188,6 @@
 		782066831B710195009F9B6E /* DialogViewEnergy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewEnergy.h; sourceTree = "<group>"; };
 		782066841B710195009F9B6E /* DialogViewEnergy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewEnergy.m; sourceTree = "<group>"; };
 		78257D211B4175DE00635D4F /* image_+-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_+-2.png"; sourceTree = "<group>"; };
-		782AFA601B3FDA14005910B7 /* UIViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIViewProgress.h; path = ../../../../demo/JellyAnimation/JellyAnimation/JellyAnimation/UIViewProgress.h; sourceTree = "<group>"; };
-		782AFA611B3FDA14005910B7 /* UIViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIViewProgress.m; path = ../../../../demo/JellyAnimation/JellyAnimation/JellyAnimation/UIViewProgress.m; sourceTree = "<group>"; };
 		782B1F791AE35B450051D053 /* chaigangkuai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chaigangkuai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		782B1F7D1AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F7E1AE35B450051D053 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -538,8 +538,8 @@
 		7835010C1B15C27500830DAE /* view */ = {
 			isa = PBXGroup;
 			children = (
-				782AFA601B3FDA14005910B7 /* UIViewProgress.h */,
-				782AFA611B3FDA14005910B7 /* UIViewProgress.m */,
+				2EDE60D21B7377C5006610F3 /* UIViewProgress.h */,
+				2EDE60D31B7377C5006610F3 /* UIViewProgress.m */,
 				7860DFC11B383BDE0024D2B5 /* CustomButton.h */,
 				7860DFC21B383BDE0024D2B5 /* CustomButton.m */,
 				7860DFC31B383BDE0024D2B5 /* EmitterView.h */,
@@ -847,7 +847,7 @@
 				TargetAttributes = {
 					782B1F781AE35B450051D053 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = 9467L372QD;
+						DevelopmentTeam = FWVEC76W6T;
 					};
 				};
 			};
@@ -986,12 +986,12 @@
 				7860DFC51B383BDE0024D2B5 /* CustomButton.m in Sources */,
 				7882DD671B2D1BD40049A296 /* WeiXinShare.m in Sources */,
 				782B1F851AE35B450051D053 /* ViewController.m in Sources */,
+				2EDE60D41B7377C5006610F3 /* UIViewProgress.m in Sources */,
 				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
 				783E475A1B5A351C00CE6963 /* GameIntroductionView.m in Sources */,
 				784E5DCB1B3CCC69006FB684 /* Line.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
-				782AFA621B3FDA14005910B7 /* UIViewProgress.m in Sources */,
 				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
 				784E5DC81B3CCC69006FB684 /* Indicator.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,
