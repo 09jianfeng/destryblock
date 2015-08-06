@@ -15,6 +15,7 @@
 #import "IndependentVideoManager.h"
 #import "DMInterstitialAdController.h"
 #import "macro.h"
+#import "MobClick.h"
 
 //视频播放完成，成功给用户结算后
 NSString *NotificationShouldRefreshEnergyLabel = @"NotificationShouldRefreshEnergyLabel";
@@ -62,6 +63,11 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
         //youmispot
         [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
         [NewWorldSpt initQQWDeveLoper:0];
+        
+        //友盟统计
+        [MobClick startWithAppkey:@"55bb39d367e58e305600131d"];
+        //在线参数
+        [MobClick updateOnlineConfig];
     }
     return self;
 }

@@ -17,9 +17,10 @@ extern NSString *NotificationShouldRefreshEnergyLabel;
 @property(nonatomic,assign) BOOL gameMusicClose;
 
 +(id)shareInstance;
+//播放视频广告
 -(void)playVideo;
+//展示插屏
 -(void)showSpot;
-
 
 //设置体力值
 +(void)setGameEnergy:(int)energy;

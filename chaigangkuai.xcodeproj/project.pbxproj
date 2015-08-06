@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2EDE60CE1B73557E006610F3 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */; };
 		78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6C1AF1D52400B5A169 /* LevelDialogView.m */; };
 		78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */; };
 		78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */; };
@@ -162,6 +163,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickLibrary.a; path = thirdPart/UMAnalytics_Sdk_3.5.10/libMobClickLibrary.a; sourceTree = "<group>"; };
+		2EDE60CC1B73557E006610F3 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = thirdPart/UMAnalytics_Sdk_3.5.10/MobClick.h; sourceTree = "<group>"; };
+		2EDE60CD1B73557E006610F3 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClickSocialAnalytics.h; path = thirdPart/UMAnalytics_Sdk_3.5.10/MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		78045D6B1AF1D52400B5A169 /* LevelDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDialogView.h; sourceTree = "<group>"; };
 		78045D6C1AF1D52400B5A169 /* LevelDialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelDialogView.m; sourceTree = "<group>"; };
 		78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCellLevel.h; sourceTree = "<group>"; };
@@ -377,6 +381,7 @@
 				7882DD6B1B2D20520049A296 /* SystemConfiguration.framework in Frameworks */,
 				78B1C38E1B650F71009CB13F /* AudioToolbox.framework in Frameworks */,
 				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
+				2EDE60CE1B73557E006610F3 /* libMobClickLibrary.a in Frameworks */,
 				786FDF1C1B665C06001EC411 /* huaiNanVideoSDK.a in Frameworks */,
 				78B1C38C1B650F5F009CB13F /* EventKit.framework in Frameworks */,
 				78B1C38A1B650F54009CB13F /* Social.framework in Frameworks */,
@@ -403,6 +408,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2EDE60C61B73544C006610F3 /* umanalytics */ = {
+			isa = PBXGroup;
+			children = (
+				2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */,
+				2EDE60CC1B73557E006610F3 /* MobClick.h */,
+				2EDE60CD1B73557E006610F3 /* MobClickSocialAnalytics.h */,
+			);
+			name = umanalytics;
+			sourceTree = "<group>";
+		};
 		78045D731AF212B700B5A169 /* levelscene */ = {
 			isa = PBXGroup;
 			children = (
@@ -696,6 +711,7 @@
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
+				2EDE60C61B73544C006610F3 /* umanalytics */,
 				786FDEF91B665BF5001EC411 /* youmi */,
 				78B1C3711B650E29009CB13F /* duomeng */,
 				7882DD7A1B2D22E20049A296 /* weixin */,
@@ -1112,6 +1128,8 @@
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/DomobAdSDK",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/youmi",
+					/Users/chenjianfeng/Desktop,
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/UMAnalytics_Sdk_3.5.10",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = chaigangkuai;
@@ -1134,6 +1152,8 @@
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/WeChatSDK_1.5",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/DomobAdSDK",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/youmi",
+					/Users/chenjianfeng/Desktop,
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/UMAnalytics_Sdk_3.5.10",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = chaigangkuai;
