@@ -11,7 +11,7 @@
 
 @implementation DialogViewEnergy
 -(void)dealloc{
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:NotificationShouldRefreshEnergyLabel object:nil];
 }
 
 -(id)init{
@@ -30,7 +30,7 @@
     self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
     
     int baseViewWidth = 260;
-    int baseViewHeigh = 200;
+    int baseViewHeigh = 240;
     UIView *baseView = [[UIView alloc] initWithFrame:CGRectMake(self.frame.size.width/2 - baseViewWidth/2, -baseViewHeigh, baseViewWidth, baseViewHeigh)];
     baseView.tag = 10000;
     baseView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
@@ -45,12 +45,12 @@
         
     }];
     
-    UIButton *buttonClose = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    [buttonClose setImage:[UIImage imageNamed:@"hn_btn_black_close.png"] forState:UIControlStateNormal];
+    UIButton *buttonClose = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [buttonClose setImage:[UIImage imageNamed:@"image_back.png"] forState:UIControlStateNormal];
     [buttonClose addTarget:self action:@selector(buttonClossPressed:) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:buttonClose];
     
-    UILabel *labelText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, baseViewWidth, baseViewHeigh/2)];
+    UILabel *labelText = [[UILabel alloc] initWithFrame:CGRectMake(0, 20, baseViewWidth, baseViewHeigh/2)];
     labelText.text = @"体力不够啦\n看视频补充点体力吧";
     labelText.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:24];
     labelText.textAlignment = NSTextAlignmentCenter;
@@ -62,7 +62,8 @@
     int imageEnergyWidth = 50;
     int imageEnergyHeigh = 50;
     int imageEnergyInsertRight = 50;
-    UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, baseViewHeigh/2, imageEnergyWidth, imageEnergyHeigh)];
+    int imageOriginy = (baseViewHeigh/2 - imageEnergyHeigh)/2 + baseViewHeigh/2;
+    UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, imageOriginy, imageEnergyWidth, imageEnergyHeigh)];
     imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
     [baseView addSubview:imageViewEnergy];
     
@@ -70,7 +71,7 @@
     int labelEnergyWidth = 50;
     int labelEnergyHeigh = 50;
     int labelEnergyLabelFont = 20;
-    UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, baseViewHeigh/2, labelEnergyWidth, labelEnergyHeigh)];
+    UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, imageOriginy, labelEnergyWidth, labelEnergyHeigh)];
     labelEnergy.tag = 500005;
     labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
     labelEnergy.textColor = [GameDataGlobal getColorInColorType:5];
@@ -80,8 +81,9 @@
     
     int videoWidth = 50;
     int videoHeigh = 50;
-    UIButton *buttonVideo = [[UIButton alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, baseViewHeigh/2, videoWidth, videoHeigh)];
+    UIButton *buttonVideo = [[UIButton alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, imageOriginy, videoWidth, videoHeigh)];
     [buttonVideo setImage:[UIImage imageNamed:@"image_main_video.png"] forState:UIControlStateNormal];
+    [buttonVideo addTarget:self action:@selector(buttonVideoPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [baseView addSubview:buttonVideo];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLabelEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
@@ -102,6 +104,7 @@
 
 -(void)buttonVideoPlayPressed:(id)sender{
     [[GameDataGlobal shareInstance] playVideo];
+    [self buttonClossPressed:nil];
 }
 
 -(void)refreshLabelEnergy{

@@ -86,8 +86,9 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
                  [GameDataGlobal addGameEnergy:5];
                  [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
              }
-         } cBVideoPlayConfigCallBackBlock:
-         ^(BOOL isLegal){
+             
+             [GameDataGlobal playAudioMainMusic];
+         } cBVideoPlayConfigCallBackBlock:^(BOOL isLegal){
          }];
         
     }else{
@@ -95,6 +96,8 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
         [self.independvideo presentIndependentVideoWithViewController:rootViewController];
         self.independvideo.delegate = self;
     }
+    
+    [GameDataGlobal playAudioMainMusic];
 }
 
 -(void)showSpot{
@@ -437,6 +440,7 @@ failedLoadWithError:(NSError *)error{
  */
 - (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
     HNLOGINFO(@"视频页面关闭");
+    [GameDataGlobal playAudioMainMusic];
 }
 
 
