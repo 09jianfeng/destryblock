@@ -50,7 +50,7 @@ static int  levelAllNum=60;
     
     mutArrayLevels = [[NSMutableArray alloc] initWithCapacity:levelAllNum];
     for(int i = 0 ; i < levelAllNum ; i++){
-        int time = 60 - i%6;
+        int time = 60 - i%10;
         int widthNum = 8 + (i/2)%3;
         int colorNum = 3 + i/6;
         int starNum = 0-i;

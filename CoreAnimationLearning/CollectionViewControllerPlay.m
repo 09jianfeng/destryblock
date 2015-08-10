@@ -107,7 +107,7 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据总块数生成
     _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
-    int rand = 10-_gameLevelIndex%6;
+    int rand = 6-_gameLevelIndex%10;
     _timeLimit = _timeLimit - rand;
     int rand2 = arc4random()%4;
     _timeLimit = _timeLimit - rand2;

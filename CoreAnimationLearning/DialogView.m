@@ -139,6 +139,8 @@ CGAffineTransform RotateTransformForOrientation(UIInterfaceOrientation orientati
     if (_isShowing) {
         _isShowing = NO;
         [self removeFromSuperview];
+        self.window = nil;
+        self.platformViewController = nil;
     }
 }
 @end

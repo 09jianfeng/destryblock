@@ -101,12 +101,16 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 }
 
 -(void)showSpot{
+    //如果购买了内购，那么不展示插屏广告
+    if([GameDataGlobal gameIsNoADS]){
+        return;
+    }
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         int ran = arc4random()%2;
         if (ran == 1) {
             if([self.dmController isReady]){
                 [self.dmController present];
-//                [self.dmController loadAd];
             }else{
                 [self.dmController loadAd];
                 [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
@@ -159,7 +163,7 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
     
     if (currentDate != day) {
         [GameKeyValue setObject:[NSNumber numberWithInt:currentDate] forKey:GameDataEnergyStorageDay];
-        [GameDataGlobal addGameEnergy:6];
+        [GameDataGlobal addGameEnergy:3];
     }
     
     int restEnergy = [[GameKeyValue objectForKey:GameDataEnergyStorage] intValue];
