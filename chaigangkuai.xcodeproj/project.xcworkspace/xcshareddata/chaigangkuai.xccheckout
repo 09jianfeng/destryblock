@@ -10,8 +10,6 @@
 	<string>chaigangkuai</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>8C9ECB919E9CDF847E3D7047B387C39FC52AD7CA</key>
-		<string>https://github.com/09jianfeng/JellyAnimation.git</string>
 		<key>DBD068CCE4DE1D510C2B3CC473609C6D0099162A</key>
 		<string>git.umlife.net:chenjianfeng/chuaizhuankuai.git</string>
 	</dict>
@@ -19,8 +17,6 @@
 	<string>chaigangkuai.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>8C9ECB919E9CDF847E3D7047B387C39FC52AD7CA</key>
-		<string>../../../demo/JellyAnimation</string>
 		<key>DBD068CCE4DE1D510C2B3CC473609C6D0099162A</key>
 		<string>../..</string>
 	</dict>
@@ -39,14 +35,6 @@
 			<string>DBD068CCE4DE1D510C2B3CC473609C6D0099162A</string>
 			<key>IDESourceControlWCCName</key>
 			<string>CoreAnimationLearning</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.git</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>8C9ECB919E9CDF847E3D7047B387C39FC52AD7CA</string>
-			<key>IDESourceControlWCCName</key>
-			<string>JellyAnimation</string>
 		</dict>
 	</array>
 </dict>

@@ -442,6 +442,7 @@
 		781FA81C1AED21510048B337 /* playing */ = {
 			isa = PBXGroup;
 			children = (
+				7875FEE81B7D60E3009EE11A /* controller */,
 				7835010C1B15C27500830DAE /* view */,
 				7844B7201AEB313C006DE282 /* model */,
 			);
@@ -544,8 +545,6 @@
 				7860DFC21B383BDE0024D2B5 /* CustomButton.m */,
 				7860DFC31B383BDE0024D2B5 /* EmitterView.h */,
 				7860DFC41B383BDE0024D2B5 /* EmitterView.m */,
-				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
-				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
 				781FA8191AED17C50048B337 /* SpriteUIView.h */,
 				781FA81A1AED17C50048B337 /* SpriteUIView.m */,
 				7835010D1B15C2CE00830DAE /* UIViewFinishPlayAlert.h */,
@@ -708,6 +707,24 @@
 			name = youmi;
 			sourceTree = "<group>";
 		};
+		7875FEE81B7D60E3009EE11A /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				7844B7071AEA9A05006DE282 /* CollectionViewControllerPlay.h */,
+				7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
+		7875FEE91B7D60FF009EE11A /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				782B1F831AE35B450051D053 /* ViewController.h */,
+				782B1F841AE35B450051D053 /* ViewController.m */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
@@ -808,8 +825,7 @@
 		78E582511B15AB47000BD23C /* mainscene */ = {
 			isa = PBXGroup;
 			children = (
-				782B1F831AE35B450051D053 /* ViewController.h */,
-				782B1F841AE35B450051D053 /* ViewController.m */,
+				7875FEE91B7D60FF009EE11A /* controller */,
 				7882DD8C1B2D80AE0049A296 /* view */,
 				78E2608D1B1A946500EB9F3E /* model */,
 			);
@@ -847,7 +863,7 @@
 				TargetAttributes = {
 					782B1F781AE35B450051D053 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = FWVEC76W6T;
+						DevelopmentTeam = 9467L372QD;
 					};
 				};
 			};

@@ -93,11 +93,9 @@ static NSString * const reuseIdentifier = @"Cell";
     self.collectionView.scrollEnabled = NO;
     // Do any additional setup after loading the view.
     
-    int processHeight = 20;
     //如果是ipad 横向右13.0个方块
     if (IsPadUIBlockGame()) {
         _widthNum +=2;
-        processHeight = 40;
     }
     
     
@@ -106,11 +104,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据总块数生成
-    _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
-    int rand = 6-_gameLevelIndex%10;
-    _timeLimit = _timeLimit - rand;
-    int rand2 = arc4random()%4;
-    _timeLimit = _timeLimit - rand2;
+    _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2 - [_gameAlgorithm getAllValueBlockNum]/15 + _gameLevelIndex/10;
     
     //做重力动画的
     self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -123,6 +117,13 @@ static NSString * const reuseIdentifier = @"Cell";
     int imageEnergyHeigh = 30;
     int imageEnergyInsertRight = 10;
     int imageEnergyInsertTop = -1;
+    
+    if(IsPadUIBlockGame()){
+        imageEnergyWidth *= 2;
+        imageEnergyHeigh*=2;
+        imageEnergyInsertRight*=2;
+        imageEnergyInsertTop *=2;
+    }
     UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, self.view.frame.size.height- imageEnergyHeigh -imageEnergyInsertTop, imageEnergyWidth, imageEnergyHeigh)];
     imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
     [self.view addSubview:imageViewEnergy];
@@ -132,6 +133,13 @@ static NSString * const reuseIdentifier = @"Cell";
     int labelEnergyHeigh = 20;
     int labelEnergyInsert = 0;
     int labelEnergyLabelFont = 20;
+    
+    if(IsPadUIBlockGame()){
+        labelEnergyWidth*=2;
+        labelEnergyHeigh*=2;
+        labelEnergyInsert*=2;
+        labelEnergyLabelFont *=2;
+    }
     UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, self.view.frame.size.height - labelEnergyHeigh - labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
     labelEnergy.tag = 10001;
     labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
@@ -139,11 +147,17 @@ static NSString * const reuseIdentifier = @"Cell";
     labelEnergy.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
     [self.view addSubview:labelEnergy];
     
-    int labelLen = 130;
+    
+    int processViewWidth = 120;
+    int processViewInsertBottom= 10;
+    int processViewInsertRight = 10;
+    int processViewHeigh = 5;
     if (IsPadUIBlockGame()) {
-        labelLen = 580;
+        processViewWidth = 400;
+        processViewInsertBottom = 50;
+        processViewHeigh = 40;
     }
-    self.processView = [[UIViewProgress alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, self.view.frame.size.height - processHeight+10, labelLen, 5)];
+    self.processView = [[UIViewProgress alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width + processViewInsertRight, self.view.frame.size.height - processViewInsertBottom + processViewHeigh, processViewWidth, processViewHeigh)];
     self.processView.alpha = 0.5;
     self.processView.progress = 0;
     self.processView.trackColor = [UIColor grayColor];
@@ -154,14 +168,28 @@ static NSString * const reuseIdentifier = @"Cell";
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];
     }
     
+    int buttonInsertRight = 5;
+    int buttonInsertBottom = 20;
+    int buttonWidth = 50;
+    int buttonHeigh = 20;
+    if (IsPadUIBlockGame()) {
+        buttonWidth*=2;
+        buttonHeigh*=2;
+        buttonInsertBottom*=2;
+    }
+    
     UIButton *buttonStop = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonStop.frame = CGRectMake(self.view.frame.size.width - 90,self.view.frame.size.height - processHeight, 50, 20);
+    buttonStop.frame = CGRectMake(self.processView.frame.origin.x + self.processView.frame.size.width + buttonInsertRight,self.view.frame.size.height - buttonInsertBottom, buttonWidth, buttonHeigh);
     [buttonStop addTarget:self action:@selector(buttonStopPressed:) forControlEvents:UIControlEventTouchUpInside];
     [buttonStop setImage:[UIImage imageNamed:@"image_pause"] forState:UIControlStateNormal];
     [self.view addSubview:buttonStop];
     
+    int labelPointsWidth = 50;
+    if (IsPadUIBlockGame()) {
+        
+    }
     self.labelPoints = [[UILabel alloc] init];
-    self.labelPoints.frame = CGRectMake(self.view.frame.size.width - 50,self.view.frame.size.height - processHeight, 50, 20);
+    self.labelPoints.frame = CGRectMake(buttonStop.frame.origin.x+buttonStop.frame.size.width - 20,self.view.frame.size.height - buttonInsertBottom, labelPointsWidth, buttonHeigh);
     self.labelPoints.text = @"0";
     self.labelPoints.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
     self.labelPoints.textAlignment = NSTextAlignmentCenter;

@@ -127,6 +127,13 @@
     int imageEnergyHeigh = 30;
     int imageEnergyInsertRight = 10;
     int imageEnergyInsertTop = 2;
+    if(IsPadUIBlockGame()){
+        imageEnergyHeigh *=2;
+        imageEnergyWidth*=2;
+        imageEnergyInsertRight*=2;
+        imageEnergyInsertTop*=2;
+    }
+    
     UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, imageEnergyInsertTop, imageEnergyWidth, imageEnergyHeigh)];
     imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
     [self.view addSubview:imageViewEnergy];
@@ -136,6 +143,13 @@
     int labelEnergyHeigh = 20;
     int labelEnergyInsert = 10;
     int labelEnergyLabelFont = 20;
+    if (IsPadUIBlockGame()) {
+        labelEnergyWidth*=2;
+        labelEnergyHeigh*=2;
+        labelEnergyInsert*=2;
+        labelEnergyLabelFont = 40;
+    }
+    
     UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
     labelEnergy.tag = 500005;
     labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];

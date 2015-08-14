@@ -52,13 +52,17 @@
     board.tag = 40000;
     board.layer.cornerRadius = 20;
     
+    int fontLabelStop = 46;
+    if (IsPadUIBlockGame()) {
+        fontLabelStop = 70;
+    }
     //上边区域
     if (_isStop) {
         UILabel *lableExit = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, board.frame.size.width, board.frame.size.height/3)];
         lableExit.text = @"暂停";
         lableExit.textAlignment = NSTextAlignmentCenter;
         lableExit.textColor = [GameDataGlobal getColorInColorType:1];
-        lableExit.font = [UIFont systemFontOfSize:46];
+        lableExit.font = [UIFont systemFontOfSize:fontLabelStop];
         [board addSubview:lableExit];
         [self alwaysShake:2 view:lableExit];
         
@@ -87,33 +91,44 @@
         }
         lableExit.textAlignment = NSTextAlignmentCenter;
         lableExit.textColor = [GameDataGlobal getColorInColorType:1];
-        lableExit.font = [UIFont systemFontOfSize:46];
+        lableExit.font = [UIFont systemFontOfSize:fontLabelStop];
         [board addSubview:lableExit];
         
         [self alwaysShake:2 view:lableExit];
     }
     
     
+    int fontLabelSize = 18;
+    int labelHeigh = 38;
+    if (IsPadUIBlockGame()) {
+        fontLabelSize = 34;
+        labelHeigh*=1.5;
+    }
+    
     //标题
-    UILabel *labelTarget = [[UILabel alloc] initWithFrame:CGRectMake(0, board.frame.size.height/3, board.frame.size.width/2, 30)];
+    UILabel *labelTarget = [[UILabel alloc] initWithFrame:CGRectMake(0, board.frame.size.height/3, board.frame.size.width/2, labelHeigh)];
     labelTarget.textAlignment = NSTextAlignmentCenter;
     labelTarget.text = @"目标";
+    labelTarget.font = [UIFont systemFontOfSize:fontLabelSize];
     labelTarget.textColor = [UIColor blackColor];
     [board addSubview:labelTarget];
-    UILabel *labelTargetNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTarget.frame.origin.y+labelTarget.frame.size.height, board.frame.size.width/2, 30)];
+    UILabel *labelTargetNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTarget.frame.origin.y+labelTarget.frame.size.height, board.frame.size.width/2, labelHeigh)];
     labelTargetNum.textAlignment = NSTextAlignmentCenter;
     labelTargetNum.text = [NSString stringWithFormat:@"%d",self.target];
+    labelTargetNum.font = [UIFont systemFontOfSize:fontLabelSize];
     labelTargetNum.textColor = [UIColor blackColor];
     [board addSubview:labelTargetNum];
     
-    UILabel *labelTotal = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, board.frame.size.height/3, board.frame.size.width/2, 30)];
+    UILabel *labelTotal = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, board.frame.size.height/3, board.frame.size.width/2, labelHeigh)];
     labelTotal.textAlignment = NSTextAlignmentCenter;
     labelTotal.text = @"总共";
+    labelTotal.font = [UIFont systemFontOfSize:fontLabelSize];
     labelTotal.textColor = [UIColor blackColor];
     [board addSubview:labelTotal];
-    UILabel *labelTotalNum = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, labelTotal.frame.size.height+labelTotal.frame.origin.y, board.frame.size.width/2, 30)];
+    UILabel *labelTotalNum = [[UILabel alloc] initWithFrame:CGRectMake(board.frame.size.width/2, labelTotal.frame.size.height+labelTotal.frame.origin.y, board.frame.size.width/2, labelHeigh)];
     labelTotalNum.textAlignment = NSTextAlignmentCenter;
     labelTotalNum.text = [NSString stringWithFormat:@"%d",self.total];
+    labelTotalNum.font = [UIFont systemFontOfSize:fontLabelSize];
     labelTotalNum.textColor = [UIColor blackColor];
     [board addSubview:labelTotalNum];
     
@@ -121,9 +136,10 @@
     int buttonSize = board.frame.size.width/5;
     int buttonInsert = buttonSize*1/3;
     
-    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y, board.frame.size.width, 30)];
+    UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y, board.frame.size.width, labelHeigh)];
     labelScore.textAlignment = NSTextAlignmentCenter;
     labelScore.text = @"当前分数";
+    labelScore.font = [UIFont systemFontOfSize:fontLabelSize];
     labelScore.textColor = [UIColor blackColor];
     [board addSubview:labelScore];
     UILabel *labelScoreNum = [[UILabel alloc] initWithFrame:CGRectMake(0, labelScore.frame.size.height + labelScore.frame.origin.y - 5,board.frame.size.width, board.frame.size.height - labelScore.frame.size.height - labelScore.frame.origin.y- 10 - buttonSize)];
@@ -131,7 +147,7 @@
     labelScoreNum.tag = 400001;
     labelScoreNum.text = [NSString stringWithFormat:@"0"];
     labelScoreNum.textColor = [UIColor whiteColor];
-    labelScoreNum.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:22];
+    labelScoreNum.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:fontLabelSize];
     [board addSubview:labelScoreNum];
     
     //按钮
@@ -139,6 +155,7 @@
     buttonBack.backgroundColor = [GameDataGlobal getColorInColorType:2];
     buttonBack.layer.cornerRadius = buttonSize/2;
     [buttonBack setTitle:@"退出" forState:UIControlStateNormal];
+    buttonBack.titleLabel.font = [UIFont systemFontOfSize:fontLabelSize];
     [buttonBack addTarget:self action:@selector(buttonbackPressed:) forControlEvents:UIControlEventTouchUpInside];
     [board addSubview:buttonBack];
     
@@ -146,6 +163,7 @@
     buttonReplay.layer.cornerRadius = buttonSize/2;
     buttonReplay.backgroundColor = [GameDataGlobal getColorInColorType:3];
     [buttonReplay setTitle:@"重玩" forState:UIControlStateNormal];
+    buttonReplay.titleLabel.font = [UIFont systemFontOfSize:fontLabelSize];
     [buttonReplay addTarget:self action:@selector(buttonReplayPressed:) forControlEvents:UIControlEventTouchUpInside];
     if(!_isStop){
         [board addSubview:buttonReplay];
@@ -165,6 +183,7 @@
     }
     [buttonNext setTitle:conOrNext forState:UIControlStateNormal];
     buttonNext.layer.cornerRadius = buttonSize/2;
+    buttonNext.titleLabel.font = [UIFont systemFontOfSize:fontLabelSize];
     [buttonNext addTarget:self action:@selector(buttonNextLevelPressed:) forControlEvents:UIControlEventTouchUpInside];
     [board addSubview:buttonNext];
     
@@ -199,8 +218,6 @@
     int showingNumber = self.score - fallingScore;
     UILabel *scoreNumLabel = (UILabel*)[self viewWithTag:400001];
     scoreNumLabel.text = [NSString stringWithFormat:@"%d",showingNumber];
-    scoreNumLabel.textColor = [UIColor whiteColor];
-    scoreNumLabel.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:22];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self scoreAddingWithTimes:fallingScore-1];
