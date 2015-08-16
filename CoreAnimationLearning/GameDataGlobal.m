@@ -83,31 +83,65 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
     return [MobClick getConfigParams:@"umengClosewp"];
 }
 
-// !!!:视频广告代码
--(void)playVideo{
-    NSLog(@"%@",[MobClick getConfigParams]);
-    
+-(void)showymSpot{
+    HNLOGINFO(@"展示有米插屏");
+    [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+        if (!isShow) {
+            [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+            HNLOGINFO(@"展示wanpu插屏");
+        }
+    }];
+}
+
+-(void)showwpSpot{
+    [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+    HNLOGINFO(@"展示wanpu插屏");
+
+}
+
+-(void)showymVideo{
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
+    [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
+    [CocoBVideo cBVideoPlay:rootViewController cBVideoPlayFinishCallBackBlock:
+     ^(BOOL isFinish){
+         if (isFinish) {
+             [GameDataGlobal addGameEnergy:5];
+             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
+         }
+         
+         [GameDataGlobal playAudioMainMusic];
+     } cBVideoPlayConfigCallBackBlock:^(BOOL isLegal){
+     }];
+}
+
+-(void)showdmVideo{
+    //用rootViewController来播放
+    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    
+    self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
+    [self.independvideo presentIndependentVideoWithViewController:rootViewController];
+    self.independvideo.delegate = self;
+}
+
+// !!!:视频广告代码
+-(void)playVideo{
+    
     int rand = random()%2;
     if (!rand) {
-        [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
-        [CocoBVideo cBVideoPlay:rootViewController cBVideoPlayFinishCallBackBlock:
-         ^(BOOL isFinish){
-             if (isFinish) {
-                 [GameDataGlobal addGameEnergy:5];
-                 [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
-             }
-             
-             [GameDataGlobal playAudioMainMusic];
-         } cBVideoPlayConfigCallBackBlock:^(BOOL isLegal){
-         }];
+        if (![self ymstate]) {
+            [self showymVideo];
+        }else{
+            [self showdmVideo];
+        }
         
     }else{
-        self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
-        [self.independvideo presentIndependentVideoWithViewController:rootViewController];
-        self.independvideo.delegate = self;
+        if (![self dmstate]) {
+            [self showdmVideo];
+        }else{
+            [self showymVideo];
+        }
     }
     
     [GameDataGlobal playAudioMainMusic];
@@ -120,28 +154,21 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        int ran = arc4random()%3;
-        //多盟
+        int ran = arc4random()%2;
+        //万普
         if (ran == 1) {
-            [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                if (!isShow) {
-                    [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-                    HNLOGINFO(@"展示wanpu插屏");
-                }
-            }];
+            if (![self wpstate]) {
+                [self showwpSpot];
+            }else{
+                [self showymSpot];
+            }
         //有米
         }else if(ran == 0){
-            HNLOGINFO(@"展示有米插屏");
-            [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                if (!isShow) {
-                    [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-                    HNLOGINFO(@"展示wanpu插屏");
-                }
-            }];
-        //万普
-        }else if (ran == 2){
-            [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-            HNLOGINFO(@"展示wanpu插屏");
+            if (![self ymstate]) {
+                [self showymSpot];
+            }else{
+                [self showwpSpot];
+            }
         }
     });
 }
