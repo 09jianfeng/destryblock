@@ -97,6 +97,7 @@
 		786FDF1D1B665C06001EC411 /* sdk_v2.13_2015-07-23.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDF0D1B665C06001EC411 /* sdk_v2.13_2015-07-23.a */; };
 		786FDF211B6664BE001EC411 /* DomobAdSDKBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */; };
 		786FDF231B6664C7001EC411 /* IndependentVideoBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */; };
+		787170071B80C4A00088B9CB /* CSLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787170061B80C4A00088B9CB /* CSLib.framework */; };
 		78735F3B1B5E72BD0041846E /* image_intro_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F371B5E72BD0041846E /* image_intro_1.png */; };
 		78735F3C1B5E72BD0041846E /* image_intro_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F381B5E72BD0041846E /* image_intro_2.png */; };
 		78735F3D1B5E72BD0041846E /* image_intro_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F391B5E72BD0041846E /* image_intro_3.png */; };
@@ -285,6 +286,7 @@
 		786FDF0D1B665C06001EC411 /* sdk_v2.13_2015-07-23.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "sdk_v2.13_2015-07-23.a"; path = "thirdPart/youmi/sdk_v2.13_2015-07-23.a"; sourceTree = "<group>"; };
 		786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DomobAdSDKBundle.bundle; path = thirdPart/DomobAdSDK/DomobAdSDKBundle/DomobAdSDKBundle.bundle; sourceTree = "<group>"; };
 		786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IndependentVideoBundle.bundle; path = thirdPart/DomobAdSDK/IndependentVideoBundle.bundle; sourceTree = "<group>"; };
+		787170061B80C4A00088B9CB /* CSLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSLib.framework; path = thirdPart/wanpu/CSLib.framework; sourceTree = "<group>"; };
 		78735F371B5E72BD0041846E /* image_intro_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_1.png; sourceTree = "<group>"; };
 		78735F381B5E72BD0041846E /* image_intro_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_2.png; sourceTree = "<group>"; };
 		78735F391B5E72BD0041846E /* image_intro_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_3.png; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787170071B80C4A00088B9CB /* CSLib.framework in Frameworks */,
 				786FDEF61B664889001EC411 /* AdSupport.framework in Frameworks */,
 				786FDEF41B66487F001EC411 /* CFNetwork.framework in Frameworks */,
 				786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */,
@@ -707,6 +710,14 @@
 			name = youmi;
 			sourceTree = "<group>";
 		};
+		787170031B80C4400088B9CB /* wp */ = {
+			isa = PBXGroup;
+			children = (
+				787170061B80C4A00088B9CB /* CSLib.framework */,
+			);
+			name = wp;
+			sourceTree = "<group>";
+		};
 		7875FEE81B7D60E3009EE11A /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -728,6 +739,7 @@
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
+				787170031B80C4400088B9CB /* wp */,
 				2EDE60C61B73544C006610F3 /* umanalytics */,
 				786FDEF91B665BF5001EC411 /* youmi */,
 				78B1C3711B650E29009CB13F /* duomeng */,
@@ -1136,6 +1148,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wanpu",
+				);
 				INFOPLIST_FILE = CoreAnimationLearning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1160,6 +1176,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wanpu",
+				);
 				INFOPLIST_FILE = CoreAnimationLearning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

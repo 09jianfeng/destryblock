@@ -16,6 +16,7 @@
 #import "DMInterstitialAdController.h"
 #import "macro.h"
 #import "MobClick.h"
+#import <CSLib/CSConnect.h>
 
 //视频播放完成，成功给用户结算后
 NSString *NotificationShouldRefreshEnergyLabel = @"NotificationShouldRefreshEnergyLabel";
@@ -33,8 +34,6 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioMain;
 @property(nonatomic,retain) IndependentVideoManager *independvideo;
-//多盟
-@property(nonatomic, retain) DMInterstitialAdController *dmController;
 @end
 
 @implementation GameDataGlobal
@@ -55,11 +54,6 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
         BOOL isVoiceCLose = [[GameKeyValue objectForKey:GameDataIsVoiceClose] boolValue];
         self.gameVoiceClose = isVoiceCLose;
         
-        // !!!:多盟插屏广告初始化
-        self.dmController = [[DMInterstitialAdController alloc] initWithPublisherId:@"56OJzB24uN2iEc0Jh7" placementId:@"16TLmTTlApqv1NUvCls0Cs4s" rootViewController:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-        [self.dmController loadAd];
-        self.dmController.delegate = self;
-        
         //youmispot
         [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
         [NewWorldSpt initQQWDeveLoper:0];
@@ -68,12 +62,31 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
         [MobClick startWithAppkey:@"55bb39d367e58e305600131d"];
         //在线参数
         [MobClick updateOnlineConfig];
+        
+        //万普插屏广告
+        [CSConnect getConnect:@"78e3ea487a0c8fe25a3ee5fda12e6662"];
+        [CSConnect initCP];
     }
     return self;
 }
 
+#pragma mark - 广告相关
+-(BOOL)ymstate{
+    return [MobClick getConfigParams:@"umengCloseym"];
+}
+
+-(BOOL)dmstate{
+    return [MobClick getConfigParams:@"umengClosedm"];
+}
+
+-(BOOL)wpstate{
+    return [MobClick getConfigParams:@"umengClosewp"];
+}
+
 // !!!:视频广告代码
 -(void)playVideo{
+    NSLog(@"%@",[MobClick getConfigParams]);
+    
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     
@@ -107,24 +120,28 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
     }
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        int ran = arc4random()%2;
+        int ran = arc4random()%3;
+        //多盟
         if (ran == 1) {
-            if([self.dmController isReady]){
-                [self.dmController present];
-            }else{
-                [self.dmController loadAd];
-                [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-                    
-                }];
-            }
-            
-        }else if(ran == 0){
             [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
                 if (!isShow) {
-                    [self.dmController present];
-                    [self.dmController loadAd];
+                    [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+                    HNLOGINFO(@"展示wanpu插屏");
                 }
             }];
+        //有米
+        }else if(ran == 0){
+            HNLOGINFO(@"展示有米插屏");
+            [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
+                if (!isShow) {
+                    [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+                    HNLOGINFO(@"展示wanpu插屏");
+                }
+            }];
+        //万普
+        }else if (ran == 2){
+            [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+            HNLOGINFO(@"展示wanpu插屏");
         }
     });
 }
@@ -494,64 +511,5 @@ failedLoadWithError:(NSError *)error{
 - (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
                                   withError:(NSError *)error{
     HNLOGINFO(@"获取视频积分出错");
-}
-
-
-
-
-#pragma mark -多盟插屏代理
-#pragma mark -
-#pragma mark DMInterstitialAdController Delegate
-// 当插屏广告被成功加载后，回调该方法
-// This method will be used after the ad has been loaded successfully
-- (void)dmInterstitialSuccessToLoadAd:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] success to load ad.");
-}
-
-// 当插屏广告加载失败后，回调该方法
-// This method will be used after failed
-- (void)dmInterstitialFailToLoadAd:(DMInterstitialAdController *)dmInterstitial withError:(NSError *)err
-{
-    HNLOGINFO(@"[Domob Interstitial] fail to load ad. %@", err);
-}
-
-// 当插屏广告要被呈现出来前，回调该方法
-// This method will be used before being presented
-- (void)dmInterstitialWillPresentScreen:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] will present.");
-}
-
-// 当插屏广告被关闭后，回调该方法
-// This method will be used after Interstitial view  has been closed
-- (void)dmInterstitialDidDismissScreen:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] did dismiss.");
-    
-    // 插屏广告关闭后，加载一条新广告用于下次呈现
-    //prepair for the next advertisement view
-    //    [self.dmController loadAd];
-}
-
-// 当将要呈现出 Modal View 时，回调该方法。如打开内置浏览器。
-// When will be showing a Modal View, call this method. Such as open built-in browser
-- (void)dmInterstitialWillPresentModalView:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] will present modal view.");
-}
-
-// 当呈现的 Modal View 被关闭后，回调该方法。如内置浏览器被关闭。
-// When presented Modal View is closed, this method will be called. Such as built-in browser is closed
-- (void)dmInterstitialDidDismissModalView:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] did dismiss modal view.");
-}
-
-// 当因用户的操作（如点击下载类广告，需要跳转到Store），需要离开当前应用时，回调该方法
-// When the result of the user's actions (such as clicking download class advertising, you need to jump to the Store), need to leave the current application, this method will be called
-- (void)dmInterstitialApplicationWillEnterBackground:(DMInterstitialAdController *)dmInterstitial
-{
-    HNLOGINFO(@"[Domob Interstitial] will enter background.");
 }
 @end
