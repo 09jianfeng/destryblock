@@ -321,11 +321,7 @@ static NSString * const reuseIdentifier = @"Cell";
     int heightnum = self.view.frame.size.height/width - 1;
     self.gameAlgorithm = [[GameAlgorithm alloc] initWithWidthNum:_widthNum heightNum:heightnum gamecolorexternNum:self.gameInitTypeNum allblockNumpercent:AllblockNumpercent];
     //时间根据时间生成
-    _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2;
-    int rand = 10-_gameLevelIndex%6;
-    _timeLimit = _timeLimit - rand;
-    int rand2 = arc4random()%4;
-    _timeLimit = _timeLimit - rand2;
+    _timeLimit = [_gameAlgorithm getAllValueBlockNum]/2 - [_gameAlgorithm getAllValueBlockNum]/10 + _gameLevelIndex/10;
     
     [self.collectionView reloadData];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerResponce:) userInfo:nil repeats:YES];

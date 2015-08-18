@@ -324,8 +324,6 @@ extern NSString *playingViewExitNotification;
         return;
     }
     
-    [GameDataGlobal reduceGameEnergy:1];
-    
     UICollectionViewFlowLayout *flowlayout = [[UICollectionViewFlowLayout alloc] init];
     CollectionViewControllerPlay *collecPlay = [[CollectionViewControllerPlay alloc] initWithCollectionViewLayout:flowlayout];
     NSDictionary *dicLevels = [_arrayGuanka objectAtIndex:(indexPath.row + self.currentPage*12)];
@@ -338,6 +336,12 @@ extern NSString *playingViewExitNotification;
     if (score <= 0 && starNum < 0) {
         return;
     }
+    
+    //已经通过了的关不需要体力
+    if(score == 1){
+        [GameDataGlobal reduceGameEnergy:1];
+    }
+    
     collecPlay.gameLevelIndex = (int)indexPath.row + self.currentPage*12;
     collecPlay.widthNum = widthNum;
     collecPlay.gameInitTypeNum = colorNum;
