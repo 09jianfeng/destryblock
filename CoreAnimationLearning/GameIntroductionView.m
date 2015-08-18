@@ -9,6 +9,8 @@
 #import "GameIntroductionView.h"
 #import "GameDataGlobal.h"
 
+const int pageNum = 4;
+
 @interface GameIntroductionView()<UIScrollViewDelegate>
 @property(nonatomic,retain) UIScrollView *scrollView;
 @property(nonatomic,retain) UIPageControl *pageControl;
@@ -33,8 +35,8 @@
 
 -(void)gameBeginIntroduction{
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-    int imageCount = 5;
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*5, self.scrollView.frame.size.height);
+    int imageCount = pageNum;
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*pageNum, self.scrollView.frame.size.height);
     self.scrollView.pagingEnabled = YES;
     [self.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.scrollView setShowsVerticalScrollIndicator:NO];
@@ -42,7 +44,7 @@
     [self addSubview:self.scrollView];
     
     self.pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, self.frame.size.height - 50, self.frame.size.width, 50)];
-    self.pageControl.numberOfPages = 5;
+    self.pageControl.numberOfPages = pageNum;
     [self addSubview:self.pageControl];
     
     int width = self.frame.size.width;
@@ -87,7 +89,7 @@
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{    
-    if (self.scrollView.contentOffset.x > scrollView.frame.size.width*4) {
+    if (self.scrollView.contentOffset.x > scrollView.frame.size.width*(pageNum - 1)) {
         [self.viewController viewAnimation];
         [UIView animateWithDuration:0.5 animations:^{
             self.alpha = 0.0;
