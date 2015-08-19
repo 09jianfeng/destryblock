@@ -387,7 +387,8 @@
             
         case 2:
         {
-            
+            NSString *appStoreURL = [GameDataGlobal gameGetAppStoreURL];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreURL]];
         }
             break;
             

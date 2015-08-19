@@ -72,15 +72,15 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 
 #pragma mark - 广告相关
 -(BOOL)ymstate{
-    return [MobClick getConfigParams:@"umengCloseym"];
+    return [[MobClick getConfigParams:@"umengCloseym"] boolValue];
 }
 
 -(BOOL)dmstate{
-    return [MobClick getConfigParams:@"umengClosedm"];
+    return [[MobClick getConfigParams:@"umengClosedm"] boolValue];
 }
 
 -(BOOL)wpstate{
-    return [MobClick getConfigParams:@"umengClosewp"];
+    return [[MobClick getConfigParams:@"umengClosewp"] boolValue];
 }
 
 -(void)showymSpot{
@@ -538,5 +538,10 @@ failedLoadWithError:(NSError *)error{
 - (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
                                   withError:(NSError *)error{
     HNLOGINFO(@"获取视频积分出错");
+}
+
+//获取在appStore的链接
++(NSString *)gameGetAppStoreURL{
+    return @"https://itunes.apple.com/us/app/chai-fang-kuai-xiao-chu-xiao/id1003713811";
 }
 @end

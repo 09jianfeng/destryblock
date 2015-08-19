@@ -8,6 +8,7 @@
 
 #import "WeiXinShare.h"
 #import "WXApi.h"
+#import "GameDataGlobal.h"
 
 @interface WeiXinShare()<WXApiDelegate>
 
@@ -59,12 +60,12 @@
 - (void) sendLinkContent:(enum WXScene)scene
 {
     WXMediaMessage *message = [WXMediaMessage message];
-    message.title = @"拆方块（最简陋的消除类游戏，我都懒得吐槽了。自取）";
-    message.description = @"最简陋的消除类游戏，我TM都不想吐槽了";
+    message.title = @"拆方块（很原始的消除游戏）";
+    message.description = @"很简陋朴素的消除类游戏，十字消除的玩法，比手速";
     [message setThumbImage:[UIImage imageNamed:@"Icon.png"]];
     
     WXWebpageObject *ext = [WXWebpageObject object];
-    ext.webpageUrl = @"https://itunes.apple.com/cn/app/du-xiao-shuo-jing-dian-jing-hua/id911315677?mt=8";
+    ext.webpageUrl = [GameDataGlobal gameGetAppStoreURL];
     
     message.mediaObject = ext;
     message.mediaTagName = @"WECHAT_TAG_JUMP_SHOWRANK";

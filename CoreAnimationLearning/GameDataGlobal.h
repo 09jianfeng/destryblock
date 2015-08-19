@@ -69,4 +69,7 @@ extern NSString *NotificationShouldRefreshEnergyLabel;
 //是否购买了去掉广告
 +(BOOL)gameIsNoADS;
 +(void)gameSetIsNOADS;
+
+//获取在appStore的链接
++(NSString *)gameGetAppStoreURL;
 @end
