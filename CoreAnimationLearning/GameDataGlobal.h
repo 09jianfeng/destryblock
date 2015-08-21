@@ -72,4 +72,7 @@ extern NSString *NotificationShouldRefreshEnergyLabel;
 
 //获取在appStore的链接
 +(NSString *)gameGetAppStoreURL;
+
+//是否开启视频广告
++(BOOL)isOpenVideo;
 @end

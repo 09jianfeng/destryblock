@@ -123,6 +123,9 @@
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
     
+    
+    BOOL isOpenVideo = [GameDataGlobal isOpenVideo];
+    
     int imageEnergyWidth = 30;
     int imageEnergyHeigh = 30;
     int imageEnergyInsertRight = 10;
@@ -136,7 +139,9 @@
     
     UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, imageEnergyInsertTop, imageEnergyWidth, imageEnergyHeigh)];
     imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
-    [self.view addSubview:imageViewEnergy];
+    if (isOpenVideo) {
+        [self.view addSubview:imageViewEnergy];
+    }
     
     
     int labelEnergyWidth = 50;
@@ -150,17 +155,22 @@
         labelEnergyLabelFont = 40;
     }
     
+    
     UILabel *labelEnergy = [[UILabel alloc] initWithFrame:CGRectMake(imageViewEnergy.frame.origin.x + imageViewEnergy.frame.size.width, labelEnergyInsert, labelEnergyWidth, labelEnergyHeigh)];
     labelEnergy.tag = 500005;
     labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
     labelEnergy.textColor = [GameDataGlobal getColorInColorType:5];
     labelEnergy.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
-    [self.view addSubview:labelEnergy];
+    if (isOpenVideo) {
+        [self.view addSubview:labelEnergy];
+    }
     
     UIButton *buttonPlayVideo = [[UIButton alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width, labelEnergyInsert, labelEnergyHeigh, labelEnergyHeigh)];
     [buttonPlayVideo setImage:[UIImage imageNamed:@"image_main_video.png"] forState:UIControlStateNormal];
     [buttonPlayVideo addTarget:self action:@selector(buttonPlayVideoPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buttonPlayVideo];
+    if (isOpenVideo) {
+        [self.view addSubview:buttonPlayVideo];
+    }
     
     //执行动画
     [self viewAnimation];

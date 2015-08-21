@@ -113,6 +113,8 @@ static NSString * const reuseIdentifier = @"Cell";
     self.gravity.magnitude = 2;
     [self.animator addBehavior:self.gravity];
     
+    BOOL isOpen = [GameDataGlobal isOpenVideo];
+    
     int imageEnergyWidth = 30;
     int imageEnergyHeigh = 30;
     int imageEnergyInsertRight = 10;
@@ -126,7 +128,9 @@ static NSString * const reuseIdentifier = @"Cell";
     }
     UIImageView *imageViewEnergy = [[UIImageView alloc] initWithFrame:CGRectMake(imageEnergyInsertRight, self.view.frame.size.height- imageEnergyHeigh -imageEnergyInsertTop, imageEnergyWidth, imageEnergyHeigh)];
     imageViewEnergy.image = [UIImage imageNamed:@"image_main_energy.png"];
-    [self.view addSubview:imageViewEnergy];
+    if (isOpen) {
+        [self.view addSubview:imageViewEnergy];
+    }
     
     
     int labelEnergyWidth = 50;
@@ -145,7 +149,9 @@ static NSString * const reuseIdentifier = @"Cell";
     labelEnergy.text = [NSString stringWithFormat:@"X %d",[GameDataGlobal getGameRestEnergy]];
     labelEnergy.textColor = [GameDataGlobal getColorInColorType:5];
     labelEnergy.font = [UIFont fontWithName:@"TrebuchetMS-Bold" size:labelEnergyLabelFont];
-    [self.view addSubview:labelEnergy];
+    if (isOpen) {
+        [self.view addSubview:labelEnergy];
+    }
     
     
     int processViewWidth = 120;
@@ -158,6 +164,15 @@ static NSString * const reuseIdentifier = @"Cell";
         processViewHeigh = 40;
     }
     self.processView = [[UIViewProgress alloc] initWithFrame:CGRectMake(labelEnergy.frame.origin.x + labelEnergy.frame.size.width + processViewInsertRight, self.view.frame.size.height - processViewInsertBottom + processViewHeigh, processViewWidth, processViewHeigh)];
+    if (!isOpen) {
+        if (IsPadUIBlockGame()) {
+            self.processView.frame = CGRectMake(30, self.processView.frame.origin.y, processViewWidth*1.4, self.processView.frame.size.height);
+        }else{
+            self.processView.frame = CGRectMake(10, self.processView.frame.origin.y, processViewWidth*1.8, self.processView.frame.size.height);
+        }
+        
+    }
+    
     self.processView.alpha = 0.5;
     self.processView.progress = 0;
     self.processView.trackColor = [UIColor grayColor];

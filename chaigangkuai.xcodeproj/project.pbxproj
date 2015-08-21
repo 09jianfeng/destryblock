@@ -1165,7 +1165,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = chaigangkuai;
-				PROVISIONING_PROFILE = "c3b80359-780c-4f5d-b986-c18ab7188bdb";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1193,7 +1193,7 @@
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = chaigangkuai;
-				PROVISIONING_PROFILE = "c3b80359-780c-4f5d-b986-c18ab7188bdb";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

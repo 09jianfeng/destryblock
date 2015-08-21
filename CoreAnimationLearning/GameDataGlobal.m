@@ -176,6 +176,10 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 #pragma mark - 体力值
 //消耗体力值
 +(BOOL)reduceGameEnergy:(int)energy{
+    if (![GameDataGlobal isOpenVideo]) {
+        return YES;
+    }
+    
     int restGame = [GameDataGlobal getGameRestEnergy];
     if (energy > restGame) {
         return NO;
@@ -188,17 +192,29 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 
 //增加体力值
 +(void)addGameEnergy:(int)energy{
+    if (![GameDataGlobal isOpenVideo]) {
+        return;
+    }
+    
     int restGame = [GameDataGlobal getGameRestEnergy];
     restGame =  restGame + energy;
     [GameDataGlobal setGameEnergy:restGame];
 }
 
 +(void)setGameEnergy:(int)energy{
+    if (![GameDataGlobal isOpenVideo]) {
+        return;
+    }
+    
     [GameKeyValue setObject:[NSNumber numberWithInt:energy] forKey:GameDataEnergyStorage];
 }
 
 //剩余体力
 +(int)getGameRestEnergy{
+    if (![GameDataGlobal isOpenVideo]) {
+        return 1;
+    }
+    
     int day = [[GameKeyValue objectForKey:GameDataEnergyStorageDay] intValue];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd"];
@@ -543,5 +559,10 @@ failedLoadWithError:(NSError *)error{
 //获取在appStore的链接
 +(NSString *)gameGetAppStoreURL{
     return @"https://itunes.apple.com/us/app/chai-fang-kuai-xiao-chu-xiao/id1003713811";
+}
+
+//是否开启视频广告
++(BOOL)isOpenVideo{
+    return NO;
 }
 @end
