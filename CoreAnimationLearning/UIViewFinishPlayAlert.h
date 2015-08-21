@@ -25,6 +25,7 @@
 @property(nonatomic,assign) int starNum;
 @property(nonatomic,assign) BOOL isSuccess;
 @property(nonatomic,assign) BOOL isTimesup;
+@property(nonatomic,assign) int gameIndex;
 
 -(void)showView;
 -(void)beginStarImageAnimator;

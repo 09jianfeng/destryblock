@@ -228,6 +228,7 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.score = self.Allpoints;
     finish.total = [GameDataGlobal getAllBlockenBlocks];
     finish.isStop = YES;
+    finish.gameIndex = _gameLevelIndex;
     finish.tag = 3000;
     [self.view addSubview:finish];
     finish.delegate = self;
@@ -267,6 +268,7 @@ static NSString * const reuseIdentifier = @"Cell";
     finish.target = [_gameAlgorithm getAllValueBlockNum];
     finish.score = self.Allpoints;
     finish.total = [GameDataGlobal getAllBlockenBlocks];
+    finish.gameIndex = _gameLevelIndex;
     // !!!: 成功过关
     if (self.Allpoints >= [_gameAlgorithm getAllValueBlockNum]) {
         [LevelAndUserInfo passLevel:_gameLevelIndex points:_Allpoints startNum:self.starNum];

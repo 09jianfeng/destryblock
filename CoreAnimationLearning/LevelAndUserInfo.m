@@ -98,17 +98,18 @@ static int  levelAllNum=60;
     [GameKeyValue synchronize];
 }
 
-//0 没有通过，1、2、3分别表示几颗星
-+(int)isPassLevel:(int)levelIndex{
-    NSArray *arraylevelInfo = [GameKeyValue objectForKey:levelinfo];
-    if (!arraylevelInfo) {
-        return 0;
++(BOOL)isPassLevel:(int)levelIndex{
+    BOOL isPass = NO;
+    
+    NSArray *_arrayGuanka = _arrayGuanka = [[LevelAndUserInfo shareInstance] arrayLevelInfos];
+    NSDictionary *dicLevelInfos = [_arrayGuanka objectAtIndex:levelIndex];
+    int startNum = [[dicLevelInfos objectForKey:levelinfoStarNum] intValue];
+    if (startNum >= 0) {
+        isPass = YES;
+    }else{
+        isPass = NO;
     }
-    
-    NSDictionary *levelInfoa = [arraylevelInfo objectAtIndex:levelIndex];
-    int starNum = [[levelInfoa objectForKey:levelinfoStarNum] intValue];
-    
-    return starNum;
+    return isPass;
 }
 
 //返回剩余的体力值

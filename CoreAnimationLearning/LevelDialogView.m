@@ -337,8 +337,8 @@ extern NSString *playingViewExitNotification;
         return;
     }
     
-    //已经通过了的关不需要体力
-    if(score == 1){
+    //已经通过了的关不需要体力，starNum为－1的是下一关可以玩的
+    if(starNum == -1){
         [GameDataGlobal reduceGameEnergy:1];
     }
     

@@ -13,6 +13,7 @@
 #import "CustomButton.h"
 #import "macro.h"
 #import "DialogViewEnergy.h"
+#import "LevelAndUserInfo.h"
 
 @interface UIViewFinishPlayAlert()
 @property(nonatomic,retain) UIDynamicAnimator *ani;
@@ -463,12 +464,14 @@
         }];
     }
     else if(_isSuccess){
-        if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
-            DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
-            [dialogEnergy show];
-            return;
+        if (![LevelAndUserInfo isPassLevel:_gameIndex+1]) {
+            if ([GameDataGlobal getGameRestEnergy] <= 0 ) {
+                DialogViewEnergy *dialogEnergy = [[DialogViewEnergy alloc] init];
+                [dialogEnergy show];
+                return;
+            }
+            [GameDataGlobal reduceGameEnergy:1];
         }
-        [GameDataGlobal reduceGameEnergy:1];
         
         [GameDataGlobal playAudioSwitch];
         [self.ani removeAllBehaviors];
