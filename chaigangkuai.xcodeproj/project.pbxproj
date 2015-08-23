@@ -128,6 +128,17 @@
 		788437221B6DA92300967239 /* music_timeup.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 788437211B6DA92300967239 /* music_timeup.mp3 */; };
 		788437241B6DB6DD00967239 /* music_level.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 788437231B6DB6DD00967239 /* music_level.mp3 */; };
 		7885FF7E1B6E66A800BF3AE7 /* image_main_video.png in Resources */ = {isa = PBXBuildFile; fileRef = 7885FF7D1B6E66A800BF3AE7 /* image_main_video.png */; };
+		789CBDF31B8A8BAA00F40A84 /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDEF1B8A8BAA00F40A84 /* Icon-60.png */; };
+		789CBDF41B8A8BAA00F40A84 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDF01B8A8BAA00F40A84 /* Icon-60@2x.png */; };
+		789CBDF51B8A8BAA00F40A84 /* Icon-76.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDF11B8A8BAA00F40A84 /* Icon-76.png */; };
+		789CBDF61B8A8BAA00F40A84 /* Icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDF21B8A8BAA00F40A84 /* Icon-76@2x.png */; };
+		789CBDF91B8A8D8D00F40A84 /* Icon-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDF71B8A8D8D00F40A84 /* Icon-120.png */; };
+		789CBDFA1B8A8D8D00F40A84 /* Icon-152.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDF81B8A8D8D00F40A84 /* Icon-152.png */; };
+		789CBE001B8A91BB00F40A84 /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDFB1B8A91BB00F40A84 /* Icon-40.png */; };
+		789CBE011B8A91BB00F40A84 /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDFC1B8A91BB00F40A84 /* Icon-40@2x.png */; };
+		789CBE021B8A91BB00F40A84 /* Icon-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDFD1B8A91BB00F40A84 /* Icon-40@3x.png */; };
+		789CBE031B8A91BB00F40A84 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDFE1B8A91BB00F40A84 /* Icon-60@3x.png */; };
+		789CBE041B8A91BB00F40A84 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 789CBDFF1B8A91BB00F40A84 /* Icon-Small@3x.png */; };
 		78A02A911B6CC84400852F29 /* music_firework_explot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78A02A891B6CC84400852F29 /* music_firework_explot.mp3 */; };
 		78A02A921B6CC84400852F29 /* music_firework_shot.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78A02A8A1B6CC84400852F29 /* music_firework_shot.mp3 */; };
 		78A02A931B6CC84400852F29 /* music_num_add.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78A02A8B1B6CC84400852F29 /* music_num_add.mp3 */; };
@@ -325,6 +336,17 @@
 		788437211B6DA92300967239 /* music_timeup.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_timeup.mp3; sourceTree = "<group>"; };
 		788437231B6DB6DD00967239 /* music_level.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_level.mp3; sourceTree = "<group>"; };
 		7885FF7D1B6E66A800BF3AE7 /* image_main_video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_main_video.png; sourceTree = "<group>"; };
+		789CBDEF1B8A8BAA00F40A84 /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60.png"; path = "icon/Icon-60.png"; sourceTree = SOURCE_ROOT; };
+		789CBDF01B8A8BAA00F40A84 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "icon/Icon-60@2x.png"; sourceTree = SOURCE_ROOT; };
+		789CBDF11B8A8BAA00F40A84 /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76.png"; path = "icon/Icon-76.png"; sourceTree = SOURCE_ROOT; };
+		789CBDF21B8A8BAA00F40A84 /* Icon-76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-76@2x.png"; path = "icon/Icon-76@2x.png"; sourceTree = SOURCE_ROOT; };
+		789CBDF71B8A8D8D00F40A84 /* Icon-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-120.png"; path = "icon/Icon-120.png"; sourceTree = SOURCE_ROOT; };
+		789CBDF81B8A8D8D00F40A84 /* Icon-152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-152.png"; path = "icon/Icon-152.png"; sourceTree = SOURCE_ROOT; };
+		789CBDFB1B8A91BB00F40A84 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "icon/Icon-40.png"; sourceTree = SOURCE_ROOT; };
+		789CBDFC1B8A91BB00F40A84 /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40@2x.png"; path = "icon/Icon-40@2x.png"; sourceTree = SOURCE_ROOT; };
+		789CBDFD1B8A91BB00F40A84 /* Icon-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40@3x.png"; path = "icon/Icon-40@3x.png"; sourceTree = SOURCE_ROOT; };
+		789CBDFE1B8A91BB00F40A84 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@3x.png"; path = "icon/Icon-60@3x.png"; sourceTree = SOURCE_ROOT; };
+		789CBDFF1B8A91BB00F40A84 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-Small@3x.png"; path = "icon/Icon-Small@3x.png"; sourceTree = SOURCE_ROOT; };
 		78A02A891B6CC84400852F29 /* music_firework_explot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_firework_explot.mp3; sourceTree = "<group>"; };
 		78A02A8A1B6CC84400852F29 /* music_firework_shot.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_firework_shot.mp3; sourceTree = "<group>"; };
 		78A02A8B1B6CC84400852F29 /* music_num_add.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_num_add.mp3; sourceTree = "<group>"; };
@@ -566,6 +588,17 @@
 		783E47411B5211D200CE6963 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				789CBDFB1B8A91BB00F40A84 /* Icon-40.png */,
+				789CBDFC1B8A91BB00F40A84 /* Icon-40@2x.png */,
+				789CBDFD1B8A91BB00F40A84 /* Icon-40@3x.png */,
+				789CBDFE1B8A91BB00F40A84 /* Icon-60@3x.png */,
+				789CBDFF1B8A91BB00F40A84 /* Icon-Small@3x.png */,
+				789CBDF71B8A8D8D00F40A84 /* Icon-120.png */,
+				789CBDF81B8A8D8D00F40A84 /* Icon-152.png */,
+				789CBDEF1B8A8BAA00F40A84 /* Icon-60.png */,
+				789CBDF01B8A8BAA00F40A84 /* Icon-60@2x.png */,
+				789CBDF11B8A8BAA00F40A84 /* Icon-76.png */,
+				789CBDF21B8A8BAA00F40A84 /* Icon-76@2x.png */,
 				783E47421B5211DE00CE6963 /* Icon-72.png */,
 				783E47431B5211DE00CE6963 /* Icon-72@2x.png */,
 				783E47441B5211DE00CE6963 /* Icon-Small-50.png */,
@@ -913,13 +946,17 @@
 				78A02A961B6CC84400852F29 /* music_star_2.mp3 in Resources */,
 				785D87C81B3FF62200F9E680 /* image_+6.png in Resources */,
 				7832568D1B2F22F3007178D4 /* image_play.png in Resources */,
+				789CBE011B8A91BB00F40A84 /* Icon-40@2x.png in Resources */,
 				783E47561B5211DE00CE6963 /* iTunesArtwork@2x.png in Resources */,
 				7882DD8F1B2DAF5C0049A296 /* image_lockClose.png in Resources */,
+				789CBDF61B8A8BAA00F40A84 /* Icon-76@2x.png in Resources */,
 				786FDF171B665C06001EC411 /* hn_logo_bright.png in Resources */,
 				783E474D1B5211DE00CE6963 /* Icon-72.png in Resources */,
 				78735F3B1B5E72BD0041846E /* image_intro_1.png in Resources */,
 				783E47521B5211DE00CE6963 /* Icon-Small@2x.png in Resources */,
+				789CBE041B8A91BB00F40A84 /* Icon-Small@3x.png in Resources */,
 				78B7903F1B6F9A3000CE1CF7 /* image_main_energy.png in Resources */,
+				789CBDF91B8A8D8D00F40A84 /* Icon-120.png in Resources */,
 				786FDF191B665C06001EC411 /* hn_star_full.png in Resources */,
 				7882DD941B2DC3E50049A296 /* image_paiming.png in Resources */,
 				788437241B6DB6DD00967239 /* music_level.mp3 in Resources */,
@@ -927,8 +964,10 @@
 				78735F3D1B5E72BD0041846E /* image_intro_3.png in Resources */,
 				783E47541B5211DE00CE6963 /* Icon@2x.png in Resources */,
 				78735F3E1B5E72BD0041846E /* image_intro_4.png in Resources */,
+				789CBE031B8A91BB00F40A84 /* Icon-60@3x.png in Resources */,
 				788437221B6DA92300967239 /* music_timeup.mp3 in Resources */,
 				786FDF131B665C06001EC411 /* hn_btn_download.png in Resources */,
+				789CBE001B8A91BB00F40A84 /* Icon-40.png in Resources */,
 				783E473C1B51FBB500CE6963 /* image_setting_3.png in Resources */,
 				781FF6771B4C1C7800C03D4E /* image_setting_2.png in Resources */,
 				78B1C3681B64A418009CB13F /* music_3.mp3 in Resources */,
@@ -943,6 +982,8 @@
 				786FDF151B665C06001EC411 /* hn_btn_sound_close.png in Resources */,
 				780D30931B22F83F0038FF26 /* image_leaf.png in Resources */,
 				782C6A0E1B3666B600A56A9C /* image_result_star_2.png in Resources */,
+				789CBE021B8A91BB00F40A84 /* Icon-40@3x.png in Resources */,
+				789CBDF41B8A8BAA00F40A84 /* Icon-60@2x.png in Resources */,
 				7882DD961B2DD32F0049A296 /* image_share.png in Resources */,
 				783E474E1B5211DE00CE6963 /* Icon-72@2x.png in Resources */,
 				78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */,
@@ -956,11 +997,13 @@
 				7860DFC01B383BCF0024D2B5 /* image_snow1.png in Resources */,
 				783E47501B5211DE00CE6963 /* Icon-Small-50@2x.png in Resources */,
 				782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */,
+				789CBDFA1B8A8D8D00F40A84 /* Icon-152.png in Resources */,
 				7860DFBB1B37FCF90024D2B5 /* image_DazRing.png in Resources */,
 				786FDF0E1B665C06001EC411 /* hn_btn_big.png in Resources */,
 				783256931B2F2AB9007178D4 /* image_setting_1_open.png in Resources */,
 				786FDF0F1B665C06001EC411 /* hn_btn_black_close.png in Resources */,
 				786FDF141B665C06001EC411 /* hn_btn_small.png in Resources */,
+				789CBDF31B8A8BAA00F40A84 /* Icon-60.png in Resources */,
 				78A02A921B6CC84400852F29 /* music_firework_shot.mp3 in Resources */,
 				782EFAA61B495CCE00DBA5A9 /* image_baseViewDialog.png in Resources */,
 				786FDF161B665C06001EC411 /* hn_btn_sound_open.png in Resources */,
@@ -970,6 +1013,7 @@
 				783E47531B5211DE00CE6963 /* Icon.png in Resources */,
 				78A02A941B6CC84400852F29 /* music_screen_switch.mp3 in Resources */,
 				7832568F1B2F277A007178D4 /* image_noads.png in Resources */,
+				789CBDF51B8A8BAA00F40A84 /* Icon-76.png in Resources */,
 				78735F461B5E7F4D0041846E /* image_intro_detail_1.png in Resources */,
 				78B1C36F1B64C6FA009CB13F /* music_click.mp3 in Resources */,
 				783256921B2F2AB9007178D4 /* image_setting_1.png in Resources */,
