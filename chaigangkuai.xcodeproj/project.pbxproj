@@ -65,6 +65,7 @@
 		784E5DCA1B3CCC69006FB684 /* KYSpringLayerAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC21B3CCC69006FB684 /* KYSpringLayerAnimation.m */; };
 		784E5DCB1B3CCC69006FB684 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC41B3CCC69006FB684 /* Line.m */; };
 		784E5DCC1B3CCC69006FB684 /* RotateRect.m in Sources */ = {isa = PBXBuildFile; fileRef = 784E5DC61B3CCC69006FB684 /* RotateRect.m */; };
+		785A5A6F1B89A1A000BBBB0E /* GameKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 785A5A6E1B89A1A000BBBB0E /* GameKeychain.m */; };
 		785D87C61B3FF62200F9E680 /* image_+2.png in Resources */ = {isa = PBXBuildFile; fileRef = 785D87C31B3FF62200F9E680 /* image_+2.png */; };
 		785D87C71B3FF62200F9E680 /* image_+4.png in Resources */ = {isa = PBXBuildFile; fileRef = 785D87C41B3FF62200F9E680 /* image_+4.png */; };
 		785D87C81B3FF62200F9E680 /* image_+6.png in Resources */ = {isa = PBXBuildFile; fileRef = 785D87C51B3FF62200F9E680 /* image_+6.png */; };
@@ -247,6 +248,8 @@
 		784E5DC41B3CCC69006FB684 /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Line.m; path = animatePageControl/Line.m; sourceTree = "<group>"; };
 		784E5DC51B3CCC69006FB684 /* RotateRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateRect.h; path = animatePageControl/RotateRect.h; sourceTree = "<group>"; };
 		784E5DC61B3CCC69006FB684 /* RotateRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotateRect.m; path = animatePageControl/RotateRect.m; sourceTree = "<group>"; };
+		785A5A6D1B89A1A000BBBB0E /* GameKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKeychain.h; sourceTree = "<group>"; };
+		785A5A6E1B89A1A000BBBB0E /* GameKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKeychain.m; sourceTree = "<group>"; };
 		785D87C31B3FF62200F9E680 /* image_+2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_+2.png"; sourceTree = "<group>"; };
 		785D87C41B3FF62200F9E680 /* image_+4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_+4.png"; sourceTree = "<group>"; };
 		785D87C51B3FF62200F9E680 /* image_+6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_+6.png"; sourceTree = "<group>"; };
@@ -433,6 +436,8 @@
 		780E17631AEE7D64007A4A88 /* systemInfoAndStorage */ = {
 			isa = PBXGroup;
 			children = (
+				785A5A6D1B89A1A000BBBB0E /* GameKeychain.h */,
+				785A5A6E1B89A1A000BBBB0E /* GameKeychain.m */,
 				78E260901B1ACB5D00EB9F3E /* macro.h */,
 				78CC362E1AF673AA00033213 /* GameKeyValue.h */,
 				78CC362F1AF673AA00033213 /* GameKeyValue.m */,
@@ -1020,6 +1025,7 @@
 				783E475A1B5A351C00CE6963 /* GameIntroductionView.m in Sources */,
 				784E5DCB1B3CCC69006FB684 /* Line.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
+				785A5A6F1B89A1A000BBBB0E /* GameKeychain.m in Sources */,
 				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
 				784E5DC81B3CCC69006FB684 /* Indicator.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,

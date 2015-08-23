@@ -7,8 +7,10 @@
 //
 
 #import "GameKeyValue.h"
+#import "GameKeychain.h"
 
 static NSString *const kGameKeyValueFileName = @"Game.dict";
+static NSString *const kGameKeyChainK = @"kGameKeyChainK";
 
 @interface GameKeyValue()
 
@@ -181,10 +183,17 @@ static NSString *const kGameKeyValueFileName = @"Game.dict";
 }
 
 + (NSObject*)deserializeObjectAtPath:(NSString*)path {
+    NSData *data = nil;
     // 如果文件不存在 则 返回nil
-    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) return nil;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+        data = Gameload(kGameKeyChainK);
+        if (!data) {
+            return nil;
+        }
+    }else{
+        data = [NSData dataWithContentsOfFile:path];
+    }
     
-    NSData *data = [NSData dataWithContentsOfFile:path];
     NSObject *obj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
     
     return obj;
@@ -217,6 +226,7 @@ static NSString *const kGameKeyValueFileName = @"Game.dict";
         [GameKeyValue deleteFile:path];
     }
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:obj];
+    Gamesave(kGameKeyChainK, data);
     [data writeToFile:path atomically:YES];
 }
 

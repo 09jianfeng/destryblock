@@ -29,6 +29,7 @@ static NSString *GameDataIsVoiceClose = @"GameDataIsVoiceClose";
 static NSString *GameDataEnergyStorage = @"GameDataEnergyStorage";
 static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
 static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
+static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
 @interface GameDataGlobal()<IndependentVideoManagerDelegate,DMInterstitialAdControllerDelegate>
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
@@ -70,7 +71,7 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
     return self;
 }
 
-#pragma mark - 广告相关
+#pragma mark - 友盟
 -(BOOL)ymstate{
     return [[MobClick getConfigParams:@"umengCloseym"] boolValue];
 }
@@ -81,6 +82,11 @@ static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 
 -(BOOL)wpstate{
     return [[MobClick getConfigParams:@"umengClosewp"] boolValue];
+}
+
+//0无效 1打开 2关闭
+-(int)videoOpen{
+    return [[MobClick getConfigParams:@"umengIsOpenVideo"] intValue];
 }
 
 -(void)showymSpot{
@@ -563,6 +569,26 @@ failedLoadWithError:(NSError *)error{
 
 //是否开启视频广告
 +(BOOL)isOpenVideo{
+    int isUmOpenVideo = [[GameDataGlobal shareInstance] videoOpen];
+    if (isUmOpenVideo == 1) {
+        return YES;
+    }else if(isUmOpenVideo == 2){
+        return NO;
+    }
+    
+    NSString *isOpenVideo = [GameKeyValue objectForKey:GameDataOpenVideoKey];
+    if (isOpenVideo) {
+        return YES;
+    }
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"MMdd";
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    int dateInt = [dateString intValue];
+    if (dateInt > 910) {
+        [GameKeyValue setObject:@"YES" forKey:GameDataOpenVideoKey];
+        return YES;
+    }
     return NO;
 }
 @end
