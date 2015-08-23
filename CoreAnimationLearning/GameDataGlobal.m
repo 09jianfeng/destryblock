@@ -93,15 +93,17 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     HNLOGINFO(@"展示有米插屏");
     [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
         if (!isShow) {
-            [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-            HNLOGINFO(@"展示wanpu插屏");
+            [self showwpSpot];
         }
     }];
 }
 
 -(void)showwpSpot{
-    [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-    HNLOGINFO(@"展示wanpu插屏");
+    NSDictionary *onlineParame = [CSConnect getConfigItems];
+    if (onlineParame.count > 0) {
+        [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+        HNLOGINFO(@"展示wanpu插屏");
+    }
 
 }
 
