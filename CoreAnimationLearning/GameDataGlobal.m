@@ -17,6 +17,7 @@
 #import "macro.h"
 #import "MobClick.h"
 #import <CSLib/CSConnect.h>
+#import "GameReachability.h"
 
 //视频播放完成，成功给用户结算后
 NSString *NotificationShouldRefreshEnergyLabel = @"NotificationShouldRefreshEnergyLabel";
@@ -35,6 +36,8 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioMain;
 @property(nonatomic,retain) IndependentVideoManager *independvideo;
+@property(nonatomic, assign) BOOL isConnectWifi;
+@property(nonatomic, retain) GameReachability *gameReachabi;
 @end
 
 @implementation GameDataGlobal
@@ -55,6 +58,18 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         BOOL isVoiceCLose = [[GameKeyValue objectForKey:GameDataIsVoiceClose] boolValue];
         self.gameVoiceClose = isVoiceCLose;
         
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(_reachabilityChanged:)
+                                                     name: GamekReachabilityChangedNotification
+                                                   object: nil];
+        self.gameReachabi = [GameReachability reachabilityWithHostName:@"www.baidu.com"];
+        [self.gameReachabi startNotifier];
+        GameNetworkStatus netWorkStatus = [self.gameReachabi currentReachabilityStatus];
+        if (netWorkStatus == GameReachableViaWiFi) {
+            self.isConnectWifi = YES;
+        }
+        
         //youmispot
         [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
         [NewWorldSpt initQQWDeveLoper:0];
@@ -69,6 +84,41 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         [CSConnect initCP];
     }
     return self;
+}
+
+- (void)_reachabilityChanged:(NSNotification *)note {
+    GameReachability* curReach = [note object];
+    // 基本没可能
+    if(![curReach isKindOfClass: [GameReachability class]]) return;
+    NSString *accessPointName= [[self _accessPointNameForStatus:[curReach currentReachabilityStatus]] copy];
+    
+    GameNetworkStatus status = [curReach currentReachabilityStatus];
+    if (status == GameReachableViaWiFi) {
+        self.isConnectWifi = YES;
+    }else{
+        self.isConnectWifi = NO;
+    }
+    
+    HNLOGINFO(@"网络发生改变:%@", accessPointName);
+}
+
+- (NSString *)_accessPointNameForStatus:(GameNetworkStatus)status {
+    NSString *name = nil;
+    switch (status) {
+        case GamekNotReachable:
+            name = [NSString stringWithFormat:@"%@", @"None"];
+            break;
+        case GamekReachableViaWWAN:
+            name = [NSString stringWithFormat:@"%@", @"GPRS|3G"];
+            break;
+        case GamekReachableViaWiFi:
+            name = [NSString stringWithFormat:@"%@", @"WiFi"];
+            break;
+        default:
+            name = [NSString stringWithFormat:@"%@", @"None"];
+            break;
+    }
+    return name;
 }
 
 #pragma mark - 友盟
@@ -99,8 +149,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 }
 
 -(void)showwpSpot{
-    NSDictionary *onlineParame = [CSConnect getConfigItems];
-    if (onlineParame.count > 0) {
+    if (self.isConnectWifi) {
         [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
         HNLOGINFO(@"展示wanpu插屏");
     }

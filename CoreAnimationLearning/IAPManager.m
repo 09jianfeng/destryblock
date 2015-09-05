@@ -14,7 +14,7 @@
 #import "ActivityIndicator.h"
 #import "macro.h"
 
-#define ProductID  @"1002"
+#define ProductID  @"1005"
 
 @interface IAPManager()
 @end

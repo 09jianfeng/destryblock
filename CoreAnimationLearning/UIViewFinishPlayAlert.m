@@ -313,7 +313,7 @@
         [fireworksEmitter setValue:[NSNumber numberWithFloat:0.0] forKeyPath:@"emitterCells.rocketName.birthRate"];
         self.isPlayAnimation = NO;
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[GameDataGlobal shareInstance] showSpot];
         });
     });
