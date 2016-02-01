@@ -288,7 +288,7 @@
 		784703241C5F458000F002DB /* Chlip_web_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Chlip_web_close.png; path = thirdPart/zhangyin/video/Chlip_web_close.png; sourceTree = "<group>"; };
 		784703251C5F458000F002DB /* Chlip_web_more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Chlip_web_more.png; path = thirdPart/zhangyin/video/Chlip_web_more.png; sourceTree = "<group>"; };
 		784703271C5F458000F002DB /* videoSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = videoSDK.a; path = thirdPart/zhangyin/video/videoSDK.a; sourceTree = "<group>"; };
-		784703441C5F459200F002DB /* ChlipMobiVideoAd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ChlipMobiVideoAd.h; path = thirdPart/zhangyin/video/include/ChlipMobiVideoAd.h; sourceTree = "<group>"; };
+		784703461C5F59C400F002DB /* HuuuaMobiVideoAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HuuuaMobiVideoAd.h; path = thirdPart/zhangyin/video/include/HuuuaMobiVideoAd.h; sourceTree = "<group>"; };
 		784E5DBB1B3CCC69006FB684 /* GooeyCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GooeyCircle.h; path = animatePageControl/GooeyCircle.h; sourceTree = "<group>"; };
 		784E5DBC1B3CCC69006FB684 /* GooeyCircle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GooeyCircle.m; path = animatePageControl/GooeyCircle.m; sourceTree = "<group>"; };
 		784E5DBD1B3CCC69006FB684 /* Indicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Indicator.h; path = animatePageControl/Indicator.h; sourceTree = "<group>"; };
@@ -754,7 +754,7 @@
 				784703231C5F458000F002DB /* Chlip_sound.png */,
 				784703241C5F458000F002DB /* Chlip_web_close.png */,
 				784703251C5F458000F002DB /* Chlip_web_more.png */,
-				784703441C5F459200F002DB /* ChlipMobiVideoAd.h */,
+				784703461C5F59C400F002DB /* HuuuaMobiVideoAd.h */,
 				784703271C5F458000F002DB /* videoSDK.a */,
 			);
 			name = zhangying;
@@ -1242,7 +1242,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chen Bo (N629B89TN9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1273,7 +1273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Chen Bo (N629B89TN9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

@@ -16,7 +16,7 @@
 #import "MobClick.h"
 #import <CSLib/CSConnect.h>
 #import "GameReachability.h"
-#import "ChlipMobiVideoAd.h"
+#import "HuuuaMobiVideoAd.h"
 
 #define GAME_CENTER_SCORE_ID @"1002"
 #define GAME_CENTER_GUANKA_ID @"1001"
@@ -152,13 +152,13 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
     //掌盈视频
-    [ChlipMobiVideoAd ChlipInitAppID:@"40e2193aeb056059" ChlipAppKey:@"800b3ab3a9e489b8"];
+    [HuuuaMobiVideoAd HuuuaInitAppID:@"40e2193aeb056059" HuuuaAppKey:@"800b3ab3a9e489b8"];
     
-    [ChlipMobiVideoAd ChlipVideoHasCanPlayVideo:^(int isHaveVideoStatue) {
-        if (!isHaveVideoStatue) {
+    [HuuuaMobiVideoAd HuuuaVideoHasCanPlayVideo:^(int isHaveVideoStatue) {
+        if (isHaveVideoStatue) {
             [self showdmVideo];
         }else{
-            [ChlipMobiVideoAd ChlipVideoPlay:rootViewController ChlipVideoPlayFinishCallBackBlock:
+            [HuuuaMobiVideoAd HuuuaVideoPlay:rootViewController HuuuaVideoPlayFinishCallBackBlock:
              ^(BOOL isFinish){
                  if (isFinish) {
                      [GameDataGlobal addGameEnergy:5];
@@ -166,7 +166,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
                  }
                  
                  [GameDataGlobal playAudioMainMusic];
-             } ChlipVideoPlayConfigCallBackBlock:^(BOOL isLegal){
+             } HuuuaVideoPlayConfigCallBackBlock:^(BOOL isLegal){
              }];
         }
     }];
