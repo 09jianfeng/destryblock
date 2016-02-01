@@ -436,7 +436,7 @@
 }
 
 -(void)buttonNoADSPress:(id)sender{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"是否确定用“$1”去掉游戏内广告" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"购买",@"恢复", nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"过了第36关就能去掉游戏内广告" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
     [alert show];
     [GameDataGlobal playAudioIsCorrect:5];
 }

@@ -10,18 +10,20 @@
 #import "GameKeyValue.h"
 #import "GameCenter.h"
 #import <AVFoundation/AVFoundation.h>
-#import "CocoBVideo.h"
-#import "NewWorldSpt.h"
 #import "IndependentVideoManager.h"
 #import "DMInterstitialAdController.h"
 #import "macro.h"
 #import "MobClick.h"
 #import <CSLib/CSConnect.h>
 #import "GameReachability.h"
+#import "ChlipMobiVideoAd.h"
+
+#define GAME_CENTER_SCORE_ID @"1002"
+#define GAME_CENTER_GUANKA_ID @"1001"
+#define GAME_CENTER_PERFECT_ACHIVEMENT @"1004"
 
 //视频播放完成，成功给用户结算后
 NSString *NotificationShouldRefreshEnergyLabel = @"NotificationShouldRefreshEnergyLabel";
-
 static NSString *GameDataGlobalKEY = @"GameDataGlobalKEY";
 static NSString *GameDataIsFirstInstall = @"GameDataIsFirstInstall";
 static NSString *GameDataIsNOADS = @"GameDataIsNOADS";
@@ -69,10 +71,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         if (netWorkStatus == GameReachableViaWiFi) {
             self.isConnectWifi = YES;
         }
-        
-        //youmispot
-        [NewWorldSpt initQQWDeveloperParams:@"40e2193aeb056059" QQ_SecretId:@"800b3ab3a9e489b8"];
-        [NewWorldSpt initQQWDeveLoper:0];
         
         //友盟统计
         [MobClick startWithAppkey:@"55bb39d367e58e305600131d"];
@@ -141,11 +139,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
 -(void)showymSpot{
     HNLOGINFO(@"展示有米插屏");
-    [NewWorldSpt showQQWSPTAction:^(BOOL isShow){
-        if (!isShow) {
-            [self showwpSpot];
-        }
-    }];
 }
 
 -(void)showwpSpot{
@@ -153,30 +146,35 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
         HNLOGINFO(@"展示wanpu插屏");
     }
-
 }
 
 -(void)showymVideo{
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    //掌盈视频
+    [ChlipMobiVideoAd ChlipInitAppID:@"40e2193aeb056059" ChlipAppKey:@"800b3ab3a9e489b8"];
     
-    [CocoBVideo cBVideoInitWithAppID:@"40e2193aeb056059" cBVideoAppIDSecret:@"800b3ab3a9e489b8"];
-    [CocoBVideo cBVideoPlay:rootViewController cBVideoPlayFinishCallBackBlock:
-     ^(BOOL isFinish){
-         if (isFinish) {
-             [GameDataGlobal addGameEnergy:5];
-             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
-         }
-         
-         [GameDataGlobal playAudioMainMusic];
-     } cBVideoPlayConfigCallBackBlock:^(BOOL isLegal){
-     }];
+    [ChlipMobiVideoAd ChlipVideoHasCanPlayVideo:^(int isHaveVideoStatue) {
+        if (!isHaveVideoStatue) {
+            [self showdmVideo];
+        }else{
+            [ChlipMobiVideoAd ChlipVideoPlay:rootViewController ChlipVideoPlayFinishCallBackBlock:
+             ^(BOOL isFinish){
+                 if (isFinish) {
+                     [GameDataGlobal addGameEnergy:5];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
+                 }
+                 
+                 [GameDataGlobal playAudioMainMusic];
+             } ChlipVideoPlayConfigCallBackBlock:^(BOOL isLegal){
+             }];
+        }
+    }];
 }
 
 -(void)showdmVideo{
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    
     self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
     [self.independvideo presentIndependentVideoWithViewController:rootViewController];
     self.independvideo.delegate = self;
@@ -389,7 +387,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     [GameKeyValue setObject:[NSNumber numberWithInt:allBlocksPre] forKey:GameDataGlobalKEY];
     [GameKeyValue synchronize];
     GameCenter *gameCenter = [[GameCenter alloc] init];
-    [gameCenter reportScore:allBlocksPre forCategory:@"1002"];
+    [gameCenter reportScore:allBlocksPre forCategory:GAME_CENTER_SCORE_ID];
 }
 
 //上报过关的关数
@@ -401,13 +399,13 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     
     [GameKeyValue setObject:[NSNumber numberWithInt:guanka] forKey:GameDataBestRecordGuanka];
     GameCenter *gameCenter = [[GameCenter alloc] init];
-    [gameCenter reportScore:guanka forCategory:@"1001"];
+    [gameCenter reportScore:guanka forCategory:GAME_CENTER_GUANKA_ID];
     [GameDataGlobal addGameEnergy:1];
 }
 
 +(void)sendPerfectAchivement{
     GameCenter *gameCenter = [[GameCenter alloc] init];
-    [gameCenter reportAchievementIdentifier:@"1004" percentComplete:100.0];
+    [gameCenter reportAchievementIdentifier:GAME_CENTER_PERFECT_ACHIVEMENT percentComplete:100.0];
 }
 
 +(int)getAllBlockenBlocks{
@@ -622,6 +620,7 @@ failedLoadWithError:(NSError *)error{
 +(BOOL)isOpenVideo{
     int isUmOpenVideo = [[GameDataGlobal shareInstance] videoOpen];
     if (isUmOpenVideo == 1) {
+        [GameKeyValue setObject:@"1" forKey:GameDataOpenVideoKey];
         return YES;
     }else if(isUmOpenVideo == 2){
         return NO;
@@ -632,14 +631,6 @@ failedLoadWithError:(NSError *)error{
         return YES;
     }
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"MMdd";
-    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
-    int dateInt = [dateString intValue];
-    if (dateInt > 910) {
-        [GameKeyValue setObject:@"YES" forKey:GameDataOpenVideoKey];
-        return YES;
-    }
     return NO;
 }
 @end
