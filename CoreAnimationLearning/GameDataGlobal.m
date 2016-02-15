@@ -14,7 +14,7 @@
 #import "DMInterstitialAdController.h"
 #import "macro.h"
 #import "MobClick.h"
-#import <CSLib/CSConnect.h>
+#import "JOYConnect.h"
 #import "GameReachability.h"
 #import "HuuuaMobiVideoAd.h"
 
@@ -78,8 +78,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         [MobClick updateOnlineConfig];
         
         //万普插屏广告
-        [CSConnect getConnect:@"78e3ea487a0c8fe25a3ee5fda12e6662"];
-        [CSConnect initCP];
+        [JOYConnect getConnect:@"78e3ea487a0c8fe25a3ee5fda12e6662"];
     }
     return self;
 }
@@ -143,7 +142,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
 -(void)showwpSpot{
     if (self.isConnectWifi) {
-        [CSConnect showCP:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
+        [JOYConnect showPop:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
         HNLOGINFO(@"展示wanpu插屏");
     }
 }
@@ -215,12 +214,12 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
             if (![self wpstate]) {
                 [self showwpSpot];
             }else{
-                [self showymSpot];
+                [self showwpSpot];
             }
         //有米
         }else if(ran == 0){
             if (![self ymstate]) {
-                [self showymSpot];
+                [self showwpSpot];
             }else{
                 [self showwpSpot];
             }

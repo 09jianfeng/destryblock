@@ -102,6 +102,7 @@
 		7860DFC01B383BCF0024D2B5 /* image_snow1.png in Resources */ = {isa = PBXBuildFile; fileRef = 7860DFBF1B383BCF0024D2B5 /* image_snow1.png */; };
 		7860DFC51B383BDE0024D2B5 /* CustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7860DFC21B383BDE0024D2B5 /* CustomButton.m */; };
 		7860DFC61B383BDE0024D2B5 /* EmitterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7860DFC41B383BDE0024D2B5 /* EmitterView.m */; };
+		7869EE931C71C8F7004030BE /* apilib_s.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7869EE911C71C8F7004030BE /* apilib_s.a */; };
 		786FDEEE1B66485A001EC411 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEED1B66485A001EC411 /* CoreTelephony.framework */; };
 		786FDEF01B664861001EC411 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEEF1B664861001EC411 /* MessageUI.framework */; };
 		786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEF11B66486C001EC411 /* CoreLocation.framework */; };
@@ -110,7 +111,6 @@
 		786FDEF81B664B9E001EC411 /* libDBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEF71B664B9E001EC411 /* libDBSDK.a */; };
 		786FDF211B6664BE001EC411 /* DomobAdSDKBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */; };
 		786FDF231B6664C7001EC411 /* IndependentVideoBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */; };
-		787170071B80C4A00088B9CB /* CSLib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 787170061B80C4A00088B9CB /* CSLib.framework */; };
 		78735F3B1B5E72BD0041846E /* image_intro_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F371B5E72BD0041846E /* image_intro_1.png */; };
 		78735F3C1B5E72BD0041846E /* image_intro_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F381B5E72BD0041846E /* image_intro_2.png */; };
 		78735F3D1B5E72BD0041846E /* image_intro_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F391B5E72BD0041846E /* image_intro_3.png */; };
@@ -313,6 +313,8 @@
 		7860DFC21B383BDE0024D2B5 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		7860DFC31B383BDE0024D2B5 /* EmitterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterView.h; sourceTree = "<group>"; };
 		7860DFC41B383BDE0024D2B5 /* EmitterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmitterView.m; sourceTree = "<group>"; };
+		7869EE911C71C8F7004030BE /* apilib_s.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = apilib_s.a; path = thirdPart/wpspot/apilib_s.a; sourceTree = "<group>"; };
+		7869EE921C71C8F7004030BE /* JOYConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JOYConnect.h; path = thirdPart/wpspot/JOYConnect.h; sourceTree = "<group>"; };
 		786FDEEC1B6647FF001EC411 /* IndependentVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndependentVideoManager.h; path = thirdPart/DomobAdSDK/Header/IndependentVideoManager.h; sourceTree = "<group>"; };
 		786FDEED1B66485A001EC411 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		786FDEEF1B664861001EC411 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -322,7 +324,6 @@
 		786FDEF71B664B9E001EC411 /* libDBSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDBSDK.a; path = thirdPart/DomobAdSDK/libDBSDK.a; sourceTree = "<group>"; };
 		786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DomobAdSDKBundle.bundle; path = thirdPart/DomobAdSDK/DomobAdSDKBundle/DomobAdSDKBundle.bundle; sourceTree = "<group>"; };
 		786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IndependentVideoBundle.bundle; path = thirdPart/DomobAdSDK/IndependentVideoBundle.bundle; sourceTree = "<group>"; };
-		787170061B80C4A00088B9CB /* CSLib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CSLib.framework; path = thirdPart/wanpu/CSLib.framework; sourceTree = "<group>"; };
 		78735F371B5E72BD0041846E /* image_intro_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_1.png; sourceTree = "<group>"; };
 		78735F381B5E72BD0041846E /* image_intro_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_2.png; sourceTree = "<group>"; };
 		78735F391B5E72BD0041846E /* image_intro_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_3.png; sourceTree = "<group>"; };
@@ -421,7 +422,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				787170071B80C4A00088B9CB /* CSLib.framework in Frameworks */,
 				786FDEF61B664889001EC411 /* AdSupport.framework in Frameworks */,
 				786FDEF41B66487F001EC411 /* CFNetwork.framework in Frameworks */,
 				786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */,
@@ -436,6 +436,7 @@
 				78B1C38A1B650F54009CB13F /* Social.framework in Frameworks */,
 				78B1C3881B650F4C009CB13F /* PassKit.framework in Frameworks */,
 				7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */,
+				7869EE931C71C8F7004030BE /* apilib_s.a in Frameworks */,
 				78B1C3861B650F3A009CB13F /* CoreGraphics.framework in Frameworks */,
 				78B1C3841B650F2E009CB13F /* CoreText.framework in Frameworks */,
 				78B1C3821B650F23009CB13F /* QuartzCore.framework in Frameworks */,
@@ -782,7 +783,8 @@
 		787170031B80C4400088B9CB /* wp */ = {
 			isa = PBXGroup;
 			children = (
-				787170061B80C4A00088B9CB /* CSLib.framework */,
+				7869EE911C71C8F7004030BE /* apilib_s.a */,
+				7869EE921C71C8F7004030BE /* JOYConnect.h */,
 			);
 			name = wp;
 			sourceTree = "<group>";
@@ -1260,6 +1262,8 @@
 					/Users/chenjianfeng/Desktop,
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/UMAnalytics_Sdk_3.5.10",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/zhangyin/video",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wanpu",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wpspot",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
@@ -1291,6 +1295,8 @@
 					/Users/chenjianfeng/Desktop,
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/UMAnalytics_Sdk_3.5.10",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/zhangyin/video",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wanpu",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wpspot",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
