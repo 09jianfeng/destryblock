@@ -23,12 +23,10 @@
 #import "GDTMobBannerView.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate>
-{
-    GDTMobBannerView *_bannerView;//声明一个GDTMobBannerView的实例
-}
 
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,retain) IAPManager *iap;
+@property(nonatomic,retain) GDTMobBannerView *bannerView;//声明一个GDTMobBannerView的实例
 @end
 
 @implementation ViewController
@@ -178,9 +176,6 @@
         [self.view addSubview:buttonPlayVideo];
     }
     
-    //执行动画
-    [self viewAnimation];
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[GameDataGlobal shareInstance] showSpot];
     });
@@ -198,11 +193,14 @@
     _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭
     _bannerView.showCloseBtn = YES; //【可选】展示关闭按钮;默认显示
     _bannerView.isAnimationOn = YES; //【可选】开启banner轮播和展现时的动画效果;默认开启
-    [self.view addSubview:_bannerView]; //添加到当前的view中
     [_bannerView loadAdAndShow]; //加载广告并展示
+    
+    //执行动画
+    [self viewAnimation];
 }
 
 -(void)viewAnimation{
+    [self.view addSubview:_bannerView]; //添加到当前的view中
     
     [GameDataGlobal playAudioLevel];
     int insertWidth = self.view.frame.size.width/20;
@@ -300,6 +298,7 @@
     [UIView animateWithDuration:0.8 animations:^{
         levelDialog.alpha = 1.0;
     }];
+    [_bannerView removeFromSuperview];
 }
 
 -(void)buttonSettingPressed:(id)sender{
