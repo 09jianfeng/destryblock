@@ -20,8 +20,13 @@
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
 #import "DialogViewEnergy.h"
+#import "GDTMobBannerView.h"
 
-@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate>
+@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate>
+{
+    GDTMobBannerView *_bannerView;//声明一个GDTMobBannerView的实例
+}
+
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,retain) IAPManager *iap;
 @end
@@ -175,6 +180,26 @@
     
     //执行动画
     [self viewAnimation];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[GameDataGlobal shareInstance] showSpot];
+    });
+    
+    
+    //广点通
+    _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 0,
+                                                                     GDTMOB_AD_SUGGEST_SIZE_320x50.width,
+                                                                     GDTMOB_AD_SUGGEST_SIZE_320x50.height)
+                                                   appkey:@"1105190664"
+                                              placementId:@"5000608808344035"];
+    _bannerView.delegate = self; // 设置Delegate
+    _bannerView.currentViewController = self; //设置当前的ViewController
+    _bannerView.interval = 30; //【可选】设置刷新频率;默认30秒
+    _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭
+    _bannerView.showCloseBtn = YES; //【可选】展示关闭按钮;默认显示
+    _bannerView.isAnimationOn = YES; //【可选】开启banner轮播和展现时的动画效果;默认开启
+    [self.view addSubview:_bannerView]; //添加到当前的view中
+    [_bannerView loadAdAndShow]; //加载广告并展示
 }
 
 -(void)viewAnimation{
@@ -483,6 +508,58 @@
 #pragma mark - GameCenterLoginSuccessDelegate
 -(void)userLoginSuccess{
     self.isUserHavedLoginGameCenter = YES;
+}
+
+
+#pragma mark - 广点通banner
+// 请求广告条数据成功后调用
+//
+// 详解:当接收服务器返回的广告数据成功后调用该函数
+- (void)bannerViewDidReceived
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+// 请求广告条数据失败后调用
+//
+// 详解:当接收服务器返回的广告数据失败后调用该函数
+- (void)bannerViewFailToReceived:(NSError *)error
+{
+    NSLog(@"%s, Error:%@",__FUNCTION__,error);
+}
+
+// 应用进入后台时调用
+//
+// 详解:当点击下载或者地图类型广告时，会调用系统程序打开，
+// 应用将被自动切换到后台
+- (void)bannerViewWillLeaveApplication
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+// banner条曝光回调
+//
+// 详解:banner条曝光时回调该方法
+- (void)bannerViewWillExposure
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+// banner条点击回调
+//
+// 详解:banner条被点击时回调该方法
+- (void)bannerViewClicked
+{
+    NSLog(@"%s",__FUNCTION__);
+}
+
+/**
+ *  banner条被用户关闭时调用
+ *  详解:当打开showCloseBtn开关时，用户有可能点击关闭按钮从而把广告条关闭
+ */
+- (void)bannerViewWillClose
+{
+    NSLog(@"%s",__FUNCTION__);
 }
 
 @end

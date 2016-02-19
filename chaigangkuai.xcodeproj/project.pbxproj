@@ -161,6 +161,9 @@
 		78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CC36681AF7C16100033213 /* LevelAndUserInfo.m */; };
 		78E260931B1AEBA600EB9F3E /* GameDataGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */; };
 		78E50D661B14AE1600ECBACE /* image_playing_cellbackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E50D651B14AE1600ECBACE /* image_playing_cellbackground.png */; };
+		78EB81DE1C77428400C33040 /* libGDTMobSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EB81DD1C77428400C33040 /* libGDTMobSDK.a */; };
+		78EB81DF1C7742B400C33040 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEF51B664889001EC411 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		78EB81E11C7742DC00C33040 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78EB81E01C7742DC00C33040 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -367,6 +370,12 @@
 		78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataGlobal.h; sourceTree = "<group>"; };
 		78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataGlobal.m; sourceTree = "<group>"; };
 		78E50D651B14AE1600ECBACE /* image_playing_cellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_playing_cellbackground.png; sourceTree = "<group>"; };
+		78EB81D91C77428400C33040 /* GDTMobBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTMobBannerView.h; path = thirdPart/guangdiantong/GDTMobBannerView.h; sourceTree = "<group>"; };
+		78EB81DA1C77428400C33040 /* GDTMobInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTMobInterstitial.h; path = thirdPart/guangdiantong/GDTMobInterstitial.h; sourceTree = "<group>"; };
+		78EB81DB1C77428400C33040 /* GDTNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTNativeAd.h; path = thirdPart/guangdiantong/GDTNativeAd.h; sourceTree = "<group>"; };
+		78EB81DC1C77428400C33040 /* GDTSplashAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTSplashAd.h; path = thirdPart/guangdiantong/GDTSplashAd.h; sourceTree = "<group>"; };
+		78EB81DD1C77428400C33040 /* libGDTMobSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGDTMobSDK.a; path = thirdPart/guangdiantong/libGDTMobSDK.a; sourceTree = "<group>"; };
+		78EB81E01C7742DC00C33040 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -374,6 +383,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */,
+				78EB81E11C7742DC00C33040 /* Security.framework in Frameworks */,
+				78B1C3821B650F23009CB13F /* QuartzCore.framework in Frameworks */,
+				786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */,
+				78EB81DF1C7742B400C33040 /* AdSupport.framework in Frameworks */,
 				780C463A1C76C69D00756CE4 /* libz.tbd in Frameworks */,
 				780C46381C76C69600756CE4 /* libicucore.tbd in Frameworks */,
 				780C46361C76C68B00756CE4 /* CoreMotion.framework in Frameworks */,
@@ -381,7 +395,6 @@
 				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
 				78B1C38E1B650F71009CB13F /* AudioToolbox.framework in Frameworks */,
 				786FDEF41B66487F001EC411 /* CFNetwork.framework in Frameworks */,
-				786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */,
 				786FDEF81B664B9E001EC411 /* libDBSDK.a in Frameworks */,
 				786FDEF01B664861001EC411 /* MessageUI.framework in Frameworks */,
 				786FDEEE1B66485A001EC411 /* CoreTelephony.framework in Frameworks */,
@@ -389,10 +402,9 @@
 				78B1C38C1B650F5F009CB13F /* EventKit.framework in Frameworks */,
 				78B1C38A1B650F54009CB13F /* Social.framework in Frameworks */,
 				78B1C3881B650F4C009CB13F /* PassKit.framework in Frameworks */,
-				7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */,
 				78B1C3861B650F3A009CB13F /* CoreGraphics.framework in Frameworks */,
 				78B1C3841B650F2E009CB13F /* CoreText.framework in Frameworks */,
-				78B1C3821B650F23009CB13F /* QuartzCore.framework in Frameworks */,
+				78EB81DE1C77428400C33040 /* libGDTMobSDK.a in Frameworks */,
 				780C46331C76C63A00756CE4 /* XIAOZHUSHOUSTATIC.a in Frameworks */,
 				78B1C3801B650F16009CB13F /* MediaPlayer.framework in Frameworks */,
 				78B1C37E1B650F0B009CB13F /* CoreMedia.framework in Frameworks */,
@@ -469,6 +481,7 @@
 		782B1F701AE35B450051D053 = {
 			isa = PBXGroup;
 			children = (
+				78EB81E01C7742DC00C33040 /* Security.framework */,
 				780C46391C76C69D00756CE4 /* libz.tbd */,
 				780C46371C76C69600756CE4 /* libicucore.tbd */,
 				780C46351C76C68B00756CE4 /* CoreMotion.framework */,
@@ -732,6 +745,7 @@
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
+				78EB81D81C77426E00C33040 /* guangdiantong */,
 				780C462A1C76C57000756CE4 /* xiaozhushou */,
 				2EDE60C61B73544C006610F3 /* umanalytics */,
 				78B1C3711B650E29009CB13F /* duomeng */,
@@ -834,6 +848,18 @@
 				78E2608D1B1A946500EB9F3E /* model */,
 			);
 			name = mainscene;
+			sourceTree = "<group>";
+		};
+		78EB81D81C77426E00C33040 /* guangdiantong */ = {
+			isa = PBXGroup;
+			children = (
+				78EB81D91C77428400C33040 /* GDTMobBannerView.h */,
+				78EB81DA1C77428400C33040 /* GDTMobInterstitial.h */,
+				78EB81DB1C77428400C33040 /* GDTNativeAd.h */,
+				78EB81DC1C77428400C33040 /* GDTSplashAd.h */,
+				78EB81DD1C77428400C33040 /* libGDTMobSDK.a */,
+			);
+			name = guangdiantong;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1143,10 +1169,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chen Bo (N629B89TN9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wanpu",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CoreAnimationLearning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1162,8 +1185,12 @@
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wpspot",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/小助手",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/xiaozhushou",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/guangdiantong",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
 				PRODUCT_NAME = chaigangkuai;
 				PROVISIONING_PROFILE = "";
@@ -1178,10 +1205,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Chen Bo (N629B89TN9)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wanpu",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = CoreAnimationLearning/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1197,8 +1221,12 @@
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/wpspot",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/小助手",
 					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/xiaozhushou",
+					"$(PROJECT_DIR)/CoreAnimationLearning/thirdPart/guangdiantong",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
 				PRODUCT_NAME = chaigangkuai;
 				PROVISIONING_PROFILE = "";

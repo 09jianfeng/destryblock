@@ -15,6 +15,8 @@
 #import "macro.h"
 #import "MobClick.h"
 #import "GameReachability.h"
+#import "GDTMobBannerView.h"
+#import "GDTMobInterstitial.h"
 
 #define GAME_CENTER_SCORE_ID @"1002"
 #define GAME_CENTER_GUANKA_ID @"1001"
@@ -32,7 +34,11 @@ static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
 static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
-@interface GameDataGlobal()<IndependentVideoManagerDelegate,DMInterstitialAdControllerDelegate>
+@interface GameDataGlobal()<IndependentVideoManagerDelegate,DMInterstitialAdControllerDelegate,GDTMobInterstitialDelegate>
+{
+    GDTMobInterstitial *_interstitialObj;
+}
+
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioMain;
 @property(nonatomic,retain) IndependentVideoManager *independvideo;
@@ -75,6 +81,15 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         //在线参数
         [MobClick updateOnlineConfig];
         
+        
+        //广点通广告设置
+        _interstitialObj = [[GDTMobInterstitial alloc] initWithAppkey:@"1105190664"
+                                                          placementId:@"4090402818341003"];
+        _interstitialObj.delegate = self; //设置委托
+        _interstitialObj.isGpsOn = NO;     //【可选】设置GPS开关
+        //预加载广告
+        [_interstitialObj loadAd];
+        
     }
     return self;
 }
@@ -114,17 +129,13 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     return name;
 }
 
-#pragma mark - 友盟
+#pragma mark - 广告
 -(BOOL)ymstate{
     return [[MobClick getConfigParams:@"umengCloseym"] boolValue];
 }
 
 -(BOOL)dmstate{
     return [[MobClick getConfigParams:@"umengClosedm"] boolValue];
-}
-
--(BOOL)wpstate{
-    return [[MobClick getConfigParams:@"umengClosewp"] boolValue];
 }
 
 //0无效 1打开 2关闭
@@ -135,6 +146,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 -(void)showdmVideo{
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    //多盟视频
     self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
     [self.independvideo presentIndependentVideoWithViewController:rootViewController];
     self.independvideo.delegate = self;
@@ -143,16 +155,18 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 // !!!:视频广告代码
 -(void)playVideo{
     [self showdmVideo];
-    
     [GameDataGlobal playAudioMainMusic];
 }
 
 -(void)showSpot{
-    //如果购买了内购，那么不展示插屏广告
-    if([GameDataGlobal gameIsNoADS]){
-        return;
+    UIViewController *vc = [[[UIApplication sharedApplication] keyWindow]
+                            rootViewController];
+    if (_interstitialObj.isReady) {
+        HNLOGINFO(@"广点通 ready了");
+        [_interstitialObj presentFromRootViewController:vc];
+    }else{
+        HNLOGINFO(@"广点通 还没ready");
     }
-    
 }
 
 #pragma mark - 体力值
@@ -560,4 +574,83 @@ failedLoadWithError:(NSError *)error{
     
     return NO;
 }
+
+
+
+#pragma mark - 广点通代理
+static NSString *INTERSTITIAL_STATE_TEXT = @"插屏状态";
+
+/**
+ *  广告预加载成功回调
+ *  详解:当接收服务器返回的广告数据成功后调用该函数
+ */
+- (void)interstitialSuccessToLoadAd:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Success Loaded.");
+}
+
+/**
+ *  广告预加载失败回调
+ *  详解:当接收服务器返回的广告数据失败后调用该函数
+ */
+- (void)interstitialFailToLoadAd:(GDTMobInterstitial *)interstitial error:(NSError *)error
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Fail Loaded." );
+}
+
+/**
+ *  插屏广告将要展示回调
+ *  详解: 插屏广告即将展示回调该函数
+ */
+- (void)interstitialWillPresentScreen:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Going to present.");
+}
+
+/**
+ *  插屏广告视图展示成功回调
+ *  详解: 插屏广告展示成功回调该函数
+ */
+- (void)interstitialDidPresentScreen:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Success Presented." );
+}
+
+/**
+ *  插屏广告展示结束回调
+ *  详解: 插屏广告展示结束回调该函数
+ */
+- (void)interstitialDidDismissScreen:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Finish Presented.");
+}
+
+/**
+ *  应用进入后台时回调
+ *  详解: 当点击下载应用时会调用系统程序打开，应用切换到后台
+ */
+- (void)interstitialApplicationWillEnterBackground:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Application enter background.");
+}
+
+/**
+ *  插屏广告曝光时回调
+ *  详解: 插屏广告曝光时回调
+ */
+-(void)interstitialWillExposure:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Exposured");
+}
+/**
+ *  插屏广告点击时回调
+ *  详解: 插屏广告点击时回调
+ */
+-(void)interstitialClicked:(GDTMobInterstitial *)interstitial
+{
+    NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Clicked");
+}
+
+
+
 @end
