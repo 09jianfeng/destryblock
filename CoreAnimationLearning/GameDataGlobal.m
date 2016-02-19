@@ -14,9 +14,7 @@
 #import "DMInterstitialAdController.h"
 #import "macro.h"
 #import "MobClick.h"
-#import "JOYConnect.h"
 #import "GameReachability.h"
-#import "HuuuaMobiVideoAd.h"
 
 #define GAME_CENTER_SCORE_ID @"1002"
 #define GAME_CENTER_GUANKA_ID @"1001"
@@ -77,8 +75,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         //在线参数
         [MobClick updateOnlineConfig];
         
-        //万普插屏广告
-        [JOYConnect getConnect:@"78e3ea487a0c8fe25a3ee5fda12e6662"];
     }
     return self;
 }
@@ -136,41 +132,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     return [[MobClick getConfigParams:@"umengIsOpenVideo"] intValue];
 }
 
--(void)showymSpot{
-    HNLOGINFO(@"展示有米插屏");
-}
-
--(void)showwpSpot{
-    if (self.isConnectWifi) {
-        [JOYConnect showPop:[[[UIApplication sharedApplication] keyWindow] rootViewController]];
-        HNLOGINFO(@"展示wanpu插屏");
-    }
-}
-
--(void)showymVideo{
-    //用rootViewController来播放
-    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    //掌盈视频
-    [HuuuaMobiVideoAd HuuuaInitAppID:@"40e2193aeb056059" HuuuaAppKey:@"800b3ab3a9e489b8"];
-    
-    [HuuuaMobiVideoAd HuuuaVideoHasCanPlayVideo:^(int isHaveVideoStatue) {
-        if (isHaveVideoStatue) {
-            [self showdmVideo];
-        }else{
-            [HuuuaMobiVideoAd HuuuaVideoPlay:rootViewController HuuuaVideoPlayFinishCallBackBlock:
-             ^(BOOL isFinish){
-                 if (isFinish) {
-                     [GameDataGlobal addGameEnergy:5];
-                     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
-                 }
-                 
-                 [GameDataGlobal playAudioMainMusic];
-             } HuuuaVideoPlayConfigCallBackBlock:^(BOOL isLegal){
-             }];
-        }
-    }];
-}
-
 -(void)showdmVideo{
     //用rootViewController来播放
     UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
@@ -181,22 +142,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
 // !!!:视频广告代码
 -(void)playVideo{
-    
-    int rand = random()%2;
-    if (!rand) {
-        if (![self ymstate]) {
-            [self showymVideo];
-        }else{
-            [self showdmVideo];
-        }
-        
-    }else{
-        if (![self dmstate]) {
-            [self showdmVideo];
-        }else{
-            [self showymVideo];
-        }
-    }
+    [self showdmVideo];
     
     [GameDataGlobal playAudioMainMusic];
 }
@@ -207,24 +153,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         return;
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        int ran = arc4random()%2;
-        //万普
-        if (ran == 1) {
-            if (![self wpstate]) {
-                [self showwpSpot];
-            }else{
-                [self showwpSpot];
-            }
-        //有米
-        }else if(ran == 0){
-            if (![self ymstate]) {
-                [self showwpSpot];
-            }else{
-                [self showwpSpot];
-            }
-        }
-    });
 }
 
 #pragma mark - 体力值

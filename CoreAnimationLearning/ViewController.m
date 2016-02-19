@@ -32,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+        
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
     [GameDataGlobal playAudioMainMusic];

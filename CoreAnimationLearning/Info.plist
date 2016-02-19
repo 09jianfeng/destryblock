@@ -32,6 +32,19 @@
 				<string>wx0a2a2a316d5416ca</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.youmi.feedback</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>feedbackapp</string>
+				<string>qdeer9dirkt8gk59gk</string>
+				<string>fb58f7c87af5d</string>
+				<string>sbe52g5t12uy8k2i3i25</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.1</string>
@@ -42,6 +55,11 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>voip</string>
+	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "WeiXinShare.h"
 #import "WXApi.h"
+#import "XiaoZSinitialization.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [XiaoZSinitialization sharedInstance];
     [WXApi registerApp:weixinAppid];
     return YES;
 }
@@ -48,12 +51,12 @@
 #pragma mark - 微信api相关
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
     [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
-    return YES;
+    return [[XiaoZSinitialization sharedInstance] mll_application:application handleOpenURL:url];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
-    return YES;
+    return [[XiaoZSinitialization sharedInstance] mll_application:application openURL:url];
 }
 
 @end
