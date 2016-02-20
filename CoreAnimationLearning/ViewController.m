@@ -22,6 +22,7 @@
 #import "DialogViewEnergy.h"
 #import "GDTMobBannerView.h"
 #import "GDTSplashAd.h"
+#import "XiaoZSinitialization.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate>
 
@@ -39,7 +40,7 @@
         
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
-    [GameDataGlobal playAudioMainMusic];
+    [[XiaoZSinitialization sharedInstance] playBackgroundMusic:@selector(playBackgroundMusic) target:self times:1000];
     
     //初始化gameCenter
     GameCenter *gameCenterModel = [[GameCenter alloc] init];
@@ -58,6 +59,10 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLableEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
+}
+
+-(void)playBackgroundMusic{
+    [GameDataGlobal playAudioMainMusic];
 }
 
 -(void)addSubViews{
@@ -130,6 +135,7 @@
     
     
     BOOL isOpenVideo = [GameDataGlobal isOpenVideo];
+    NSLog(@"isOpenVideo %d",isOpenVideo);
     
     int imageEnergyWidth = 30;
     int imageEnergyHeigh = 30;
