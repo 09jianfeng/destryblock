@@ -21,6 +21,7 @@
 #import "GameIntroductionView.h"
 #import "DialogViewEnergy.h"
 #import "GDTMobBannerView.h"
+#import "GDTSplashAd.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate>
 
@@ -176,12 +177,8 @@
         [self.view addSubview:buttonPlayVideo];
     }
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[GameDataGlobal shareInstance] showSpot];
-    });
-    
-    
-    //广点通
+    //广点通-------------
+    //banner初始化
     _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 0,
                                                                      GDTMOB_AD_SUGGEST_SIZE_320x50.width,
                                                                      GDTMOB_AD_SUGGEST_SIZE_320x50.height)
@@ -510,7 +507,7 @@
 }
 
 
-#pragma mark - 广点通banner
+#pragma mark - 广点通banner代理
 // 请求广告条数据成功后调用
 //
 // 详解:当接收服务器返回的广告数据成功后调用该函数
@@ -560,5 +557,4 @@
 {
     NSLog(@"%s",__FUNCTION__);
 }
-
 @end
