@@ -37,7 +37,7 @@
     
     UIWindow *fK = [[[UIApplication sharedApplication] delegate] window];
     //设置开屏拉取时长限制，若超时则不再展示广告
-    _splash.fetchDelay = 3;
+    _splash.fetchDelay = 10;
     //拉取并展示
     [_splash loadAdAndShowInWindow:fK];
     
