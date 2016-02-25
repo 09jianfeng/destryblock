@@ -1190,6 +1190,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lstdc++",
+					"-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
 				PRODUCT_NAME = chaigangkuai;
@@ -1226,6 +1227,7 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lstdc++",
+					"-Wl,-sectcreate,__RESTRICT,__restrict,/dev/null",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
 				PRODUCT_NAME = chaigangkuai;
