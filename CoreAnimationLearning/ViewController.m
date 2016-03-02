@@ -22,7 +22,7 @@
 #import "DialogViewEnergy.h"
 #import "GDTMobBannerView.h"
 #import "GDTSplashAd.h"
-#import "XiaoZSinitialization.h"
+//#import "XiaoZSinitialization.h"
 #import "GDTSplashAd.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate,GDTSplashAdDelegate>
@@ -42,7 +42,7 @@
         
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
-    [[XiaoZSinitialization sharedInstance] playBackgroundMusic:@selector(playBackgroundMusic) target:self times:1000];
+//    [[XiaoZSinitialization sharedInstance] playBackgroundMusic:@selector(playBackgroundMusic) target:self times:1000];
     [self playBackgroundMusic];
     
     //初始化gameCenter
