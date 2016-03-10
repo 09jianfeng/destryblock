@@ -22,8 +22,8 @@
 #import "DialogViewEnergy.h"
 #import "GDTMobBannerView.h"
 #import "GDTSplashAd.h"
-//#import "XiaoZSinitialization.h"
 #import "GDTSplashAd.h"
+#import "MobHinitialization.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate,GDTSplashAdDelegate>
 
