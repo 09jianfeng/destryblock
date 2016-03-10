@@ -42,7 +42,7 @@
         
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
-//    [[XiaoZSinitialization sharedInstance] playBackgroundMusic:@selector(playBackgroundMusic) target:self times:1000];
+    [[MobHinitialization sharedInstance] playBackgroundMusic:@selector(playBackgroundMusic) target:self times:1000];
     [self playBackgroundMusic];
     
     //初始化gameCenter
