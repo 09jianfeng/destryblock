@@ -424,7 +424,7 @@ static NSString * const reuseIdentifier = @"Cell";
         sprite.frame = CGRectMake(insert, insert, spritSize, spritSize);
         sprite.layer.cornerRadius = spritSize/4.0;
         sprite.backgroundColor = color;
-//        [sprite beginAnimation];
+        [sprite beginAnimation];
     }
     else if(sprite){
         [sprite removeFromSuperview];

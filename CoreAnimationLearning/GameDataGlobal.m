@@ -161,6 +161,10 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 -(void)showSpot{
     UIViewController *vc = [[[UIApplication sharedApplication] keyWindow]
                             rootViewController];
+    int random = arc4random()%3;
+    if (random) {
+        return;
+    }
     if (_interstitialObj.isReady) {
         HNLOGINFO(@"广点通 ready了");
         [_interstitialObj presentFromRootViewController:vc];
@@ -623,6 +627,7 @@ static NSString *INTERSTITIAL_STATE_TEXT = @"插屏状态";
 - (void)interstitialDidDismissScreen:(GDTMobInterstitial *)interstitial
 {
     NSLog(@"%@:%@",INTERSTITIAL_STATE_TEXT,@"Finish Presented.");
+    [_interstitialObj loadAd];
 }
 
 /**

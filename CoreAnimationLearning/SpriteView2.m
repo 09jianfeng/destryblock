@@ -44,7 +44,7 @@
     
     //x方向伸缩
     CAKeyframeAnimation *scaleX = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
-    scaleX.values = @[@1.0,@0.9,@1.0];
+    scaleX.values = @[@1.0,@0.95,@1.0];
     scaleX.keyTimes = @[@0.0,@0.5,@1.0];
     scaleX.repeatCount = MAXFLOAT;
     scaleX.autoreverses = YES;
@@ -54,7 +54,7 @@
     
     //y方向伸缩
     CAKeyframeAnimation *scaleY = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
-    scaleY.values = @[@1.0,@0.9,@1.0];
+    scaleY.values = @[@1.0,@0.95,@1.0];
     scaleY.keyTimes = @[@0.0,@0.5,@1.0];
     scaleY.repeatCount = MAXFLOAT;
     scaleY.autoreverses = YES;
