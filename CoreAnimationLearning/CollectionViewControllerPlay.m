@@ -459,7 +459,7 @@ static NSString * const reuseIdentifier = @"Cell";
     
     NSMutableArray *mutableShoulUpdate = nil;
     //获取要remove掉的label
-    NSArray *arrayshouldRemoveIndexpath = [self.gameAlgorithm getplacethatShoulddrop:(int)indexPath.row  placeShouldUpdate:&mutableShoulUpdate];
+    NSDictionary *arrayshouldRemoveIndexpath = [self.gameAlgorithm getplacethatShoulddrop:(int)indexPath.row  placeShouldUpdate:&mutableShoulUpdate];
     //显示路径
     for (NSNumber *numIndex in mutableShoulUpdate) {
         int indexpathrow = [numIndex intValue];
@@ -481,7 +481,8 @@ static NSString * const reuseIdentifier = @"Cell";
     if (!self.mutArraySprites) {
         self.mutArraySprites = [[NSMutableArray alloc] init];
     }
-    for (NSNumber *num in arrayshouldRemoveIndexpath) {
+    NSArray *keys = [arrayshouldRemoveIndexpath allKeys];
+    for (NSNumber *num in keys) {
         int indexpathrow = [num intValue];
         NSIndexPath *path = [NSIndexPath indexPathForRow:indexpathrow inSection:0];
         UICollectionViewCell *cell = [self.collectionView cellForItemAtIndexPath:path];
@@ -494,6 +495,8 @@ static NSString * const reuseIdentifier = @"Cell";
             [self.view addSubview:sprite];
 //            [self.mutArraySprites addObject:sprite];
             [sprite lp_explode];
+        }else{
+            NSLog(@"sprite dealloc");
         }
     }
 //    [self beginActionAnimatorBehavior:self.mutArraySprites];
