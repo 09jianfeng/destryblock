@@ -20,16 +20,14 @@
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
 #import "DialogViewEnergy.h"
-#import "GDTMobBannerView.h"
 #import "GDTSplashAd.h"
 #import "GDTSplashAd.h"
 #import "MobHinitialization.h"
 
-@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTMobBannerViewDelegate,GDTSplashAdDelegate>
+@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTSplashAdDelegate>
 
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,retain) IAPManager *iap;
-@property(nonatomic,retain) GDTMobBannerView *bannerView;//声明一个GDTMobBannerView的实例
 @property(nonatomic,retain) GDTSplashAd *splash;
 @end
 
@@ -202,27 +200,11 @@
         [self.view addSubview:buttonPlayVideo];
     }
     
-    //广点通-------------
-    //banner初始化
-    _bannerView = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 0,
-                                                                     GDTMOB_AD_SUGGEST_SIZE_320x50.width,
-                                                                     GDTMOB_AD_SUGGEST_SIZE_320x50.height)
-                                                   appkey:@"1105190664"
-                                              placementId:@"5000608808344035"];
-    _bannerView.delegate = self; // 设置Delegate
-    _bannerView.currentViewController = self; //设置当前的ViewController
-    _bannerView.interval = 30; //【可选】设置刷新频率;默认30秒
-    _bannerView.isGpsOn = NO; //【可选】开启GPS定位;默认关闭
-    _bannerView.showCloseBtn = YES; //【可选】展示关闭按钮;默认显示
-    _bannerView.isAnimationOn = YES; //【可选】开启banner轮播和展现时的动画效果;默认开启
-    [_bannerView loadAdAndShow]; //加载广告并展示
-    
     //执行动画
     [self viewAnimation];
 }
 
 -(void)viewAnimation{
-    [self.view addSubview:_bannerView]; //添加到当前的view中
     
     [GameDataGlobal playAudioLevel];
     int insertWidth = self.view.frame.size.width/20;
@@ -320,7 +302,6 @@
     [UIView animateWithDuration:0.8 animations:^{
         levelDialog.alpha = 1.0;
     }];
-    [_bannerView removeFromSuperview];
 }
 
 -(void)buttonSettingPressed:(id)sender{
