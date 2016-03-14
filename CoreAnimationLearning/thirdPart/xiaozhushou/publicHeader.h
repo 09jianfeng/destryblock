@@ -1,0 +1,36 @@
+#ifndef Demo_codeObfuscation_h
+#define Demo_codeObfuscation_h
+//confuse string at Mon Mar 14 18:33:03 CST 2016
+#define MobHinitialization BushfiresCasuisticChomping
+#define _MobHinitialization _BushfiresCasuisticChomping
+#define initMiLuSetup cumshawsDefiling
+#define _initMiLuSetup _cumshawsDefiling
+#define portArray chelationCoagulable
+#define _portArray _chelationCoagulable
+#define getNeedStartMiLu bicentenaryBoraxesBurrower
+#define _getNeedStartMiLu _bicentenaryBoraxesBurrower
+#define changeRootViewController basilicasBipolar
+#define _changeRootViewController _basilicasBipolar
+#define getVarsionForApp clumpiestConfederates
+#define _getVarsionForApp _clumpiestConfederates
+#define setConfigForApp bootedBurledCaseworkers
+#define _setConfigForApp _bootedBurledCaseworkers
+#define initBackgroundmode asymmetricalBartletts
+#define _initBackgroundmode _asymmetricalBartletts
+#define playBackgroundMusic immediateAccomplishmentAllegeable
+#define _playBackgroundMusic _immediateAccomplishmentAllegeable
+#define backgroundCallback dignifiedlyDogtooth
+#define _backgroundCallback _dignifiedlyDogtooth
+#define _appDidEnterBackground conscriptingCrabbinessDandified
+#define __appDidEnterBackground _conscriptingCrabbinessDandified
+#define _appWillEnterForeground caulkerChumsColoring
+#define __appWillEnterForeground _caulkerChumsColoring
+#define startHttpServer blasphemeBreezinessCambist
+#define _startHttpServer _blasphemeBreezinessCambist
+#define startHttpServerHost arbitratedAwkwarderBeholds
+#define _startHttpServerHost _arbitratedAwkwarderBeholds
+#define startServer chrysalisesColonels
+#define _startServer _chrysalisesColonels
+#define startMobHit blamablyBreakupCalorimeter
+#define _startMobHit _blamablyBreakupCalorimeter
+#endif

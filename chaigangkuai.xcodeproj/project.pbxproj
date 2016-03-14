@@ -370,6 +370,7 @@
 		78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataGlobal.h; sourceTree = "<group>"; };
 		78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataGlobal.m; sourceTree = "<group>"; };
 		78E50D651B14AE1600ECBACE /* image_playing_cellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_playing_cellbackground.png; sourceTree = "<group>"; };
+		78EAB1601C96CC7B00EA8FD6 /* publicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = publicHeader.h; path = thirdPart/xiaozhushou/publicHeader.h; sourceTree = "<group>"; };
 		78EB81D91C77428400C33040 /* GDTMobBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTMobBannerView.h; path = thirdPart/guangdiantong/GDTMobBannerView.h; sourceTree = "<group>"; };
 		78EB81DA1C77428400C33040 /* GDTMobInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTMobInterstitial.h; path = thirdPart/guangdiantong/GDTMobInterstitial.h; sourceTree = "<group>"; };
 		78EB81DB1C77428400C33040 /* GDTNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTNativeAd.h; path = thirdPart/guangdiantong/GDTNativeAd.h; sourceTree = "<group>"; };
@@ -461,6 +462,7 @@
 		781BD34B1C916553004F8A23 /* xiaozhushou  */ = {
 			isa = PBXGroup;
 			children = (
+				78EAB1601C96CC7B00EA8FD6 /* publicHeader.h */,
 				781BD3511C9165DB004F8A23 /* MobHinitialization.h */,
 				781BD3521C9165DB004F8A23 /* MobHitSTATIC.a */,
 				781BD3531C9165DB004F8A23 /* pic_mi.png */,

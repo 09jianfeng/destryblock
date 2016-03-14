@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "publicHeader.h"
 #import <UIKit/UIKit.h>
 
 #define MAJIA_TYPE_MILU         @"milu"
