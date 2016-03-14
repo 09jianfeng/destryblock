@@ -40,6 +40,7 @@
     CGPathAddEllipseInRect(curvedPath, nil, circleContainer);
     pathAnimation.path = curvedPath;
     float randNumP = (arc4random()%5 + 20)/10.0;
+    CGPathRelease(curvedPath);
     pathAnimation.duration = randNumP;
     
     //x方向伸缩

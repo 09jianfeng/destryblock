@@ -112,6 +112,7 @@
         CGContextAddPath(ctx, linePath);
         CGContextSetFillColorWithColor(ctx, self.selectedColor.CGColor);
         CGContextFillPath(ctx);
+        CGPathRelease(linePath);
         
         return;
     }
@@ -137,11 +138,11 @@
     CGContextSetFillColorWithColor(ctx, self.unSelectedColor.CGColor);
     CGContextFillPath(ctx);
     
-    
+    CGPathRelease(linePath);
     if (self.shouldShowProgressLine == YES) {
         CGContextBeginPath(ctx);
         linePath = CGPathCreateMutable();
-
+        
         //画带颜色的线
         CGPathAddRoundedRect(linePath, nil, CGRectMake(self.ballDiameter/2, self.frame.size.height/2 - self.lineHeight/2, self.selectedLineLength , self.lineHeight), 0, 0);
         
@@ -157,9 +158,8 @@
         CGContextAddPath(ctx, linePath);
         CGContextSetFillColorWithColor(ctx, self.selectedColor.CGColor);
         CGContextFillPath(ctx);
-    
+        CGPathRelease(linePath);
     }
-
 }
 
 

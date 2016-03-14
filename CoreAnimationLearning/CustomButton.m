@@ -48,6 +48,7 @@
 //    [emitterView.layer addAnimation:animation forKey:@"test"];
     self.layer.cornerRadius = self.frame.size.width/2;
     self.layer.masksToBounds = YES;
+    CGPathRelease(path);
 }
 
 
