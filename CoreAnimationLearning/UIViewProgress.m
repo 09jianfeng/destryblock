@@ -66,6 +66,7 @@
     _progressPath = [UIBezierPath bezierPath];
     [_progressPath moveToPoint:CGPointMake(0, 0)];
     _progressPath.lineWidth = _progressWidth;
+    _progress = _progress > 1.0 ? 1.0 : _progress;
     [_progressPath addLineToPoint:CGPointMake(self.bounds.size.width*_progress, 0)];
     _progressLayer.path = _progressPath.CGPath;
 }

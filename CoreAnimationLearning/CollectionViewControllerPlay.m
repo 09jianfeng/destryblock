@@ -500,9 +500,13 @@ static NSString * const reuseIdentifier = @"Cell";
         }
     }
 //    [self beginActionAnimatorBehavior:self.mutArraySprites];
-    
-    if (!self.isWatchVideoContinue) {
-        _Allpoints = _Allpoints + spritesNumShouldDrop*2 - 2;
+    int points = spritesNumShouldDrop*2 - 2;
+    if (points > 0) {
+        if (!self.isWatchVideoContinue) {
+            _Allpoints = _Allpoints + points;
+        }
+    }else{
+        seconde+=5;
     }
     
     [self addScoreNumImageVew:spritesNumShouldDrop*2 - 2 frame:cell.frame];
