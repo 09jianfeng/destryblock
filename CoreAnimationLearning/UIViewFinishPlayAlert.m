@@ -181,7 +181,12 @@
                 [[GameDataGlobal shareInstance] showSpot];
             });
         }
+    }else{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[GameDataGlobal shareInstance] showSpot];
+        });
     }
+    
     [buttonNext setTitle:conOrNext forState:UIControlStateNormal];
     buttonNext.layer.cornerRadius = buttonSize/2;
     buttonNext.titleLabel.font = [UIFont systemFontOfSize:fontLabelSize];
