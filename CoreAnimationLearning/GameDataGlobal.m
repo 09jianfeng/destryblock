@@ -170,6 +170,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
         [_interstitialObj presentFromRootViewController:vc];
     }else{
         HNLOGINFO(@"广点通 还没ready");
+        [_interstitialObj loadAd];
     }
 }
 
