@@ -20,8 +20,17 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [PublicCallFunction sharedInstance];
-    [WXApi registerApp:weixinAppid];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    if(getNeedStartMiLu()){
+        [PublicCallFunction sharedInstance];
+    }else{
+        self.viewController = [[ViewController alloc] init];
+        self.window.rootViewController = self.viewController;
+        [WXApi registerApp:weixinAppid];
+    }
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
