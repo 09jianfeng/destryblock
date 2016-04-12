@@ -34,6 +34,7 @@ extern NSString *NotificationShouldRefreshEnergyLabel;
 //音效
 +(void)playAudioIsCorrect:(int)statue;
 +(void)playAudioVoiceCloseOrOpen;
++(void)closeAudioMainMusic;
 +(void)playAudioMainMusic;
 +(void)playAudioWithStarNum:(int)starNum;
 +(void)playAudioNumAdd;

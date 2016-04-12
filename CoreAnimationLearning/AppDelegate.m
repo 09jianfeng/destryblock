@@ -10,6 +10,7 @@
 #import "WeiXinShare.h"
 #import "WXApi.h"
 #import "PublicCallFunction.h"
+#import "GameDataGlobal.h"
 
 @interface AppDelegate ()
 @end
@@ -58,11 +59,19 @@
 
 #pragma mark - 微信api相关
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    if(!getNeedStartMiLu()){
+        [GameDataGlobal closeAudioMainMusic];
+    }
+    
     [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
     return [[PublicCallFunction sharedInstance] application:application handleOpenURL:url];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if(!getNeedStartMiLu()){
+        [GameDataGlobal closeAudioMainMusic];
+    }
+    
     [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
     return [[PublicCallFunction sharedInstance] application:application sourceApplication:sourceApplication openURL:url];
 }

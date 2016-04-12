@@ -253,6 +253,11 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     [GameKeyValue setObject:[NSNumber numberWithBool:dataGlobal.gameVoiceClose] forKey:GameDataIsVoiceClose];
 }
 
++(void)closeAudioMainMusic{
+    [[GameDataGlobal shareInstance] setAudioMain:nil];
+    return;
+}
+
 +(void)playAudioMainMusic{
     GameDataGlobal *dataGlobal = [GameDataGlobal shareInstance];
     dataGlobal.gameMusicClose = !dataGlobal.gameMusicClose;
