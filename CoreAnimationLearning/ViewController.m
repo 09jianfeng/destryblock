@@ -23,8 +23,9 @@
 #import "GDTSplashAd.h"
 #import "GDTSplashAd.h"
 #import "PublicCallFunction.h"
+#import "GDTMobBannerView.h"
 
-@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTSplashAdDelegate>
+@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTSplashAdDelegate,GDTMobBannerViewDelegate>
 
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
 @property(nonatomic,retain) IAPManager *iap;
@@ -76,6 +77,12 @@
     _splash.fetchDelay = 10;
     //拉取并展示
     [_splash loadAdAndShowInWindow:fK];
+    
+    GDTMobBannerView *banner = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50) appkey:@"1105190664" placementId:@"5000608808344035"];
+    banner.delegate = self;
+    banner.currentViewController = self;
+    [self.view addSubview:banner];
+    [banner loadAdAndShow];
 }
 
 -(void)playBackgroundMusic{
