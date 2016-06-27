@@ -10,8 +10,6 @@
 #import "GameKeyValue.h"
 #import "GameCenter.h"
 #import <AVFoundation/AVFoundation.h>
-#import "IndependentVideoManager.h"
-#import "DMInterstitialAdController.h"
 #import "macro.h"
 #import "MobClick.h"
 #import "GameReachability.h"
@@ -34,14 +32,13 @@ static NSString *GameDataEnergyStorageDay = @"GameDataEnergyStorageDay";
 static NSString *GameDataBestRecordGuanka = @"GameDataBestRecordGuanka";
 static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
-@interface GameDataGlobal()<IndependentVideoManagerDelegate,DMInterstitialAdControllerDelegate,GDTMobInterstitialDelegate>
+@interface GameDataGlobal()<GDTMobInterstitialDelegate>
 {
     GDTMobInterstitial *_interstitialObj;
 }
 
 @property(nonatomic, retain) AVAudioPlayer *audioplayerCorrect;
 @property(nonatomic, retain) AVAudioPlayer *audioMain;
-@property(nonatomic,retain) IndependentVideoManager *independvideo;
 @property(nonatomic, assign) BOOL isConnectWifi;
 @property(nonatomic, retain) GameReachability *gameReachabi;
 @end
@@ -98,7 +95,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
     GameReachability* curReach = [note object];
     // 基本没可能
     if(![curReach isKindOfClass: [GameReachability class]]) return;
-    NSString *accessPointName= [[self _accessPointNameForStatus:[curReach currentReachabilityStatus]] copy];
     
     GameNetworkStatus status = [curReach currentReachabilityStatus];
     if (status == GameReachableViaWiFi) {
@@ -144,12 +140,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 }
 
 -(void)showdmVideo{
-    //用rootViewController来播放
-    UIViewController *rootViewController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
-    //多盟视频
-    self.independvideo = [[IndependentVideoManager alloc] initWithPublisherID:@"96ZJ3tqwzex2nwTNt9" andUserID:@"userid"];
-    [self.independvideo presentIndependentVideoWithViewController:rootViewController];
-    self.independvideo.delegate = self;
 }
 
 // !!!:视频广告代码
@@ -451,115 +441,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 
 +(void)gameSetIsNOADS{
     [GameKeyValue setObject:[NSNumber numberWithBool:YES] forKey:GameDataIsNOADS];
-}
-
-#pragma mark -多盟的视频代理
-/**
- *  开始加载数据。
- *  Independent video starts to fetch info.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidStartLoad:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"开始加载数据");
-}
-
-
-/**
- *  加载完成。
- *  Fetching independent video successfully.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidFinishLoad:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"加载完成");
-}
-
-
-/**
- *  加载失败。可能的原因由error部分提供，例如网络连接失败、被禁用等。
- *   Failed to load independent video.
- 
- *
- *  @param manager IndependentVideoManager
- *  @param error   error
- */
-- (void)ivManager:(IndependentVideoManager *)manager
-failedLoadWithError:(NSError *)error{
-    HNLOGINFO(@"加载失败，%@",error);
-}
-
-
-/**
- *  被呈现出来时，回调该方法。
- *  Called when independent video will be presented.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerWillPresent:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频呈现出来");
-}
-
-
-
-/**
- *  页面关闭。
- *  Independent video closed.
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerDidClosed:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频页面关闭");
-    [GameDataGlobal playAudioMainMusic];
-}
-
-
-/**
- *  当视频播放完成后，回调该方法。
- *  Independent video complete play
- *
- *  @param manager IndependentVideoManager
- */
-- (void)ivManagerCompletePlayVideo:(IndependentVideoManager *)manager{
-    HNLOGINFO(@"视频播放完成");
-    //播放视频，然后继续消下去
-    [GameDataGlobal addGameEnergy:5];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationShouldRefreshEnergyLabel object:nil];
-}
-
-
-
-/**
- *  成功获取视频积分
- *  Complete independent video.
- *
- *  @param manager IndependentVideoManager
- *  @param totalPoint
- *  @param consumedPoint
- *  @param currentPoint
- */
-
-- (void)ivCompleteIndependentVideo:(IndependentVideoManager *)manager
-                    withTotalPoint:(NSNumber *)totalPoint
-                     consumedPoint:(NSNumber *)consumedPoint
-                      currentPoint:(NSNumber *)currentPoint{
-    HNLOGINFO(@"成功获取视频积分");
-}
-
-
-
-
-/**
- *  获取视频积分出错
- *  Uncomplete independent video.
- *
- *  @param manager IndependentVideoManager
- *  @param error
- */
-
-- (void)ivManagerUncompleteIndependentVideo:(IndependentVideoManager *)manager
-                                  withError:(NSError *)error{
-    HNLOGINFO(@"获取视频积分出错");
 }
 
 //获取在appStore的链接

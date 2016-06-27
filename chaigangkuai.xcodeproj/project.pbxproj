@@ -83,9 +83,6 @@
 		786FDEF01B664861001EC411 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEEF1B664861001EC411 /* MessageUI.framework */; };
 		786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEF11B66486C001EC411 /* CoreLocation.framework */; };
 		786FDEF41B66487F001EC411 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEF31B66487F001EC411 /* CFNetwork.framework */; };
-		786FDEF81B664B9E001EC411 /* libDBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 786FDEF71B664B9E001EC411 /* libDBSDK.a */; };
-		786FDF211B6664BE001EC411 /* DomobAdSDKBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */; };
-		786FDF231B6664C7001EC411 /* IndependentVideoBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */; };
 		78735F3B1B5E72BD0041846E /* image_intro_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F371B5E72BD0041846E /* image_intro_1.png */; };
 		78735F3C1B5E72BD0041846E /* image_intro_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F381B5E72BD0041846E /* image_intro_2.png */; };
 		78735F3D1B5E72BD0041846E /* image_intro_3.png in Resources */ = {isa = PBXBuildFile; fileRef = 78735F391B5E72BD0041846E /* image_intro_3.png */; };
@@ -267,15 +264,11 @@
 		7860DFC21B383BDE0024D2B5 /* CustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButton.m; sourceTree = "<group>"; };
 		7860DFC31B383BDE0024D2B5 /* EmitterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterView.h; sourceTree = "<group>"; };
 		7860DFC41B383BDE0024D2B5 /* EmitterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmitterView.m; sourceTree = "<group>"; };
-		786FDEEC1B6647FF001EC411 /* IndependentVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IndependentVideoManager.h; path = thirdPart/DomobAdSDK/Header/IndependentVideoManager.h; sourceTree = "<group>"; };
 		786FDEED1B66485A001EC411 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		786FDEEF1B664861001EC411 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		786FDEF11B66486C001EC411 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		786FDEF31B66487F001EC411 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		786FDEF51B664889001EC411 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		786FDEF71B664B9E001EC411 /* libDBSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libDBSDK.a; path = thirdPart/DomobAdSDK/libDBSDK.a; sourceTree = "<group>"; };
-		786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = DomobAdSDKBundle.bundle; path = thirdPart/DomobAdSDK/DomobAdSDKBundle/DomobAdSDKBundle.bundle; sourceTree = "<group>"; };
-		786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = IndependentVideoBundle.bundle; path = thirdPart/DomobAdSDK/IndependentVideoBundle.bundle; sourceTree = "<group>"; };
 		78735F371B5E72BD0041846E /* image_intro_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_1.png; sourceTree = "<group>"; };
 		78735F381B5E72BD0041846E /* image_intro_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_2.png; sourceTree = "<group>"; };
 		78735F391B5E72BD0041846E /* image_intro_3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_intro_3.png; sourceTree = "<group>"; };
@@ -338,12 +331,6 @@
 		78B1C36B1B64C6FA009CB13F /* music_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_1.mp3; sourceTree = "<group>"; };
 		78B1C36C1B64C6FA009CB13F /* music_click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_click.mp3; sourceTree = "<group>"; };
 		78B1C36D1B64C6FA009CB13F /* music_error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music_error.mp3; sourceTree = "<group>"; };
-		78B1C3721B650E70009CB13F /* DMAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMAdView.h; path = thirdPart/DomobAdSDK/DMAdView.h; sourceTree = "<group>"; };
-		78B1C3731B650E70009CB13F /* DMFeedsAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMFeedsAdView.h; path = thirdPart/DomobAdSDK/DMFeedsAdView.h; sourceTree = "<group>"; };
-		78B1C3741B650E70009CB13F /* DMInterstitialAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMInterstitialAdController.h; path = thirdPart/DomobAdSDK/DMInterstitialAdController.h; sourceTree = "<group>"; };
-		78B1C3751B650E70009CB13F /* DMRTSplashAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMRTSplashAdController.h; path = thirdPart/DomobAdSDK/DMRTSplashAdController.h; sourceTree = "<group>"; };
-		78B1C3761B650E70009CB13F /* DMSplashAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMSplashAdController.h; path = thirdPart/DomobAdSDK/DMSplashAdController.h; sourceTree = "<group>"; };
-		78B1C3771B650E70009CB13F /* DMTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMTools.h; path = thirdPart/DomobAdSDK/DMTools.h; sourceTree = "<group>"; };
 		78B1C37F1B650F16009CB13F /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		78B1C3811B650F23009CB13F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		78B1C3831B650F2E009CB13F /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -396,7 +383,6 @@
 				7844B71A1AEB29B0006DE282 /* AVFoundation.framework in Frameworks */,
 				78B1C38E1B650F71009CB13F /* AudioToolbox.framework in Frameworks */,
 				786FDEF41B66487F001EC411 /* CFNetwork.framework in Frameworks */,
-				786FDEF81B664B9E001EC411 /* libDBSDK.a in Frameworks */,
 				786FDEF01B664861001EC411 /* MessageUI.framework in Frameworks */,
 				786FDEEE1B66485A001EC411 /* CoreTelephony.framework in Frameworks */,
 				2EDE60CE1B73557E006610F3 /* libMobClickLibrary.a in Frameworks */,
@@ -743,7 +729,6 @@
 				781BD34B1C916553004F8A23 /* xiaozhushou  */,
 				78EB81D81C77426E00C33040 /* guangdiantong */,
 				2EDE60C61B73544C006610F3 /* umanalytics */,
-				78B1C3711B650E29009CB13F /* duomeng */,
 				7882DD7A1B2D22E20049A296 /* weixin */,
 			);
 			name = thirtPart;
@@ -781,23 +766,6 @@
 				78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */,
 			);
 			name = globalClass;
-			sourceTree = "<group>";
-		};
-		78B1C3711B650E29009CB13F /* duomeng */ = {
-			isa = PBXGroup;
-			children = (
-				786FDF221B6664C7001EC411 /* IndependentVideoBundle.bundle */,
-				786FDF201B6664BE001EC411 /* DomobAdSDKBundle.bundle */,
-				786FDEF71B664B9E001EC411 /* libDBSDK.a */,
-				786FDEEC1B6647FF001EC411 /* IndependentVideoManager.h */,
-				78B1C3721B650E70009CB13F /* DMAdView.h */,
-				78B1C3731B650E70009CB13F /* DMFeedsAdView.h */,
-				78B1C3741B650E70009CB13F /* DMInterstitialAdController.h */,
-				78B1C3751B650E70009CB13F /* DMRTSplashAdController.h */,
-				78B1C3761B650E70009CB13F /* DMSplashAdController.h */,
-				78B1C3771B650E70009CB13F /* DMTools.h */,
-			);
-			name = duomeng;
 			sourceTree = "<group>";
 		};
 		78CC36661AF7C0C500033213 /* model */ = {
@@ -915,7 +883,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				786FDF211B6664BE001EC411 /* DomobAdSDKBundle.bundle in Resources */,
 				78735F401B5E78DD0041846E /* image_intro_header.png in Resources */,
 				78AE01511B0C710300FE1558 /* image_back_point.png in Resources */,
 				78A02A961B6CC84400852F29 /* music_star_2.mp3 in Resources */,
@@ -993,7 +960,6 @@
 				780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */,
 				783E47571B5211DE00CE6963 /* Original.png in Resources */,
 				783763401B2E503A00F70207 /* image_pause.png in Resources */,
-				786FDF231B6664C7001EC411 /* IndependentVideoBundle.bundle in Resources */,
 				78A02A981B6CC84400852F29 /* music_time_up.mp3 in Resources */,
 				7860DFBC1B37FCF90024D2B5 /* image_DazStarOutline.png in Resources */,
 				78735F4C1B5E88A10041846E /* image_intro_5.png in Resources */,
