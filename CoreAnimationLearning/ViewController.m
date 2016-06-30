@@ -149,13 +149,13 @@
     [self.view addSubview:buttonPaiMing];
     
     
-//    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
-//    buttonShare.tag = 500004;
-//    buttonShare.layer.masksToBounds = YES;
-//    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
-//    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
-//    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:buttonShare];
+    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
+    buttonShare.tag = 500004;
+    buttonShare.layer.masksToBounds = YES;
+    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
+    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
+    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:buttonShare];
     
     
     BOOL isOpenVideo = [GameDataGlobal isOpenVideo];
@@ -461,8 +461,7 @@
 }
 
 -(void)buttonSharePressed:(id)sender{
-    [WeiXinShare sendMessageAndImageToWebChat:1];
-    [GameDataGlobal playAudioIsCorrect:5];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/app/zhuan-kuai-xiao-xiao-le/id1080234248?l=zh&ls=1&mt=8"]];
 }
 
 -(void)buttonNoADSPress:(id)sender{
