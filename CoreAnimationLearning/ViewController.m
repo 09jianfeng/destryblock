@@ -149,13 +149,13 @@
     [self.view addSubview:buttonPaiMing];
     
     
-    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonShare.tag = 500004;
-    buttonShare.layer.masksToBounds = YES;
-    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
-    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
-    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:buttonShare];
+//    UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
+//    buttonShare.tag = 500004;
+//    buttonShare.layer.masksToBounds = YES;
+//    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
+//    [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
+//    [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:buttonShare];
     
     
     BOOL isOpenVideo = [GameDataGlobal isOpenVideo];
