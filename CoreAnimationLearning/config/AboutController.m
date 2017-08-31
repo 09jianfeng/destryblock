@@ -18,7 +18,9 @@
 
 @end
 
-@implementation AboutController
+@implementation AboutController{
+    int startLoad;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,6 +28,7 @@
     
     //新葡京
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+    _webView.scrollView.bounces = NO;
     _webView.delegate = self;
     [self.view addSubview:_webView];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[[AppDataStorage shareInstance] getURL]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
@@ -43,7 +46,7 @@
     }
     
     _imageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-        _imageView.image = [UIImage imageNamed:@"game_init.jpg"];
+        _imageView.image = [UIImage imageNamed:@"Default"];
     [self.view addSubview:_imageView];
     
     _indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -76,6 +79,17 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [_indicator stopAnimating];
     _tips.text = @"请检查网络或手机时间，重启应用";
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    startLoad++;
+    if (startLoad == 4) {
+        [_indicator stopAnimating];
+        _tips.hidden = YES;
+        _imageView.hidden = YES;
+    }
+    
+    return YES;
 }
 
 @end
