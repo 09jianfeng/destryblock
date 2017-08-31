@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import "WeiXinShare.h"
 #import "WXApi.h"
-#import "PublicCallFunction.h"
 #import "GameDataGlobal.h"
 
 @interface AppDelegate ()
@@ -23,13 +22,9 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    if(getNeedStartMiLu()){
-        [PublicCallFunction sharedInstance];
-    }else{
-        self.viewController = [[ViewController alloc] init];
-        self.window.rootViewController = self.viewController;
-        [WXApi registerApp:weixinAppid];
-    }
+    self.viewController = [[ViewController alloc] init];
+    self.window.rootViewController = self.viewController;
+    [WXApi registerApp:weixinAppid];
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -59,20 +54,10 @@
 
 #pragma mark - 微信api相关
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    if(!getNeedStartMiLu()){
-        [GameDataGlobal closeAudioMainMusic];
-    }
-    
-    [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
-    return [[PublicCallFunction sharedInstance] application:application handleOpenURL:url];
+    return [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    if(!getNeedStartMiLu()){
-        [GameDataGlobal closeAudioMainMusic];
-    }
-    
-    [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
-    return [[PublicCallFunction sharedInstance] application:application sourceApplication:sourceApplication openURL:url];
+    return [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
 }
 @end

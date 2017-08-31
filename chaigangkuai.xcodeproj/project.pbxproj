@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2EDE60CE1B73557E006610F3 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */; };
 		2EDE60D41B7377C5006610F3 /* UIViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EDE60D31B7377C5006610F3 /* UIViewProgress.m */; };
 		78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6C1AF1D52400B5A169 /* LevelDialogView.m */; };
 		78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */; };
 		78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */; };
-		780C15951CA3E9F800D879F0 /* AppAssiSTATIC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 780C15931CA3E9F800D879F0 /* AppAssiSTATIC.a */; };
-		780C15991CA3EA8800D879F0 /* btn_feedback.png in Resources */ = {isa = PBXBuildFile; fileRef = 780C15981CA3EA8800D879F0 /* btn_feedback.png */; };
 		780C46361C76C68B00756CE4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 780C46351C76C68B00756CE4 /* CoreMotion.framework */; };
 		780C46381C76C69600756CE4 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 780C46371C76C69600756CE4 /* libicucore.tbd */; };
 		780C463A1C76C69D00756CE4 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 780C46391C76C69D00756CE4 /* libz.tbd */; };
@@ -162,9 +159,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMobClickLibrary.a; path = thirdPart/UMAnalytics_Sdk_3.5.10/libMobClickLibrary.a; sourceTree = "<group>"; };
-		2EDE60CC1B73557E006610F3 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClick.h; path = thirdPart/UMAnalytics_Sdk_3.5.10/MobClick.h; sourceTree = "<group>"; };
-		2EDE60CD1B73557E006610F3 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MobClickSocialAnalytics.h; path = thirdPart/UMAnalytics_Sdk_3.5.10/MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		2EDE60D21B7377C5006610F3 /* UIViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewProgress.h; sourceTree = "<group>"; };
 		2EDE60D31B7377C5006610F3 /* UIViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewProgress.m; sourceTree = "<group>"; };
 		78045D6B1AF1D52400B5A169 /* LevelDialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelDialogView.h; sourceTree = "<group>"; };
@@ -172,9 +166,6 @@
 		78045D6E1AF20F4000B5A169 /* CollectionViewCellLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewCellLevel.h; sourceTree = "<group>"; };
 		78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewCellLevel.m; sourceTree = "<group>"; };
 		78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCellLevel.xib; sourceTree = "<group>"; };
-		780C15931CA3E9F800D879F0 /* AppAssiSTATIC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = AppAssiSTATIC.a; path = thirdPart/xiaozhushou/AppAssiSTATIC.a; sourceTree = "<group>"; };
-		780C15941CA3E9F800D879F0 /* PublicCallFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublicCallFunction.h; path = thirdPart/xiaozhushou/PublicCallFunction.h; sourceTree = "<group>"; };
-		780C15981CA3EA8800D879F0 /* btn_feedback.png */ = {isa = PBXFileReference; explicitFileType = text; name = btn_feedback.png; path = thirdPart/xiaozhushou/btn_feedback.png; sourceTree = "<group>"; };
 		780C46351C76C68B00756CE4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		780C46371C76C69600756CE4 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		780C46391C76C69D00756CE4 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -353,7 +344,6 @@
 		78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataGlobal.h; sourceTree = "<group>"; };
 		78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataGlobal.m; sourceTree = "<group>"; };
 		78E50D651B14AE1600ECBACE /* image_playing_cellbackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image_playing_cellbackground.png; sourceTree = "<group>"; };
-		78EAB1601C96CC7B00EA8FD6 /* publicHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = publicHeader.h; path = thirdPart/xiaozhushou/publicHeader.h; sourceTree = "<group>"; };
 		78EB81D91C77428400C33040 /* GDTMobBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTMobBannerView.h; path = thirdPart/guangdiantong/GDTMobBannerView.h; sourceTree = "<group>"; };
 		78EB81DA1C77428400C33040 /* GDTMobInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTMobInterstitial.h; path = thirdPart/guangdiantong/GDTMobInterstitial.h; sourceTree = "<group>"; };
 		78EB81DB1C77428400C33040 /* GDTNativeAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GDTNativeAd.h; path = thirdPart/guangdiantong/GDTNativeAd.h; sourceTree = "<group>"; };
@@ -374,7 +364,6 @@
 				7882DD851B2D7FA50049A296 /* StoreKit.framework in Frameworks */,
 				78EB81E11C7742DC00C33040 /* Security.framework in Frameworks */,
 				78B1C3821B650F23009CB13F /* QuartzCore.framework in Frameworks */,
-				780C15951CA3E9F800D879F0 /* AppAssiSTATIC.a in Frameworks */,
 				786FDEF21B66486C001EC411 /* CoreLocation.framework in Frameworks */,
 				78EB81DF1C7742B400C33040 /* AdSupport.framework in Frameworks */,
 				780C46381C76C69600756CE4 /* libicucore.tbd in Frameworks */,
@@ -385,7 +374,6 @@
 				786FDEF41B66487F001EC411 /* CFNetwork.framework in Frameworks */,
 				786FDEF01B664861001EC411 /* MessageUI.framework in Frameworks */,
 				786FDEEE1B66485A001EC411 /* CoreTelephony.framework in Frameworks */,
-				2EDE60CE1B73557E006610F3 /* libMobClickLibrary.a in Frameworks */,
 				78B1C38C1B650F5F009CB13F /* EventKit.framework in Frameworks */,
 				78B1C38A1B650F54009CB13F /* Social.framework in Frameworks */,
 				78B1C3881B650F4C009CB13F /* PassKit.framework in Frameworks */,
@@ -405,16 +393,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2EDE60C61B73544C006610F3 /* umanalytics */ = {
-			isa = PBXGroup;
-			children = (
-				2EDE60CB1B73557E006610F3 /* libMobClickLibrary.a */,
-				2EDE60CC1B73557E006610F3 /* MobClick.h */,
-				2EDE60CD1B73557E006610F3 /* MobClickSocialAnalytics.h */,
-			);
-			name = umanalytics;
-			sourceTree = "<group>";
-		};
 		78045D731AF212B700B5A169 /* levelscene */ = {
 			isa = PBXGroup;
 			children = (
@@ -438,17 +416,6 @@
 				780E17611AEE7D52007A4A88 /* SystemInfo.m */,
 			);
 			name = systemInfoAndStorage;
-			sourceTree = "<group>";
-		};
-		781BD34B1C916553004F8A23 /* xiaozhushou  */ = {
-			isa = PBXGroup;
-			children = (
-				780C15981CA3EA8800D879F0 /* btn_feedback.png */,
-				780C15931CA3E9F800D879F0 /* AppAssiSTATIC.a */,
-				780C15941CA3E9F800D879F0 /* PublicCallFunction.h */,
-				78EAB1601C96CC7B00EA8FD6 /* publicHeader.h */,
-			);
-			name = "xiaozhushou ";
 			sourceTree = "<group>";
 		};
 		781FA81C1AED21510048B337 /* playing */ = {
@@ -726,9 +693,7 @@
 		7882DD791B2D22D30049A296 /* thirtPart */ = {
 			isa = PBXGroup;
 			children = (
-				781BD34B1C916553004F8A23 /* xiaozhushou  */,
 				78EB81D81C77426E00C33040 /* guangdiantong */,
-				2EDE60C61B73544C006610F3 /* umanalytics */,
 				7882DD7A1B2D22E20049A296 /* weixin */,
 			);
 			name = thirtPart;
@@ -856,7 +821,7 @@
 				TargetAttributes = {
 					782B1F781AE35B450051D053 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = N629B89TN9;
+						DevelopmentTeam = 7H57TJHB75;
 					};
 				};
 			};
@@ -969,7 +934,6 @@
 				78E50D661B14AE1600ECBACE /* image_playing_cellbackground.png in Resources */,
 				78B1C3701B64C6FA009CB13F /* music_error.mp3 in Resources */,
 				783E47551B5211DE00CE6963 /* iTunesArtwork.png in Resources */,
-				780C15991CA3EA8800D879F0 /* btn_feedback.png in Resources */,
 				782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1120,6 +1084,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7H57TJHB75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1154,6 +1119,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 7H57TJHB75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

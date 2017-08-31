@@ -11,7 +11,6 @@
 #import "GameCenter.h"
 #import <AVFoundation/AVFoundation.h>
 #import "macro.h"
-#import "MobClick.h"
 #import "GameReachability.h"
 #import "GDTMobBannerView.h"
 #import "GDTMobInterstitial.h"
@@ -73,12 +72,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
             self.isConnectWifi = YES;
         }
         
-        //友盟统计
-        [MobClick startWithAppkey:@"55bb39d367e58e305600131d"];
-        //在线参数
-        [MobClick updateOnlineConfig];
-        
-        
         //广点通广告设置
         _interstitialObj = [[GDTMobInterstitial alloc] initWithAppkey:@"1105190664"
                                                           placementId:@"4090402818341003"];
@@ -123,20 +116,6 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
             break;
     }
     return name;
-}
-
-#pragma mark - 广告
--(BOOL)ymstate{
-    return [[MobClick getConfigParams:@"umengCloseym"] boolValue];
-}
-
--(BOOL)dmstate{
-    return [[MobClick getConfigParams:@"umengClosedm"] boolValue];
-}
-
-//0无效 1打开 2关闭
--(int)videoOpen{
-    return [[MobClick getConfigParams:@"umengIsOpenVideo"] intValue];
 }
 
 -(void)showdmVideo{
@@ -449,20 +428,7 @@ static NSString *GameDataOpenVideoKey = @"GameDataOpenVideoKey";
 }
 
 //是否开启视频广告
-+(BOOL)isOpenVideo{
-    int isUmOpenVideo = [[GameDataGlobal shareInstance] videoOpen];
-    if (isUmOpenVideo == 1) {
-        [GameKeyValue setObject:@"1" forKey:GameDataOpenVideoKey];
-        return YES;
-    }else if(isUmOpenVideo == 2){
-        return NO;
-    }
-    
-    NSString *isOpenVideo = [GameKeyValue objectForKey:GameDataOpenVideoKey];
-    if (isOpenVideo) {
-        return YES;
-    }
-    
++(BOOL)isOpenVideo{    
     return NO;
 }
 

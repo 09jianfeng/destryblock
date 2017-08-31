@@ -22,7 +22,6 @@
 #import "DialogViewEnergy.h"
 #import "GDTSplashAd.h"
 #import "GDTSplashAd.h"
-#import "PublicCallFunction.h"
 #import "GDTMobBannerView.h"
 
 @interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTSplashAdDelegate,GDTMobBannerViewDelegate>
@@ -41,7 +40,6 @@
         
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     
-    [[PublicCallFunction sharedInstance] playBackgroundMusic:@selector(playBackgroundMusic) target:self times:1000];
     [self playBackgroundMusic];
     
     //初始化gameCenter
