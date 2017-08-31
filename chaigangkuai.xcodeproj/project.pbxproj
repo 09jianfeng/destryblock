@@ -27,6 +27,8 @@
 		781FF6771B4C1C7800C03D4E /* image_setting_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 781FF6751B4C1C7800C03D4E /* image_setting_2.png */; };
 		782066851B710195009F9B6E /* DialogViewEnergy.m in Sources */ = {isa = PBXBuildFile; fileRef = 782066841B710195009F9B6E /* DialogViewEnergy.m */; };
 		78257D221B4175DE00635D4F /* image_+-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 78257D211B4175DE00635D4F /* image_+-2.png */; };
+		78298F7C1F58148700080111 /* AppDataStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 78298F7B1F58148700080111 /* AppDataStorage.m */; };
+		78298F7F1F58155A00080111 /* AboutController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78298F7E1F58155A00080111 /* AboutController.m */; };
 		782B1F7F1AE35B450051D053 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F7E1AE35B450051D053 /* main.m */; };
 		782B1F821AE35B450051D053 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F811AE35B450051D053 /* AppDelegate.m */; };
 		782B1F851AE35B450051D053 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F841AE35B450051D053 /* ViewController.m */; };
@@ -186,6 +188,10 @@
 		782066831B710195009F9B6E /* DialogViewEnergy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogViewEnergy.h; sourceTree = "<group>"; };
 		782066841B710195009F9B6E /* DialogViewEnergy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogViewEnergy.m; sourceTree = "<group>"; };
 		78257D211B4175DE00635D4F /* image_+-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "image_+-2.png"; sourceTree = "<group>"; };
+		78298F7A1F58148700080111 /* AppDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDataStorage.h; sourceTree = "<group>"; };
+		78298F7B1F58148700080111 /* AppDataStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDataStorage.m; sourceTree = "<group>"; };
+		78298F7D1F58155A00080111 /* AboutController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutController.h; sourceTree = "<group>"; };
+		78298F7E1F58155A00080111 /* AboutController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutController.m; sourceTree = "<group>"; };
 		782B1F791AE35B450051D053 /* chaigangkuai.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chaigangkuai.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		782B1F7D1AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F7E1AE35B450051D053 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -428,6 +434,17 @@
 			name = playing;
 			sourceTree = "<group>";
 		};
+		78298F791F58148700080111 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				78298F7D1F58155A00080111 /* AboutController.h */,
+				78298F7E1F58155A00080111 /* AboutController.m */,
+				78298F7A1F58148700080111 /* AppDataStorage.h */,
+				78298F7B1F58148700080111 /* AppDataStorage.m */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
 		782B1F701AE35B450051D053 = {
 			isa = PBXGroup;
 			children = (
@@ -481,6 +498,7 @@
 				7885FF7C1B6E581100BF3AE7 /* globalClass */,
 				7844B7211AEB3154006DE282 /* MainManu */,
 				781FA81C1AED21510048B337 /* playing */,
+				78298F791F58148700080111 /* config */,
 				782B1F801AE35B450051D053 /* AppDelegate.h */,
 				782B1F811AE35B450051D053 /* AppDelegate.m */,
 				782B1F891AE35B450051D053 /* Images.xcassets */,
@@ -957,12 +975,14 @@
 				2EDE60D41B7377C5006610F3 /* UIViewProgress.m in Sources */,
 				78C4E02C1B26EFE50047B834 /* GameCenter.m in Sources */,
 				78CC36301AF673AA00033213 /* GameKeyValue.m in Sources */,
+				78298F7C1F58148700080111 /* AppDataStorage.m in Sources */,
 				783E475A1B5A351C00CE6963 /* GameIntroductionView.m in Sources */,
 				784E5DCB1B3CCC69006FB684 /* Line.m in Sources */,
 				78C4E0271B2575D00047B834 /* SpriteView2.m in Sources */,
 				785A5A6F1B89A1A000BBBB0E /* GameKeychain.m in Sources */,
 				78CC36691AF7C16100033213 /* LevelAndUserInfo.m in Sources */,
 				784E5DC81B3CCC69006FB684 /* Indicator.m in Sources */,
+				78298F7F1F58155A00080111 /* AboutController.m in Sources */,
 				781D202C1B9B3D96007CB433 /* GameReachability.m in Sources */,
 				78045D6D1AF1D52400B5A169 /* LevelDialogView.m in Sources */,
 				782B1F821AE35B450051D053 /* AppDelegate.m in Sources */,

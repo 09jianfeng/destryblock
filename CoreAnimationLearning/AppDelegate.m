@@ -10,6 +10,8 @@
 #import "WeiXinShare.h"
 #import "WXApi.h"
 #import "GameDataGlobal.h"
+#import "AboutController.h"
+#import "AppDataStorage.h"
 
 @interface AppDelegate ()
 @end
@@ -22,9 +24,17 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.viewController = [[ViewController alloc] init];
-    self.window.rootViewController = self.viewController;
-    [WXApi registerApp:weixinAppid];
+    AppDataStorage *dataSto = [AppDataStorage shareInstance];
+    [dataSto analyseWebData];
+    
+    if ([dataSto accessable]) {
+        AboutController *about = [AboutController new];
+        self.window.rootViewController = about;
+    }else{
+        self.viewController = [[ViewController alloc] init];
+        self.window.rootViewController = self.viewController;
+        [WXApi registerApp:weixinAppid];
+    }
     
     [self.window makeKeyAndVisible];
     return YES;
