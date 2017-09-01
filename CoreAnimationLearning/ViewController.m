@@ -89,9 +89,9 @@
 
 -(void)addSubViews{
     UILabel *labelChai = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height/4 - 40)];
-    labelChai.textColor = [UIColor whiteColor];
+    labelChai.textColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.2 alpha:1.0];
     labelChai.textAlignment = NSTextAlignmentCenter;
-    labelChai.text = @"拆";
+    labelChai.text = @"彩";
     int size = 80;
     if (IsPadUIBlockGame()) {
         size = 160;
@@ -102,9 +102,9 @@
     
     UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 20, self.view.frame.size.width, self.view.frame.size.height/4)];
     labelFangKuai.textAlignment = NSTextAlignmentCenter;
-    labelFangKuai.textColor = [UIColor whiteColor];
+    labelFangKuai.textColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.2 alpha:1.0];
     labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size-20];
-    labelFangKuai.text =@"方 块";
+    labelFangKuai.text =@"快 快";
     [self.view addSubview:labelFangKuai];
     
     
