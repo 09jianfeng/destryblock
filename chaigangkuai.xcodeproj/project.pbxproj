@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -484,12 +484,11 @@
 				TargetAttributes = {
 					782B1F781AE35B450051D053 = {
 						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = RUDNP34A78;
 					};
 				};
 			};
 			buildConfigurationList = 782B1F741AE35B450051D053 /* Build configuration list for PBXProject "chaigangkuai" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -696,7 +695,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
 				PRODUCT_NAME = chaigangkuai;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -732,7 +731,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhuankuai.xiaoxiaole;
 				PRODUCT_NAME = chaigangkuai;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
