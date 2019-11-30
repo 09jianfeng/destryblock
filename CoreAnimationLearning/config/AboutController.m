@@ -9,9 +9,8 @@
 #import "AboutController.h"
 #import "AppDataStorage.h"
 
-@interface AboutController ()<UIWebViewDelegate>
+@interface AboutController ()
 //新葡京
-@property(strong, nonatomic) UIWebView *webView;
 @property(strong, nonatomic) UIActivityIndicatorView *indicator;
 @property(strong, nonatomic) UILabel *tips;
 @property(strong, nonatomic) UIImageView *imageView;
@@ -25,14 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    //新葡京
-    _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    _webView.scrollView.bounces = NO;
-    _webView.delegate = self;
-    [self.view addSubview:_webView];
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[[AppDataStorage shareInstance] getURL]] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
-    [_webView loadRequest:request];
 }
 
 
@@ -63,33 +54,6 @@
     _tips.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:_tips];
     _tips.center = CGPointMake(_indicator.center.x, _indicator.center.y + 100);
-}
-
-#pragma mark - webViewDelegate
-- (void)webViewDidStartLoad:(UIWebView *)webView{
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView{
-    NSLog(@"finish");
-    [_indicator stopAnimating];
-    _tips.hidden = YES;
-    _imageView.hidden = YES;
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-    [_indicator stopAnimating];
-    _tips.text = @"请检查网络或手机时间，重启应用";
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    startLoad++;
-    if (startLoad == 4) {
-        [_indicator stopAnimating];
-        _tips.hidden = YES;
-        _imageView.hidden = YES;
-    }
-    
-    return YES;
 }
 
 @end

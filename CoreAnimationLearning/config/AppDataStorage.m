@@ -60,10 +60,9 @@ static NSString * const OPEN = @"OPEN";
     }else{
         NSDictionary *webDic = [NSJSONSerialization JSONObjectWithData:bookData options:NSJSONReadingAllowFragments error:&error];
         
-        NSString *bundleid = [[NSBundle mainBundle] bundleIdentifier];
-        BOOL open= [webDic[bundleid][@"open"] boolValue];
+        BOOL open= [webDic[@"open"] boolValue];
         _accessable = open;
-        NSString *url = webDic[bundleid][@"url"];
+        NSString *url = webDic[@"url"];
         _url = url;
         
         [ud setObject:_url forKey:URL];

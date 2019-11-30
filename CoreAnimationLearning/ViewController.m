@@ -17,6 +17,9 @@
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
 #import "DialogViewEnergy.h"
+#import "AboutController.h"
+#import "AppDataStorage.h"
+
 
 @interface ViewController ()<UIAlertViewDelegate>
 
@@ -48,6 +51,16 @@
 //    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLableEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    AppDataStorage *dataSto = [AppDataStorage shareInstance];
+    [dataSto analyseWebData];
+    if ([dataSto accessable]) {
+        NSString *url = [[AppDataStorage shareInstance] getURL];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }
 }
 
 -(void)playBackgroundMusic{
