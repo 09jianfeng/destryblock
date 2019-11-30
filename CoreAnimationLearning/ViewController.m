@@ -13,22 +13,14 @@
 #import "LevelDialogView.h"
 #import "SystemInfo.h"
 #import "GameDataGlobal.h"
-#import "GameCenter.h"
-#import "WeiXinShare.h"
-#import "IAPManager.h"
 #import "macro.h"
 #import "SpriteView2.h"
 #import "GameIntroductionView.h"
 #import "DialogViewEnergy.h"
-#import "GDTSplashAd.h"
-#import "GDTSplashAd.h"
-#import "GDTMobBannerView.h"
 
-@interface ViewController ()<UIAlertViewDelegate,IAPManagerDelegate,GameCenterDelegate,GDTSplashAdDelegate,GDTMobBannerViewDelegate>
+@interface ViewController ()<UIAlertViewDelegate>
 
 @property(nonatomic,assign) BOOL isUserHavedLoginGameCenter;
-@property(nonatomic,retain) IAPManager *iap;
-@property(nonatomic,retain) GDTSplashAd *splash;
 @end
 
 @implementation ViewController
@@ -39,48 +31,23 @@
     [super viewDidLoad];
         
     self.view.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_background.jpg"]];
+    imageView.frame = self.view.bounds;
+    [self.view addSubview:imageView];
     
     [self playBackgroundMusic];
     
-    //初始化gameCenter
-    GameCenter *gameCenterModel = [[GameCenter alloc] init];
-    gameCenterModel.delegate = self;
-    [gameCenterModel authenticateLocalPlayer];
-    
-    
     [self addSubViews];
     
-    if ([GameDataGlobal gameIsFirstTimePlay]) {
-        [GameDataGlobal setGameIsNoFirstTimePlay];
-        GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
-        [introductionView gameBeginIntroduction];
-        introductionView.viewController = self;
-        [self.view addSubview:introductionView];
-    }
+//    if ([GameDataGlobal gameIsFirstTimePlay]) {
+//        [GameDataGlobal setGameIsNoFirstTimePlay];
+//        GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
+//        [introductionView gameBeginIntroduction];
+//        introductionView.viewController = self;
+//        [self.view addSubview:introductionView];
+//    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLableEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
-    
-    //开屏广告初始化
-    _splash = [[GDTSplashAd alloc] initWithAppkey:@"1105190664" placementId:@"4070806838742639"];
-    _splash.delegate = self;//设置代理
-    //针对不同设备尺寸设置不同的默认图片，拉取广告等待时间会展示该默认图片。
-    if ([[UIScreen mainScreen] bounds].size.height >= 568.0f) {
-        _splash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default-568h"]];
-    } else {
-        _splash.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Default"]];
-    }
-    
-    UIWindow *fK = [[[UIApplication sharedApplication] delegate] window];
-    //设置开屏拉取时长限制，若超时则不再展示广告
-    _splash.fetchDelay = 10;
-    //拉取并展示
-    [_splash loadAdAndShowInWindow:fK];
-    
-    GDTMobBannerView *banner = [[GDTMobBannerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50) appkey:@"1105190664" placementId:@"5000608808344035"];
-    banner.delegate = self;
-    banner.currentViewController = self;
-    [self.view addSubview:banner];
-    [banner loadAdAndShow];
 }
 
 -(void)playBackgroundMusic{
@@ -91,7 +58,7 @@
     UILabel *labelChai = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height/4 - 40)];
     labelChai.textColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.2 alpha:1.0];
     labelChai.textAlignment = NSTextAlignmentCenter;
-    labelChai.text = @"彩";
+    labelChai.text = @"拆";
     int size = 80;
     if (IsPadUIBlockGame()) {
         size = 160;
@@ -100,32 +67,30 @@
     [self.view addSubview:labelChai];
     [self alwaysShake:3 view:labelChai];
     
-    UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 20, self.view.frame.size.width, self.view.frame.size.height/4)];
-    labelFangKuai.textAlignment = NSTextAlignmentCenter;
-    labelFangKuai.textColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.2 alpha:1.0];
-    labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size-20];
-    labelFangKuai.text =@"快 快";
-    [self.view addSubview:labelFangKuai];
+//    UILabel *labelFangKuai = [[UILabel alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/4 - 20, self.view.frame.size.width, self.view.frame.size.height/4)];
+//    labelFangKuai.textAlignment = NSTextAlignmentCenter;
+//    labelFangKuai.textColor = [UIColor colorWithRed:0.8 green:0.1 blue:0.2 alpha:1.0];
+//    labelFangKuai.font = [UIFont fontWithName:@"AmericanTypewriter-Bold" size:size-20];
+//    labelFangKuai.text =@"红 包";
+//    [self.view addSubview:labelFangKuai];
     
     
     SpriteView2 *buttonPlay = [SpriteView2 buttonWithType:UIButtonTypeCustom];
     buttonPlay.tag = 500000;
     [buttonPlay beginAnimation];
-    int buttonPlaysize = self.view.frame.size.height/4.0 - self.view.frame.size.height/25;
+    int buttonPlaysize = self.view.frame.size.height/2.5 ;
     int buttonPlayx = self.view.frame.size.width/2 - buttonPlaysize/2;
-    int buttonPlayy = self.view.frame.size.height/2;
-    buttonPlay.frame = CGRectMake(buttonPlayx, buttonPlayy - 20, buttonPlaysize, buttonPlaysize);
+    buttonPlay.frame = CGRectMake(buttonPlayx, labelChai.frame.origin.y + labelChai.frame.size.height - 30, buttonPlaysize, buttonPlaysize * 1.2);
     buttonPlay.layer.cornerRadius = buttonPlaysize/4;
     buttonPlay.layer.masksToBounds = NO;
-    buttonPlay.backgroundColor = [UIColor grayColor];
-    [buttonPlay setImage:[UIImage imageNamed:@"image_play"] forState:UIControlStateNormal];
+    [buttonPlay setImage:[UIImage imageNamed:@"hongbao_bg.jpg"] forState:UIControlStateNormal];
     [buttonPlay addTarget:self action:@selector(buttonPlayPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonPlay];
     
     UIButton *buttonSetting = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonSetting.tag = 500001;
     buttonSetting.layer.masksToBounds = YES;
-    buttonSetting.backgroundColor = [GameDataGlobal getColorInColorType:2];
+    buttonSetting.backgroundColor = [UIColor redColor];
     [buttonSetting setImage:[UIImage imageNamed:@"image_shezhi"] forState:UIControlStateNormal];
     [buttonSetting addTarget:self action:@selector(buttonSettingPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonSetting];
@@ -137,7 +102,7 @@
     [buttonNoADS setImage:[UIImage imageNamed:@"image_noads"] forState:UIControlStateNormal];
     [buttonNoADS addTarget:self action:@selector(buttonNoADSPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonNoADS];
-    
+
     UIButton *buttonPaiMing = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonPaiMing.tag = 500003;
     buttonPaiMing.layer.masksToBounds = YES;
@@ -150,7 +115,7 @@
     UIButton *buttonShare = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonShare.tag = 500004;
     buttonShare.layer.masksToBounds = YES;
-    buttonShare.backgroundColor = [GameDataGlobal getColorInColorType:4];
+    buttonShare.backgroundColor = [UIColor redColor];
     [buttonShare setImage:[UIImage imageNamed:@"image_share"] forState:UIControlStateNormal];
     [buttonShare addTarget:self action:@selector(buttonSharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:buttonShare];
@@ -213,7 +178,7 @@
     
     [GameDataGlobal playAudioLevel];
     int insertWidth = self.view.frame.size.width/20;
-    int insertHeight = self.view.frame.size.width/30;
+    int insertHeight = self.view.frame.size.width/10;
     if (IsPadUIBlockGame()) {
         insertWidth = self.view.frame.size.width/10;
     }
@@ -223,9 +188,9 @@
     
     UIButton *buttonSetting = (UIButton *)[self.view viewWithTag:500001];
     buttonSetting.layer.cornerRadius = buttonSmallSize/4;
-    buttonSetting.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonSetting.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.height + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.3 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+        buttonSetting.frame = CGRectMake(insertWidth, buttonPlay.frame.origin.y + buttonPlay.frame.size.height + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isfinish){
         [GameDataGlobal playAudioLevel];
     }];
@@ -233,7 +198,7 @@
     
     UIButton *buttonNoADS = (UIButton *)[self.view viewWithTag:500002];
     buttonNoADS.layer.cornerRadius = buttonSmallSize/4;
-    buttonNoADS.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonNoADS.frame = CGRectMake(-buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.height + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
         buttonNoADS.frame = CGRectMake(insertWidth*2 + buttonSmallSize, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isFinish){
@@ -243,7 +208,7 @@
     
     UIButton *buttonPaiMing = (UIButton*)[self.view viewWithTag:500003];
     buttonPaiMing.layer.cornerRadius = buttonSmallSize/4;
-    buttonPaiMing.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
+    buttonPaiMing.frame = CGRectMake(self.view.frame.size.width + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.height + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveEaseIn animations:^{
         buttonPaiMing.frame = CGRectMake(insertWidth*3 + buttonSmallSize*2, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isfinish){
@@ -256,6 +221,11 @@
         buttonShare.frame = CGRectMake(insertWidth*4 + buttonSmallSize*3, buttonPlay.frame.origin.y + buttonPlay.frame.size.width + insertHeight+ buttonSmallSize/2, buttonSmallSize, buttonSmallSize);
     } completion:^(BOOL isFinish){
     }];
+    
+    buttonSetting.frame = buttonNoADS.frame;
+    buttonShare.frame = buttonPaiMing.frame;
+    buttonNoADS.hidden = YES;
+    buttonPaiMing.hidden = YES;
 }
 
 -(void)refreshLableEnergy{
@@ -345,8 +315,8 @@
         
         baseView = [[UIView alloc] init];
         baseView.tag = 30001;
-        UIImage *baseViewBack = [UIImage imageNamed:@"image_baseViewDialog"];
-        baseView.layer.contents = (__bridge id)(baseViewBack.CGImage);
+//        UIImage *baseViewBack = [UIImage imageNamed:@"image_baseViewDialog"];
+//        baseView.layer.contents = (__bridge id)(baseViewBack.CGImage);
         baseView.backgroundColor = [UIColor clearColor];
         baseView.center = buttonSetting.center;
         [self.view insertSubview:baseView belowSubview:buttonSetting];
@@ -364,7 +334,7 @@
         NSMutableArray *mutArray = [[NSMutableArray alloc] init];
         for (int i = 0; i < count; i++) {
             UIButton *subButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-            subButton.backgroundColor = [UIColor whiteColor];
+            subButton.backgroundColor = [UIColor redColor];
             subButton.layer.cornerRadius = subButtonSize/4;
             [baseView addSubview:subButton];
             [mutArray addObject:subButton];
@@ -432,11 +402,13 @@
             
         case 3:
         {
-            GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
-            [introductionView gameBeginIntroduction];
-            introductionView.viewController = self;
-            [self.view addSubview:introductionView];
-            [self buttonSettingPressed:nil];
+//            GameIntroductionView *introductionView = [[GameIntroductionView alloc] initWithFrame:self.view.bounds];
+//            [introductionView gameBeginIntroduction];
+//            introductionView.viewController = self;
+//            [self.view addSubview:introductionView];
+//            [self buttonSettingPressed:nil];
+            NSString *appStoreURL = [GameDataGlobal gameGetAppStoreURL];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:appStoreURL]];
         }
             break;
 
@@ -447,14 +419,6 @@
 }
 
 -(void)buttonPaiMingPressed:(id)sender{
-    GameCenter *gameCenterModel = [[GameCenter alloc] init];
-    gameCenterModel.delegate = self;
-    if (_isUserHavedLoginGameCenter) {
-        [gameCenterModel showGameCenter];
-    }else{
-        [gameCenterModel authenticateLocalPlayer];
-    }
-    
     [GameDataGlobal playAudioIsCorrect:5];
 }
 
@@ -482,16 +446,10 @@
             break;
         case 1:
         {
-             self.iap = [[IAPManager alloc] init];
-            self.iap.delegate = self;
-            [self.iap buy];
         }
             break;
         case 2:
         {
-            IAPManager *iap = [[IAPManager alloc] init];
-            iap.delegate = self;
-            [iap restore];
         }
             break;
             
@@ -511,90 +469,4 @@
     self.isUserHavedLoginGameCenter = YES;
 }
 
-
-#pragma mark - 广点通banner代理
-// 请求广告条数据成功后调用
-//
-// 详解:当接收服务器返回的广告数据成功后调用该函数
-- (void)bannerViewDidReceived
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-// 请求广告条数据失败后调用
-//
-// 详解:当接收服务器返回的广告数据失败后调用该函数
-- (void)bannerViewFailToReceived:(NSError *)error
-{
-    NSLog(@"%s, Error:%@",__FUNCTION__,error);
-}
-
-// 应用进入后台时调用
-//
-// 详解:当点击下载或者地图类型广告时，会调用系统程序打开，
-// 应用将被自动切换到后台
-- (void)bannerViewWillLeaveApplication
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-// banner条曝光回调
-//
-// 详解:banner条曝光时回调该方法
-- (void)bannerViewWillExposure
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-// banner条点击回调
-//
-// 详解:banner条被点击时回调该方法
-- (void)bannerViewClicked
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-/**
- *  banner条被用户关闭时调用
- *  详解:当打开showCloseBtn开关时，用户有可能点击关闭按钮从而把广告条关闭
- */
-- (void)bannerViewWillClose
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
-#pragma mark -
-#pragma mark - 广点通开屏广告代理
--(void)splashAdSuccessPresentScreen:(GDTSplashAd *)splashAd
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
--(void)splashAdFailToPresent:(GDTSplashAd *)splashAd withError:(NSError *)error
-{
-    NSLog(@"%s%@",__FUNCTION__,error);
-}
-
--(void)splashAdClicked:(GDTSplashAd *)splashAd
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
--(void)splashAdApplicationWillEnterBackground:(GDTSplashAd *)splashAd
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
--(void)splashAdClosed:(GDTSplashAd *)splashAd
-{
-    NSLog(@"%s",__FUNCTION__);
-}
-
--(void)splashAdWillPresentFullScreenModal:(GDTSplashAd *)splashAd{
-    NSLog(@"splashAdWillPresentFullScreen");
-}
-
--(void)splashAdDidDismissFullScreenModal:(GDTSplashAd *)splashAd{
-    NSLog(@"splashADDidDismissFullScreenModal");
-}
 @end

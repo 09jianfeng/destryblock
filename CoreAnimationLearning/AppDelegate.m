@@ -7,8 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "WeiXinShare.h"
-#import "WXApi.h"
 #import "GameDataGlobal.h"
 #import "AboutController.h"
 #import "AppDataStorage.h"
@@ -33,7 +31,6 @@
     }else{
         self.viewController = [[ViewController alloc] init];
         self.window.rootViewController = self.viewController;
-        [WXApi registerApp:weixinAppid];
     }
     
     [self.window makeKeyAndVisible];
@@ -62,12 +59,5 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark - 微信api相关
--(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
-    return [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
-}
 
--(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-    return [WXApi handleOpenURL:url delegate:[WeiXinShare shareInstance]];
-}
 @end

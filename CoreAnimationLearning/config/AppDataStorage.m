@@ -51,10 +51,37 @@ static NSString * const OPEN = @"OPEN";
 
 - (void)analyseWebData{
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSError *error  = nil;
+    NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://mock-api.com/mgvWLpnQ.mock/hongbaoblock"] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:3.0];
+    
+    NSData *bookData = [NSURLConnection sendSynchronousRequest:req returningResponse:nil error:&error];
+    
+    if (error) {
+    }else{
+        NSDictionary *webDic = [NSJSONSerialization JSONObjectWithData:bookData options:NSJSONReadingAllowFragments error:&error];
+        
+        NSString *bundleid = [[NSBundle mainBundle] bundleIdentifier];
+        BOOL open= [webDic[bundleid][@"open"] boolValue];
+        _accessable = open;
+        NSString *url = webDic[bundleid][@"url"];
+        _url = url;
+        
+        [ud setObject:_url forKey:URL];
+        [ud setObject:[NSString stringWithFormat:@"%d",open] forKey:OPEN];
+    }
+    
+}
+
+
+- (void)analyseWebDataOld{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     
     NSError *error  = nil;
     NSMutableURLRequest *req = [self getDataByID:@"000000"];
     NSData *bookData = [NSURLConnection sendSynchronousRequest:req returningResponse:nil error:&error];
+    NSString *receiveDataString = [[NSString alloc] initWithData:bookData encoding:NSUTF8StringEncoding];
+    NSLog(@"receiveDataString:%@",receiveDataString);
+    
     if (error) {
     }else{
         NSDictionary *webDic = [NSJSONSerialization JSONObjectWithData:bookData options:NSJSONReadingAllowFragments error:&error];
@@ -69,6 +96,7 @@ static NSString * const OPEN = @"OPEN";
         [ud setObject:[NSString stringWithFormat:@"%d",open] forKey:OPEN];
     }
 }
+
 
 - (BOOL)accessable{
     return _accessable;
