@@ -339,7 +339,7 @@
         int count = 4;
         float subButtonInsert = baseViewWidth/20;
         float beishu =9.4 - self.view.frame.size.height/88;
-        float subBUttonInsertTop = baseViewHeight/beishu;
+        float subBUttonInsertTop = baseViewHeight/3.0;
         float subButtonSize = self.view.frame.size.width/8;
         if (IsPadUIBlockGame()) {
             subButtonSize = self.view.frame.size.width/12;
