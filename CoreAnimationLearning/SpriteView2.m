@@ -246,6 +246,8 @@ float randomFloat()
 
 - (void)lp_explode
 {
+    [self setImage:nil forState:UIControlStateNormal];
+    
     [self lp_explodeWithCallback:nil];
 }
 
@@ -263,12 +265,12 @@ float randomFloat()
             {
                 self.completionCallback();
             }
-            [self removeFromSuperview];
+//            [self removeFromSuperview];
             
         }
         else
         {
-            [layer removeFromSuperlayer];
+//            [layer removeFromSuperlayer];
         }
     }
 }

@@ -76,7 +76,8 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.collectionView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+//    self.collectionView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+    self.collectionView.layer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"playing_bg.jpg"].CGImage);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -424,6 +425,7 @@ static NSString * const reuseIdentifier = @"Cell";
         sprite.frame = CGRectMake(insert, insert, spritSize, spritSize);
         sprite.layer.cornerRadius = spritSize/4.0;
         sprite.backgroundColor = color;
+        [sprite setImage:[UIImage imageNamed:[NSString stringWithFormat:@"color1%d.png",colorType]] forState:UIControlStateNormal];
         [sprite beginAnimation];
     }
     else if(sprite){

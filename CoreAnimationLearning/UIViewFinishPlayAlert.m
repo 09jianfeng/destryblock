@@ -49,7 +49,8 @@
     int boarWidth = self.frame.size.width - boarInsert*2;
     int boarHeigh = self.frame.size.height/2 > 284 ? self.frame.size.height/2 : 284;
     UIView *board = [[UIView alloc] initWithFrame:CGRectMake(boarInsert, -self.frame.size.height/2, boarWidth, boarHeigh)];
-    board.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+//    board.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+    board.layer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"game_score_bg.png"].CGImage);
     board.tag = 40000;
     board.layer.cornerRadius = 20;
     
@@ -153,7 +154,7 @@
     
     //按钮
     CustomButton *buttonBack = [[CustomButton alloc] initWithFrame:CGRectMake(buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
-    buttonBack.backgroundColor = [GameDataGlobal getColorInColorType:2];
+//    buttonBack.backgroundColor = [GameDataGlobal getColorInColorType:2];
     buttonBack.layer.cornerRadius = buttonSize/2;
     [buttonBack setTitle:@"退出" forState:UIControlStateNormal];
     buttonBack.titleLabel.font = [UIFont systemFontOfSize:fontLabelSize];
@@ -162,7 +163,7 @@
     
     CustomButton *buttonReplay = [[CustomButton alloc] initWithFrame:CGRectMake(board.frame.size.width/2 - buttonSize/2, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
     buttonReplay.layer.cornerRadius = buttonSize/2;
-    buttonReplay.backgroundColor = [GameDataGlobal getColorInColorType:3];
+//    buttonReplay.backgroundColor = [GameDataGlobal getColorInColorType:3];
     [buttonReplay setTitle:@"重玩" forState:UIControlStateNormal];
     buttonReplay.titleLabel.font = [UIFont systemFontOfSize:fontLabelSize];
     [buttonReplay addTarget:self action:@selector(buttonReplayPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -171,7 +172,7 @@
     }
     
     CustomButton *buttonNext = [[CustomButton alloc] initWithFrame:CGRectMake(board.frame.size.width - buttonSize - buttonInsert, board.frame.size.height - buttonSize - 10, buttonSize, buttonSize)];
-    buttonNext.backgroundColor = [GameDataGlobal getColorInColorType:4];
+//    buttonNext.backgroundColor = [GameDataGlobal getColorInColorType:4];
     NSString *conOrNext = @"继续";
     if (!_isStop) {
         conOrNext = @"Next";
