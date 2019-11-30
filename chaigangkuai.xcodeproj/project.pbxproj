@@ -12,9 +12,6 @@
 		78045D711AF20F4000B5A169 /* CollectionViewCellLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78045D6F1AF20F4000B5A169 /* CollectionViewCellLevel.m */; };
 		78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */; };
 		780E17621AEE7D52007A4A88 /* SystemInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 780E17611AEE7D52007A4A88 /* SystemInfo.m */; };
-		780E176C1AEF07E0007A4A88 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E17691AEF07E0007A4A88 /* Default-568h@2x.png */; };
-		780E176D1AEF07E0007A4A88 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E176A1AEF07E0007A4A88 /* Default.png */; };
-		780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 780E176B1AEF07E0007A4A88 /* Default@2x.png */; };
 		781D202C1B9B3D96007CB433 /* GameReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 781D202B1B9B3D96007CB433 /* GameReachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		781FA81B1AED17C50048B337 /* SpriteUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 781FA81A1AED17C50048B337 /* SpriteUIView.m */; };
 		782066851B710195009F9B6E /* DialogViewEnergy.m in Sources */ = {isa = PBXBuildFile; fileRef = 782066841B710195009F9B6E /* DialogViewEnergy.m */; };
@@ -24,7 +21,6 @@
 		782B1F821AE35B450051D053 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F811AE35B450051D053 /* AppDelegate.m */; };
 		782B1F851AE35B450051D053 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 782B1F841AE35B450051D053 /* ViewController.m */; };
 		782B1F8A1AE35B450051D053 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782B1F891AE35B450051D053 /* Images.xcassets */; };
-		782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782B1F8B1AE35B450051D053 /* LaunchScreen.xib */; };
 		7835010F1B15C2CE00830DAE /* UIViewFinishPlayAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 7835010E1B15C2CE00830DAE /* UIViewFinishPlayAlert.m */; };
 		783E475A1B5A351C00CE6963 /* GameIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 783E47591B5A351C00CE6963 /* GameIntroductionView.m */; };
 		7844B7091AEA9A05006DE282 /* CollectionViewControllerPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 7844B7081AEA9A05006DE282 /* CollectionViewControllerPlay.m */; };
@@ -63,6 +59,8 @@
 		78D335AE2390FF9B0021DE13 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D335AD2390FF9B0021DE13 /* libsqlite3.tbd */; };
 		78D335B22390FFBB0021DE13 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D335B12390FFBB0021DE13 /* libz.tbd */; };
 		78D335B42390FFCF0021DE13 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 78D335B32390FFCF0021DE13 /* libicucore.tbd */; };
+		78D335E72392931F0021DE13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D335E62392931F0021DE13 /* Main.storyboard */; };
+		78D335E92392933E0021DE13 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78D335E82392933E0021DE13 /* Launch Screen.storyboard */; };
 		78E260931B1AEBA600EB9F3E /* GameDataGlobal.m in Sources */ = {isa = PBXBuildFile; fileRef = 78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */; };
 /* End PBXBuildFile section */
 
@@ -76,9 +74,6 @@
 		78045D701AF20F4000B5A169 /* CollectionViewCellLevel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionViewCellLevel.xib; sourceTree = "<group>"; };
 		780E17601AEE7D52007A4A88 /* SystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemInfo.h; sourceTree = "<group>"; };
 		780E17611AEE7D52007A4A88 /* SystemInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemInfo.m; sourceTree = "<group>"; };
-		780E17691AEF07E0007A4A88 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		780E176A1AEF07E0007A4A88 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		780E176B1AEF07E0007A4A88 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		781D202A1B9B3D96007CB433 /* GameReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameReachability.h; sourceTree = "<group>"; };
 		781D202B1B9B3D96007CB433 /* GameReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameReachability.m; sourceTree = "<group>"; };
 		781FA8191AED17C50048B337 /* SpriteUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpriteUIView.h; sourceTree = "<group>"; };
@@ -97,7 +92,6 @@
 		782B1F831AE35B450051D053 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		782B1F841AE35B450051D053 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		782B1F891AE35B450051D053 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		782B1F8C1AE35B450051D053 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		782B1F971AE35B450051D053 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		782B1F981AE35B450051D053 /* CoreAnimationLearningTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreAnimationLearningTests.m; sourceTree = "<group>"; };
 		7835010D1B15C2CE00830DAE /* UIViewFinishPlayAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewFinishPlayAlert.h; sourceTree = "<group>"; };
@@ -157,6 +151,8 @@
 		78D335AF2390FFAD0021DE13 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
 		78D335B12390FFBB0021DE13 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		78D335B32390FFCF0021DE13 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
+		78D335E62392931F0021DE13 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		78D335E82392933E0021DE13 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		78E260901B1ACB5D00EB9F3E /* macro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = macro.h; sourceTree = "<group>"; };
 		78E260911B1AEBA600EB9F3E /* GameDataGlobal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataGlobal.h; sourceTree = "<group>"; };
 		78E260921B1AEBA600EB9F3E /* GameDataGlobal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataGlobal.m; sourceTree = "<group>"; };
@@ -250,8 +246,9 @@
 				78298F791F58148700080111 /* config */,
 				782B1F801AE35B450051D053 /* AppDelegate.h */,
 				782B1F811AE35B450051D053 /* AppDelegate.m */,
+				78D335E62392931F0021DE13 /* Main.storyboard */,
+				78D335E82392933E0021DE13 /* Launch Screen.storyboard */,
 				782B1F891AE35B450051D053 /* Images.xcassets */,
-				782B1F8B1AE35B450051D053 /* LaunchScreen.xib */,
 				7844B70E1AEB233F006DE282 /* image */,
 				782B1F7C1AE35B450051D053 /* Supporting Files */,
 			);
@@ -323,9 +320,6 @@
 				78B1C3631B64A418009CB13F /* music_2.mp3 */,
 				78B1C3641B64A418009CB13F /* music_3.mp3 */,
 				78B1C3661B64A418009CB13F /* music_main.mp3 */,
-				780E17691AEF07E0007A4A88 /* Default-568h@2x.png */,
-				780E176A1AEF07E0007A4A88 /* Default.png */,
-				780E176B1AEF07E0007A4A88 /* Default@2x.png */,
 			);
 			name = image;
 			sourceTree = "<group>";
@@ -518,24 +512,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78D335E72392931F0021DE13 /* Main.storyboard in Resources */,
 				78A02A961B6CC84400852F29 /* music_star_2.mp3 in Resources */,
 				788437241B6DB6DD00967239 /* music_level.mp3 in Resources */,
 				788437221B6DA92300967239 /* music_timeup.mp3 in Resources */,
 				78B1C3681B64A418009CB13F /* music_3.mp3 in Resources */,
 				78045D721AF20F4000B5A169 /* CollectionViewCellLevel.xib in Resources */,
+				78D335E92392933E0021DE13 /* Launch Screen.storyboard in Resources */,
 				78B1C3671B64A418009CB13F /* music_2.mp3 in Resources */,
-				780E176D1AEF07E0007A4A88 /* Default.png in Resources */,
-				782B1F8D1AE35B450051D053 /* LaunchScreen.xib in Resources */,
 				78A02A921B6CC84400852F29 /* music_firework_shot.mp3 in Resources */,
 				78A02A941B6CC84400852F29 /* music_screen_switch.mp3 in Resources */,
 				78B1C36F1B64C6FA009CB13F /* music_click.mp3 in Resources */,
 				78A02A971B6CC84400852F29 /* music_star_3.mp3 in Resources */,
 				78A02A931B6CC84400852F29 /* music_num_add.mp3 in Resources */,
 				78B1C36A1B64A418009CB13F /* music_main.mp3 in Resources */,
-				780E176C1AEF07E0007A4A88 /* Default-568h@2x.png in Resources */,
 				78A02A911B6CC84400852F29 /* music_firework_explot.mp3 in Resources */,
 				78A02A951B6CC84400852F29 /* music_star_1.mp3 in Resources */,
-				780E176E1AEF07E0007A4A88 /* Default@2x.png in Resources */,
 				78A02A981B6CC84400852F29 /* music_time_up.mp3 in Resources */,
 				78A6CC531B6D1C7A004478FA /* music_finish_cheer.mp3 in Resources */,
 				78B1C36E1B64C6FA009CB13F /* music_1.mp3 in Resources */,
@@ -586,17 +578,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		782B1F8B1AE35B450051D053 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				782B1F8C1AE35B450051D053 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		782B1F9A1AE35B450051D053 /* Debug */ = {
@@ -689,6 +670,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 3.5;
 				DEVELOPMENT_TEAM = RUDNP34A78;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -723,6 +705,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 3.5;
 				DEVELOPMENT_TEAM = RUDNP34A78;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
