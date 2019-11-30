@@ -20,6 +20,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     self.viewController = [[ViewController alloc] init];
+    self.viewController.view.backgroundColor = [UIColor whiteColor];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];
     return YES;

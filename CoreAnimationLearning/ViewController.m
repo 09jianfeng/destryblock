@@ -51,6 +51,8 @@
 //    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshLableEnergy) name:NotificationShouldRefreshEnergyLabel object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidAppear:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

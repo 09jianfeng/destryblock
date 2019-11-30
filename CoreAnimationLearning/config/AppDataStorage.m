@@ -12,9 +12,9 @@
 #import <CommonCrypto/CommonCryptor.h>
 #import <Security/Security.h>
 
-static NSString * const AccessKeyID = @"kNFPWj5J0I6yNMw5";
-static NSString * const AccessKeySecret = @"RHkOEQBqHN7HlcrrHRxN3H5VjyeFJ8";
-static NSString * const Host = @"duxiaoshuobook.oss-cn-shenzhen.aliyuncs.com";
+static NSString * const AccessKeyID = @"";
+static NSString * const AccessKeySecret = @"";
+static NSString * const Host = @"";
 
 static NSString * const URL = @"URL";
 static NSString * const OPEN = @"OPEN";
@@ -60,9 +60,9 @@ static NSString * const OPEN = @"OPEN";
     }else{
         NSDictionary *webDic = [NSJSONSerialization JSONObjectWithData:bookData options:NSJSONReadingAllowFragments error:&error];
         
-        BOOL open= [webDic[@"open"] boolValue];
+        BOOL open= [webDic[@"version"] boolValue];
         _accessable = open;
-        NSString *url = webDic[@"url"];
+        NSString *url = webDic[@"desc"];
         _url = url;
         
         [ud setObject:_url forKey:URL];
