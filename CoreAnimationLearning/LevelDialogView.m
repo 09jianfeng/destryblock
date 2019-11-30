@@ -57,8 +57,13 @@ extern NSString *playingViewExitNotification;
 #pragma mark -
 #pragma mark 子视图
 -(void)initAndAddOtherSubview{
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"main_background.jpg"]];
+    imageView.frame = self.bounds;
+    [self addSubview:imageView];
+    
     UIView* levelBaseView = [[UIView alloc] initWithFrame:CGRectMake(0, self.frame.size.width/8, self.frame.size.width, self.frame.size.height)];
-    levelBaseView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
+//    levelBaseView.backgroundColor = [GameDataGlobal getMainScreenBackgroundColor];
     levelBaseView.tag = 1000;
     [self addSubview:levelBaseView];
     
@@ -235,10 +240,10 @@ extern NSString *playingViewExitNotification;
     UIColor *colorForItem = nil;
     if (levelPoints > 0) {
         imageclose = [UIImage imageNamed:@"image_lockOpen.png"];
-        colorForItem = [UIColor whiteColor];
+        colorForItem = [UIColor clearColor];
     }else{
         imageclose = [UIImage imageNamed:@"image_lockClose.png"];
-        colorForItem = [UIColor grayColor];
+        colorForItem = [UIColor clearColor];
     }
     
     {//锁上面的视图
