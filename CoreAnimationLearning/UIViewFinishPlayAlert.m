@@ -140,7 +140,7 @@
     
     UILabel *labelScore = [[UILabel alloc] initWithFrame:CGRectMake(0, labelTargetNum.frame.size.height+labelTargetNum.frame.origin.y, board.frame.size.width, labelHeigh)];
     labelScore.textAlignment = NSTextAlignmentCenter;
-    labelScore.text = @"当前分数";
+    labelScore.text = @"";
     labelScore.font = [UIFont systemFontOfSize:fontLabelSize];
     labelScore.textColor = [UIColor blackColor];
     [board addSubview:labelScore];
@@ -224,6 +224,7 @@
     
     int showingNumber = self.score - fallingScore;
     UILabel *scoreNumLabel = (UILabel*)[self viewWithTag:400001];
+    scoreNumLabel.font = [UIFont boldSystemFontOfSize:26];
     scoreNumLabel.text = [NSString stringWithFormat:@"%d",showingNumber];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
